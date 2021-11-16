@@ -25,11 +25,14 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/graphql": "^9.1.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^8.0.2",
     "apollo-server-express": "^3.5.0",
     "graphql": "^16.0.1",
+    "postgres": "^1.0.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.2.40"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
