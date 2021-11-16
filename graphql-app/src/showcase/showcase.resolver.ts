@@ -1,13 +1,13 @@
 import { Query, Resolver } from '@nestjs/graphql';
-import { ShowcaseDto } from './showcase.dto';
 import { ShowcaseService } from './showcase.service';
+import { ShowcaseModel } from './showcase.model';
 
-@Resolver(() => ShowcaseDto)
+@Resolver(() => ShowcaseModel)
 export class ShowcaseResolver {
   constructor(private itemService: ShowcaseService) {}
 
-  @Query(() => [ShowcaseDto])
-  async items(): Promise<ShowcaseDto[]> {
+  @Query(() => [ShowcaseModel])
+  async items(): Promise<ShowcaseModel[]> {
     return await this.itemService.items();
   }
 }

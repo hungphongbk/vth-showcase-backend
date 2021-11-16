@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  postgres:
+    platform: linux/x86_64
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+  dev:
+    depends_on:
+      - postgres
+    container_name: graphql-app-dev
+    build:
+      context: graphql-app
+      target: development
+    command: npm run start:debug
+    ports:
+      - "3001:3001"
+      - "9229:9229"
+    volumes:
+      - $PWD/graphql-app:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      PORT: 3001
+      DB_HOST: postgres
+      DB_NAME: test
+      DB_USER: postgres
+      DB_PASS: postgres

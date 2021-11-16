@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ShowcaseModule } from './showcase/showcase.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ShowcaseModel } from './showcase/showcase.model';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ShowcaseModel } from './showcase/showcase.model';
       autoSchemaFile: true,
     }),
     ShowcaseModule,
+    MediaModule,
   ],
 })
 export class AppModule {}
