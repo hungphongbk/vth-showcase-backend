@@ -1,5 +1,6 @@
 import { join } from 'path';
-import { ConnectionOptions } from 'typeorm';
+import 'typeorm-seeding';
+import { ConnectionOptions } from 'typeorm-seeding';
 
 const config = {
   host: process.env.DB_HOST || 'localhost',
@@ -29,6 +30,8 @@ const connectionOptions: ConnectionOptions = {
   cli: {
     migrationsDir: 'src/migrations',
   },
+  seeds: ['src/seeds/**/*{.ts,.js}'],
+  factories: ['src/factories/**/*{.ts,.js}'],
 };
 
 export = connectionOptions;
