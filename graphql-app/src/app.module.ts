@@ -20,7 +20,9 @@ import { ShowcaseModel } from './showcase/showcase.model';
       entities: [ShowcaseModel],
       synchronize: true,
     }),
-    GraphQLModule.forRoot({}),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
+    }),
     ShowcaseModule,
   ],
 })
