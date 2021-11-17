@@ -80,4 +80,4 @@ jobs:
             echo "${{ secrets.SERVER_ENV_PROD }}" > .env
             cat .env
             docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.prod.yml up -d --no-build
