@@ -54,7 +54,7 @@ jobs:
     needs: build
     steps:
       - name: Deploy Stack
-        uses: wshihadeh/docker-deployment-action@v1
+        uses: hungphongbk/docker-deployment-action@v1
         with:
           remote_docker_host: root@137.184.250.143
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
