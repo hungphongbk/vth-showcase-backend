@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { MediaModel } from '../media/media.model';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -39,4 +46,8 @@ export class ShowcaseModel {
   })
   @Field()
   description: string;
+
+  @OneToOne(() => MediaModel)
+  @JoinColumn()
+  image: MediaModel;
 }

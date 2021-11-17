@@ -10,6 +10,10 @@ export class MediaService {
     @InjectRepository(MediaModel) private repo: Repository<MediaModel>,
   ) {}
 
+  async findById(id: number) {
+    return await this.repo.findOne({ id });
+  }
+
   async saveMediaData(media: MediaDto) {
     const newMedia = await this.repo.create(media);
     await this.repo.save(newMedia);

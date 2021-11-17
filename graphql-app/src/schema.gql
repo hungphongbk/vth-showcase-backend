@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type MediaModel {
+  filename: String!
+  id: ID!
+  mimetype: String!
+  path: String!
+}
+
 type Query {
   showcases: [ShowcaseModel!]!
 }
@@ -10,6 +17,7 @@ type ShowcaseModel {
   author: String!
   description: String!
   id: ID!
+  image: MediaModel!
   name: String!
   status: ShowcaseStatus!
 }
