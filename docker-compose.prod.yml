@@ -20,9 +20,6 @@ services:
     command: npm run start:prod
     ports:
       - "3000:3000"
-    volumes:
-      - $PWD/graphql-app:/usr/src/app
-      - /usr/src/app/node_modules
     restart: unless-stopped
     env_file:
       - .env
