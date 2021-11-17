@@ -1,5 +1,5 @@
 export interface MediaDto {
-  id: number;
+  id: string;
   filename: string;
   path: string;
   mimetype: string;

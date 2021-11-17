@@ -5,9 +5,9 @@ import { MediaDto } from './media.dto';
 @Entity('media')
 @ObjectType()
 export class MediaModel implements MediaDto {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
-  public id: number;
+  public id: string;
 
   @Column()
   @Field({ nullable: false })

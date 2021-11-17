@@ -23,7 +23,7 @@ registerEnumType(ShowcaseStatus, {
 export class ShowcaseModel {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
-  id: number;
+  id: string;
 
   @Column()
   @Field({ nullable: false })
@@ -47,7 +47,8 @@ export class ShowcaseModel {
   @Field()
   description: string;
 
-  @OneToOne(() => MediaModel)
+  @OneToOne(() => MediaModel, { nullable: false, eager: true })
   @JoinColumn()
+  @Field({ nullable: false })
   image: MediaModel;
 }

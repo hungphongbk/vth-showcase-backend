@@ -10,7 +10,7 @@ export class MediaService {
     @InjectRepository(MediaModel) private repo: Repository<MediaModel>,
   ) {}
 
-  async findById(id: number) {
+  async findById(id: string) {
     return await this.repo.findOne({ id });
   }
 
