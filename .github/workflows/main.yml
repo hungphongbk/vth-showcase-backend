@@ -2,7 +2,7 @@ name: Server Build & Push
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
     paths:
       - 'graphql-app/**'
       - docker-compose.prod.yml
@@ -14,34 +14,35 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-        
+
       - name: Create env file
         run: |
           touch .env
           echo "${{ secrets.SERVER_ENV_PROD }}" > .env
           cat .env
-          
+
       - name: Build image
         run: docker compose -f docker-compose.prod.yml build
-        
+
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_ACCESS_TOKEN }}
-          
-      - name: Log in to DO Container Registry
-        run: doctl registry login --expiry-seconds 600
-        
+
       - name: Push image to DO Container Registry
-        run: docker compose -f docker-compose.prod.yml push
-        
-#       - name: Deploy Stack
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.GL_SSH_HOST }}
-#           username: ${{ secrets.GL_SSH_USERNAME }}
-#           key: ${{ secrets.GL_SSH_SECRET }}
-#           port: ${{ secrets.GL_SSH_PORT }}
-#           script: |
-#             cd /PATH/TO/DIRECTORY/WHERE/COMPOSE/FILE/IS
-#             ./init.sh
+        run: |
+          doctl registry login --expiry-seconds 600
+          docker compose -f docker-compose.prod.yml push
+
+      - name: Deploy Stack
+        uses: wshihadeh/docker-deployment-action@v1
+        with:
+          remote_docker_host: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          deployment_mode: docker-compose
+          deploy_path: /home/vth-showcase
+          args: up -d
+          stack_file_name: docker-compose.prod.yml
+          pull_images_first: true
+          docker_prune: true
