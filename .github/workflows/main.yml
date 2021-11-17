@@ -51,3 +51,4 @@ jobs:
           args: up -d
           stack_file_name: docker-compose.prod.yml
           pull_images_first: true
+          copy_stack_file: true
