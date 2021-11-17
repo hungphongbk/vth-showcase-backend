@@ -23,3 +23,7 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    volumes:
+      - uploads:/usr/src/app/${UPLOADED_FILES_DESTINATION}
+volumes:
+  uploads:
