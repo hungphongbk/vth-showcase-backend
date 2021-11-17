@@ -14,6 +14,8 @@ import { join } from 'path';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      debug: process.env.NODE_ENV === 'development',
+      playground: true,
     }),
     ShowcaseModule,
     MediaModule,
