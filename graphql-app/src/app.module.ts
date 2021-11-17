@@ -6,12 +6,14 @@ import { ShowcaseModule } from './showcase/showcase.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MediaModule } from './media/media.module';
 import * as connectionOptions from './ormconfig';
+import { join } from 'path';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(connectionOptions),
     GraphQLModule.forRoot({
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
     }),
     ShowcaseModule,
     MediaModule,

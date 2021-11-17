@@ -6,8 +6,8 @@ import { ShowcaseModel } from './showcase.model';
 export class ShowcaseResolver {
   constructor(private itemService: ShowcaseService) {}
 
-  @Query(() => [ShowcaseModel])
-  async items(): Promise<ShowcaseModel[]> {
+  @Query(() => [ShowcaseModel], { name: 'showcases' })
+  async showcases(): Promise<ShowcaseModel[]> {
     return await this.itemService.items();
   }
 }

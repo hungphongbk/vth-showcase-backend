@@ -1,0 +1,21 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Query {
+  showcases: [ShowcaseModel!]!
+}
+
+type ShowcaseModel {
+  author: String!
+  description: String!
+  id: ID!
+  name: String!
+  status: ShowcaseStatus!
+}
+
+enum ShowcaseStatus {
+  COMING
+  IDEA
+  SHOWCASE
+}
