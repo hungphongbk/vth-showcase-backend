@@ -1,0 +1,47 @@
+name: Server Build & Push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'graphql-app/**'
+      - docker-compose.prod.yml
+      - '.github/workflows/**'
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        
+      - name: Create env file
+        run: |
+          touch .env
+          echo "${{ secrets.SERVER_ENV_PROD }}" > .env
+          cat .env
+          
+      - name: Build image
+        run: docker compose -f docker-compose.prod.yml build
+        
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+          
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
+        
+      - name: Push image to DO Container Registry
+        run: docker compose -f docker-compose.prod.yml push
+        
+#       - name: Deploy Stack
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.GL_SSH_HOST }}
+#           username: ${{ secrets.GL_SSH_USERNAME }}
+#           key: ${{ secrets.GL_SSH_SECRET }}
+#           port: ${{ secrets.GL_SSH_PORT }}
+#           script: |
+#             cd /PATH/TO/DIRECTORY/WHERE/COMPOSE/FILE/IS
+#             ./init.sh
