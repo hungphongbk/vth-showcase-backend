@@ -58,9 +58,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
+
       - name: Copy docker-compose.prod.yml
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.2
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -68,12 +69,12 @@ jobs:
           source: "docker-compose.prod.yml"
           target: "/home/vth-showcase"
       - name: Restart docker compose
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/vth-showcase
-            docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.prod.yml pull
+            docker-compose -f docker-compose.prod.yml up -d
