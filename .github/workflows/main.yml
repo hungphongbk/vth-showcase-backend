@@ -9,7 +9,8 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  build_and_push:
+  build:
+    name: Build integrated app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
@@ -34,10 +35,15 @@ jobs:
           doctl registry login --expiry-seconds 600
           docker compose -f docker-compose.prod.yml push
 
+  deploy:
+    name: Deploy integrated app to VPS
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy Stack
         uses: wshihadeh/docker-deployment-action@v1
         with:
-          remote_docker_host: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+          remote_docker_host: root@137.184.250.143
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           deployment_mode: docker-compose
