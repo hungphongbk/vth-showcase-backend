@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { MediaModel } from '../media/media.model';
@@ -51,4 +53,12 @@ export class ShowcaseModel {
   @JoinColumn()
   @Field({ nullable: false })
   image: MediaModel;
+
+  @CreateDateColumn()
+  @Field()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  @Field()
+  updatedAt: Date;
 }
