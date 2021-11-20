@@ -14,7 +14,7 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
   ): Promise<GraphQLRequestListener> {
     return {
       async willSendResponse() {
-        Logger.log(requestContext.request.query, 'GraphQL');
+        Logger.log(requestContext.request.operationName, 'GraphQL');
       },
     };
   }
