@@ -25,7 +25,7 @@
     "migration:create": "npm run typeorm migration:create -- -n",
     "migration:revert": "npm run typeorm migration:revert",
     "typeorm-seeding": "ts-node ./node_modules/typeorm-seeding/dist/cli.js --configName src/ormconfig.ts",
-    "typeorm-seeding:prod": "./node_modules/typeorm-seeding/dist/cli.js --configName dist/ormconfig.js",
+    "typeorm-seeding:prod": "node ./node_modules/typeorm-seeding/dist/cli.js --configName dist/ormconfig.js",
     "seed:config": "npm run typeorm-seeding config",
     "seed:run": "npm run typeorm-seeding seed",
     "schema:drop": "npm run typeorm schema:drop",
