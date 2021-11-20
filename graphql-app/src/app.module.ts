@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MediaModule } from './media/media.module';
 import * as connectionOptions from './ormconfig';
 import { join } from 'path';
+import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 
 @Module({
   imports: [
@@ -20,5 +21,6 @@ import { join } from 'path';
     ShowcaseModule,
     MediaModule,
   ],
+  providers: [GqlLoggingPlugin],
 })
 export class AppModule {}
