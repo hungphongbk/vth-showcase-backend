@@ -20,14 +20,20 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
+    "typeorm:prod": "typeorm --config src/ormconfig.js",
     "migration": "npm run typeorm migration:run",
     "migration:create": "npm run typeorm migration:create -- -n",
     "migration:revert": "npm run typeorm migration:revert",
     "typeorm-seeding": "ts-node ./node_modules/typeorm-seeding/dist/cli.js --configName src/ormconfig.ts",
+    "typeorm-seeding:prod": "./node_modules/typeorm-seeding/dist/cli.js --configName src/ormconfig.js",
     "seed:config": "npm run typeorm-seeding config",
     "seed:run": "npm run typeorm-seeding seed",
     "schema:drop": "npm run typeorm schema:drop",
-    "schema:sync": "npm run typeorm schema:sync"
+    "schema:sync": "npm run typeorm schema:sync",
+    "schema:drop:prod": "npm run typeorm:prod schema:drop",
+    "schema:sync:prod": "npm run typeorm:prod schema:sync",
+    "seed:run:prod": "npm run typeorm-seeding:prod seed",
+    "init:prod": "npm run schema:drop:prod && npm run schema:sync:prod && npm run seed:run:prod"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
