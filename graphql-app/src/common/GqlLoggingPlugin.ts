@@ -9,12 +9,17 @@ import { Logger } from '@nestjs/common';
 
 @Plugin()
 export class GqlLoggingPlugin implements ApolloServerPlugin {
+  private readonly logger = new Logger(this.constructor.name, {
+    timestamp: false,
+  });
+
   async requestDidStart(
     requestContext: GraphQLRequestContext<BaseContext>,
   ): Promise<GraphQLRequestListener> {
+    const logger = this.logger;
     return {
       async willSendResponse() {
-        Logger.log(requestContext.request.operationName, 'GraphQL');
+        logger.log(requestContext.request.operationName);
       },
     };
   }
