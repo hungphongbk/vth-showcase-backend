@@ -7,22 +7,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { MediaModel } from '../media/media.model';
-
-export enum ShowcaseStatus {
-  COMING = 'coming soon',
-  IDEA = 'idea',
-  SHOWCASE = 'showcase',
-}
-
-registerEnumType(ShowcaseStatus, {
-  name: 'ShowcaseStatus',
-});
+import { ShowcaseDto, ShowcaseStatus } from './showcase.dtos';
 
 @Entity('showcase')
 @ObjectType()
-export class ShowcaseModel {
+export class ShowcaseModel implements ShowcaseDto {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
@@ -61,4 +52,10 @@ export class ShowcaseModel {
   @UpdateDateColumn()
   @Field()
   updatedAt: Date;
+}
+
+@ObjectType()
+export class ShowcasePreviewDto extends ShowcaseModel {
+  @Field(() => [ShowcaseModel], { nullable: false })
+  relatedShowcases: ShowcaseModel[];
 }

@@ -15,6 +15,7 @@ type MediaModel {
 }
 
 type Query {
+  showcase(id: ID!): ShowcasePreviewDto!
   showcases: [ShowcaseModel!]!
 }
 
@@ -25,6 +26,18 @@ type ShowcaseModel {
   id: ID!
   image: MediaModel!
   name: String!
+  status: ShowcaseStatus!
+  updatedAt: DateTime!
+}
+
+type ShowcasePreviewDto {
+  author: String!
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  image: MediaModel!
+  name: String!
+  relatedShowcases: [ShowcaseModel!]!
   status: ShowcaseStatus!
   updatedAt: DateTime!
 }

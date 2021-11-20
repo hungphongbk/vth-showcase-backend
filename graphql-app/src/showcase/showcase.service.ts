@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShowcaseModel } from './showcase.model';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 
 @Injectable()
 export class ShowcaseService {
@@ -10,7 +10,15 @@ export class ShowcaseService {
     private itemRepo: Repository<ShowcaseModel>,
   ) {}
 
-  items() {
+  getAll() {
     return this.itemRepo.find();
+  }
+
+  getRelated(excludeId: string) {
+    return this.itemRepo.find({ id: Not(excludeId) });
+  }
+
+  getOne(id: string) {
+    return this.itemRepo.findOne({ id });
   }
 }
