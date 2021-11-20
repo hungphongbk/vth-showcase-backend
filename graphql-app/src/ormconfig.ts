@@ -9,6 +9,7 @@ const config = {
   password: process.env.DB_PASS || 'postgres',
   database: process.env.DB_TEST || 'test',
 };
+const migrationSrcDir = process.env.NODE_ENV === 'development' ? 'src' : 'dist';
 
 const connectionOptions: ConnectionOptions = {
   type: 'postgres',
@@ -28,10 +29,10 @@ const connectionOptions: ConnectionOptions = {
   logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
   migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
   cli: {
-    migrationsDir: 'src/migrations',
+    migrationsDir: `${migrationSrcDir}/migrations`,
   },
-  seeds: ['src/seeds/**/*{.ts,.js}'],
-  factories: ['src/factories/**/*{.ts,.js}'],
+  seeds: [`${migrationSrcDir}/seeds/**/*{.ts,.js}`],
+  factories: [`${migrationSrcDir}/factories/**/*{.ts,.js}`],
 };
 
 export = connectionOptions;
