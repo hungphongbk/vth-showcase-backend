@@ -1,12 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { MediaDto } from './media.dto';
+import { FilterableField } from '@nestjs-query/query-graphql';
 
 @Entity('media')
-@ObjectType()
-export class MediaModel implements MediaDto {
-  @PrimaryGeneratedColumn('uuid')
-  @Field(() => ID)
+@ObjectType('Media')
+export class MediaEntity implements MediaDto {
+  @PrimaryGeneratedColumn('identity')
+  @FilterableField(() => ID)
   public id: string;
 
   @Column()

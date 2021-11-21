@@ -18,7 +18,7 @@ const connectionOptions: ConnectionOptions = {
   username: config.user,
   password: config.password,
   database: config.database,
-  entities: [join(__dirname, '**/*.model{.ts,.js}')],
+  entities: [join(__dirname, '**/*.entity{.ts,.js}')],
   // We are using migrations, synchronize should be set to false.
   synchronize: false,
   dropSchema: false,

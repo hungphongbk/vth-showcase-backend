@@ -1,10 +1,10 @@
 import Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { ShowcaseModel } from '../showcase/showcase.model';
+import { ShowcaseEntity } from '../showcase/showcase.entity';
 import { ShowcaseStatus } from '../showcase/showcase.dtos';
 
-define(ShowcaseModel, (faker: typeof Faker) => {
-  const showcase = new ShowcaseModel();
+define(ShowcaseEntity, (faker: typeof Faker) => {
+  const showcase = new ShowcaseEntity();
   showcase.name = faker.company.catchPhrase();
   showcase.author = `${faker.name.firstName()} ${faker.name.lastName()}`;
 

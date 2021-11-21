@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { MediaService } from './media.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { MediaModel } from './media.model';
 import { ConfigModule } from '@nestjs/config';
-import { MediaResolver } from './media.resolver';
 import * as Joi from '@hapi/joi';
+import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
+import { MediaEntity } from './media.entity';
+import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 
 @Module({
   imports: [
@@ -13,9 +12,10 @@ import * as Joi from '@hapi/joi';
         UPLOADED_FILES_DESTINATION: Joi.string().required(),
       }),
     }),
-    TypeOrmModule.forFeature([MediaModel]),
+    NestjsQueryGraphQLModule.forFeature({
+      imports: [NestjsQueryTypeOrmModule.forFeature([MediaEntity])],
+      resolvers: [{ DTOClass: MediaEntity, EntityClass: MediaEntity }],
+    }),
   ],
-  providers: [MediaService, MediaResolver],
-  exports: [MediaService],
 })
 export class MediaModule {}

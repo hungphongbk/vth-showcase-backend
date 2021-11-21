@@ -1,13 +1,13 @@
 import { Factory, Seeder } from 'typeorm-seeding';
-import { ShowcaseModel } from '../showcase/showcase.model';
+import { ShowcaseEntity } from '../showcase/showcase.entity';
 import { Connection } from 'typeorm';
-import { MediaModel } from '../media/media.model';
+import { MediaEntity } from '../media/media.entity';
 
 export default class ShowcaseSeed implements Seeder {
   async run(factory: Factory, connection: Connection): Promise<void> {
-    await factory(ShowcaseModel)()
-      .map(async (showcase: ShowcaseModel) => {
-        const media = await factory(MediaModel)().create();
+    await factory(ShowcaseEntity)()
+      .map(async (showcase: ShowcaseEntity) => {
+        const media = await factory(MediaEntity)().create();
         showcase.image = media;
         return showcase;
       })
