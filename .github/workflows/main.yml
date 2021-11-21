@@ -63,3 +63,4 @@ jobs:
             cat .env
             docker-compose -f docker-compose.prod.yml pull
             docker-compose -f docker-compose.prod.yml up -d --no-build
+            docker-compose -f docker-compose.prod.yml exec prod 'npm run init:prod'
