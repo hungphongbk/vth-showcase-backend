@@ -218,6 +218,7 @@ type Query {
     """Specify to sort results."""
     sorting: [ShowcaseSort!] = []
   ): ShowcaseConnection!
+  slugs: [String!]!
 }
 
 input RemoveImageFromShowcaseInput {

@@ -22,4 +22,11 @@ export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
   async showcase(@Args('slug') slug: string): Promise<ShowcaseDto | undefined> {
     return (await this.service.query({ filter: { slug: { eq: slug } } }))[0];
   }
+
+  @Query(() => [String])
+  async slugs(): Promise<string[]> {
+    return (await this.service.query({ paging: { limit: 10000 } })).map(
+      (i) => i.slug,
+    );
+  }
 }
