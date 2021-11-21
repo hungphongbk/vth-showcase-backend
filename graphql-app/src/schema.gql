@@ -74,7 +74,7 @@ input DeleteOneMediaInput {
 
 input DeleteOneShowcaseInput {
   """The id of the record to delete."""
-  id: ID!
+  id: String!
 }
 
 input IDFilterComparison {
@@ -207,10 +207,7 @@ type Query {
     """Specify to sort results."""
     sorting: [MediaSort!] = []
   ): MediaConnection!
-  showcase(
-    """The id of the record to find."""
-    id: ID!
-  ): Showcase
+  showcase(slug: String!): Showcase!
   showcases(
     """Specify to filter the records returned."""
     filter: ShowcaseFilter = {}
@@ -225,7 +222,7 @@ type Query {
 
 input RemoveImageFromShowcaseInput {
   """The id of the record."""
-  id: ID!
+  id: String!
 
   """The id of relation."""
   relationId: ID!
@@ -233,7 +230,7 @@ input RemoveImageFromShowcaseInput {
 
 input SetImageOnShowcaseInput {
   """The id of the record."""
-  id: ID!
+  id: String!
 
   """The id of relation."""
   relationId: ID!
@@ -252,7 +249,6 @@ type Showcase {
 }
 
 type ShowcaseAggregateGroupBy {
-  id: ID
   slug: String
 }
 
@@ -265,7 +261,6 @@ type ShowcaseConnection {
 }
 
 type ShowcaseCountAggregate {
-  id: Int
   slug: Int
 }
 
@@ -290,24 +285,16 @@ type ShowcaseEdge {
 
 input ShowcaseFilter {
   and: [ShowcaseFilter!]
-  id: IDFilterComparison
   or: [ShowcaseFilter!]
-  slug: ShowcaseSlugFilterComparison
+  slug: StringFieldComparison
 }
 
 type ShowcaseMaxAggregate {
-  id: ID
   slug: String
 }
 
 type ShowcaseMinAggregate {
-  id: ID
   slug: String
-}
-
-input ShowcaseSlugFilterComparison {
-  eq: String
-  neq: String
 }
 
 input ShowcaseSort {
@@ -317,7 +304,6 @@ input ShowcaseSort {
 }
 
 enum ShowcaseSortFields {
-  id
   slug
 }
 
@@ -337,6 +323,23 @@ enum SortDirection {
 enum SortNulls {
   NULLS_FIRST
   NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
 }
 
 input UpdateManyMediaInput {
@@ -369,7 +372,7 @@ input UpdateOneMediaInput {
 
 input UpdateOneShowcaseInput {
   """The id of the record to update"""
-  id: ID!
+  id: String!
 
   """The update to apply."""
   update: UpdateShowcase!

@@ -36,13 +36,14 @@ export interface IShowcase {
 @ObjectType('Showcase')
 @Relation('image', () => MediaEntity)
 export class ShowcaseDto implements IShowcase {
-  @IDField(() => ID)
+  @Field(() => ID)
   id!: string;
 
   @Field({ nullable: false })
   name!: string;
 
   @FilterableField({ allowedComparisons: ['eq', 'neq'] })
+  @IDField(() => String, { name: 'slug' })
   slug!: string;
 
   @Field({ nullable: false })
