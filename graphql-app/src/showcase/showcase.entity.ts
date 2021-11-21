@@ -50,6 +50,9 @@ export class ShowcaseEntity implements IShowcase {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({ type: 'date', nullable: true })
+  expectedSaleAt!: Date | null;
+
   @BeforeInsert()
   @BeforeUpdate()
   async beforeSave() {

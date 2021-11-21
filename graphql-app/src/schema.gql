@@ -31,6 +31,7 @@ input CreateShowcase {
   author: String
   createdAt: DateTime
   description: String
+  expectedSaleAt: DateTime = null
   id: ID
   name: String
   slug: String
@@ -50,6 +51,26 @@ input CursorPaging {
 
   """Paginate last"""
   last: Int
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
 }
 
 """
@@ -241,6 +262,7 @@ type Showcase {
   author: String!
   createdAt: DateTime!
   description: String!
+  expectedSaleAt: DateTime
   id: ID!
   image: Media!
   name: String!
@@ -250,7 +272,10 @@ type Showcase {
 }
 
 type ShowcaseAggregateGroupBy {
+  expectedSaleAt: DateTime
   slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
 }
 
 type ShowcaseConnection {
@@ -262,13 +287,17 @@ type ShowcaseConnection {
 }
 
 type ShowcaseCountAggregate {
+  expectedSaleAt: Int
   slug: Int
+  status: Int
+  updatedAt: Int
 }
 
 type ShowcaseDeleteResponse {
   author: String
   createdAt: DateTime
   description: String
+  expectedSaleAt: DateTime
   id: ID
   name: String
   slug: String
@@ -286,16 +315,25 @@ type ShowcaseEdge {
 
 input ShowcaseFilter {
   and: [ShowcaseFilter!]
+  expectedSaleAt: DateFieldComparison
   or: [ShowcaseFilter!]
   slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
 }
 
 type ShowcaseMaxAggregate {
+  expectedSaleAt: DateTime
   slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
 }
 
 type ShowcaseMinAggregate {
+  expectedSaleAt: DateTime
   slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
 }
 
 input ShowcaseSort {
@@ -305,13 +343,33 @@ input ShowcaseSort {
 }
 
 enum ShowcaseSortFields {
+  expectedSaleAt
   slug
+  status
+  updatedAt
 }
 
 enum ShowcaseStatus {
   COMING
   IDEA
   SHOWCASE
+}
+
+input ShowcaseStatusFilterComparison {
+  eq: ShowcaseStatus
+  gt: ShowcaseStatus
+  gte: ShowcaseStatus
+  iLike: ShowcaseStatus
+  in: [ShowcaseStatus!]
+  is: Boolean
+  isNot: Boolean
+  like: ShowcaseStatus
+  lt: ShowcaseStatus
+  lte: ShowcaseStatus
+  neq: ShowcaseStatus
+  notILike: ShowcaseStatus
+  notIn: [ShowcaseStatus!]
+  notLike: ShowcaseStatus
 }
 
 """Sort Directions"""
@@ -383,6 +441,7 @@ input UpdateShowcase {
   author: String
   createdAt: DateTime
   description: String
+  expectedSaleAt: DateTime = null
   id: ID
   name: String
   slug: String

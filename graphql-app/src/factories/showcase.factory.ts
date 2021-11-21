@@ -14,6 +14,8 @@ define(ShowcaseEntity, (faker: typeof Faker) => {
     ShowcaseStatus.SHOWCASE,
   ]);
 
+  showcase.expectedSaleAt = faker.date.future(2, new Date());
+
   showcase.description = faker.lorem.paragraphs(4);
 
   return showcase;

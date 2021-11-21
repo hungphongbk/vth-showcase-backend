@@ -31,6 +31,7 @@ export interface IShowcase {
   description: string;
   createdAt: Date;
   updatedAt: Date;
+  expectedSaleAt: Date | null;
 }
 
 @ObjectType('Showcase')
@@ -54,9 +55,15 @@ export class ShowcaseDto implements IShowcase {
   @Field()
   description!: string;
 
-  @Field(() => ShowcaseStatus)
+  @FilterableField(() => ShowcaseStatus)
   status!: ShowcaseStatus;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   updatedAt!: Date;
+
+  @FilterableField(() => GraphQLISODateTime, {
+    nullable: true,
+    defaultValue: null,
+  })
+  expectedSaleAt!: Date | null;
 }
