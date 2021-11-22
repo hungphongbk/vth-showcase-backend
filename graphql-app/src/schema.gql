@@ -31,6 +31,7 @@ input CreateShowcase {
   author: String
   createdAt: DateTime
   description: String
+  expectedQuantity: Float
   expectedSaleAt: DateTime = null
   id: ID
   name: String
@@ -262,6 +263,7 @@ type Showcase {
   author: String!
   createdAt: DateTime!
   description: String!
+  expectedQuantity: Float!
   expectedSaleAt: DateTime
   expectedSalePrice: ShowcasePriceDto!
   id: ID!
@@ -298,6 +300,7 @@ type ShowcaseDeleteResponse {
   author: String
   createdAt: DateTime
   description: String
+  expectedQuantity: Float
   expectedSaleAt: DateTime
   id: ID
   name: String
@@ -449,6 +452,7 @@ input UpdateShowcase {
   author: String
   createdAt: DateTime
   description: String
+  expectedQuantity: Float
   expectedSaleAt: DateTime = null
   id: ID
   name: String

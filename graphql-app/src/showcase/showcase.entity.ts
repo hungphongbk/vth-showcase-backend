@@ -53,6 +53,9 @@ export class ShowcaseEntity implements IShowcase {
   @Column({ type: 'date', nullable: true })
   expectedSaleAt!: Date | null;
 
+  @Column({ type: 'integer' })
+  expectedQuantity!: number;
+
   @Column({ type: 'jsonb' })
   expectedSalePrice: IShowcasePrice;
 

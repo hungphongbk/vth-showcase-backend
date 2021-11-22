@@ -38,6 +38,7 @@ export interface IShowcase {
   description: string;
   createdAt: Date;
   updatedAt: Date;
+  expectedQuantity: number;
   expectedSaleAt: Date | null;
   expectedSalePrice: IShowcasePrice;
 }
@@ -89,6 +90,9 @@ export class ShowcaseDto implements IShowcase {
     defaultValue: null,
   })
   expectedSaleAt!: Date | null;
+
+  @Field()
+  expectedQuantity!: number;
 
   expectedSalePrice: ShowcasePriceDto;
 }
