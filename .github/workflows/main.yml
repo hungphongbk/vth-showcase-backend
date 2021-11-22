@@ -56,7 +56,6 @@ jobs:
         with:
           context: graphql-app
           version: latest
-          file: Dockerfile
           push: true
           target: production
           tags: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
