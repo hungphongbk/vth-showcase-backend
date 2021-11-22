@@ -2,11 +2,16 @@ name: Server Build & Push
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - develop
     paths:
       - 'graphql-app/**'
       - docker-compose.prod.yml
       - '.github/workflows/**'
+  pull_request:
+    branches:
+      - main
+    types: [ closed ]
 
 jobs:
   build:
@@ -22,18 +27,46 @@ jobs:
           echo "${{ secrets.SERVER_ENV_PROD }}" > .env
           cat .env
 
-      - name: Build image
-        run: docker compose -f docker-compose.prod.yml build
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
 
+      # Setup cache
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Authenticate with DO Container Registry
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_ACCESS_TOKEN }}
 
-      - name: Push image to DO Container Registry
+      - name: Login to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
+
+      # Push to DO Container Registry
+      - name: Push to DO Container Registry
+        uses: docker/build-push-action@v2
+        with:
+          context: graphql-app
+          version: latest
+          file: Dockerfile
+          push: true
+          target: production
+          tags: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Revalidate cache
         run: |
-          doctl registry login --expiry-seconds 600
-          docker compose -f docker-compose.prod.yml push
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   deploy:
     name: Deploy integrated app to VPS
