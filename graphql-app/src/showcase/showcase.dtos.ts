@@ -22,6 +22,13 @@ registerEnumType(ShowcaseStatus, {
   name: 'ShowcaseStatus',
 });
 
+export interface IShowcasePrice {
+  regular: number;
+  pioneer: number;
+  promo: number;
+  preorder: number;
+}
+
 export interface IShowcase {
   id: string;
   name: string;
@@ -32,6 +39,22 @@ export interface IShowcase {
   createdAt: Date;
   updatedAt: Date;
   expectedSaleAt: Date | null;
+  expectedSalePrice: IShowcasePrice;
+}
+
+@ObjectType()
+export class ShowcasePriceDto implements IShowcasePrice {
+  @FilterableField()
+  pioneer: number;
+
+  @FilterableField()
+  preorder: number;
+
+  @FilterableField()
+  promo: number;
+
+  @FilterableField()
+  regular: number;
 }
 
 @ObjectType('Showcase')
@@ -66,4 +89,6 @@ export class ShowcaseDto implements IShowcase {
     defaultValue: null,
   })
   expectedSaleAt!: Date | null;
+
+  expectedSalePrice: ShowcasePriceDto;
 }

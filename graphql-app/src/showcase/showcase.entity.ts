@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { MediaEntity } from '../media/media.entity';
-import { IShowcase, ShowcaseStatus } from './showcase.dtos';
+import { IShowcase, IShowcasePrice, ShowcaseStatus } from './showcase.dtos';
 import slugify from 'slugify';
 
 @Entity('showcase')
@@ -52,6 +52,9 @@ export class ShowcaseEntity implements IShowcase {
 
   @Column({ type: 'date', nullable: true })
   expectedSaleAt!: Date | null;
+
+  @Column({ type: 'jsonb' })
+  expectedSalePrice: IShowcasePrice;
 
   @BeforeInsert()
   @BeforeUpdate()

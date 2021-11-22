@@ -2,6 +2,7 @@ import Faker from 'faker';
 import { define } from 'typeorm-seeding';
 import { ShowcaseEntity } from '../showcase/showcase.entity';
 import { ShowcaseStatus } from '../showcase/showcase.dtos';
+import { range } from 'lodash';
 
 define(ShowcaseEntity, (faker: typeof Faker) => {
   const showcase = new ShowcaseEntity();
@@ -15,6 +16,24 @@ define(ShowcaseEntity, (faker: typeof Faker) => {
   ]);
 
   showcase.expectedSaleAt = faker.date.future(2, new Date());
+
+  const regular = faker.random.number({ min: 1000, max: 2000 }) * 1000,
+    [pioneer, preorder, promo] = range(3)
+      .map(() =>
+        faker.random.number({
+          min: 0.6,
+          max: 0.95,
+          precision: 0.01,
+        }),
+      )
+      .sort()
+      .map((p) => p * regular);
+  showcase.expectedSalePrice = {
+    regular,
+    pioneer,
+    preorder,
+    promo,
+  };
 
   showcase.description = faker.lorem.paragraphs(4);
 

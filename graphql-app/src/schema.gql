@@ -263,6 +263,7 @@ type Showcase {
   createdAt: DateTime!
   description: String!
   expectedSaleAt: DateTime
+  expectedSalePrice: ShowcasePriceDto!
   id: ID!
   image: Media!
   name: String!
@@ -334,6 +335,13 @@ type ShowcaseMinAggregate {
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
+}
+
+type ShowcasePriceDto {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
 }
 
 input ShowcaseSort {
