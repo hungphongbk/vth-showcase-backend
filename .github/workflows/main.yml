@@ -17,6 +17,9 @@ jobs:
   build:
     name: Build integrated app
     runs-on: ubuntu-latest
+    env:
+      FIREBASE_CRED_DIR: ${{ GITHUB_WORKSPACE }}/graphql-app/src/.private
+      FIREBASE_CRED_PATH: ${{ GITHUB_WORKSPACE }}/graphql-app/src/.private/firebase-credentials.json
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -28,10 +31,9 @@ jobs:
           echo "${{ secrets.SERVER_ENV_STAGING }}" > .env
           cat .env
 
-          mkdir -p ./graphql-app/.private
-          touch ./graphql-app/.private/firebase-credentials.json
-          echo '${{ secrets.FIREBASE_CREDS }}' > ./graphql-app/.private/firebase-credentials.json
-          cat ./graphql-app/.private/firebase-credentials.json
+          mkdir -p $FIREBASE_CRED_DIR
+          touch $FIREBASE_CRED_PATH
+          echo '${{ secrets.FIREBASE_CREDS }}' > $FIREBASE_CRED_PATH
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx

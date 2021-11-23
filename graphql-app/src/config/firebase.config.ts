@@ -1,5 +1,5 @@
 import admin, { AppOptions, ServiceAccount } from 'firebase-admin';
-import * as serviceAccount from '../../.private/firebase-credentials.json';
+import * as serviceAccount from '../.private/firebase-credentials.json';
 import { registerAs } from '@nestjs/config';
 
 const firebaseConfig = registerAs(
