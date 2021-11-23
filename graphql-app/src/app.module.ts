@@ -9,8 +9,20 @@ import * as connectionOptions from './ormconfig';
 import { join } from 'path';
 import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import firebaseConfig from './config/firebase.config';
+import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
+
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [firebaseConfig],
+    }),
+    FirebaseAdminModule.forRootAsync({
+      useFactory: (config: ConfigService) => config.get('firebase'),
+      inject: [ConfigService],
+    }),
     TypeOrmModule.forRoot(connectionOptions),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
