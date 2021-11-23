@@ -10,6 +10,6 @@ export default class ShowcaseSeed implements Seeder {
         showcase.image = await factory(MediaEntity)().create();
         return showcase;
       })
-      .createMany(50);
+      .createMany(200);
   }
 }

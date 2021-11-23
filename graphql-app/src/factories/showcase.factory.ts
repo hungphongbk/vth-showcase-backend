@@ -28,7 +28,7 @@ define(ShowcaseEntity, (faker: typeof Faker) => {
         }),
       )
       .sort()
-      .map((p) => p * regular);
+      .map((p) => Math.round(p * regular));
   showcase.expectedSalePrice = {
     regular,
     pioneer,
