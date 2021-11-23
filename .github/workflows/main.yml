@@ -30,7 +30,7 @@ jobs:
 
           mkdir -p ./graphql-app/.private
           touch ./graphql-app/.private/firebase-credentials.json
-          echo "'${{ secrets.FIREBASE_CREDS }}'" > ./graphql-app/.private/firebase-credentials.json
+          echo '${{ secrets.FIREBASE_CREDS }}' > ./graphql-app/.private/firebase-credentials.json
           cat ./graphql-app/.private/firebase-credentials.json
 
       # Set up Docker Buildx
