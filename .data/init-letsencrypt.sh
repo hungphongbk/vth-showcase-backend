@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(api.showcase-dev.vaithuhay.com api.showcase.vaithuhay.com)
+domains=(api.showcase-staging.vaithuhay.com)
 rsa_key_size=4096
 data_path="./certbot"
 email="" # Adding a valid address is strongly recommended
@@ -39,8 +39,8 @@ ${docker_command} run --rm --entrypoint "\
 echo
 
 
-echo "### Starting nginx ..."
-${docker_command} up --force-recreate -d nginx
+echo "### Starting nginx and certbot..."
+${docker_command} up --force-recreate -d nginx certbot
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
@@ -74,7 +74,7 @@ ${docker_command} run --rm --entrypoint "\
     $domain_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
-    --force-renewal" certbot
+    --force-renewal -v" certbot
 echo
 
 echo "### Reloading nginx ..."

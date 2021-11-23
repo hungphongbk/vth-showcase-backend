@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3ff5c17a-7cf1-4c64-95e1-a2b531eb11d3" name="vaithuhay-solutions">
+        <fileTransfer rootFolder="/home/vth-showcase" accessType="SFTP" host="137.184.250.143" port="22" sshConfigId="f0ead1ea-4b62-420b-a502-75869860b1f0" sshConfig="root@137.184.250.143:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
