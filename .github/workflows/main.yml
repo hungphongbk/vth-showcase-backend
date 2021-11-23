@@ -79,9 +79,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source:
-            - docker-compose.prod.yml
-            - .data/**/*
+          source: "docker-compose.prod.yml, .data/**/*"
           target: "/home/vth-showcase"
       - name: Restart docker compose
         uses: appleboy/ssh-action@v0.1.4
