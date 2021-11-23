@@ -17,6 +17,7 @@ import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
       sortSchema: true,
       debug: process.env.NODE_ENV === 'development',
       playground: true,
+      introspection: true,
     }),
     ShowcaseModule,
     MediaModule,
