@@ -18,8 +18,8 @@ jobs:
     name: Build integrated app
     runs-on: ubuntu-latest
     env:
-      FIREBASE_CRED_DIR: ${{ GITHUB_WORKSPACE }}/graphql-app/src/.private
-      FIREBASE_CRED_PATH: ${{ GITHUB_WORKSPACE }}/graphql-app/src/.private/firebase-credentials.json
+      FIREBASE_CRED_DIR: ${{ env.GITHUB_WORKSPACE }}/graphql-app/src/.private
+      FIREBASE_CRED_PATH: ${{ env.GITHUB_WORKSPACE }}/graphql-app/src/.private/firebase-credentials.json
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
