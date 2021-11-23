@@ -1,14 +1,52 @@
 version: '3.8'
 services:
+  nginx:
+    container_name: nginx
+    image: nginx:stable
+    restart: always
+    volumes:
+      - ./.data/nginx/:/etc/nginx/conf.d/:ro
+      - ./.data/certbot/www:/var/www/certbot/:ro
+      - ./.data/certbot/conf:/etc/letsencrypt/:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./.data/certbot/www:/var/www/certbot/:rw
+      - ./.data/certbot/conf:/etc/letsencrypt/:rw
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   postgres:
     platform: linux/x86_64
     image: postgres:13-alpine
+    volumes:
+      - ./.data/pg/:/docker-entrypoint-initdb.d
     environment:
-      POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_MULTIPLE_DATABASES: showcase-staging, showcase-production
     ports:
       - "5432"
+  staging:
+    depends_on:
+      - postgres
+    container_name: graphql-app-prod
+    image: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
+    build:
+      context: graphql-app
+      target: production
+    command: npm run start:prod
+    ports:
+      - "3001"
+    restart: unless-stopped
+    env_file:
+      - .env.staging
+    environment:
+      PORT: 3001
+    volumes:
+      - uploads-staging:/usr/src/app/${UPLOADED_FILES_DESTINATION}
   prod:
     depends_on:
       - postgres
@@ -19,11 +57,14 @@ services:
       target: production
     command: npm run start:prod
     ports:
-      - "3000:3000"
+      - "3000"
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      PORT: 3000
     volumes:
       - uploads:/usr/src/app/${UPLOADED_FILES_DESTINATION}
 volumes:
+  uploads-staging:
   uploads:

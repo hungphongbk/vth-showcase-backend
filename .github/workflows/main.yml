@@ -24,7 +24,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo "${{ secrets.SERVER_ENV_PROD }}" > .env
+          echo "${{ secrets.SERVER_ENV_STAGING }}" > .env
           cat .env
 
       # Set up Docker Buildx
@@ -55,7 +55,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: graphql-app
-          version: latest
           push: true
           target: production
           tags: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
@@ -80,7 +79,9 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml"
+          source:
+            - docker-compose.prod.yml
+            - .data/**/*
           target: "/home/vth-showcase"
       - name: Restart docker compose
         uses: appleboy/ssh-action@v0.1.4
@@ -90,8 +91,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/vth-showcase
-            touch .env
-            echo "${{ secrets.SERVER_ENV_PROD }}" > .env
-            cat .env
+            touch .env.staging
+            echo "${{ secrets.SERVER_ENV_STAGING }}" > .env.staging
             docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d --no-build
+            docker-compose -f docker-compose.prod.yml up -d --no-build nginx,certbot,postgres,staging
