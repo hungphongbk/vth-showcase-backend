@@ -261,6 +261,7 @@ input SetImageOnShowcaseInput {
 
 type Showcase {
   author: String!
+  brand: ShowcaseBrand!
   createdAt: DateTime!
   description: String!
   expectedQuantity: Float!
@@ -279,6 +280,11 @@ type ShowcaseAggregateGroupBy {
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
+}
+
+type ShowcaseBrand {
+  description: String!
+  name: String!
 }
 
 type ShowcaseConnection {

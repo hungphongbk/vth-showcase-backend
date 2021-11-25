@@ -4,7 +4,7 @@ import { ShowcaseResolver } from './showcase.resolver';
 import { MediaModule } from '../media/media.module';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { ShowcaseDto } from './showcase.dtos';
+import { ShowcaseDto } from './dtos/showcase.dtos';
 
 @Module({
   imports: [

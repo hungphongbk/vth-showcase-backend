@@ -11,8 +11,11 @@ import {
 } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { MediaEntity } from '../media/media.entity';
-import { IShowcase, IShowcasePrice, ShowcaseStatus } from './showcase.dtos';
+import { ShowcaseStatus } from './dtos/showcase.dtos';
 import slugify from 'slugify';
+import { IShowcasePrice } from './interfaces/IShowcasePrice';
+import { IShowcaseBrand } from './interfaces/IShowcaseBrand';
+import { IShowcase } from './interfaces/IShowcase';
 
 @Entity('showcase')
 export class ShowcaseEntity implements IShowcase {
@@ -27,6 +30,9 @@ export class ShowcaseEntity implements IShowcase {
 
   @Column()
   author: string;
+
+  @Column({ type: 'jsonb' })
+  brand: IShowcaseBrand;
 
   @Column({
     type: 'enum',

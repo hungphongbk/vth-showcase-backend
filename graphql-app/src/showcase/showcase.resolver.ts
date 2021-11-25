@@ -2,7 +2,9 @@ import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { ShowcaseEntity } from './showcase.entity';
 import { CRUDResolver } from '@nestjs-query/query-graphql';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
-import { ShowcaseDto, ShowcasePriceDto } from './showcase.dtos';
+import { ShowcaseDto } from './dtos/showcase.dtos';
+import { ShowcasePriceDto } from './dtos/showcasePrice.dto';
+import { ShowcaseBrandDto } from './dtos/showcaseBrand.dto';
 
 @Resolver(() => ShowcaseDto)
 export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
@@ -21,6 +23,11 @@ export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
   @ResolveField(() => ShowcasePriceDto)
   expectedSalePrice(@Parent() showcase: ShowcaseDto) {
     return showcase.expectedSalePrice;
+  }
+
+  @ResolveField(() => ShowcaseBrandDto)
+  brand(@Parent() showcase: ShowcaseDto) {
+    return showcase.brand;
   }
 
   @Query(() => ShowcaseDto)
