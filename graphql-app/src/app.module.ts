@@ -12,6 +12,7 @@ import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import firebaseConfig from './config/firebase.config';
 import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
     }),
     ShowcaseModule,
     MediaModule,
+    AuthModule,
   ],
   providers: [GqlLoggingPlugin],
 })
