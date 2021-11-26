@@ -7,7 +7,7 @@ const config = {
   port: process.env.DB_PORT || 5432,
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASS || 'postgres',
-  database: process.env.DB_TEST || 'test',
+  database: process.env.DB_NAME || 'test',
 };
 const migrationSrcDir = process.env.NODE_ENV === 'production' ? 'dist' : 'src';
 
