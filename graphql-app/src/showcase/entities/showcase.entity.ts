@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,18 +16,19 @@ import { ShowcaseStatus } from '../dtos/showcase.dtos';
 import slugify from 'slugify';
 import { IShowcasePrice } from '../interfaces/IShowcasePrice';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
-import { MediaInterface } from '../../gql/interfaces/media.interface';
 import { ShowcaseHighlightFeatureModel } from './showcaseHighlightFeature.model';
+import { MediaModel } from '../../media/media.model';
 
 @Entity('showcase')
 export class ShowcaseEntity {
   @PrimaryGeneratedColumn('identity')
-  id: string;
+  id: number;
 
   @Column()
   name: string;
 
   @Column()
+  @Index()
   slug: string;
 
   @Column()
@@ -61,8 +64,9 @@ export class ShowcaseEntity {
   @Column({ type: 'jsonb' })
   expectedSalePrice: IShowcasePrice;
 
-  @Column(() => MediaInterface)
-  media: MediaInterface;
+  @OneToOne(() => MediaModel, { eager: true, cascade: true })
+  @JoinColumn()
+  image!: MediaModel;
 
   @OneToMany(() => ShowcaseHighlightFeatureModel, (feat) => feat.showcase)
   @JoinColumn()

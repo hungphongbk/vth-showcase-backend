@@ -1,15 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { MediaDto } from './media.dto';
 import { IdInterface } from '../gql/interfaces/id.interface';
-import { FilterableField } from '@nestjs-query/query-graphql';
+import { IDField } from '@nestjs-query/query-graphql';
 
 @Entity('media')
 @ObjectType('Media', { implements: () => [IdInterface] })
+@InputType('MediaInput')
 export class MediaModel implements MediaDto, IdInterface {
   @PrimaryGeneratedColumn('identity')
-  @FilterableField(() => ID)
-  public id: string;
+  @IDField(() => ID)
+  id: string;
 
   @Column()
   @Field({ nullable: false })

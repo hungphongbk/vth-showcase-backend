@@ -14,8 +14,8 @@ import {
 } from '@nestjs-query/query-graphql';
 import { ShowcasePriceDto } from './showcasePrice.dto';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
-import { MediaInterface } from '../../gql/interfaces/media.interface';
 import { ShowcaseHighlightFeatureModel } from '../entities/showcaseHighlightFeature.model';
+import { ShowcaseBrandDto } from './showcaseBrand.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -27,12 +27,10 @@ registerEnumType(ShowcaseStatus, {
   name: 'ShowcaseStatus',
 });
 
-@ObjectType('Showcase', {
-  implements: () => [MediaInterface],
-})
+@ObjectType('Showcase')
 @Relation('image', () => MediaModel)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHighlightFeatureModel)
-export class ShowcaseDto implements MediaInterface {
+export class ShowcaseDto {
   @Field(() => ID)
   id!: string;
 
@@ -46,6 +44,7 @@ export class ShowcaseDto implements MediaInterface {
   @Field({ nullable: false })
   author!: string;
 
+  @Field(() => ShowcaseBrandDto, { nullable: false })
   brand!: IShowcaseBrand;
 
   @Field(() => GraphQLISODateTime)
@@ -68,6 +67,6 @@ export class ShowcaseDto implements MediaInterface {
   @Field()
   expectedQuantity!: number;
 
-  expectedSalePrice: ShowcasePriceDto;
-  image!: MediaModel;
+  @Field(() => ShowcasePriceDto)
+  expectedSalePrice!: ShowcasePriceDto;
 }

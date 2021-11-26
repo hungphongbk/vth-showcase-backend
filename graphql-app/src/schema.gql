@@ -32,20 +32,7 @@ input CreateOneMediaInput {
 
 input CreateOneShowcaseInput {
   """The record to create"""
-  showcase: CreateShowcase!
-}
-
-input CreateShowcase {
-  author: String
-  createdAt: DateTime
-  description: String
-  expectedQuantity: Float
-  expectedSaleAt: DateTime = null
-  id: ID
-  name: String
-  slug: String
-  status: ShowcaseStatus
-  updatedAt: DateTime
+  showcase: ShowcaseCreateDto!
 }
 
 input CursorPaging {
@@ -178,6 +165,13 @@ input MediaFilter {
   or: [MediaFilter!]
 }
 
+input MediaInput {
+  filename: String!
+  id: ID!
+  mimetype: String!
+  path: String!
+}
+
 interface MediaInterface {
   image: Media!
 }
@@ -294,14 +288,14 @@ input SetImageOnShowcaseInput {
   relationId: ID!
 }
 
-type Showcase implements MediaInterface {
+type Showcase {
   author: String!
   brand: ShowcaseBrand!
   createdAt: DateTime!
   description: String!
   expectedQuantity: Float!
   expectedSaleAt: DateTime
-  expectedSalePrice: ShowcasePriceDto!
+  expectedSalePrice: ShowcasePrice!
   highlightFeatures(
     """Specify to filter the records returned."""
     filter: ShowcaseHighlightFeatureFilter = {}
@@ -329,6 +323,11 @@ type ShowcaseBrand {
   name: String!
 }
 
+input ShowcaseBrandInput {
+  description: String!
+  name: String!
+}
+
 type ShowcaseConnection {
   """Array of edges."""
   edges: [ShowcaseEdge!]!
@@ -344,12 +343,27 @@ type ShowcaseCountAggregate {
   updatedAt: Int
 }
 
+input ShowcaseCreateDto {
+  author: String!
+  brand: ShowcaseBrandInput!
+  description: String!
+  expectedQuantity: Float!
+  expectedSaleAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput!
+  id: ID!
+  image: MediaInput!
+  name: String!
+  status: ShowcaseStatus!
+}
+
 type ShowcaseDeleteResponse {
   author: String
+  brand: ShowcaseBrand
   createdAt: DateTime
   description: String
   expectedQuantity: Float
   expectedSaleAt: DateTime
+  expectedSalePrice: ShowcasePrice
   id: ID
   name: String
   slug: String
@@ -412,7 +426,14 @@ type ShowcaseMinAggregate {
   updatedAt: DateTime
 }
 
-type ShowcasePriceDto {
+type ShowcasePrice {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
+}
+
+input ShowcasePriceInput {
   pioneer: Float!
   preorder: Float!
   promo: Float!
@@ -522,10 +543,12 @@ input UpdateOneShowcaseInput {
 
 input UpdateShowcase {
   author: String
+  brand: ShowcaseBrandInput
   createdAt: DateTime
   description: String
   expectedQuantity: Float
   expectedSaleAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
   id: ID
   name: String
   slug: String

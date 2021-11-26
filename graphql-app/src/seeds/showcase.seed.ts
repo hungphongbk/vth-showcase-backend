@@ -7,9 +7,7 @@ export default class ShowcaseSeed implements Seeder {
   async run(factory: Factory, connection: Connection): Promise<void> {
     await factory(ShowcaseEntity)()
       .map(async (showcase: ShowcaseEntity) => {
-        showcase.media = {
-          image: await factory(MediaModel)().create(),
-        };
+        showcase.image = await factory(MediaModel)().create();
         return showcase;
       })
       .createMany(150);
