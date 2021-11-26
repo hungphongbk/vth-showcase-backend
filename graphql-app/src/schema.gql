@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddHighlightFeaturesToShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
@@ -24,20 +32,7 @@ input CreateOneMediaInput {
 
 input CreateOneShowcaseInput {
   """The record to create"""
-  showcase: CreateShowcase!
-}
-
-input CreateShowcase {
-  author: String
-  createdAt: DateTime
-  description: String
-  expectedQuantity: Float
-  expectedSaleAt: DateTime = null
-  id: ID
-  name: String
-  slug: String
-  status: ShowcaseStatus
-  updatedAt: DateTime
+  showcase: ShowcaseCreateDto!
 }
 
 input CursorPaging {
@@ -116,7 +111,11 @@ input IDFilterComparison {
   notLike: ID
 }
 
-type Media {
+interface IdInterface {
+  id: ID!
+}
+
+type Media implements IdInterface {
   filename: String!
   id: ID!
   mimetype: String!
@@ -166,6 +165,17 @@ input MediaFilter {
   or: [MediaFilter!]
 }
 
+input MediaInput {
+  filename: String!
+  id: ID!
+  mimetype: String!
+  path: String!
+}
+
+interface MediaInterface {
+  image: Media!
+}
+
 type MediaMaxAggregate {
   id: ID
 }
@@ -191,13 +201,16 @@ input MediaUpdateFilter {
 }
 
 type Mutation {
+  addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   createManyMedia(input: CreateManyMediaInput!): [Media!]!
   createOneMedia(input: CreateOneMediaInput!): Media!
   createOneShowcase(input: CreateOneShowcaseInput!): Showcase!
   deleteManyMedia(input: DeleteManyMediaInput!): DeleteManyResponse!
   deleteOneMedia(input: DeleteOneMediaInput!): MediaDeleteResponse!
   deleteOneShowcase(input: DeleteOneShowcaseInput!): ShowcaseDeleteResponse!
+  removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
+  setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   updateManyMedia(input: UpdateManyMediaInput!): UpdateManyResponse!
   updateOneMedia(input: UpdateOneMediaInput!): Media!
@@ -243,12 +256,28 @@ type Query {
   slugs: [String!]!
 }
 
+input RemoveHighlightFeaturesFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input RemoveImageFromShowcaseInput {
   """The id of the record."""
   id: String!
 
   """The id of relation."""
   relationId: ID!
+}
+
+input SetHighlightFeaturesOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
 }
 
 input SetImageOnShowcaseInput {
@@ -266,7 +295,14 @@ type Showcase {
   description: String!
   expectedQuantity: Float!
   expectedSaleAt: DateTime
-  expectedSalePrice: ShowcasePriceDto!
+  expectedSalePrice: ShowcasePrice!
+  highlightFeatures(
+    """Specify to filter the records returned."""
+    filter: ShowcaseHighlightFeatureFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseHighlightFeatureSort!] = []
+  ): [ShowcaseHighlightFeature!]!
   id: ID!
   image: Media!
   name: String!
@@ -287,6 +323,11 @@ type ShowcaseBrand {
   name: String!
 }
 
+input ShowcaseBrandInput {
+  description: String!
+  name: String!
+}
+
 type ShowcaseConnection {
   """Array of edges."""
   edges: [ShowcaseEdge!]!
@@ -302,12 +343,27 @@ type ShowcaseCountAggregate {
   updatedAt: Int
 }
 
+input ShowcaseCreateDto {
+  author: String!
+  brand: ShowcaseBrandInput!
+  description: String!
+  expectedQuantity: Float!
+  expectedSaleAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput!
+  id: ID!
+  image: MediaInput!
+  name: String!
+  status: ShowcaseStatus!
+}
+
 type ShowcaseDeleteResponse {
   author: String
+  brand: ShowcaseBrand
   createdAt: DateTime
   description: String
   expectedQuantity: Float
   expectedSaleAt: DateTime
+  expectedSalePrice: ShowcasePrice
   id: ID
   name: String
   slug: String
@@ -332,6 +388,30 @@ input ShowcaseFilter {
   updatedAt: DateFieldComparison
 }
 
+type ShowcaseHighlightFeature implements IdInterface & MediaInterface {
+  description: String!
+  id: ID!
+  image: Media!
+  name: String!
+  showcase: Showcase!
+}
+
+input ShowcaseHighlightFeatureFilter {
+  and: [ShowcaseHighlightFeatureFilter!]
+  id: IDFilterComparison
+  or: [ShowcaseHighlightFeatureFilter!]
+}
+
+input ShowcaseHighlightFeatureSort {
+  direction: SortDirection!
+  field: ShowcaseHighlightFeatureSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseHighlightFeatureSortFields {
+  id
+}
+
 type ShowcaseMaxAggregate {
   expectedSaleAt: DateTime
   slug: String
@@ -346,7 +426,14 @@ type ShowcaseMinAggregate {
   updatedAt: DateTime
 }
 
-type ShowcasePriceDto {
+type ShowcasePrice {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
+}
+
+input ShowcasePriceInput {
   pioneer: Float!
   preorder: Float!
   promo: Float!
@@ -456,10 +543,12 @@ input UpdateOneShowcaseInput {
 
 input UpdateShowcase {
   author: String
+  brand: ShowcaseBrandInput
   createdAt: DateTime
   description: String
   expectedQuantity: Float
   expectedSaleAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
   id: ID
   name: String
   slug: String
