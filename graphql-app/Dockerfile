@@ -27,6 +27,4 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
 
-RUN npm run init:prod
-
 CMD ["node", "dist/main"]
