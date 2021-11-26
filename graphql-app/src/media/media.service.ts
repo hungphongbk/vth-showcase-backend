@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MediaModel } from './media.model';
 import { Repository } from 'typeorm';
-import { MediaDto } from './media.dto';
+import { MediaDto } from './dtos/media.dto';
 
 @Injectable()
 export class MediaService {

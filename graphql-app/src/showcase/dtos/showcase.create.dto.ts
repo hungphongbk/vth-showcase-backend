@@ -6,12 +6,12 @@ import {
   OmitType,
 } from '@nestjs/graphql';
 import { ShowcaseDto } from './showcase.dtos';
-import { MediaModel } from '../../media/media.model';
+import { MediaCreateDto } from '../../media/dtos/media.create.dto';
 
 @ObjectType({ isAbstract: true })
 class ShowcaseCreateAdditionalDto {
-  @Field(() => MediaModel)
-  image: MediaModel;
+  @Field(() => MediaCreateDto)
+  image: MediaCreateDto;
 }
 
 @ObjectType({ isAbstract: true })

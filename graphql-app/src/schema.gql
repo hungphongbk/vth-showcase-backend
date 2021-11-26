@@ -15,19 +15,12 @@ scalar ConnectionCursor
 
 input CreateManyMediaInput {
   """Array of records to create"""
-  media: [CreateMedia!]!
-}
-
-input CreateMedia {
-  filename: String
-  id: ID
-  mimetype: String
-  path: String
+  media: [MediaInput!]!
 }
 
 input CreateOneMediaInput {
   """The record to create"""
-  media: CreateMedia!
+  media: MediaInput!
 }
 
 input CreateOneShowcaseInput {
@@ -167,7 +160,6 @@ input MediaFilter {
 
 input MediaInput {
   filename: String!
-  id: ID!
   mimetype: String!
   path: String!
 }
