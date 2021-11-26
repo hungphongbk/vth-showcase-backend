@@ -23,11 +23,10 @@ services:
     image: postgres:13-alpine
     volumes:
       - ./.data/pg/:/docker-entrypoint-initdb.d
-      - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_MULTIPLE_DATABASES: showcase-staging, showcase-production
+      POSTGRES_MULTIPLE_DATABASES: showcase_staging,showcase_production
     ports:
       - "5432"
   upload:
@@ -74,6 +73,5 @@ services:
     volumes:
       - uploads:/usr/src/app/${UPLOADED_FILES_DESTINATION}
 volumes:
-  pgdata:
   uploads-staging:
   uploads:

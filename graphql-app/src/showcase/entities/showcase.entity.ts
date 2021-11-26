@@ -64,7 +64,10 @@ export class ShowcaseEntity {
   @Column({ type: 'jsonb' })
   expectedSalePrice: IShowcasePrice;
 
-  @OneToOne(() => MediaModel, { eager: true, cascade: true })
+  @OneToOne(() => MediaModel, {
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   image!: MediaModel;
 
