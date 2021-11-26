@@ -1,10 +1,10 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { ShowcaseEntity } from './showcase.entity';
 import { CRUDResolver } from '@nestjs-query/query-graphql';
-import { InjectQueryService, QueryService } from '@nestjs-query/core';
+import { InjectAssemblerQueryService, QueryService } from '@nestjs-query/core';
 import { ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcasePriceDto } from './dtos/showcasePrice.dto';
 import { ShowcaseBrandDto } from './dtos/showcaseBrand.dto';
+import { ShowcaseAssembler } from './showcase.assembler';
 
 @Resolver(() => ShowcaseDto)
 export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
@@ -14,8 +14,8 @@ export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
   read: { one: { disabled: true } },
 }) {
   constructor(
-    @InjectQueryService(ShowcaseEntity)
-    readonly service: QueryService<ShowcaseEntity>,
+    @InjectAssemblerQueryService(ShowcaseAssembler)
+    readonly service: QueryService<ShowcaseDto>,
   ) {
     super(service);
   }

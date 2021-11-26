@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddHighlightFeaturesToShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
@@ -116,7 +124,11 @@ input IDFilterComparison {
   notLike: ID
 }
 
-type Media {
+interface IdInterface {
+  id: ID!
+}
+
+type Media implements IdInterface {
   filename: String!
   id: ID!
   mimetype: String!
@@ -166,6 +178,10 @@ input MediaFilter {
   or: [MediaFilter!]
 }
 
+interface MediaInterface {
+  image: Media!
+}
+
 type MediaMaxAggregate {
   id: ID
 }
@@ -191,13 +207,16 @@ input MediaUpdateFilter {
 }
 
 type Mutation {
+  addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   createManyMedia(input: CreateManyMediaInput!): [Media!]!
   createOneMedia(input: CreateOneMediaInput!): Media!
   createOneShowcase(input: CreateOneShowcaseInput!): Showcase!
   deleteManyMedia(input: DeleteManyMediaInput!): DeleteManyResponse!
   deleteOneMedia(input: DeleteOneMediaInput!): MediaDeleteResponse!
   deleteOneShowcase(input: DeleteOneShowcaseInput!): ShowcaseDeleteResponse!
+  removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
+  setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   updateManyMedia(input: UpdateManyMediaInput!): UpdateManyResponse!
   updateOneMedia(input: UpdateOneMediaInput!): Media!
@@ -243,12 +262,28 @@ type Query {
   slugs: [String!]!
 }
 
+input RemoveHighlightFeaturesFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input RemoveImageFromShowcaseInput {
   """The id of the record."""
   id: String!
 
   """The id of relation."""
   relationId: ID!
+}
+
+input SetHighlightFeaturesOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
 }
 
 input SetImageOnShowcaseInput {
@@ -259,7 +294,7 @@ input SetImageOnShowcaseInput {
   relationId: ID!
 }
 
-type Showcase {
+type Showcase implements MediaInterface {
   author: String!
   brand: ShowcaseBrand!
   createdAt: DateTime!
@@ -267,6 +302,13 @@ type Showcase {
   expectedQuantity: Float!
   expectedSaleAt: DateTime
   expectedSalePrice: ShowcasePriceDto!
+  highlightFeatures(
+    """Specify to filter the records returned."""
+    filter: ShowcaseHighlightFeatureFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseHighlightFeatureSort!] = []
+  ): [ShowcaseHighlightFeature!]!
   id: ID!
   image: Media!
   name: String!
@@ -330,6 +372,30 @@ input ShowcaseFilter {
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
+}
+
+type ShowcaseHighlightFeature implements IdInterface & MediaInterface {
+  description: String!
+  id: ID!
+  image: Media!
+  name: String!
+  showcase: Showcase!
+}
+
+input ShowcaseHighlightFeatureFilter {
+  and: [ShowcaseHighlightFeatureFilter!]
+  id: IDFilterComparison
+  or: [ShowcaseHighlightFeatureFilter!]
+}
+
+input ShowcaseHighlightFeatureSort {
+  direction: SortDirection!
+  field: ShowcaseHighlightFeatureSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseHighlightFeatureSortFields {
+  id
 }
 
 type ShowcaseMaxAggregate {

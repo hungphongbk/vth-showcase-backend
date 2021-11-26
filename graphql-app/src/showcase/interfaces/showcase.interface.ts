@@ -1,8 +1,9 @@
 import { IShowcasePrice } from './IShowcasePrice';
 import { ShowcaseStatus } from '../dtos/showcase.dtos';
 import { IShowcaseBrand } from './IShowcaseBrand';
+import { MediaInterface } from '../../gql/interfaces/media.interface';
 
-export interface IShowcase {
+export abstract class ShowcaseInterface extends MediaInterface {
   id: string;
   name: string;
   slug: string;

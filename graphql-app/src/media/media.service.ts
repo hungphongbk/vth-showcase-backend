@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MediaEntity } from './media.entity';
+import { MediaModel } from './media.model';
 import { Repository } from 'typeorm';
 import { MediaDto } from './media.dto';
 
 @Injectable()
 export class MediaService {
   constructor(
-    @InjectRepository(MediaEntity) private repo: Repository<MediaEntity>,
+    @InjectRepository(MediaModel) private repo: Repository<MediaModel>,
   ) {}
 
   async findById(id: string) {
