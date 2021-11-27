@@ -16,6 +16,7 @@ import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseBrandDto } from './showcaseBrand.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
+import { ImageListDto } from '../../image-list/dto/image-list.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -30,6 +31,7 @@ registerEnumType(ShowcaseStatus, {
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
+@UnPagedRelation('imageLists', () => ImageListDto)
 export class ShowcaseDto {
   @Field(() => ID)
   id!: string;

@@ -1,6 +1,6 @@
 import Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { ShowcaseHFEntity } from '../modules/highlight-feature/entities/showcaseHF.entity';
+import { ShowcaseHFEntity } from '../data-modules/highlight-feature/entities/showcaseHF.entity';
 
 define(ShowcaseHFEntity, (faker: typeof Faker) => {
   const hf = new ShowcaseHFEntity();

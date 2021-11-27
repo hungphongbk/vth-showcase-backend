@@ -17,6 +17,7 @@ import { IShowcasePrice } from '../interfaces/IShowcasePrice';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
+import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -69,8 +70,15 @@ export class ShowcaseEntity {
   })
   image!: ShowcaseMediaEntity;
 
+  /**
+   * FROM THIS SECTION EVERYTHING SHOULD BE NORMALIZED INTO CONTENT
+   */
+
   @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, { eager: true })
   highlightFeatures!: ShowcaseHFEntity[];
+
+  @OneToMany(() => ImageListEntity, (obj) => obj.showcase, { eager: true })
+  imageLists!: ImageListEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()
