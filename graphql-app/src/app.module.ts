@@ -10,7 +10,7 @@ import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import firebaseConfig from './config/firebase.config';
 import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
-import { ModulesModule } from './modules/modules.module';
+import { DataModulesModule } from './data-modules/data-modules.module';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { ModulesModule } from './modules/modules.module';
       playground: true,
       introspection: true,
     }),
-    ModulesModule,
+    DataModulesModule,
   ],
   providers: [GqlLoggingPlugin],
 })

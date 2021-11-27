@@ -1,9 +1,9 @@
 import { Factory, Seeder } from 'typeorm-seeding';
-import { ShowcaseEntity } from '../modules/showcase/entities/showcase.entity';
+import { ShowcaseEntity } from '../data-modules/showcase/entities/showcase.entity';
 import { Connection } from 'typeorm';
-import { ShowcaseMediaEntity } from '../modules/showcase/entities/showcase.media.entity';
-import { ShowcaseHFEntity } from '../modules/highlight-feature/entities/showcaseHF.entity';
-import { ShowcaseHFMediaEntity } from '../modules/highlight-feature/entities/showcaseHF.media.entity';
+import { ShowcaseMediaEntity } from '../data-modules/showcase/entities/showcase.media.entity';
+import { ShowcaseHFEntity } from '../data-modules/highlight-feature/entities/showcaseHF.entity';
+import { ShowcaseHFMediaEntity } from '../data-modules/highlight-feature/entities/showcaseHF.media.entity';
 import { random } from 'lodash';
 
 export default class ShowcaseSeed implements Seeder {

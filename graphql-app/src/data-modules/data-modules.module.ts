@@ -6,4 +6,4 @@ import { HighlightFeatureModule } from './highlight-feature/highlight-feature.mo
 @Module({
   imports: [ShowcaseModule, MediaModule, HighlightFeatureModule],
 })
-export class ModulesModule {}
+export class DataModulesModule {}
