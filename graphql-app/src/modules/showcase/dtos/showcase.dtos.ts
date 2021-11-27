@@ -67,6 +67,6 @@ export class ShowcaseDto {
   @Field()
   expectedQuantity!: number;
 
-  @Field(() => ShowcasePriceDto)
+  @Field(() => ShowcasePriceDto, { nullable: true })
   expectedSalePrice!: ShowcasePriceDto;
 }

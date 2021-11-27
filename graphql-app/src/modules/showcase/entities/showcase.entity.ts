@@ -60,7 +60,7 @@ export class ShowcaseEntity {
   @Column({ type: 'integer' })
   expectedQuantity!: number;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   expectedSalePrice: IShowcasePrice;
 
   @OneToOne(() => ShowcaseMediaEntity, (media) => media.showcase, {
