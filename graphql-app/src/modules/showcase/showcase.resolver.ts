@@ -3,14 +3,11 @@ import { CRUDResolver } from '@nestjs-query/query-graphql';
 import { InjectAssemblerQueryService, QueryService } from '@nestjs-query/core';
 import { ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcaseAssembler } from './showcase.assembler';
-import { ShowcaseCreateDto } from './dtos/showcase.create.dto';
+import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 
 @Resolver(() => ShowcaseDto)
 export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
-  CreateDTOClass: ShowcaseCreateDto,
-  create: { many: { disabled: true } },
-  update: { many: { disabled: true } },
-  delete: { many: { disabled: true } },
+  CreateDTOClass: ShowcaseCreateInputDto,
   read: { one: { disabled: true } },
 }) {
   constructor(
