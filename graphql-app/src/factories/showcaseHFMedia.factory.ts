@@ -1,10 +1,10 @@
 import Faker from 'faker';
-import { MediaModel } from '../media/media.model';
 import { define } from 'typeorm-seeding';
 import { imageList } from '../__mocks__/imageList';
+import { ShowcaseHFMediaEntity } from '../modules/highlight-feature/entities/showcaseHF.media.entity';
 
-define(MediaModel, (faker: typeof Faker) => {
-  const media = new MediaModel();
+define(ShowcaseHFMediaEntity, (faker: typeof Faker) => {
+  const media = new ShowcaseHFMediaEntity();
   media.path = faker.random.arrayElement(imageList);
   media.mimetype = 'image/jpeg';
   media.filename = faker.name.title();

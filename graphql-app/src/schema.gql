@@ -18,14 +18,29 @@ input CreateManyMediaInput {
   media: [MediaInput!]!
 }
 
+input CreateManyShowcaseHighlightFeaturesInput {
+  """Array of records to create"""
+  showcaseHighlightFeatures: [ShowcaseHFCreateInputDto!]!
+}
+
+input CreateManyShowcasesInput {
+  """Array of records to create"""
+  showcases: [ShowcaseCreateInputDto!]!
+}
+
 input CreateOneMediaInput {
   """The record to create"""
   media: MediaInput!
 }
 
+input CreateOneShowcaseHighlightFeatureInput {
+  """The record to create"""
+  showcaseHighlightFeature: ShowcaseHFCreateInputDto!
+}
+
 input CreateOneShowcaseInput {
   """The record to create"""
-  showcase: ShowcaseCreateDto!
+  showcase: ShowcaseCreateInputDto!
 }
 
 input CursorPaging {
@@ -77,7 +92,22 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
+input DeleteManyShowcaseHighlightFeaturesInput {
+  """Filter to find records to delete"""
+  filter: ShowcaseHighlightFeatureDeleteFilter!
+}
+
+input DeleteManyShowcasesInput {
+  """Filter to find records to delete"""
+  filter: ShowcaseDeleteFilter!
+}
+
 input DeleteOneMediaInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneShowcaseHighlightFeatureInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -164,10 +194,6 @@ input MediaInput {
   path: String!
 }
 
-interface MediaInterface {
-  image: Media!
-}
-
 type MediaMaxAggregate {
   id: ID
 }
@@ -195,18 +221,31 @@ input MediaUpdateFilter {
 type Mutation {
   addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   createManyMedia(input: CreateManyMediaInput!): [Media!]!
+  createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
+  createManyShowcases(input: CreateManyShowcasesInput!): [Showcase!]!
   createOneMedia(input: CreateOneMediaInput!): Media!
   createOneShowcase(input: CreateOneShowcaseInput!): Showcase!
+  createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   deleteManyMedia(input: DeleteManyMediaInput!): DeleteManyResponse!
+  deleteManyShowcaseHighlightFeatures(input: DeleteManyShowcaseHighlightFeaturesInput!): DeleteManyResponse!
+  deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneMedia(input: DeleteOneMediaInput!): MediaDeleteResponse!
   deleteOneShowcase(input: DeleteOneShowcaseInput!): ShowcaseDeleteResponse!
+  deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
   removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
+  removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  removeShowcaseFromShowcaseHighlightFeature(input: RemoveShowcaseFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
+  setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  setShowcaseOnShowcaseHighlightFeature(input: SetShowcaseOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   updateManyMedia(input: UpdateManyMediaInput!): UpdateManyResponse!
+  updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
+  updateManyShowcases(input: UpdateManyShowcasesInput!): UpdateManyResponse!
   updateOneMedia(input: UpdateOneMediaInput!): Media!
   updateOneShowcase(input: UpdateOneShowcaseInput!): Showcase!
+  updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
 }
 
 type PageInfo {
@@ -235,6 +274,20 @@ type Query {
     sorting: [MediaSort!] = []
   ): MediaConnection!
   showcase(slug: String!): Showcase!
+  showcaseHighlightFeature(
+    """The id of the record to find."""
+    id: ID!
+  ): ShowcaseHighlightFeature
+  showcaseHighlightFeatures(
+    """Specify to filter the records returned."""
+    filter: ShowcaseHighlightFeatureFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseHighlightFeatureSort!] = []
+  ): ShowcaseHighlightFeatureConnection!
   showcases(
     """Specify to filter the records returned."""
     filter: ShowcaseFilter = {}
@@ -256,12 +309,28 @@ input RemoveHighlightFeaturesFromShowcaseInput {
   relationIds: [ID!]!
 }
 
+input RemoveImageFromShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input RemoveImageFromShowcaseInput {
   """The id of the record."""
   id: String!
 
   """The id of relation."""
   relationId: ID!
+}
+
+input RemoveShowcaseFromShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: String!
 }
 
 input SetHighlightFeaturesOnShowcaseInput {
@@ -272,12 +341,28 @@ input SetHighlightFeaturesOnShowcaseInput {
   relationIds: [ID!]!
 }
 
+input SetImageOnShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input SetImageOnShowcaseInput {
   """The id of the record."""
   id: String!
 
   """The id of relation."""
   relationId: ID!
+}
+
+input SetShowcaseOnShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: String!
 }
 
 type Showcase {
@@ -305,6 +390,7 @@ type Showcase {
 
 type ShowcaseAggregateGroupBy {
   expectedSaleAt: DateTime
+  name: String
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -330,22 +416,34 @@ type ShowcaseConnection {
 
 type ShowcaseCountAggregate {
   expectedSaleAt: Int
+  name: Int
   slug: Int
   status: Int
   updatedAt: Int
 }
 
-input ShowcaseCreateDto {
+input ShowcaseCreateInputDto {
   author: String!
   brand: ShowcaseBrandInput!
   description: String!
   expectedQuantity: Float!
   expectedSaleAt: DateTime = null
   expectedSalePrice: ShowcasePriceInput!
-  id: ID!
+  highlightFeatures: [ShowcaseHFCreateInputDto!]
+  id: String
   image: MediaInput!
   name: String!
   status: ShowcaseStatus!
+}
+
+input ShowcaseDeleteFilter {
+  and: [ShowcaseDeleteFilter!]
+  expectedSaleAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [ShowcaseDeleteFilter!]
+  slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
 }
 
 type ShowcaseDeleteResponse {
@@ -374,13 +472,21 @@ type ShowcaseEdge {
 input ShowcaseFilter {
   and: [ShowcaseFilter!]
   expectedSaleAt: DateFieldComparison
+  name: StringFieldComparison
   or: [ShowcaseFilter!]
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
 }
 
-type ShowcaseHighlightFeature implements IdInterface & MediaInterface {
+input ShowcaseHFCreateInputDto {
+  description: String!
+  id: String
+  image: MediaInput!
+  name: String!
+}
+
+type ShowcaseHighlightFeature {
   description: String!
   id: ID!
   image: Media!
@@ -388,10 +494,60 @@ type ShowcaseHighlightFeature implements IdInterface & MediaInterface {
   showcase: Showcase!
 }
 
+type ShowcaseHighlightFeatureAggregateGroupBy {
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureConnection {
+  """Array of edges."""
+  edges: [ShowcaseHighlightFeatureEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type ShowcaseHighlightFeatureCountAggregate {
+  id: Int
+  name: Int
+}
+
+input ShowcaseHighlightFeatureDeleteFilter {
+  and: [ShowcaseHighlightFeatureDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [ShowcaseHighlightFeatureDeleteFilter!]
+}
+
+type ShowcaseHighlightFeatureDeleteResponse {
+  description: String
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ShowcaseHighlightFeature"""
+  node: ShowcaseHighlightFeature!
+}
+
 input ShowcaseHighlightFeatureFilter {
   and: [ShowcaseHighlightFeatureFilter!]
   id: IDFilterComparison
+  name: StringFieldComparison
   or: [ShowcaseHighlightFeatureFilter!]
+}
+
+type ShowcaseHighlightFeatureMaxAggregate {
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureMinAggregate {
+  id: ID
+  name: String
 }
 
 input ShowcaseHighlightFeatureSort {
@@ -402,10 +558,19 @@ input ShowcaseHighlightFeatureSort {
 
 enum ShowcaseHighlightFeatureSortFields {
   id
+  name
+}
+
+input ShowcaseHighlightFeatureUpdateFilter {
+  and: [ShowcaseHighlightFeatureUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [ShowcaseHighlightFeatureUpdateFilter!]
 }
 
 type ShowcaseMaxAggregate {
   expectedSaleAt: DateTime
+  name: String
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -413,6 +578,7 @@ type ShowcaseMaxAggregate {
 
 type ShowcaseMinAggregate {
   expectedSaleAt: DateTime
+  name: String
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -440,6 +606,7 @@ input ShowcaseSort {
 
 enum ShowcaseSortFields {
   expectedSaleAt
+  name
   slug
   status
   updatedAt
@@ -466,6 +633,16 @@ input ShowcaseStatusFilterComparison {
   notILike: ShowcaseStatus
   notIn: [ShowcaseStatus!]
   notLike: ShowcaseStatus
+}
+
+input ShowcaseUpdateFilter {
+  and: [ShowcaseUpdateFilter!]
+  expectedSaleAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [ShowcaseUpdateFilter!]
+  slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
 }
 
 """Sort Directions"""
@@ -510,6 +687,22 @@ type UpdateManyResponse {
   updatedCount: Int!
 }
 
+input UpdateManyShowcaseHighlightFeaturesInput {
+  """Filter used to find fields to update"""
+  filter: ShowcaseHighlightFeatureUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateShowcaseHighlightFeature!
+}
+
+input UpdateManyShowcasesInput {
+  """Filter used to find fields to update"""
+  filter: ShowcaseUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateShowcase!
+}
+
 input UpdateMedia {
   filename: String
   id: ID
@@ -523,6 +716,14 @@ input UpdateOneMediaInput {
 
   """The update to apply."""
   update: UpdateMedia!
+}
+
+input UpdateOneShowcaseHighlightFeatureInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateShowcaseHighlightFeature!
 }
 
 input UpdateOneShowcaseInput {
@@ -546,4 +747,10 @@ input UpdateShowcase {
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
+}
+
+input UpdateShowcaseHighlightFeature {
+  description: String
+  id: ID
+  name: String
 }

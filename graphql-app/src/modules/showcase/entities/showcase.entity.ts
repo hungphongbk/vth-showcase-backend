@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   Entity,
   Index,
-  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -16,8 +15,8 @@ import { ShowcaseStatus } from '../dtos/showcase.dtos';
 import slugify from 'slugify';
 import { IShowcasePrice } from '../interfaces/IShowcasePrice';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
-import { ShowcaseHighlightFeatureModel } from './showcaseHighlightFeature.model';
-import { MediaModel } from '../../media/media.model';
+import { ShowcaseMediaEntity } from './showcase.media.entity';
+import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -64,16 +63,16 @@ export class ShowcaseEntity {
   @Column({ type: 'jsonb' })
   expectedSalePrice: IShowcasePrice;
 
-  @OneToOne(() => MediaModel, {
+  @OneToOne(() => ShowcaseMediaEntity, (media) => media.showcase, {
     eager: true,
-    onDelete: 'CASCADE',
+    cascade: true,
   })
-  @JoinColumn()
-  image!: MediaModel;
+  image!: ShowcaseMediaEntity;
 
-  @OneToMany(() => ShowcaseHighlightFeatureModel, (feat) => feat.showcase)
-  @JoinColumn()
-  highlightFeatures!: ShowcaseHighlightFeatureModel[];
+  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, {
+    cascade: true,
+  })
+  highlightFeatures!: ShowcaseHFEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()

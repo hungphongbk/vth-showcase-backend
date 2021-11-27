@@ -1,15 +1,28 @@
 import { Factory, Seeder } from 'typeorm-seeding';
-import { ShowcaseEntity } from '../showcase/entities/showcase.entity';
+import { ShowcaseEntity } from '../modules/showcase/entities/showcase.entity';
 import { Connection } from 'typeorm';
-import { MediaModel } from '../media/media.model';
+import { ShowcaseMediaEntity } from '../modules/showcase/entities/showcase.media.entity';
+import { ShowcaseHFEntity } from '../modules/highlight-feature/entities/showcaseHF.entity';
+import { ShowcaseHFMediaEntity } from '../modules/highlight-feature/entities/showcaseHF.media.entity';
+import { random } from 'lodash';
 
 export default class ShowcaseSeed implements Seeder {
+  async seedHF(factory: Factory): Promise<ShowcaseHFEntity[]> {
+    return await factory(ShowcaseHFEntity)()
+      .map(async (hf) => {
+        hf.image = await factory(ShowcaseHFMediaEntity)().create();
+        return hf;
+      })
+      .makeMany(random(2, 5));
+  }
+
   async run(factory: Factory, connection: Connection): Promise<void> {
     await factory(ShowcaseEntity)()
       .map(async (showcase: ShowcaseEntity) => {
-        showcase.image = await factory(MediaModel)().create();
+        showcase.image = await factory(ShowcaseMediaEntity)().create();
+        showcase.highlightFeatures = await this.seedHF(factory);
         return showcase;
       })
-      .createMany(150);
+      .createMany(random(20, 30));
   }
 }

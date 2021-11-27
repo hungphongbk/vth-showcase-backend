@@ -1,7 +1,7 @@
 import Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { ShowcaseEntity } from '../showcase/entities/showcase.entity';
-import { ShowcaseStatus } from '../showcase/dtos/showcase.dtos';
+import { ShowcaseEntity } from '../modules/showcase/entities/showcase.entity';
+import { ShowcaseStatus } from '../modules/showcase/dtos/showcase.dtos';
 import { random, range } from 'lodash';
 
 define(ShowcaseEntity, (faker: typeof Faker) => {

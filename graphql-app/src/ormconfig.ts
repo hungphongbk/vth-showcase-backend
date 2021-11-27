@@ -28,8 +28,8 @@ const connectionOptions: ConnectionOptions = {
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
   migrationsRun: true,
-  logging: ['warn', 'error'],
-  logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
+  logging: ['query', 'warn', 'error'],
+  // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
   migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
   cli: {
     migrationsDir: `${migrationSrcDir}/migrations`,
