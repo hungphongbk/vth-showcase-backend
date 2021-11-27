@@ -4,29 +4,37 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  Index,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { MediaEntity } from '../media/media.entity';
-import { IShowcase, IShowcasePrice, ShowcaseStatus } from './showcase.dtos';
+import { ShowcaseStatus } from '../dtos/showcase.dtos';
 import slugify from 'slugify';
+import { IShowcasePrice } from '../interfaces/IShowcasePrice';
+import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
+import { ShowcaseMediaEntity } from './showcase.media.entity';
+import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 
 @Entity('showcase')
-export class ShowcaseEntity implements IShowcase {
+export class ShowcaseEntity {
   @PrimaryGeneratedColumn('identity')
-  id: string;
+  id: number;
 
   @Column()
   name: string;
 
   @Column()
+  @Index()
   slug: string;
 
   @Column()
   author: string;
+
+  @Column({ type: 'jsonb' })
+  brand: IShowcaseBrand;
 
   @Column({
     type: 'enum',
@@ -40,10 +48,6 @@ export class ShowcaseEntity implements IShowcase {
   })
   description: string;
 
-  @OneToOne(() => MediaEntity, { nullable: false, eager: true })
-  @JoinColumn()
-  image: MediaEntity;
-
   @CreateDateColumn()
   createdAt: Date;
 
@@ -56,8 +60,17 @@ export class ShowcaseEntity implements IShowcase {
   @Column({ type: 'integer' })
   expectedQuantity!: number;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'jsonb', nullable: true })
   expectedSalePrice: IShowcasePrice;
+
+  @OneToOne(() => ShowcaseMediaEntity, (media) => media.showcase, {
+    eager: true,
+    cascade: true,
+  })
+  image!: ShowcaseMediaEntity;
+
+  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, { eager: true })
+  highlightFeatures!: ShowcaseHFEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()

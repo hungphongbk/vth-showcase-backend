@@ -9,3 +9,14 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  upload:
+    image: mayth/simple-upload-server:latest
+    command: "-token ${UPLOAD_HOST_TOKEN} -cors /var/root"
+    ports:
+      - "25478:25478"
+    volumes:
+      - $PWD/.data/uploads:/var/root
+volumes:
+  pgdata:

@@ -26,9 +26,16 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_MULTIPLE_DATABASES: showcase-staging, showcase-production
+      POSTGRES_MULTIPLE_DATABASES: showcase_staging,showcase_production
     ports:
       - "5432"
+  upload:
+    image: mayth/simple-upload-server:latest
+    command: "-token ${UPLOAD_HOST_TOKEN} -cors /var/root"
+    ports:
+      - "25478"
+    volumes:
+      - $PWD/.data/uploads:/var/root
   staging:
     depends_on:
       - postgres

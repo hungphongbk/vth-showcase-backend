@@ -74,7 +74,8 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  deploy:
+  deploy_preview:
+    environment: preview
     name: Deploy integrated app to VPS
     runs-on: ubuntu-latest
     needs: build
@@ -100,4 +101,7 @@ jobs:
             touch .env.staging
             echo "${{ secrets.SERVER_ENV_STAGING }}" > .env.staging
             docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d --no-build nginx certbot postgres staging
+            docker-compose -f docker-compose.prod.yml up -d --no-build --force-recreate nginx certbot postgres upload staging
+            cd .data
+            chmod +x init-demo-db.sh
+            ./init-demo-db.sh

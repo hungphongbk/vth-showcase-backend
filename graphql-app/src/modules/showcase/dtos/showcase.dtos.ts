@@ -5,12 +5,17 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { MediaEntity } from '../media/media.entity';
 import {
   FilterableField,
   IDField,
   Relation,
+  UnPagedRelation,
 } from '@nestjs-query/query-graphql';
+import { ShowcasePriceDto } from './showcasePrice.dto';
+import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
+import { ShowcaseBrandDto } from './showcaseBrand.dto';
+import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
+import { MediaDto } from '../../media/dtos/media.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -22,49 +27,14 @@ registerEnumType(ShowcaseStatus, {
   name: 'ShowcaseStatus',
 });
 
-export interface IShowcasePrice {
-  regular: number;
-  pioneer: number;
-  promo: number;
-  preorder: number;
-}
-
-export interface IShowcase {
-  id: string;
-  name: string;
-  slug: string;
-  author: string;
-  status: ShowcaseStatus;
-  description: string;
-  createdAt: Date;
-  updatedAt: Date;
-  expectedQuantity: number;
-  expectedSaleAt: Date | null;
-  expectedSalePrice: IShowcasePrice;
-}
-
-@ObjectType()
-export class ShowcasePriceDto implements IShowcasePrice {
-  @FilterableField()
-  pioneer: number;
-
-  @FilterableField()
-  preorder: number;
-
-  @FilterableField()
-  promo: number;
-
-  @FilterableField()
-  regular: number;
-}
-
 @ObjectType('Showcase')
-@Relation('image', () => MediaEntity)
-export class ShowcaseDto implements IShowcase {
+@Relation('image', () => MediaDto)
+@UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
+export class ShowcaseDto {
   @Field(() => ID)
   id!: string;
 
-  @Field({ nullable: false })
+  @FilterableField({ nullable: false })
   name!: string;
 
   @FilterableField({ allowedComparisons: ['eq', 'neq'] })
@@ -73,6 +43,9 @@ export class ShowcaseDto implements IShowcase {
 
   @Field({ nullable: false })
   author!: string;
+
+  @Field(() => ShowcaseBrandDto, { nullable: false })
+  brand!: IShowcaseBrand;
 
   @Field(() => GraphQLISODateTime)
   createdAt!: Date;
@@ -94,5 +67,6 @@ export class ShowcaseDto implements IShowcase {
   @Field()
   expectedQuantity!: number;
 
-  expectedSalePrice: ShowcasePriceDto;
+  @Field(() => ShowcasePriceDto, { nullable: true })
+  expectedSalePrice!: ShowcasePriceDto;
 }

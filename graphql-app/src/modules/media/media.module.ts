@@ -4,6 +4,8 @@ import * as Joi from '@hapi/joi';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { MediaEntity } from './media.entity';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
+import { MediaCreateDto } from './dtos/media.create.dto';
+import { MediaDto } from './dtos/media.dto';
 
 @Module({
   imports: [
@@ -14,7 +16,13 @@ import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
     }),
     NestjsQueryGraphQLModule.forFeature({
       imports: [NestjsQueryTypeOrmModule.forFeature([MediaEntity])],
-      resolvers: [{ DTOClass: MediaEntity, EntityClass: MediaEntity }],
+      resolvers: [
+        {
+          CreateDTOClass: MediaCreateDto,
+          DTOClass: MediaDto,
+          EntityClass: MediaEntity,
+        },
+      ],
     }),
   ],
 })

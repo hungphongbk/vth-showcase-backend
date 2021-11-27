@@ -1,13 +1,18 @@
 import Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { ShowcaseEntity } from '../showcase/showcase.entity';
-import { ShowcaseStatus } from '../showcase/showcase.dtos';
+import { ShowcaseEntity } from '../modules/showcase/entities/showcase.entity';
+import { ShowcaseStatus } from '../modules/showcase/dtos/showcase.dtos';
 import { random, range } from 'lodash';
 
 define(ShowcaseEntity, (faker: typeof Faker) => {
   const showcase = new ShowcaseEntity();
   showcase.name = faker.company.catchPhrase();
   showcase.author = `${faker.name.firstName()} ${faker.name.lastName()}`;
+
+  showcase.brand = {
+    name: faker.company.companyName(),
+    description: faker.lorem.paragraphs(2),
+  };
 
   showcase.status = faker.random.arrayElement([
     ShowcaseStatus.IDEA,
