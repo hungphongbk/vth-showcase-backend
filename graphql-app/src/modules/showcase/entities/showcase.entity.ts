@@ -69,9 +69,7 @@ export class ShowcaseEntity {
   })
   image!: ShowcaseMediaEntity;
 
-  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, {
-    cascade: true,
-  })
+  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, { eager: true })
   highlightFeatures!: ShowcaseHFEntity[];
 
   @BeforeInsert()

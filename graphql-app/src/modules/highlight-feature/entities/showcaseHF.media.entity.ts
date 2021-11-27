@@ -5,8 +5,9 @@ import { ShowcaseHFEntity } from './showcaseHF.entity';
 @ChildEntity()
 export class ShowcaseHFMediaEntity extends MediaEntity {
   @OneToOne(() => ShowcaseHFEntity, (hf) => hf.image, {
-    nullable: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'hfId' })
+  @JoinColumn()
   hf!: ShowcaseHFEntity;
 }

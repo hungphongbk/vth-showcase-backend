@@ -5,7 +5,8 @@ import { ShowcaseEntity } from './showcase.entity';
 @ChildEntity()
 export class ShowcaseMediaEntity extends MediaEntity {
   @OneToOne(() => ShowcaseEntity, (showcase) => showcase.image, {
-    nullable: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   showcase!: ShowcaseEntity;

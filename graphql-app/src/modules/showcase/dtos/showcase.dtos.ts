@@ -5,7 +5,6 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { MediaEntity } from '../../media/media.entity';
 import {
   FilterableField,
   IDField,
@@ -16,6 +15,7 @@ import { ShowcasePriceDto } from './showcasePrice.dto';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseBrandDto } from './showcaseBrand.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
+import { MediaDto } from '../../media/dtos/media.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -28,7 +28,7 @@ registerEnumType(ShowcaseStatus, {
 });
 
 @ObjectType('Showcase')
-@Relation('image', () => MediaEntity)
+@Relation('image', () => MediaDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
 export class ShowcaseDto {
   @Field(() => ID)

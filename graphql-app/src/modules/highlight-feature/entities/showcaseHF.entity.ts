@@ -29,7 +29,10 @@ export class ShowcaseHFEntity {
   /**
    * Showcase that HF belongs to
    */
-  @ManyToOne(() => ShowcaseEntity, (entity) => entity.highlightFeatures, {})
+  @ManyToOne(() => ShowcaseEntity, (entity) => entity.highlightFeatures, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   showcase!: ShowcaseEntity;
 

@@ -1,7 +1,7 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { FilterableField, Relation } from '@nestjs-query/query-graphql';
-import { MediaEntity } from '../../media/media.entity';
 import { ShowcaseDto } from '../../showcase/dtos/showcase.dtos';
+import { MediaDto } from '../../media/dtos/media.dto';
 
 @ObjectType({ isAbstract: true })
 @InputType({ isAbstract: true })
@@ -14,7 +14,7 @@ export class ShowcaseHFBaseDto {
 }
 
 @ObjectType('ShowcaseHighlightFeature')
-@Relation('image', () => MediaEntity)
+@Relation('image', () => MediaDto)
 @Relation('showcase', () => ShowcaseDto)
 export class ShowcaseHFDto extends ShowcaseHFBaseDto {
   @FilterableField(() => ID)

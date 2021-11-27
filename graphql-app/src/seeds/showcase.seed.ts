@@ -13,7 +13,7 @@ export default class ShowcaseSeed implements Seeder {
         hf.image = await factory(ShowcaseHFMediaEntity)().create();
         return hf;
       })
-      .makeMany(random(2, 5));
+      .createMany(random(2, 5));
   }
 
   async run(factory: Factory, connection: Connection): Promise<void> {
