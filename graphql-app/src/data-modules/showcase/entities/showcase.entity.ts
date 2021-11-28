@@ -74,15 +74,22 @@ export class ShowcaseEntity {
    * FROM THIS SECTION EVERYTHING SHOULD BE NORMALIZED INTO CONTENT
    */
 
-  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, { eager: true })
+  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, {
+    eager: true,
+    cascade: true,
+  })
   highlightFeatures!: ShowcaseHFEntity[];
 
-  @OneToMany(() => ImageListEntity, (obj) => obj.showcase, { eager: true })
+  @OneToMany(() => ImageListEntity, (obj) => obj.showcase, {
+    eager: true,
+    cascade: true,
+  })
   imageLists!: ImageListEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()
   async beforeSave() {
+    // Logger.log(JSON.stringify(this));
     this.slug = slugify(this.name, {
       lower: true,
     });

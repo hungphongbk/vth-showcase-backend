@@ -13,7 +13,10 @@ export class ImageListEntity {
   @PrimaryGeneratedColumn('identity')
   id: string;
 
-  @OneToMany(() => ImageListMediaEntity, (obj) => obj.list)
+  @OneToMany(() => ImageListMediaEntity, (obj) => obj.list, {
+    eager: true,
+    cascade: true,
+  })
   images: ImageListMediaEntity[];
 
   @ManyToOne(() => ShowcaseEntity, (obj) => obj.imageLists, {
