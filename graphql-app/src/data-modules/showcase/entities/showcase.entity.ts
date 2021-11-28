@@ -1,6 +1,5 @@
 import {
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -17,6 +16,8 @@ import { IShowcasePrice } from '../interfaces/IShowcasePrice';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
+import { ImageListEntity } from '../../image-list/entities/image-list.entity';
+import * as crypto from 'crypto';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -27,7 +28,7 @@ export class ShowcaseEntity {
   name: string;
 
   @Column()
-  @Index()
+  @Index({ unique: true })
   slug: string;
 
   @Column()
@@ -69,15 +70,34 @@ export class ShowcaseEntity {
   })
   image!: ShowcaseMediaEntity;
 
-  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, { eager: true })
+  /**
+   * FROM THIS SECTION EVERYTHING SHOULD BE NORMALIZED INTO CONTENT
+   */
+
+  @OneToMany(() => ShowcaseHFEntity, (feat) => feat.showcase, {
+    eager: true,
+    cascade: true,
+  })
   highlightFeatures!: ShowcaseHFEntity[];
 
+  @OneToMany(() => ImageListEntity, (obj) => obj.showcase, {
+    eager: true,
+    cascade: true,
+  })
+  imageLists!: ImageListEntity[];
+
   @BeforeInsert()
-  @BeforeUpdate()
-  async beforeSave() {
-    this.slug = slugify(this.name, {
+  async generateSlug() {
+    const currentTs = new Date().valueOf().toString();
+    const id = crypto
+      .createHash('sha1')
+      .update(currentTs)
+      .digest('hex')
+      .slice(0, 8)
+      .toUpperCase();
+    this.slug = `${slugify(this.name, {
       lower: true,
-    });
+    })}-${id}`;
   }
 }
 

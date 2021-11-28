@@ -34,9 +34,7 @@
     "schema:sync": "npm run typeorm schema:sync",
     "schema:drop:prod": "npm run typeorm:prod schema:drop",
     "schema:sync:prod": "npm run typeorm:prod schema:sync",
-    "seed:run:prod": "npm run typeorm-seeding:prod seed",
-    "init:dev": "npm run schema:drop && npm run schema:sync && npm run seed:run",
-    "init:prod": "npm run schema:drop:prod && npm run schema:sync:prod && npm run seed:run:prod"
+    "init:dev": "npm run schema:drop && npm run schema:sync && npm run seed:run"
   },
   "dependencies": {
     "@graphql-tools/utils": "^7.10.0",
@@ -49,14 +47,17 @@
     "@nestjs/graphql": "^9.1.2",
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.2.3",
+    "@nestjs/platform-fastify": "^8.2.3",
     "@nestjs/typeorm": "^8.0.2",
     "@tfarras/nestjs-firebase-admin": "^2.0.1",
     "@tfarras/nestjs-firebase-auth": "^2.0.0",
     "@types/lodash": "^4.14.177",
     "apollo-server-express": "^3.5.0",
+    "apollo-server-fastify": "^3.5.0",
     "apollo-server-plugin-base": "^3.4.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.2",
+    "crypto": "^1.0.1",
     "dataloader": "^2.0.0",
     "faker": "^5.5.3",
     "firebase-admin": "^10.0.0",

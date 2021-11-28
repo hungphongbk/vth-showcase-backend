@@ -1,7 +1,7 @@
 import Faker from 'faker';
 import { define } from 'typeorm-seeding';
 import { imageList } from '../__mocks__/imageList';
-import { ShowcaseMediaEntity } from '../modules/showcase/entities/showcase.media.entity';
+import { ShowcaseMediaEntity } from '../data-modules/showcase/entities/showcase.media.entity';
 
 define(ShowcaseMediaEntity, (faker: typeof Faker) => {
   const media = new ShowcaseMediaEntity();

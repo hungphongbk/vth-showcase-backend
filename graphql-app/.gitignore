@@ -36,3 +36,4 @@ lerna-debug.log*
 
 # Private files
 src/.private/
+local-migration.sh

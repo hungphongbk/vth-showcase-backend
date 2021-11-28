@@ -101,7 +101,4 @@ jobs:
             touch .env.staging
             echo "${{ secrets.SERVER_ENV_STAGING }}" > .env.staging
             docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d --no-build --force-recreate nginx certbot postgres upload staging
-            cd .data
-            chmod +x init-demo-db.sh
-            ./init-demo-db.sh
+            docker-compose -f docker-compose.prod.yml up -d --no-build --force-recreate postgres upload staging

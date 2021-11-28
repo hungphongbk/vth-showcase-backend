@@ -30,6 +30,7 @@ export class ShowcaseHFEntity {
    * Showcase that HF belongs to
    */
   @ManyToOne(() => ShowcaseEntity, (entity) => entity.highlightFeatures, {
+    // eager: true,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
