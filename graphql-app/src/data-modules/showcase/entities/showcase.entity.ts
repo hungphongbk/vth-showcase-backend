@@ -1,6 +1,5 @@
 import {
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -18,6 +17,7 @@ import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
+import * as crypto from 'crypto';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -28,7 +28,7 @@ export class ShowcaseEntity {
   name: string;
 
   @Column()
-  @Index()
+  @Index({ unique: true })
   slug: string;
 
   @Column()
@@ -87,12 +87,17 @@ export class ShowcaseEntity {
   imageLists!: ImageListEntity[];
 
   @BeforeInsert()
-  @BeforeUpdate()
-  async beforeSave() {
-    // Logger.log(JSON.stringify(this));
-    this.slug = slugify(this.name, {
+  async generateSlug() {
+    const currentTs = new Date().valueOf().toString();
+    const id = crypto
+      .createHash('sha1')
+      .update(currentTs)
+      .digest('hex')
+      .slice(0, 8)
+      .toUpperCase();
+    this.slug = `${slugify(this.name, {
       lower: true,
-    });
+    })}-${id}`;
   }
 }
 

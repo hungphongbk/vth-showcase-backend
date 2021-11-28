@@ -57,6 +57,7 @@
     "apollo-server-plugin-base": "^3.4.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.2",
+    "crypto": "^1.0.1",
     "dataloader": "^2.0.0",
     "faker": "^5.5.3",
     "firebase-admin": "^10.0.0",
