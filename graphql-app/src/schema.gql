@@ -48,11 +48,6 @@ input CreateManyShowcaseHighlightFeaturesInput {
   showcaseHighlightFeatures: [ShowcaseHFCreateInputDto!]!
 }
 
-input CreateManyShowcasesInput {
-  """Array of records to create"""
-  showcases: [ShowcaseCreateInputDto!]!
-}
-
 input CreateOneImageListInput {
   """The record to create"""
   imageList: CreateImageListInputDto!
@@ -66,11 +61,6 @@ input CreateOneMediaDtoInput {
 input CreateOneShowcaseHighlightFeatureInput {
   """The record to create"""
   showcaseHighlightFeature: ShowcaseHFCreateInputDto!
-}
-
-input CreateOneShowcaseInput {
-  """The record to create"""
-  showcase: ShowcaseCreateInputDto!
 }
 
 input CursorPaging {
@@ -150,11 +140,6 @@ input DeleteOneMediaDtoInput {
 input DeleteOneShowcaseHighlightFeatureInput {
   """The id of the record to delete."""
   id: ID!
-}
-
-input DeleteOneShowcaseInput {
-  """The id of the record to delete."""
-  id: String!
 }
 
 input IDFilterComparison {
@@ -350,10 +335,9 @@ type Mutation {
   createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
   createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
-  createManyShowcases(input: CreateManyShowcasesInput!): [Showcase!]!
   createOneImageList(input: CreateOneImageListInput!): ImageList!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
-  createOneShowcase(input: CreateOneShowcaseInput!): Showcase!
+  createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
@@ -361,7 +345,7 @@ type Mutation {
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
-  deleteOneShowcase(input: DeleteOneShowcaseInput!): ShowcaseDeleteResponse!
+  deleteOneShowcase(slug: String!): Showcase!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
   removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
@@ -376,10 +360,8 @@ type Mutation {
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
   updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
-  updateManyShowcases(input: UpdateManyShowcasesInput!): UpdateManyResponse!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
-  updateOneShowcase(input: UpdateOneShowcaseInput!): Showcase!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
 }
 
@@ -649,22 +631,6 @@ input ShowcaseDeleteFilter {
   updatedAt: DateFieldComparison
 }
 
-type ShowcaseDeleteResponse {
-  author: String
-  brand: ShowcaseBrand
-  createdAt: DateTime
-  description: String
-  expectedQuantity: Float
-  expectedSaleAt: DateTime
-  expectedSalePrice: ShowcasePrice
-  id: ID
-  name: String
-  publishStatus: PublishStatus
-  slug: String
-  status: ShowcaseStatus
-  updatedAt: DateTime
-}
-
 type ShowcaseEdge {
   """Cursor for this node."""
   cursor: ConnectionCursor!
@@ -842,17 +808,6 @@ input ShowcaseStatusFilterComparison {
   notLike: ShowcaseStatus
 }
 
-input ShowcaseUpdateFilter {
-  and: [ShowcaseUpdateFilter!]
-  expectedSaleAt: DateFieldComparison
-  name: StringFieldComparison
-  or: [ShowcaseUpdateFilter!]
-  publishStatus: PublishStatusFilterComparison
-  slug: StringFieldComparison
-  status: ShowcaseStatusFilterComparison
-  updatedAt: DateFieldComparison
-}
-
 """Sort Directions"""
 enum SortDirection {
   ASC
@@ -915,14 +870,6 @@ input UpdateManyShowcaseHighlightFeaturesInput {
   update: UpdateShowcaseHighlightFeature!
 }
 
-input UpdateManyShowcasesInput {
-  """Filter used to find fields to update"""
-  filter: ShowcaseUpdateFilter!
-
-  """The update to apply to all records found using the filter"""
-  update: UpdateShowcase!
-}
-
 input UpdateMediaDto {
   filename: String
   id: ID
@@ -953,30 +900,6 @@ input UpdateOneShowcaseHighlightFeatureInput {
 
   """The update to apply."""
   update: UpdateShowcaseHighlightFeature!
-}
-
-input UpdateOneShowcaseInput {
-  """The id of the record to update"""
-  id: String!
-
-  """The update to apply."""
-  update: UpdateShowcase!
-}
-
-input UpdateShowcase {
-  author: String
-  brand: ShowcaseBrandInput
-  createdAt: DateTime
-  description: String
-  expectedQuantity: Float
-  expectedSaleAt: DateTime = null
-  expectedSalePrice: ShowcasePriceInput
-  id: ID
-  name: String
-  publishStatus: PublishStatus
-  slug: String
-  status: ShowcaseStatus
-  updatedAt: DateTime
 }
 
 input UpdateShowcaseHighlightFeature {

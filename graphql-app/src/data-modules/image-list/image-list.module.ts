@@ -5,11 +5,13 @@ import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { CreateImageListInputDto } from './dto/create-image-list-input.dto';
 import { ImageListDto } from './dto/image-list.dto';
 
+const ormModule = NestjsQueryTypeOrmModule.forFeature([ImageListEntity]);
+
 @Module({
   imports: [
     // NestjsQueryTypeOrmModule.forFeature([ImageListEntity])
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([ImageListEntity])],
+      imports: [ormModule],
       resolvers: [
         {
           CreateDTOClass: CreateImageListInputDto,
@@ -18,6 +20,8 @@ import { ImageListDto } from './dto/image-list.dto';
         },
       ],
     }),
+    ormModule,
   ],
+  exports: [ormModule],
 })
 export class ImageListModule {}

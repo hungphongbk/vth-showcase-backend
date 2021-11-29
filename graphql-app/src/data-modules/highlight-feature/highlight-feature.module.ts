@@ -5,10 +5,14 @@ import { ShowcaseHFEntity } from './entities/showcaseHF.entity';
 import { ShowcaseHFCreateInputDto } from './dtos/showcaseHF.create.dto';
 import { ShowcaseHFDto } from './dtos/showcaseHF.dto';
 
+const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
+  ShowcaseHFEntity,
+]);
+
 @Module({
   imports: [
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([ShowcaseHFEntity])],
+      imports: [showcaseHFOrmModule],
       resolvers: [
         {
           CreateDTOClass: ShowcaseHFCreateInputDto,
@@ -17,6 +21,8 @@ import { ShowcaseHFDto } from './dtos/showcaseHF.dto';
         },
       ],
     }),
+    showcaseHFOrmModule,
   ],
+  exports: [showcaseHFOrmModule],
 })
 export class HighlightFeatureModule {}

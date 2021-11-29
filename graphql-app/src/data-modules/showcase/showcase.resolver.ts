@@ -1,20 +1,33 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
-import { CRUDResolver } from '@nestjs-query/query-graphql';
-import { InjectAssemblerQueryService, QueryService } from '@nestjs-query/core';
+import { Args, ArgsType, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ShowcaseDto } from './dtos/showcase.dtos';
-import { ShowcaseAssembler } from './showcase.assembler';
+import { GqlAuthGuard } from '../../auth/gql.auth.guard';
+import { ShowcaseConnection, ShowcaseQuery } from './dtos/query.types';
+import {
+  ConnectionType,
+  MutationArgsType,
+  MutationHookArgs,
+} from '@nestjs-query/query-graphql';
+import { ShowcaseQueryService } from './showcase.queryService';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
+import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
+
+const guards = [GqlAuthGuard];
+
+@ArgsType()
+class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
 
 @Resolver(() => ShowcaseDto)
-export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
-  CreateDTOClass: ShowcaseCreateInputDto,
-  read: { one: { disabled: true } },
-}) {
-  constructor(
-    @InjectAssemblerQueryService(ShowcaseAssembler)
-    readonly service: QueryService<ShowcaseDto>,
-  ) {
-    super(service);
+export class ShowcaseResolver {
+  constructor(private readonly service: ShowcaseQueryService) {}
+
+  @Query(() => ShowcaseConnection)
+  async showcases(
+    @Args() query: ShowcaseQuery,
+  ): Promise<ConnectionType<ShowcaseDto>> {
+    return ShowcaseConnection.createFromPromise(
+      (q) => this.service.query(q),
+      query,
+    );
   }
 
   @Query(() => ShowcaseDto)
@@ -27,5 +40,17 @@ export class ShowcaseResolver extends CRUDResolver(ShowcaseDto, {
     return (await this.service.query({ paging: { limit: 10000 } })).map(
       (i) => i.slug,
     );
+  }
+
+  @ResolverMutation(() => ShowcaseDto)
+  createOneShowcase(@MutationHookArgs() input: CreateOneShowcase) {
+    return this.service.createOne(input.input);
+  }
+
+  @Mutation(() => ShowcaseDto)
+  deleteOneShowcase(@Args('slug') slug: string) {
+    return this.service.deleteMany({
+      slug: { eq: slug },
+    });
   }
 }
