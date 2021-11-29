@@ -13,7 +13,7 @@ reload_nginx() {
 
 server_status() {
   local port=$1
-  status=$(curl -is --connect-timeout 5 --show-error http://localhost:$port | head -n 1 | cut -d " " -f2)
+  status=$(curl -is --connect-timeout 5 --show-error http://localhost:$port 2>/dev/null | head -n 1 | cut -d " " -f2)
 
   # if status is not a status code (123), means we got an error not an http header
   # this could be a timeout message, connection refused error msg, and so on...
@@ -29,13 +29,13 @@ wait_for_available() {
   server_status $port
 
   while [[ $status -gt "404" ]]; do
-    if [[ $retry -gt 10 ]];then
+    if [[ $retry -gt 20 ]];then
       break;
       return 1
     fi
     ((retry++))
     echo "New instance of $service_name:$port is getting ready..."
-    sleep 2
+    sleep 3
     server_status $port
   done
   return 0
@@ -45,10 +45,12 @@ wait_for_available() {
 # SPINNING UP SERVER
 #
 
-old_container_id=$(docker ps -f name=$service_name -q | tail -n1)
+old_container_id=$(docker ps -f name=$service_name -q | head -n1)
 ${docker_compose_cmd} up -d --no-build --no-deps --scale $service_name=2 --no-recreate $service_name
-container_id=$(docker ps -f name=$service_name -q | tail -n1)
+container_id=$(docker ps -f name=$service_name -q | head -n1)
 
+echo "Old container ID: $old_container_id"
+echo "New container ID: $container_id"
 
 if [[ -z $container_id ]]; then
   >&2 echo "$service_name container not found, please double-check!"
@@ -73,6 +75,7 @@ reload_nginx
 echo "Remove old $service_name container..."
 docker rm $old_container_id -f &>/dev/null
 reload_nginx
+sleep 3
 
 echo "DONE !"
 
