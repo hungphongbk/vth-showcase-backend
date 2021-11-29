@@ -39,11 +39,7 @@ services:
   staging:
     depends_on:
       - postgres
-    container_name: graphql-app-staging
     image: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
-    build:
-      context: graphql-app
-      target: production
     command: npm run start:prod
     ports:
       - "3001"
