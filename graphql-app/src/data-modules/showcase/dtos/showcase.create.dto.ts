@@ -7,7 +7,7 @@ import { CreateImageListInputDto } from '../../image-list/dto/create-image-list-
 @InputType({ isAbstract: true })
 class ShowcaseCreateBase extends OmitType(
   ShowcaseDto,
-  ['id', 'slug', 'createdAt', 'updatedAt'],
+  ['id', 'slug', 'publishStatus', 'createdAt', 'updatedAt'],
   InputType,
 ) {
   @Field(() => String, { nullable: true })
