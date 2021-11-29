@@ -5,8 +5,14 @@ import {
   TableInheritance,
 } from 'typeorm';
 
+export enum MediaType {
+  SHOWCASE,
+  HF,
+  IMGLIST,
+}
+
 @Entity('media')
-@TableInheritance({ column: { type: 'varchar', name: 'type' } })
+@TableInheritance({ column: { type: 'enum', enum: MediaType, name: 'type' } })
 export class MediaEntity {
   @PrimaryGeneratedColumn('identity')
   id: string;
