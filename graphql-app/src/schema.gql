@@ -397,6 +397,28 @@ type PageInfo {
   startCursor: ConnectionCursor
 }
 
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+input PublishStatusFilterComparison {
+  eq: PublishStatus
+  gt: PublishStatus
+  gte: PublishStatus
+  iLike: PublishStatus
+  in: [PublishStatus!]
+  is: Boolean
+  isNot: Boolean
+  like: PublishStatus
+  lt: PublishStatus
+  lte: PublishStatus
+  neq: PublishStatus
+  notILike: PublishStatus
+  notIn: [PublishStatus!]
+  notLike: PublishStatus
+}
+
 type Query {
   imageList(
     """The id of the record to find."""
@@ -559,6 +581,7 @@ type Showcase {
     sorting: [ImageListSort!] = []
   ): [ImageList!]!
   name: String!
+  publishStatus: PublishStatus!
   slug: String!
   status: ShowcaseStatus!
   updatedAt: DateTime!
@@ -567,6 +590,7 @@ type Showcase {
 type ShowcaseAggregateGroupBy {
   expectedSaleAt: DateTime
   name: String
+  publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -593,6 +617,7 @@ type ShowcaseConnection {
 type ShowcaseCountAggregate {
   expectedSaleAt: Int
   name: Int
+  publishStatus: Int
   slug: Int
   status: Int
   updatedAt: Int
@@ -610,6 +635,7 @@ input ShowcaseCreateInputDto {
   image: MediaInput!
   imageLists: [CreateImageListInputDto!]
   name: String!
+  publishStatus: PublishStatus!
   status: ShowcaseStatus!
 }
 
@@ -618,6 +644,7 @@ input ShowcaseDeleteFilter {
   expectedSaleAt: DateFieldComparison
   name: StringFieldComparison
   or: [ShowcaseDeleteFilter!]
+  publishStatus: PublishStatusFilterComparison
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
@@ -633,6 +660,7 @@ type ShowcaseDeleteResponse {
   expectedSalePrice: ShowcasePrice
   id: ID
   name: String
+  publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -651,6 +679,7 @@ input ShowcaseFilter {
   expectedSaleAt: DateFieldComparison
   name: StringFieldComparison
   or: [ShowcaseFilter!]
+  publishStatus: PublishStatusFilterComparison
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
@@ -747,6 +776,7 @@ input ShowcaseHighlightFeatureUpdateFilter {
 type ShowcaseMaxAggregate {
   expectedSaleAt: DateTime
   name: String
+  publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -755,6 +785,7 @@ type ShowcaseMaxAggregate {
 type ShowcaseMinAggregate {
   expectedSaleAt: DateTime
   name: String
+  publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
@@ -783,6 +814,7 @@ input ShowcaseSort {
 enum ShowcaseSortFields {
   expectedSaleAt
   name
+  publishStatus
   slug
   status
   updatedAt
@@ -816,6 +848,7 @@ input ShowcaseUpdateFilter {
   expectedSaleAt: DateFieldComparison
   name: StringFieldComparison
   or: [ShowcaseUpdateFilter!]
+  publishStatus: PublishStatusFilterComparison
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
@@ -941,6 +974,7 @@ input UpdateShowcase {
   expectedSalePrice: ShowcasePriceInput
   id: ID
   name: String
+  publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime

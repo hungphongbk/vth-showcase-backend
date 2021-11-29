@@ -9,8 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { ShowcaseStatus } from '../dtos/showcase.dtos';
+import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dtos';
 import slugify from 'slugify';
 import { IShowcasePrice } from '../interfaces/IShowcasePrice';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
@@ -42,7 +41,14 @@ export class ShowcaseEntity {
     enum: ShowcaseStatus,
     default: ShowcaseStatus.SHOWCASE,
   })
-  status: ShowcaseStatus;
+  status!: ShowcaseStatus;
+
+  @Column({
+    type: 'enum',
+    enum: PublishStatus,
+    default: PublishStatus.DRAFT,
+  })
+  publishStatus!: PublishStatus;
 
   @Column({
     type: 'text',
@@ -99,10 +105,4 @@ export class ShowcaseEntity {
       lower: true,
     })}-${id}`;
   }
-}
-
-@ObjectType()
-export class ShowcasePreviewDto extends ShowcaseEntity {
-  @Field(() => [ShowcaseEntity], { nullable: false })
-  relatedShowcases: ShowcaseEntity[];
 }

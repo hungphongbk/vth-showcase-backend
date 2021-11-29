@@ -28,6 +28,15 @@ registerEnumType(ShowcaseStatus, {
   name: 'ShowcaseStatus',
 });
 
+export enum PublishStatus {
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+}
+
+registerEnumType(PublishStatus, {
+  name: 'PublishStatus',
+});
+
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
@@ -56,6 +65,9 @@ export class ShowcaseDto {
 
   @FilterableField(() => ShowcaseStatus)
   status!: ShowcaseStatus;
+
+  @FilterableField(() => PublishStatus)
+  publishStatus!: PublishStatus;
 
   @FilterableField(() => GraphQLISODateTime)
   updatedAt!: Date;
