@@ -7,6 +7,8 @@ import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { MediaCreateDto } from './dtos/media.create.dto';
 import { MediaDto } from './dtos/media.dto';
 
+const mediaOrmModule = NestjsQueryTypeOrmModule.forFeature([MediaEntity]);
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,7 +17,7 @@ import { MediaDto } from './dtos/media.dto';
       }),
     }),
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([MediaEntity])],
+      imports: [mediaOrmModule],
       resolvers: [
         {
           CreateDTOClass: MediaCreateDto,
@@ -24,6 +26,8 @@ import { MediaDto } from './dtos/media.dto';
         },
       ],
     }),
+    mediaOrmModule,
   ],
+  exports: [mediaOrmModule],
 })
 export class MediaModule {}

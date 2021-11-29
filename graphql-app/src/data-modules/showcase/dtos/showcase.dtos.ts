@@ -14,9 +14,9 @@ import {
 import { ShowcasePriceDto } from './showcasePrice.dto';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseBrandDto } from './showcaseBrand.dto';
-import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
-import { MediaDto } from '../../media/dtos/media.dto';
 import { ImageListDto } from '../../image-list/dto/image-list.dto';
+import { MediaDto } from '../../media/dtos/media.dto';
+import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
