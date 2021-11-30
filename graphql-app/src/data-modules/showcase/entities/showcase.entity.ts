@@ -26,6 +26,12 @@ export class ShowcaseEntity {
   @Column()
   name: string;
 
+  /**
+   * Represent firebase user UID
+   */
+  @Column({ nullable: false })
+  authorId: string;
+
   @Column()
   @Index({ unique: true })
   slug: string;
