@@ -1,0 +1,909 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddHighlightFeaturesToShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddImageListsToShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddImagesToImageListInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+input CreateImageListInputDto {
+  images: [MediaInput!]
+}
+
+input CreateManyImageListsInput {
+  """Array of records to create"""
+  imageLists: [CreateImageListInputDto!]!
+}
+
+input CreateManyMediaDtosInput {
+  """Array of records to create"""
+  mediaDtos: [MediaInput!]!
+}
+
+input CreateManyShowcaseHighlightFeaturesInput {
+  """Array of records to create"""
+  showcaseHighlightFeatures: [ShowcaseHFCreateInputDto!]!
+}
+
+input CreateOneImageListInput {
+  """The record to create"""
+  imageList: CreateImageListInputDto!
+}
+
+input CreateOneMediaDtoInput {
+  """The record to create"""
+  mediaDto: MediaInput!
+}
+
+input CreateOneShowcaseHighlightFeatureInput {
+  """The record to create"""
+  showcaseHighlightFeature: ShowcaseHFCreateInputDto!
+}
+
+input CursorPaging {
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteManyImageListsInput {
+  """Filter to find records to delete"""
+  filter: ImageListDeleteFilter!
+}
+
+input DeleteManyMediaDtosInput {
+  """Filter to find records to delete"""
+  filter: MediaDtoDeleteFilter!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteManyShowcaseHighlightFeaturesInput {
+  """Filter to find records to delete"""
+  filter: ShowcaseHighlightFeatureDeleteFilter!
+}
+
+input DeleteManyShowcasesInput {
+  """Filter to find records to delete"""
+  filter: ShowcaseDeleteFilter!
+}
+
+input DeleteOneImageListInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneMediaDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneShowcaseHighlightFeatureInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input IDFilterComparison {
+  eq: ID
+  gt: ID
+  gte: ID
+  iLike: ID
+  in: [ID!]
+  is: Boolean
+  isNot: Boolean
+  like: ID
+  lt: ID
+  lte: ID
+  neq: ID
+  notILike: ID
+  notIn: [ID!]
+  notLike: ID
+}
+
+interface IdInterface {
+  id: ID!
+}
+
+type ImageList implements IdInterface {
+  id: ID!
+  images(
+    """Specify to filter the records returned."""
+    filter: MediaDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [MediaDtoSort!] = []
+  ): [MediaDto!]!
+}
+
+type ImageListAggregateGroupBy {
+  id: ID
+}
+
+type ImageListConnection {
+  """Array of edges."""
+  edges: [ImageListEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type ImageListCountAggregate {
+  id: Int
+}
+
+input ImageListDeleteFilter {
+  and: [ImageListDeleteFilter!]
+  id: IDFilterComparison
+  or: [ImageListDeleteFilter!]
+}
+
+type ImageListDeleteResponse {
+  id: ID
+}
+
+type ImageListEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ImageList"""
+  node: ImageList!
+}
+
+input ImageListFilter {
+  and: [ImageListFilter!]
+  id: IDFilterComparison
+  or: [ImageListFilter!]
+}
+
+type ImageListMaxAggregate {
+  id: ID
+}
+
+type ImageListMinAggregate {
+  id: ID
+}
+
+input ImageListSort {
+  direction: SortDirection!
+  field: ImageListSortFields!
+  nulls: SortNulls
+}
+
+enum ImageListSortFields {
+  id
+}
+
+input ImageListUpdateFilter {
+  and: [ImageListUpdateFilter!]
+  id: IDFilterComparison
+  or: [ImageListUpdateFilter!]
+}
+
+type MediaDto implements IdInterface {
+  filename: String!
+  id: ID!
+  mimetype: String!
+  path: String!
+  type: String!
+}
+
+type MediaDtoAggregateGroupBy {
+  filename: String
+  id: ID
+}
+
+type MediaDtoConnection {
+  """Array of edges."""
+  edges: [MediaDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type MediaDtoCountAggregate {
+  filename: Int
+  id: Int
+}
+
+input MediaDtoDeleteFilter {
+  and: [MediaDtoDeleteFilter!]
+  filename: StringFieldComparison
+  id: IDFilterComparison
+  or: [MediaDtoDeleteFilter!]
+}
+
+type MediaDtoDeleteResponse {
+  filename: String
+  id: ID
+  mimetype: String
+  path: String
+  type: String
+}
+
+type MediaDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the MediaDto"""
+  node: MediaDto!
+}
+
+input MediaDtoFilter {
+  and: [MediaDtoFilter!]
+  filename: StringFieldComparison
+  id: IDFilterComparison
+  or: [MediaDtoFilter!]
+}
+
+type MediaDtoMaxAggregate {
+  filename: String
+  id: ID
+}
+
+type MediaDtoMinAggregate {
+  filename: String
+  id: ID
+}
+
+input MediaDtoSort {
+  direction: SortDirection!
+  field: MediaDtoSortFields!
+  nulls: SortNulls
+}
+
+enum MediaDtoSortFields {
+  filename
+  id
+}
+
+input MediaDtoUpdateFilter {
+  and: [MediaDtoUpdateFilter!]
+  filename: StringFieldComparison
+  id: IDFilterComparison
+  or: [MediaDtoUpdateFilter!]
+}
+
+input MediaInput {
+  filename: String!
+  mimetype: String!
+  path: String!
+}
+
+type Mutation {
+  addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
+  addImageListsToShowcase(input: AddImageListsToShowcaseInput!): Showcase!
+  addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
+  createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
+  createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
+  createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
+  createOneImageList(input: CreateOneImageListInput!): ImageList!
+  createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
+  createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
+  createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
+  deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
+  deleteManyShowcaseHighlightFeatures(input: DeleteManyShowcaseHighlightFeaturesInput!): DeleteManyResponse!
+  deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
+  deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
+  deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
+  deleteOneShowcase(slug: String!): Showcase!
+  deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
+  removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
+  removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
+  removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  removeImageListsFromShowcase(input: RemoveImageListsFromShowcaseInput!): Showcase!
+  removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
+  setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
+  setImageListsOnShowcase(input: SetImageListsOnShowcaseInput!): Showcase!
+  setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
+  setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
+  updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
+  updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
+  updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
+  updateOneImageList(input: UpdateOneImageListInput!): ImageList!
+  updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
+  updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+}
+
+type PageInfo {
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+input PublishStatusFilterComparison {
+  eq: PublishStatus
+  gt: PublishStatus
+  gte: PublishStatus
+  iLike: PublishStatus
+  in: [PublishStatus!]
+  is: Boolean
+  isNot: Boolean
+  like: PublishStatus
+  lt: PublishStatus
+  lte: PublishStatus
+  neq: PublishStatus
+  notILike: PublishStatus
+  notIn: [PublishStatus!]
+  notLike: PublishStatus
+}
+
+type Query {
+  imageList(
+    """The id of the record to find."""
+    id: ID!
+  ): ImageList
+  imageLists(
+    """Specify to filter the records returned."""
+    filter: ImageListFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ImageListSort!] = []
+  ): ImageListConnection!
+  mediaDto(
+    """The id of the record to find."""
+    id: ID!
+  ): MediaDto
+  mediaDtos(
+    """Specify to filter the records returned."""
+    filter: MediaDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [MediaDtoSort!] = []
+  ): MediaDtoConnection!
+  showcase(slug: String!): Showcase!
+  showcaseHighlightFeature(
+    """The id of the record to find."""
+    id: ID!
+  ): ShowcaseHighlightFeature
+  showcaseHighlightFeatures(
+    """Specify to filter the records returned."""
+    filter: ShowcaseHighlightFeatureFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseHighlightFeatureSort!] = []
+  ): ShowcaseHighlightFeatureConnection!
+  showcases(
+    """Specify to filter the records returned."""
+    filter: ShowcaseFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseSort!] = []
+  ): ShowcaseConnection!
+  slugs: [String!]!
+}
+
+input RemoveHighlightFeaturesFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveImageFromShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveImageFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveImageListsFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveImagesFromImageListInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetHighlightFeaturesOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetImageListsOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetImageOnShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetImageOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetImagesOnImageListInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+type Showcase {
+  author: String!
+  brand: ShowcaseBrand!
+  createdAt: DateTime!
+  description: String!
+  expectedQuantity: Float!
+  expectedSaleAt: DateTime
+  expectedSalePrice: ShowcasePrice
+  highlightFeatures(
+    """Specify to filter the records returned."""
+    filter: ShowcaseHighlightFeatureFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseHighlightFeatureSort!] = []
+  ): [ShowcaseHighlightFeature!]!
+  id: ID!
+  image: MediaDto!
+  imageLists(
+    """Specify to filter the records returned."""
+    filter: ImageListFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ImageListSort!] = []
+  ): [ImageList!]!
+  name: String!
+  publishStatus: PublishStatus!
+  slug: String!
+  status: ShowcaseStatus!
+  updatedAt: DateTime!
+}
+
+type ShowcaseAggregateGroupBy {
+  expectedSaleAt: DateTime
+  name: String
+  publishStatus: PublishStatus
+  slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
+}
+
+type ShowcaseBrand {
+  description: String!
+  name: String!
+}
+
+input ShowcaseBrandInput {
+  description: String!
+  name: String!
+}
+
+type ShowcaseConnection {
+  """Array of edges."""
+  edges: [ShowcaseEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type ShowcaseCountAggregate {
+  expectedSaleAt: Int
+  name: Int
+  publishStatus: Int
+  slug: Int
+  status: Int
+  updatedAt: Int
+}
+
+input ShowcaseCreateInputDto {
+  author: String!
+  brand: ShowcaseBrandInput!
+  description: String!
+  expectedQuantity: Float!
+  expectedSaleAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
+  highlightFeatures: [ShowcaseHFCreateInputDto!]
+  id: String
+  image: MediaInput!
+  imageLists: [CreateImageListInputDto!]
+  name: String!
+  status: ShowcaseStatus!
+}
+
+input ShowcaseDeleteFilter {
+  and: [ShowcaseDeleteFilter!]
+  expectedSaleAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [ShowcaseDeleteFilter!]
+  publishStatus: PublishStatusFilterComparison
+  slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
+}
+
+type ShowcaseEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the Showcase"""
+  node: Showcase!
+}
+
+input ShowcaseFilter {
+  and: [ShowcaseFilter!]
+  expectedSaleAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [ShowcaseFilter!]
+  publishStatus: PublishStatusFilterComparison
+  slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
+}
+
+input ShowcaseHFCreateInputDto {
+  description: String!
+  id: String
+  image: MediaInput!
+  name: String!
+}
+
+type ShowcaseHighlightFeature {
+  description: String!
+  id: ID!
+  image: MediaDto!
+  name: String!
+}
+
+type ShowcaseHighlightFeatureAggregateGroupBy {
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureConnection {
+  """Array of edges."""
+  edges: [ShowcaseHighlightFeatureEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type ShowcaseHighlightFeatureCountAggregate {
+  id: Int
+  name: Int
+}
+
+input ShowcaseHighlightFeatureDeleteFilter {
+  and: [ShowcaseHighlightFeatureDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [ShowcaseHighlightFeatureDeleteFilter!]
+}
+
+type ShowcaseHighlightFeatureDeleteResponse {
+  description: String
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ShowcaseHighlightFeature"""
+  node: ShowcaseHighlightFeature!
+}
+
+input ShowcaseHighlightFeatureFilter {
+  and: [ShowcaseHighlightFeatureFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [ShowcaseHighlightFeatureFilter!]
+}
+
+type ShowcaseHighlightFeatureMaxAggregate {
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureMinAggregate {
+  id: ID
+  name: String
+}
+
+input ShowcaseHighlightFeatureSort {
+  direction: SortDirection!
+  field: ShowcaseHighlightFeatureSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseHighlightFeatureSortFields {
+  id
+  name
+}
+
+input ShowcaseHighlightFeatureUpdateFilter {
+  and: [ShowcaseHighlightFeatureUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [ShowcaseHighlightFeatureUpdateFilter!]
+}
+
+type ShowcaseMaxAggregate {
+  expectedSaleAt: DateTime
+  name: String
+  publishStatus: PublishStatus
+  slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
+}
+
+type ShowcaseMinAggregate {
+  expectedSaleAt: DateTime
+  name: String
+  publishStatus: PublishStatus
+  slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
+}
+
+type ShowcasePrice {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
+}
+
+input ShowcasePriceInput {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
+}
+
+input ShowcaseSort {
+  direction: SortDirection!
+  field: ShowcaseSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseSortFields {
+  expectedSaleAt
+  name
+  publishStatus
+  slug
+  status
+  updatedAt
+}
+
+enum ShowcaseStatus {
+  COMING
+  IDEA
+  SHOWCASE
+}
+
+input ShowcaseStatusFilterComparison {
+  eq: ShowcaseStatus
+  gt: ShowcaseStatus
+  gte: ShowcaseStatus
+  iLike: ShowcaseStatus
+  in: [ShowcaseStatus!]
+  is: Boolean
+  isNot: Boolean
+  like: ShowcaseStatus
+  lt: ShowcaseStatus
+  lte: ShowcaseStatus
+  neq: ShowcaseStatus
+  notILike: ShowcaseStatus
+  notIn: [ShowcaseStatus!]
+  notLike: ShowcaseStatus
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+input UpdateImageList {
+  id: ID
+}
+
+input UpdateManyImageListsInput {
+  """Filter used to find fields to update"""
+  filter: ImageListUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateImageList!
+}
+
+input UpdateManyMediaDtosInput {
+  """Filter used to find fields to update"""
+  filter: MediaDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateMediaDto!
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateManyShowcaseHighlightFeaturesInput {
+  """Filter used to find fields to update"""
+  filter: ShowcaseHighlightFeatureUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateShowcaseHighlightFeature!
+}
+
+input UpdateMediaDto {
+  filename: String
+  id: ID
+  mimetype: String
+  path: String
+  type: String
+}
+
+input UpdateOneImageListInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateImageList!
+}
+
+input UpdateOneMediaDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateMediaDto!
+}
+
+input UpdateOneShowcaseHighlightFeatureInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateShowcaseHighlightFeature!
+}
+
+input UpdateShowcaseHighlightFeature {
+  description: String
+  id: ID
+  name: String
+}
