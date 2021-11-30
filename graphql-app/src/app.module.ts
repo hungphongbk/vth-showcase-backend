@@ -23,6 +23,8 @@ import { DataModulesModule } from './data-modules/data-modules.module';
       debug: process.env.NODE_ENV === 'development',
       playground: true,
       introspection: true,
+      // typeDefs: [JSONObjectDefinition],
+      // resolvers: { JSONObjectResolver },
     }),
     DataModulesModule,
     AuthModule,
