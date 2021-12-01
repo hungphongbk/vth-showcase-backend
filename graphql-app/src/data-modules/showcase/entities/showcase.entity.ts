@@ -4,6 +4,8 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -17,6 +19,7 @@ import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import * as crypto from 'crypto';
+import { AuthModel } from '../../../auth/auth.model';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -27,17 +30,15 @@ export class ShowcaseEntity {
   name: string;
 
   /**
-   * Represent firebase user UID
+   * Represent firebase user object
    */
-  @Column({ nullable: false })
-  authorId: string;
+  @ManyToOne(() => AuthModel, (obj) => obj.showcasePosts)
+  @JoinColumn({ name: 'authorUid' })
+  author: AuthModel;
 
   @Column()
   @Index({ unique: true })
   slug: string;
-
-  @Column()
-  author: string;
 
   @Column({ type: 'jsonb' })
   brand: IShowcaseBrand;

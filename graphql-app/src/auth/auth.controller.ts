@@ -11,6 +11,7 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@tfarras/nestjs-firebase-admin';
+import fetch from 'node-fetch';
 
 @Controller('auth')
 export class AuthController {
@@ -26,7 +27,24 @@ export class AuthController {
     if (!uid) {
       res.status(HttpStatus.NOT_FOUND).send();
     } else {
-      const token = await this.firebaseAdmin.auth().createCustomToken(uid);
+      // get custom token from firebase
+      const customToken = await this.firebaseAdmin
+        .auth()
+        .createCustomToken(uid);
+      // verify custom token and turns it into ID token
+      const { idToken: token } = (await (
+        await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${process.env.GCLOUD_API_KEY}`,
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              token: customToken,
+              returnSecureToken: true,
+            }),
+            headers: { 'Content-Type': 'application/json' },
+          },
+        )
+      ).json()) as any;
       res.status(HttpStatus.OK);
       return { token };
     }

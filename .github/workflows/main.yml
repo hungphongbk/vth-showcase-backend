@@ -26,11 +26,6 @@ jobs:
 
       - name: Create env file & credential files
         run: |
-
-          touch .env
-          echo "${{ secrets.SERVER_ENV_STAGING }}" > .env
-          cat .env
-
           mkdir -p $FIREBASE_CRED_DIR
           touch $FIREBASE_CRED_PATH
           echo '${{ secrets.FIREBASE_CREDS }}' > $FIREBASE_CRED_PATH
@@ -99,7 +94,7 @@ jobs:
           script: |
             cd /home/vth-showcase
             touch .env.staging
-            echo "${{ secrets.SERVER_ENV_STAGING }}" > .env.staging
+            echo "${{ secrets.SERVER_ENV }}" > .env.staging
             docker-compose -f docker-compose.prod.yml pull
             cd .scripts
             chmod +x reload.sh

@@ -7,7 +7,7 @@ import { random, range } from 'lodash';
 define(ShowcaseEntity, (faker: typeof Faker) => {
   const showcase = new ShowcaseEntity();
   showcase.name = faker.company.catchPhrase();
-  showcase.author = `${faker.name.firstName()} ${faker.name.lastName()}`;
+  // showcase.author = `${faker.name.firstName()} ${faker.name.lastName()}`;
 
   showcase.brand = {
     name: faker.company.companyName(),

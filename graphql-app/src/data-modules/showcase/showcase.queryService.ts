@@ -11,6 +11,7 @@ import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
+import { AuthModel } from '../../auth/auth.model';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -24,15 +25,25 @@ export class ShowcaseQueryService extends RelationQueryService<
 > {
   constructor(
     @InjectQueryService(ShowcaseEntity)
-    readonly service: QueryService<ShowcaseDto>,
+    private readonly service: QueryService<ShowcaseDto>,
+    @InjectQueryService(AuthModel)
+    private readonly authQueryService: QueryService<AuthModel>,
     @InjectQueryService(MediaEntity)
-    readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
+    private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ShowcaseHFEntity)
-    readonly hfQueryService: QueryService<ShowcaseHFEntity>,
+    private readonly hfQueryService: QueryService<ShowcaseHFEntity>,
     @InjectQueryService(ImageListEntity)
-    readonly imgListService: QueryService<ImageListEntity>,
+    private readonly imgListService: QueryService<ImageListEntity>,
   ) {
     super(service, {
+      author: {
+        service: authQueryService,
+        query: (showcase) => ({
+          filter: {
+            id: { eq: showcase.authorUid },
+          },
+        }),
+      },
       image: {
         service: mediaQueryService,
         query,

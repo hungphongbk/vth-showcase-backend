@@ -353,11 +353,13 @@ type Mutation {
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Showcase!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
+  removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
   removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   removeImageListsFromShowcase(input: RemoveImageListsFromShowcaseInput!): Showcase!
   removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
+  setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
   setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageListsOnShowcase(input: SetImageListsOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
@@ -467,6 +469,14 @@ type Query {
   slugs: [String!]!
 }
 
+input RemoveAuthorFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input RemoveHighlightFeaturesFromShowcaseInput {
   """The id of the record."""
   id: String!
@@ -505,6 +515,14 @@ input RemoveImagesFromImageListInput {
 
   """The ids of the relations."""
   relationIds: [ID!]!
+}
+
+input SetAuthorOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
 }
 
 input SetHighlightFeaturesOnShowcaseInput {
@@ -567,7 +585,7 @@ type SettingDtoEdge {
 }
 
 type Showcase {
-  author: String!
+  author: User!
   brand: ShowcaseBrand!
   createdAt: DateTime!
   description: String!
@@ -634,7 +652,6 @@ type ShowcaseCountAggregate {
 }
 
 input ShowcaseCreateInputDto {
-  author: String!
   brand: ShowcaseBrandInput!
   description: String!
   expectedQuantity: Float!
@@ -934,4 +951,11 @@ input UpdateShowcaseHighlightFeature {
   description: String
   id: ID
   name: String
+}
+
+type User {
+  email: String!
+  name: String!
+  showcasePosts: [Showcase!]!
+  uid: ID!
 }

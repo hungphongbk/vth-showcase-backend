@@ -63,7 +63,7 @@ services:
       - "3000"
     restart: unless-stopped
     env_file:
-      - .env
+      - .env.production
     environment:
       PORT: 3000
     volumes:

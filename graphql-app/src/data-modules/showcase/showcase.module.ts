@@ -8,11 +8,13 @@ import { MediaModule } from '../media/media.module';
 import { HighlightFeatureModule } from '../highlight-feature/highlight-feature.module';
 import { ImageListModule } from '../image-list/image-list.module';
 import { ShowcaseDto } from './dtos/showcase.dtos';
+import { AuthModule } from '../../auth/auth.module';
 
 const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]);
 
 @Module({
   imports: [
+    AuthModule,
     NestjsQueryGraphQLModule.forFeature({
       imports: [showcaseOrmModule],
       resolvers: [

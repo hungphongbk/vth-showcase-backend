@@ -17,6 +17,7 @@ import { ShowcaseBrandDto } from './showcaseBrand.dto';
 import { ImageListDto } from '../../image-list/dto/image-list.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
+import { AuthModel } from '../../../auth/auth.model';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -39,6 +40,7 @@ registerEnumType(PublishStatus, {
 
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
+@Relation('author', () => AuthModel)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
 @UnPagedRelation('imageLists', () => ImageListDto)
 export class ShowcaseDto {
@@ -52,14 +54,14 @@ export class ShowcaseDto {
   @IDField(() => String, { name: 'slug' })
   slug!: string;
 
-  @Field({ nullable: false })
-  author!: string;
+  authorUid: string;
 
   @Field(() => ShowcaseBrandDto, { nullable: false })
   brand!: IShowcaseBrand;
 
   @Field(() => GraphQLISODateTime)
   createdAt!: Date;
+
   @Field()
   description!: string;
 
