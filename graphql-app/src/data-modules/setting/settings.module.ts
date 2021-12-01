@@ -2,14 +2,16 @@ import { Module } from '@nestjs/common';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { SettingEntity } from './setting.entity';
-import { SettingDto } from './dtos/setting.dto';
+import { SettingResolver } from './setting.resolver';
+
+const ormModule = NestjsQueryTypeOrmModule.forFeature([SettingEntity]);
 
 @Module({
   imports: [
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([SettingEntity])],
-      resolvers: [{ DTOClass: SettingDto, EntityClass: SettingEntity }],
+      imports: [ormModule],
     }),
   ],
+  providers: [SettingResolver],
 })
 export class SettingsModule {}

@@ -10,9 +10,11 @@ import firebaseConfig from './config/firebase.config';
 import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
 import { AuthModule } from './auth/auth.module';
 import { DataModulesModule } from './data-modules/data-modules.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     FirebaseAdminModule.forRootAsync({
       useFactory: firebaseConfig,
     }),
