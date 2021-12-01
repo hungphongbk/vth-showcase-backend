@@ -437,7 +437,7 @@ type Query {
     """Specify to sort results."""
     sorting: [MediaDtoSort!] = []
   ): MediaDtoConnection!
-  setting(key: String!): SettingDto!
+  setting(key: String!): SettingDto
   settings(keys: [String!]!): [SettingDto!]!
   showcase(slug: String!): Showcase!
   showcaseHighlightFeature(

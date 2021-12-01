@@ -23,9 +23,11 @@ export class SettingResolver {
     private readonly service: QueryService<SettingDto>,
   ) {}
 
-  @Query(() => SettingDto)
+  @Query(() => SettingDto, { nullable: true })
   async setting(@Args('key') key: string): Promise<SettingDto | undefined> {
-    return (await this.service.query({ filter: { key: { eq: key } } }))[0];
+    return (
+      (await this.service.query({ filter: { key: { eq: key } } }))[0] ?? null
+    );
   }
 
   @Query(() => [SettingDto])
