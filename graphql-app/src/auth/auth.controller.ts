@@ -20,7 +20,7 @@ export class AuthController {
   ) {}
   @Post('login')
   async login(
-    @Headers('X_TEST_UID') uid: string | null,
+    @Headers('X-Test-Uid') uid: string | null,
     @Res({ passthrough: true }) res: Response,
   ) {
     if (!uid) {
