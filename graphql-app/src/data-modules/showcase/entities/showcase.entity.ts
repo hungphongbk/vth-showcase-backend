@@ -19,7 +19,7 @@ import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import * as crypto from 'crypto';
-import { AuthModel } from '../../../auth/auth.model';
+import { AuthEntity } from '../../../auth/auth.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -32,9 +32,9 @@ export class ShowcaseEntity {
   /**
    * Represent firebase user object
    */
-  @ManyToOne(() => AuthModel, (obj) => obj.showcasePosts)
+  @ManyToOne(() => AuthEntity, (obj) => obj.showcasePosts)
   @JoinColumn({ name: 'authorUid' })
-  author: AuthModel;
+  author: AuthEntity;
 
   @Column()
   @Index({ unique: true })

@@ -3,16 +3,23 @@ import { PassportModule } from '@nestjs/passport';
 import { FirebaseStrategy } from './firebase.strategy';
 import { AuthController } from './auth.controller';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { AuthModel } from './auth.model';
+import { AuthEntity } from './auth.entity';
+import { AuthSubscriber } from './auth.subscriber';
+import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
+import { AuthDto } from './dtos/auth.dto';
 
-const ormModule = NestjsQueryTypeOrmModule.forFeature([AuthModel]);
+const ormModule = NestjsQueryTypeOrmModule.forFeature([AuthEntity]);
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'firebase' }),
     ormModule,
+    NestjsQueryGraphQLModule.forFeature({
+      imports: [ormModule],
+      resolvers: [{ DTOClass: AuthDto, EntityClass: AuthEntity }],
+    }),
   ],
-  providers: [FirebaseStrategy],
+  providers: [FirebaseStrategy, AuthSubscriber],
   exports: [FirebaseStrategy, ormModule],
   controllers: [AuthController],
 })

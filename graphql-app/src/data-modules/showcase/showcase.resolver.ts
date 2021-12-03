@@ -12,7 +12,7 @@ import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorator
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../auth/gql.auth.guard';
 import { GqlCurrentUser } from '../../auth/decorators/current-user.decorator';
-import { AuthModel } from '../../auth/auth.model';
+import { AuthDto } from '../../auth/dtos/auth.dto';
 
 @ArgsType()
 class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
@@ -47,7 +47,7 @@ export class ShowcaseResolver {
   @ResolverMutation(() => ShowcaseDto)
   async createOneShowcase(
     @MutationHookArgs() input: CreateOneShowcase,
-    @GqlCurrentUser() user: AuthModel,
+    @GqlCurrentUser() user: AuthDto,
   ) {
     let showcase = await this.service.createOne(input.input);
     showcase = await this.service.setRelation('author', showcase.id, user.uid);

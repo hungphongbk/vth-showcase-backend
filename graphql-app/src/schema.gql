@@ -26,6 +26,30 @@ input AddImagesToImageListInput {
   relationIds: [ID!]!
 }
 
+enum AuthRoleType {
+  ADMIN
+  INVESTOR
+  SUPERADMIN
+  USER
+}
+
+input AuthRoleTypeFilterComparison {
+  eq: AuthRoleType
+  gt: AuthRoleType
+  gte: AuthRoleType
+  iLike: AuthRoleType
+  in: [AuthRoleType!]
+  is: Boolean
+  isNot: Boolean
+  like: AuthRoleType
+  lt: AuthRoleType
+  lte: AuthRoleType
+  neq: AuthRoleType
+  notILike: AuthRoleType
+  notIn: [AuthRoleType!]
+  notLike: AuthRoleType
+}
+
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
@@ -48,6 +72,11 @@ input CreateManyShowcaseHighlightFeaturesInput {
   showcaseHighlightFeatures: [ShowcaseHFCreateInputDto!]!
 }
 
+input CreateManyUsersInput {
+  """Array of records to create"""
+  users: [CreateUser!]!
+}
+
 input CreateOneImageListInput {
   """The record to create"""
   imageList: CreateImageListInputDto!
@@ -61,6 +90,18 @@ input CreateOneMediaDtoInput {
 input CreateOneShowcaseHighlightFeatureInput {
   """The record to create"""
   showcaseHighlightFeature: ShowcaseHFCreateInputDto!
+}
+
+input CreateOneUserInput {
+  """The record to create"""
+  user: CreateUser!
+}
+
+input CreateUser {
+  email: String
+  name: String
+  role: AuthRoleType
+  uid: ID
 }
 
 input CursorPaging {
@@ -127,6 +168,11 @@ input DeleteManyShowcasesInput {
   filter: ShowcaseDeleteFilter!
 }
 
+input DeleteManyUsersInput {
+  """Filter to find records to delete"""
+  filter: UserDeleteFilter!
+}
+
 input DeleteOneImageListInput {
   """The id of the record to delete."""
   id: ID!
@@ -138,6 +184,11 @@ input DeleteOneMediaDtoInput {
 }
 
 input DeleteOneShowcaseHighlightFeatureInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneUserInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -340,19 +391,23 @@ type Mutation {
   createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
   createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
+  createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneImageList(input: CreateOneImageListInput!): ImageList!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  createOneUser(input: CreateOneUserInput!): User!
   deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
   deleteManyShowcaseHighlightFeatures(input: DeleteManyShowcaseHighlightFeaturesInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
+  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Showcase!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
+  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
   removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
   removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
@@ -368,10 +423,12 @@ type Mutation {
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
   updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
+  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  updateOneUser(input: UpdateOneUserInput!): User!
 }
 
 type PageInfo {
@@ -467,6 +524,20 @@ type Query {
     sorting: [ShowcaseSort!] = []
   ): ShowcaseConnection!
   slugs: [String!]!
+  user(
+    """The id of the record to find."""
+    id: ID!
+  ): User
+  users(
+    """Specify to filter the records returned."""
+    filter: UserFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [UserSort!] = []
+  ): UserConnection!
 }
 
 input RemoveAuthorFromShowcaseInput {
@@ -915,6 +986,14 @@ input UpdateManyShowcaseHighlightFeaturesInput {
   update: UpdateShowcaseHighlightFeature!
 }
 
+input UpdateManyUsersInput {
+  """Filter used to find fields to update"""
+  filter: UserUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateUser!
+}
+
 input UpdateMediaDto {
   filename: String
   id: ID
@@ -947,15 +1026,113 @@ input UpdateOneShowcaseHighlightFeatureInput {
   update: UpdateShowcaseHighlightFeature!
 }
 
+input UpdateOneUserInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateUser!
+}
+
 input UpdateShowcaseHighlightFeature {
   description: String
   id: ID
   name: String
 }
 
+input UpdateUser {
+  email: String
+  name: String
+  role: AuthRoleType
+  uid: ID
+}
+
 type User {
   email: String!
   name: String!
-  showcasePosts: [Showcase!]!
+  role: AuthRoleType!
   uid: ID!
+}
+
+type UserAggregateGroupBy {
+  email: String
+  role: AuthRoleType
+  uid: ID
+}
+
+type UserConnection {
+  """Array of edges."""
+  edges: [UserEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type UserCountAggregate {
+  email: Int
+  role: Int
+  uid: Int
+}
+
+input UserDeleteFilter {
+  and: [UserDeleteFilter!]
+  email: StringFieldComparison
+  or: [UserDeleteFilter!]
+  role: AuthRoleTypeFilterComparison
+  uid: IDFilterComparison
+}
+
+type UserDeleteResponse {
+  email: String
+  name: String
+  role: AuthRoleType
+  uid: ID
+}
+
+type UserEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the User"""
+  node: User!
+}
+
+input UserFilter {
+  and: [UserFilter!]
+  email: StringFieldComparison
+  or: [UserFilter!]
+  role: AuthRoleTypeFilterComparison
+  uid: IDFilterComparison
+}
+
+type UserMaxAggregate {
+  email: String
+  role: AuthRoleType
+  uid: ID
+}
+
+type UserMinAggregate {
+  email: String
+  role: AuthRoleType
+  uid: ID
+}
+
+input UserSort {
+  direction: SortDirection!
+  field: UserSortFields!
+  nulls: SortNulls
+}
+
+enum UserSortFields {
+  email
+  role
+  uid
+}
+
+input UserUpdateFilter {
+  and: [UserUpdateFilter!]
+  email: StringFieldComparison
+  or: [UserUpdateFilter!]
+  role: AuthRoleTypeFilterComparison
+  uid: IDFilterComparison
 }

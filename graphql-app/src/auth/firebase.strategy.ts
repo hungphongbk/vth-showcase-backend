@@ -6,7 +6,8 @@ import {
   FirebaseUser,
 } from '@tfarras/nestjs-firebase-auth';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
-import { AuthModel } from './auth.model';
+import { AuthEntity } from './auth.entity';
+import { AuthDto } from './dtos/auth.dto';
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(
@@ -14,15 +15,15 @@ export class FirebaseStrategy extends PassportStrategy(
   'firebase',
 ) {
   public constructor(
-    @InjectQueryService(AuthModel)
-    private readonly userService: QueryService<AuthModel>,
+    @InjectQueryService(AuthEntity)
+    private readonly userService: QueryService<AuthDto>,
   ) {
     super({
       extractor: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
 
-  async validate(payload: FirebaseUser): Promise<AuthModel> {
+  async validate(payload: FirebaseUser): Promise<AuthDto> {
     // Do here whatever you want and return your user
     let userObj = await this.userService.findById(payload.uid);
     if (!userObj) {

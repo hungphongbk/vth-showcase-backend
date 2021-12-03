@@ -11,7 +11,7 @@ import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
-import { AuthModel } from '../../auth/auth.model';
+import { AuthEntity } from '../../auth/auth.entity';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -26,8 +26,8 @@ export class ShowcaseQueryService extends RelationQueryService<
   constructor(
     @InjectQueryService(ShowcaseEntity)
     private readonly service: QueryService<ShowcaseDto>,
-    @InjectQueryService(AuthModel)
-    private readonly authQueryService: QueryService<AuthModel>,
+    @InjectQueryService(AuthEntity)
+    private readonly authQueryService: QueryService<AuthEntity>,
     @InjectQueryService(MediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ShowcaseHFEntity)
