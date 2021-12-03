@@ -54,10 +54,11 @@ export class ShowcaseResolver {
     return showcase;
   }
 
-  @Mutation(() => ShowcaseDto)
-  deleteOneShowcase(@Args('slug') slug: string) {
-    return this.service.deleteMany({
+  @Mutation(() => Boolean)
+  async deleteOneShowcase(@Args('slug') slug: string) {
+    await this.service.deleteMany({
       slug: { eq: slug },
     });
+    return true;
   }
 }

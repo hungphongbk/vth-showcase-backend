@@ -733,6 +733,7 @@ input ShowcaseCreateInputDto {
   image: MediaInput!
   imageLists: [CreateImageListInputDto!]
   name: String!
+  publishStatus: PublishStatus
   status: ShowcaseStatus!
 }
 
