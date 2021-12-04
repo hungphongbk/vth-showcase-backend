@@ -4,6 +4,7 @@ import { MediaModule } from './media/media.module';
 import { HighlightFeatureModule } from './highlight-feature/highlight-feature.module';
 import { ImageListModule } from './image-list/image-list.module';
 import { SettingsModule } from './setting/settings.module';
+import { InvestmentModule } from './investment/investment.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { SettingsModule } from './setting/settings.module';
     HighlightFeatureModule,
     ImageListModule,
     SettingsModule,
+    InvestmentModule,
   ],
 })
 export class DataModulesModule {}

@@ -18,6 +18,7 @@ import { ImageListDto } from '../../image-list/dto/image-list.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { AuthDto } from '../../../auth/dtos/auth.dto';
+import { ShowcaseInventoryDto } from './showcaseInventory.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -85,4 +86,7 @@ export class ShowcaseDto {
 
   @Field(() => ShowcasePriceDto, { nullable: true })
   expectedSalePrice!: ShowcasePriceDto;
+
+  @Field(() => ShowcaseInventoryDto, { nullable: true })
+  inventory!: ShowcaseInventoryDto;
 }

@@ -57,9 +57,22 @@ input CreateImageListInputDto {
   images: [MediaInput!]
 }
 
+input CreateInvestmentPackageDto {
+  benefitRate: Float
+  count: Float
+  displayName: String
+  fundedRate: Float
+  id: ID
+}
+
 input CreateManyImageListsInput {
   """Array of records to create"""
   imageLists: [CreateImageListInputDto!]!
+}
+
+input CreateManyInvestmentPackageDtosInput {
+  """Array of records to create"""
+  investmentPackageDtos: [CreateInvestmentPackageDto!]!
 }
 
 input CreateManyMediaDtosInput {
@@ -80,6 +93,11 @@ input CreateManyUsersInput {
 input CreateOneImageListInput {
   """The record to create"""
   imageList: CreateImageListInputDto!
+}
+
+input CreateOneInvestmentPackageDtoInput {
+  """The record to create"""
+  investmentPackageDto: CreateInvestmentPackageDto!
 }
 
 input CreateOneMediaDtoInput {
@@ -148,6 +166,11 @@ input DeleteManyImageListsInput {
   filter: ImageListDeleteFilter!
 }
 
+input DeleteManyInvestmentPackageDtosInput {
+  """Filter to find records to delete"""
+  filter: InvestmentPackageDtoDeleteFilter!
+}
+
 input DeleteManyMediaDtosInput {
   """Filter to find records to delete"""
   filter: MediaDtoDeleteFilter!
@@ -174,6 +197,11 @@ input DeleteManyUsersInput {
 }
 
 input DeleteOneImageListInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneInvestmentPackageDtoInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -289,6 +317,98 @@ input ImageListUpdateFilter {
   or: [ImageListUpdateFilter!]
 }
 
+type InvestmentPackageDto {
+  benefitRate: Float!
+  count: Float!
+  displayName: String!
+  fundedRate: Float!
+  id: ID!
+}
+
+type InvestmentPackageDtoAggregateGroupBy {
+  displayName: String
+  id: ID
+}
+
+type InvestmentPackageDtoAvgAggregate {
+  id: Float
+}
+
+type InvestmentPackageDtoConnection {
+  """Array of edges."""
+  edges: [InvestmentPackageDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type InvestmentPackageDtoCountAggregate {
+  displayName: Int
+  id: Int
+}
+
+input InvestmentPackageDtoDeleteFilter {
+  and: [InvestmentPackageDtoDeleteFilter!]
+  displayName: StringFieldComparison
+  id: IDFilterComparison
+  or: [InvestmentPackageDtoDeleteFilter!]
+}
+
+type InvestmentPackageDtoDeleteResponse {
+  benefitRate: Float
+  count: Float
+  displayName: String
+  fundedRate: Float
+  id: ID
+}
+
+type InvestmentPackageDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the InvestmentPackageDto"""
+  node: InvestmentPackageDto!
+}
+
+input InvestmentPackageDtoFilter {
+  and: [InvestmentPackageDtoFilter!]
+  displayName: StringFieldComparison
+  id: IDFilterComparison
+  or: [InvestmentPackageDtoFilter!]
+}
+
+type InvestmentPackageDtoMaxAggregate {
+  displayName: String
+  id: ID
+}
+
+type InvestmentPackageDtoMinAggregate {
+  displayName: String
+  id: ID
+}
+
+input InvestmentPackageDtoSort {
+  direction: SortDirection!
+  field: InvestmentPackageDtoSortFields!
+  nulls: SortNulls
+}
+
+enum InvestmentPackageDtoSortFields {
+  displayName
+  id
+}
+
+type InvestmentPackageDtoSumAggregate {
+  id: Float
+}
+
+input InvestmentPackageDtoUpdateFilter {
+  and: [InvestmentPackageDtoUpdateFilter!]
+  displayName: StringFieldComparison
+  id: IDFilterComparison
+  or: [InvestmentPackageDtoUpdateFilter!]
+}
+
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -389,21 +509,25 @@ type Mutation {
   addImageListsToShowcase(input: AddImageListsToShowcaseInput!): Showcase!
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
   createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
+  createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
   createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
   createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneImageList(input: CreateOneImageListInput!): ImageList!
+  createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   createOneUser(input: CreateOneUserInput!): User!
   deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
+  deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
   deleteManyShowcaseHighlightFeatures(input: DeleteManyShowcaseHighlightFeaturesInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
+  deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Boolean!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
@@ -421,10 +545,12 @@ type Mutation {
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
+  updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
   updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
   updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
+  updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
@@ -482,6 +608,20 @@ type Query {
     """Specify to sort results."""
     sorting: [ImageListSort!] = []
   ): ImageListConnection!
+  investmentPackageDto(
+    """The id of the record to find."""
+    id: ID!
+  ): InvestmentPackageDto
+  investmentPackageDtos(
+    """Specify to filter the records returned."""
+    filter: InvestmentPackageDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [InvestmentPackageDtoSort!] = []
+  ): InvestmentPackageDtoConnection!
   mediaDto(
     """The id of the record to find."""
     id: ID!
@@ -679,6 +819,7 @@ type Showcase {
     """Specify to sort results."""
     sorting: [ImageListSort!] = []
   ): [ImageList!]!
+  inventory: ShowcaseInventoryDto
   name: String!
   publishStatus: PublishStatus!
   slug: String!
@@ -732,6 +873,7 @@ input ShowcaseCreateInputDto {
   id: String
   image: MediaInput!
   imageLists: [CreateImageListInputDto!]
+  inventory: ShowcaseInventoryDtoInput
   name: String!
   publishStatus: PublishStatus
   status: ShowcaseStatus!
@@ -855,6 +997,41 @@ input ShowcaseHighlightFeatureUpdateFilter {
   or: [ShowcaseHighlightFeatureUpdateFilter!]
 }
 
+"""Thông tin về chi phí vận hành showcase"""
+type ShowcaseInventoryDto {
+  """Tỉ lệ chi phí quảng cáo"""
+  adCostRate: Float!
+
+  """Tỉ lệ giá vốn/giá bán sản phẩm"""
+  capitalizationRate: Float!
+
+  """Tốc độ tăng trưởng kì vọng"""
+  expectedGrowthRate: Float!
+
+  """Tỉ lệ chi phí vận hành"""
+  operatingCostRate: Float!
+
+  """Vòng quay vốn an toàn tương ứng"""
+  revolvingInterval: Float!
+}
+
+input ShowcaseInventoryDtoInput {
+  """Tỉ lệ chi phí quảng cáo"""
+  adCostRate: Float!
+
+  """Tỉ lệ giá vốn/giá bán sản phẩm"""
+  capitalizationRate: Float!
+
+  """Tốc độ tăng trưởng kì vọng"""
+  expectedGrowthRate: Float!
+
+  """Tỉ lệ chi phí vận hành"""
+  operatingCostRate: Float!
+
+  """Vòng quay vốn an toàn tương ứng"""
+  revolvingInterval: Float!
+}
+
 type ShowcaseMaxAggregate {
   expectedSaleAt: DateTime
   name: String
@@ -958,12 +1135,28 @@ input UpdateImageList {
   id: ID
 }
 
+input UpdateInvestmentPackageDto {
+  benefitRate: Float
+  count: Float
+  displayName: String
+  fundedRate: Float
+  id: ID
+}
+
 input UpdateManyImageListsInput {
   """Filter used to find fields to update"""
   filter: ImageListUpdateFilter!
 
   """The update to apply to all records found using the filter"""
   update: UpdateImageList!
+}
+
+input UpdateManyInvestmentPackageDtosInput {
+  """Filter used to find fields to update"""
+  filter: InvestmentPackageDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateInvestmentPackageDto!
 }
 
 input UpdateManyMediaDtosInput {
@@ -1009,6 +1202,14 @@ input UpdateOneImageListInput {
 
   """The update to apply."""
   update: UpdateImageList!
+}
+
+input UpdateOneInvestmentPackageDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateInvestmentPackageDto!
 }
 
 input UpdateOneMediaDtoInput {

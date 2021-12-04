@@ -5,6 +5,8 @@ import {
   Entity,
   Index,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -20,6 +22,8 @@ import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.en
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import * as crypto from 'crypto';
 import { AuthEntity } from '../../../auth/auth.entity';
+import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
+import { InvestmentPackageEntity } from '../../investment/investment.package.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -98,6 +102,13 @@ export class ShowcaseEntity {
     cascade: true,
   })
   imageLists!: ImageListEntity[];
+
+  @Column({ type: 'jsonb', nullable: true })
+  inventory: IShowcaseInventory;
+
+  @ManyToMany(() => InvestmentPackageEntity)
+  @JoinTable()
+  availableInvestmentPackages: InvestmentPackageEntity[];
 
   @BeforeInsert()
   async generateSlug() {
