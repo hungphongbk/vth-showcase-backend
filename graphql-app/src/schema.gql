@@ -802,6 +802,7 @@ type Showcase {
   description: String!
   expectedQuantity: Float!
   expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
   expectedSalePrice: ShowcasePrice
   highlightFeatures(
     """Specify to filter the records returned."""
@@ -829,6 +830,7 @@ type Showcase {
 
 type ShowcaseAggregateGroupBy {
   expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
   name: String
   publishStatus: PublishStatus
   slug: String
@@ -856,6 +858,7 @@ type ShowcaseConnection {
 
 type ShowcaseCountAggregate {
   expectedSaleAt: Int
+  expectedSaleEndAt: Int
   name: Int
   publishStatus: Int
   slug: Int
@@ -868,6 +871,7 @@ input ShowcaseCreateInputDto {
   description: String!
   expectedQuantity: Float!
   expectedSaleAt: DateTime = null
+  expectedSaleEndAt: DateTime = null
   expectedSalePrice: ShowcasePriceInput
   highlightFeatures: [ShowcaseHFCreateInputDto!]
   id: String
@@ -882,6 +886,7 @@ input ShowcaseCreateInputDto {
 input ShowcaseDeleteFilter {
   and: [ShowcaseDeleteFilter!]
   expectedSaleAt: DateFieldComparison
+  expectedSaleEndAt: DateFieldComparison
   name: StringFieldComparison
   or: [ShowcaseDeleteFilter!]
   publishStatus: PublishStatusFilterComparison
@@ -901,6 +906,7 @@ type ShowcaseEdge {
 input ShowcaseFilter {
   and: [ShowcaseFilter!]
   expectedSaleAt: DateFieldComparison
+  expectedSaleEndAt: DateFieldComparison
   name: StringFieldComparison
   or: [ShowcaseFilter!]
   publishStatus: PublishStatusFilterComparison
@@ -1034,6 +1040,7 @@ input ShowcaseInventoryDtoInput {
 
 type ShowcaseMaxAggregate {
   expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
   name: String
   publishStatus: PublishStatus
   slug: String
@@ -1043,6 +1050,7 @@ type ShowcaseMaxAggregate {
 
 type ShowcaseMinAggregate {
   expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
   name: String
   publishStatus: PublishStatus
   slug: String
@@ -1072,6 +1080,7 @@ input ShowcaseSort {
 
 enum ShowcaseSortFields {
   expectedSaleAt
+  expectedSaleEndAt
   name
   publishStatus
   slug

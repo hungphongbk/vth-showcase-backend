@@ -81,6 +81,12 @@ export class ShowcaseDto {
   })
   expectedSaleAt!: Date | null;
 
+  @FilterableField(() => GraphQLISODateTime, {
+    nullable: true,
+    defaultValue: null,
+  })
+  expectedSaleEndAt!: Date | null;
+
   @Field()
   expectedQuantity!: number;
 

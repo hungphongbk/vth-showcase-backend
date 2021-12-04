@@ -75,6 +75,9 @@ export class ShowcaseEntity {
   @Column({ type: 'date', nullable: true })
   expectedSaleAt!: Date | null;
 
+  @Column({ type: 'date', nullable: true })
+  expectedSaleEndAt!: Date | null;
+
   @Column({ type: 'integer' })
   expectedQuantity!: number;
 
