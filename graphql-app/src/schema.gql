@@ -405,7 +405,7 @@ type Mutation {
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
-  deleteOneShowcase(slug: String!): Showcase!
+  deleteOneShowcase(slug: String!): Boolean!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
   deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
   removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!

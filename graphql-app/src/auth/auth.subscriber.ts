@@ -6,12 +6,13 @@ import {
   InsertEvent,
   UpdateEvent,
 } from 'typeorm';
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@tfarras/nestjs-firebase-admin';
 
+@Injectable()
 @EventSubscriber()
 export class AuthSubscriber implements EntitySubscriberInterface<AuthEntity> {
   constructor(
@@ -26,15 +27,23 @@ export class AuthSubscriber implements EntitySubscriberInterface<AuthEntity> {
   }
 
   async setRoleAfterInsertAndUpdate(entity: AuthEntity) {
-    await this.firebaseAdmin
-      .auth()
-      .setCustomUserClaims(entity.uid, { [entity.role]: true });
+    try {
+      Logger.log(`Grant role ${entity.role} for user ${entity.uid}...`);
+      await this.firebaseAdmin
+        .auth()
+        .setCustomUserClaims(entity.uid, { [entity.role]: true });
+      Logger.log(`Successfully`);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   afterInsert(event: InsertEvent<AuthEntity>): Promise<any> | void {
     return this.setRoleAfterInsertAndUpdate(event.entity);
   }
   afterUpdate(event: UpdateEvent<AuthEntity>): Promise<any> | void {
-    return this.setRoleAfterInsertAndUpdate(event.databaseEntity);
+    return this.setRoleAfterInsertAndUpdate(
+      event.entity as unknown as AuthEntity,
+    );
   }
 }
