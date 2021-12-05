@@ -78,7 +78,7 @@ jobs:
       - uses: actions/checkout@v2
       - id: log
         run: |
-          echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+          echo "::set-output name=message::$(git log --no-merges -1 --pretty=format:%s)"
       - run: |
           echo ${{ steps.log.outputs.message }}
       - if: "!contains(steps.log.outputs.message, '#squash')"
