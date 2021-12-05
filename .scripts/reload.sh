@@ -13,7 +13,7 @@ reload_nginx() {
 }
 
 squash_db() {
-  ${docker_compose_cmd} exec $service_name /usr/local/bin/npm run schema:drop:prod
+  ${docker_compose_cmd} run --rm --entrypoint "/usr/local/bin/npm run schema:drop:prod" $service_name
 }
 
 server_status() {
@@ -50,7 +50,8 @@ wait_for_available() {
 # SPINNING UP SERVER
 #
 
-if [[ $is_squashed -eq "true" ]]; then
+echo $is_squashed
+if [[ $is_squashed -eq true ]]; then
   echo "Squash Postgres migrations..."
   squash_db
   echo "Squash completed!"

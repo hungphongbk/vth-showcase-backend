@@ -77,9 +77,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: log
-        run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+        run: |
+          echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+      - run: |
+          echo ${{ steps.log.outputs.message }}
       - if: "!contains(steps.log.outputs.message, '#squash')"
-        run: echo "ORM_SQUASHED=true" >> $GITHUB_ENV
+        run: |
+          echo "ORM_SQUASHED=true" >> $GITHUB_ENV
 
       - name: Copy docker-compose.prod.yml
         uses: appleboy/scp-action@v0.1.2
