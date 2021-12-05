@@ -553,6 +553,7 @@ type Mutation {
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
+  updateOneShowcase(input: ShowcaseCreateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   updateOneUser(input: UpdateOneUserInput!): User!
 }

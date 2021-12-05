@@ -54,6 +54,17 @@ export class ShowcaseResolver {
     return showcase;
   }
 
+  @UseGuards(GqlAuthGuard)
+  @ResolverMutation(() => Boolean)
+  async updateOneShowcase(
+    @Args('slug') slug: string,
+    @MutationHookArgs() input: CreateOneShowcase,
+    // @GqlCurrentUser() user: AuthDto,
+  ) {
+    await this.service.updateMany(input.input, { slug: { eq: slug } });
+    return true;
+  }
+
   @Mutation(() => Boolean)
   async deleteOneShowcase(@Args('slug') slug: string) {
     await this.service.deleteMany({
