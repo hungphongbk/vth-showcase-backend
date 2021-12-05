@@ -78,8 +78,8 @@ export class ShowcaseEntity {
   @Column({ type: 'date', nullable: true })
   expectedSaleEndAt!: Date | null;
 
-  @Column({ type: 'integer' })
-  expectedQuantity!: number;
+  @Column({ type: 'jsonb', nullable: true })
+  expectedQuantity!: IShowcasePrice;
 
   @Column({ type: 'jsonb', nullable: true })
   expectedSalePrice: IShowcasePrice;

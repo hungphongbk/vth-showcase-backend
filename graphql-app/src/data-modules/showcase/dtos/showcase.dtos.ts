@@ -87,8 +87,8 @@ export class ShowcaseDto {
   })
   expectedSaleEndAt!: Date | null;
 
-  @Field()
-  expectedQuantity!: number;
+  @Field(() => ShowcasePriceDto, { nullable: true })
+  expectedQuantity!: ShowcasePriceDto;
 
   @Field(() => ShowcasePriceDto, { nullable: true })
   expectedSalePrice!: ShowcasePriceDto;

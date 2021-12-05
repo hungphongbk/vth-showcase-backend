@@ -800,7 +800,7 @@ type Showcase {
   brand: ShowcaseBrand!
   createdAt: DateTime!
   description: String!
-  expectedQuantity: Float!
+  expectedQuantity: ShowcasePrice
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
   expectedSalePrice: ShowcasePrice
@@ -869,7 +869,7 @@ type ShowcaseCountAggregate {
 input ShowcaseCreateInputDto {
   brand: ShowcaseBrandInput!
   description: String!
-  expectedQuantity: Float!
+  expectedQuantity: ShowcasePriceInput
   expectedSaleAt: DateTime = null
   expectedSaleEndAt: DateTime = null
   expectedSalePrice: ShowcasePriceInput
