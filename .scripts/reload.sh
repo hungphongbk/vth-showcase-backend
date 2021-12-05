@@ -50,8 +50,7 @@ wait_for_available() {
 # SPINNING UP SERVER
 #
 
-echo $is_squashed
-if [[ $is_squashed -eq true ]]; then
+if [[ $is_squashed == "true" ]]; then
   echo "Squash Postgres migrations..."
   squash_db
   echo "Squash completed!"
