@@ -80,7 +80,7 @@ jobs:
         run: |
           echo "::set-output name=message::$(git log --no-merges -1 --pretty=format:%s)"
       - run: |
-          echo ${{ steps.log.outputs.message }}
+          echo ${{ !contains(steps.log.outputs.message, '#squash') }}
       - if: ${{ !contains(steps.log.outputs.message, '#squash') }}
         run: |
           echo "ORM_SQUASHED=true" >> $GITHUB_ENV
