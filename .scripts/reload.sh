@@ -5,10 +5,15 @@ cd "$(dirname "$0")"
 
 service_name=$(echo $1|tr -d '\n')
 nginx_container_name=${2:-nginx}
+is_squashed=${3:-false}
 docker_compose_cmd='docker-compose -f ../docker-compose.prod.yml'
 
 reload_nginx() {
-  docker exec $nginx_container_name /usr/sbin/nginx -s reload &>/dev/null
+  ${docker_compose_cmd} exec $nginx_container_name /usr/sbin/nginx -s reload &>/dev/null
+}
+
+squash_db() {
+  ${docker_compose_cmd} exec $service_name /usr/local/bin/npm run schema:drop:prod
 }
 
 server_status() {
@@ -44,6 +49,12 @@ wait_for_available() {
 #
 # SPINNING UP SERVER
 #
+
+if [[ $is_squashed -eq "true" ]]; then
+  echo "Squash Postgres migrations..."
+  squash_db
+  echo "Squash completed!"
+fi
 
 old_container_id=$(docker ps -f name=$service_name -q | head -n1)
 ${docker_compose_cmd} up -d --no-build --no-deps --scale $service_name=2 --no-recreate $service_name
