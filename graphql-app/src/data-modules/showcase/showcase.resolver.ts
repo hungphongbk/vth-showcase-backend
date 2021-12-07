@@ -33,7 +33,7 @@ export class ShowcaseResolver {
 
   @Query(() => ShowcaseDto)
   async showcase(@Args('slug') slug: string): Promise<ShowcaseDto | undefined> {
-    return (await this.service.query({ filter: { slug: { eq: slug } } }))[0];
+    return await this.service.getOneShowcase(slug);
   }
 
   @Query(() => [String])

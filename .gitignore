@@ -106,3 +106,4 @@ dist
 .tern-port
 .data/uploads
 !.gitkeep
+/.test/http-client.env.json

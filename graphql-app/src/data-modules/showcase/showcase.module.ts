@@ -34,5 +34,6 @@ const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]);
     ImageListModule,
   ],
   providers: [ShowcaseResolver, ShowcaseQueryService],
+  exports: [ShowcaseQueryService],
 })
 export class ShowcaseModule {}

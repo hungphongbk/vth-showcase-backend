@@ -4,10 +4,8 @@ import {
   CreateDateColumn,
   Entity,
   Index,
-  JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -21,24 +19,18 @@ import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import * as crypto from 'crypto';
-import { AuthEntity } from '../../../auth/auth.entity';
 import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
 import { InvestmentPackageEntity } from '../../investment/investment.package.entity';
+import { CommentEntity } from '../../comment/comment.entity';
+import { AuthoredContentEntity } from '../../../auth/authored.content.entity';
 
 @Entity('showcase')
-export class ShowcaseEntity {
+export class ShowcaseEntity extends AuthoredContentEntity('showcasePosts') {
   @PrimaryGeneratedColumn('identity')
   id: number;
 
   @Column()
   name: string;
-
-  /**
-   * Represent firebase user object
-   */
-  @ManyToOne(() => AuthEntity, (obj) => obj.showcasePosts)
-  @JoinColumn({ name: 'authorUid' })
-  author: AuthEntity;
 
   @Column()
   @Index({ unique: true })
@@ -112,6 +104,12 @@ export class ShowcaseEntity {
   @ManyToMany(() => InvestmentPackageEntity)
   @JoinTable()
   availableInvestmentPackages: InvestmentPackageEntity[];
+
+  @OneToMany(() => CommentEntity, (obj) => obj.showcase, {
+    eager: true,
+    cascade: true,
+  })
+  comments: CommentEntity[];
 
   @BeforeInsert()
   async generateSlug() {

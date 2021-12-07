@@ -5,6 +5,7 @@ import { HighlightFeatureModule } from './highlight-feature/highlight-feature.mo
 import { ImageListModule } from './image-list/image-list.module';
 import { SettingsModule } from './setting/settings.module';
 import { InvestmentModule } from './investment/investment.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { InvestmentModule } from './investment/investment.module';
     ImageListModule,
     SettingsModule,
     InvestmentModule,
+    CommentModule,
   ],
 })
 export class DataModulesModule {}

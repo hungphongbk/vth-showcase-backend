@@ -1,0 +1,46 @@
+### Fetch Firebase token
+
+POST {{HTTP_HOST}}/auth/login
+Accept: application/json
+X-Test-Uid: {{ X_TEST_UID }}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Do create showcase request
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "createShowcase",
+  "variables": {},
+  "query": "mutation createShowcase{ createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedQuantity: { regular: 100, pioneer: 25, promo: 35, preorder: 40 } expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } ] } ] } ) { slug } }"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+});
+client.global.set("slug",response.body.data.createOneShowcase.slug);
+%}
+
+### Post comment with a user
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "{{ slug }}" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } showcase { name } } }"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+  client.assert(response.body.data.postAuthorizedComment.author.name==="Trương Hùng Phong", "Must show name of author");
+  client.assert(response.body.data.postAuthorizedComment.showcase.name==="ci-test", "Must show name of showcase");
+});
+%}

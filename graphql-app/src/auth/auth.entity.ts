@@ -1,7 +1,7 @@
 import { registerEnumType } from '@nestjs/graphql';
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { ShowcaseDto } from '../data-modules/showcase/dtos/showcase.dtos';
 import { ShowcaseEntity } from '../data-modules/showcase/entities/showcase.entity';
+import { CommentEntity } from '../data-modules/comment/comment.entity';
 
 export enum AuthRoleType {
   SUPERADMIN = 'superadmin',
@@ -22,7 +22,10 @@ export class AuthEntity {
   name: string;
 
   @OneToMany(() => ShowcaseEntity, (obj) => obj.author)
-  showcasePosts: ShowcaseDto[];
+  showcasePosts: ShowcaseEntity[];
+
+  @OneToMany(() => CommentEntity, (obj) => obj.author)
+  comments: CommentEntity[];
 
   @Column()
   email: string;

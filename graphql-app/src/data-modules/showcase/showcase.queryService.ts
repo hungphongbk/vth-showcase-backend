@@ -58,4 +58,8 @@ export class ShowcaseQueryService extends RelationQueryService<
       },
     });
   }
+
+  async getOneShowcase(slug: string): Promise<ShowcaseDto> {
+    return (await this.service.query({ filter: { slug: { eq: slug } } }))[0]!;
+  }
 }
