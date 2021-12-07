@@ -9,11 +9,11 @@ is_squashed=${3:-false}
 docker_compose_cmd='docker-compose -f ../docker-compose.prod.yml'
 
 reload_nginx() {
-  ${docker_compose_cmd} exec $nginx_container_name /usr/sbin/nginx -s reload &>/dev/null
+  ${docker_compose_cmd} run --rm --entrypoint "/usr/sbin/nginx -s reload" $nginx_container_name
 }
 
 squash_db() {
-  ${docker_compose_cmd} run --rm --entrypoint "/usr/local/bin/npm run schema:drop:prod" $service_name
+  ${docker_compose_cmd} run --rm --entrypoint "/usr/local/bin/npm run schema:drop:prod" $service_name &>/dev/null
 }
 
 server_status() {
@@ -50,6 +50,7 @@ wait_for_available() {
 # SPINNING UP SERVER
 #
 
+echo $is_squashed
 if [[ $is_squashed == "true" ]]; then
   echo "Squash Postgres migrations..."
   squash_db
