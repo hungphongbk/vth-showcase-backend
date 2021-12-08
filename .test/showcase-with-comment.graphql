@@ -1,0 +1,14 @@
+query($slug: String!){
+  showcase(slug: $slug){
+    comments{
+      edges {
+        node {
+          author {
+            name
+          }
+          content
+        }
+      }
+    }
+  }
+}

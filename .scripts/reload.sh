@@ -86,6 +86,7 @@ echo "$service_name:$container_port is ready. Spinning up right now..."
 reload_nginx
 echo "Remove old $service_name container..."
 docker rm $old_container_id -f &>/dev/null
+sleep 1
 reload_nginx
 sleep 3
 

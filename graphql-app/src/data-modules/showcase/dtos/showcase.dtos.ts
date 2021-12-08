@@ -6,6 +6,7 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import {
+  CursorConnection,
   FilterableField,
   IDField,
   Relation,
@@ -19,6 +20,7 @@ import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { AuthDto } from '../../../auth/dtos/auth.dto';
 import { ShowcaseInventoryDto } from './showcaseInventory.dto';
+import { CommentDto } from '../../comment/comment.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -44,6 +46,7 @@ registerEnumType(PublishStatus, {
 @Relation('author', () => AuthDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
 @UnPagedRelation('imageLists', () => ImageListDto)
+@CursorConnection('comments', () => CommentDto)
 export class ShowcaseDto {
   @Field(() => ID)
   id!: string;

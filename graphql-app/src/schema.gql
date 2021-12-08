@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddCommentsToShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input AddHighlightFeaturesToShowcaseInput {
   """The id of the record."""
   id: String!
@@ -633,6 +641,7 @@ input MediaInput {
 }
 
 type Mutation {
+  addCommentsToShowcase(input: AddCommentsToShowcaseInput!): Showcase!
   addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   addImageListsToShowcase(input: AddImageListsToShowcaseInput!): Showcase!
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
@@ -668,6 +677,7 @@ type Mutation {
   postAuthorizedComment(input: CommentCreateDto!, slug: String!): CommentDto!
   removeAuthorFromCommentDto(input: RemoveAuthorFromCommentDtoInput!): CommentDto!
   removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
+  removeCommentsFromShowcase(input: RemoveCommentsFromShowcaseInput!): Showcase!
   removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
@@ -676,6 +686,7 @@ type Mutation {
   removeShowcaseFromCommentDto(input: RemoveShowcaseFromCommentDtoInput!): CommentDto!
   setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
   setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
+  setCommentsOnShowcase(input: SetCommentsOnShowcaseInput!): Showcase!
   setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageListsOnShowcase(input: SetImageListsOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
@@ -851,6 +862,14 @@ input RemoveAuthorFromShowcaseInput {
   relationId: ID!
 }
 
+input RemoveCommentsFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input RemoveHighlightFeaturesFromShowcaseInput {
   """The id of the record."""
   id: String!
@@ -913,6 +932,14 @@ input SetAuthorOnShowcaseInput {
 
   """The id of relation."""
   relationId: ID!
+}
+
+input SetCommentsOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
 }
 
 input SetHighlightFeaturesOnShowcaseInput {
@@ -985,6 +1012,16 @@ type SettingDtoEdge {
 type Showcase {
   author: User!
   brand: ShowcaseBrand!
+  comments(
+    """Specify to filter the records returned."""
+    filter: CommentDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [CommentDtoSort!] = []
+  ): ShowcaseCommentsConnection!
   createdAt: DateTime!
   description: String!
   expectedQuantity: ShowcasePrice
@@ -1033,6 +1070,14 @@ type ShowcaseBrand {
 input ShowcaseBrandInput {
   description: String!
   name: String!
+}
+
+type ShowcaseCommentsConnection {
+  """Array of edges."""
+  edges: [CommentDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
 }
 
 type ShowcaseConnection {

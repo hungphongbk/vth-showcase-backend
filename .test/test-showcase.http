@@ -1,5 +1,5 @@
 ### Fetch Firebase token
-
+//@no-log
 POST {{HTTP_HOST}}/auth/login
 Accept: application/json
 X-Test-Uid: {{ X_TEST_UID }}
