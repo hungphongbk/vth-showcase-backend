@@ -1,5 +1,5 @@
 ### Fetch Firebase token
-
+# @no-log
 POST {{HTTP_HOST}}/auth/login
 Accept: application/json
 X-Test-Uid: {{ X_TEST_UID }}
@@ -42,5 +42,25 @@ client.test("Request executed successfully", function() {
   client.assert(response.body.data!==null, "Must returned data inside response");
   client.assert(response.body.data.postAuthorizedComment.author.name==="Trương Hùng Phong", "Must show name of author");
   client.assert(response.body.data.postAuthorizedComment.showcase.name==="ci-test", "Must show name of showcase");
+});
+%}
+
+### Retrieve new comment on showcase
+POST {{HTTP_HOST}}/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "{{ slug }}" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ edges { node { author { name } content } } } } }"
+}
+
+
+
+> {%
+client.test("Retrieve comment successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+  client.assert(response.body.data.showcase.comments.edges[0].node.author.name==="Trương Hùng Phong", "Must show exact name of author");
+  client.assert(response.body.data.showcase.comments.edges[0].node.content==="lorem ipsum dolo sit amet", "Must show exact content of comment");
 });
 %}
