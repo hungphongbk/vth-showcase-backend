@@ -5,6 +5,7 @@ import {
   Headers,
   HttpStatus,
   Inject,
+  Logger,
   Post,
   Res,
   UseInterceptors,
@@ -22,6 +23,7 @@ const CACHE_KEY = 'X-Test-Token';
 @Controller('auth')
 @UseInterceptors(CacheInterceptor)
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
   constructor(
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
@@ -45,6 +47,7 @@ export class AuthController {
     // check if exists in cache
     const exists = await this.cacheManager.get(AuthController.cacheKey(uid));
     if (exists) {
+      this.logger.log('cache hit');
       res.status(HttpStatus.OK);
       return { token: exists };
     }
