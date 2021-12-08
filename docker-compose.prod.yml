@@ -1,5 +1,11 @@
 version: '3.8'
 services:
+  redis:
+    container_name: redis
+    hostname: redis
+    image: "redis:alpine"
+    ports:
+      - "6379"
   nginx:
     container_name: nginx
     image: nginx:stable
