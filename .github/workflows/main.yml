@@ -91,7 +91,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml,.data/init-letsencrypt.sh,.data/**/*,.scripts/**/*"
+          source: "docker-compose.prod.yml,.data/init-letsencrypt.sh,.data/**/*,.scripts/reload.sh"
           target: "/home/vth-showcase"
       - name: Restart docker compose
         uses: appleboy/ssh-action@v0.1.4
