@@ -690,6 +690,7 @@ type Mutation {
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
+  submitInvestor(form: SubmitInvestorInputDto!): Boolean!
   updateManyCommentDtos(input: UpdateManyCommentDtosInput!): UpdateManyResponse!
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
@@ -1370,6 +1371,15 @@ input StringFieldComparison {
   notILike: String
   notIn: [String!]
   notLike: String
+}
+
+input SubmitInvestorInputDto {
+  email: String!
+  fund: String!
+  job: String!
+  method: String!
+  phone: String!
+  purpose: String!
 }
 
 input UpdateCommentDto {

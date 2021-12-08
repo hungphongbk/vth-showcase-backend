@@ -7,6 +7,7 @@ import { AuthEntity } from './auth.entity';
 import { AuthSubscriber } from './auth.subscriber';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { AuthDto } from './dtos/auth.dto';
+import { AuthResolver } from './auth.resolver';
 
 const ormModule = NestjsQueryTypeOrmModule.forFeature([AuthEntity]);
 
@@ -19,7 +20,7 @@ const ormModule = NestjsQueryTypeOrmModule.forFeature([AuthEntity]);
       resolvers: [{ DTOClass: AuthDto, EntityClass: AuthEntity }],
     }),
   ],
-  providers: [FirebaseStrategy, AuthSubscriber],
+  providers: [FirebaseStrategy, AuthSubscriber, AuthResolver],
   exports: [FirebaseStrategy, ormModule],
   controllers: [AuthController],
 })
