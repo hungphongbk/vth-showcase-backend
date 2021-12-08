@@ -706,6 +706,22 @@ type Mutation {
   updateOneUser(input: UpdateOneUserInput!): User!
 }
 
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
 type PageInfo {
   """The cursor of the last returned record."""
   endCursor: ConnectionCursor
@@ -998,7 +1014,7 @@ type Showcase {
     filter: CommentDtoFilter = {}
 
     """Limit or page results."""
-    paging: CursorPaging = {first: 10}
+    paging: OffsetPaging = {limit: 10}
 
     """Specify to sort results."""
     sorting: [CommentDtoSort!] = []
@@ -1054,11 +1070,14 @@ input ShowcaseBrandInput {
 }
 
 type ShowcaseCommentsConnection {
-  """Array of edges."""
-  edges: [CommentDtoEdge!]!
+  """Array of nodes."""
+  nodes: [CommentDto!]!
 
   """Paging information"""
-  pageInfo: PageInfo!
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 type ShowcaseConnection {

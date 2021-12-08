@@ -6,9 +6,9 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import {
-  CursorConnection,
   FilterableField,
   IDField,
+  OffsetConnection,
   Relation,
   UnPagedRelation,
 } from '@nestjs-query/query-graphql';
@@ -46,7 +46,7 @@ registerEnumType(PublishStatus, {
 @Relation('author', () => AuthDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
 @UnPagedRelation('imageLists', () => ImageListDto)
-@CursorConnection('comments', () => CommentDto)
+@OffsetConnection('comments', () => CommentDto, { enableTotalCount: true })
 export class ShowcaseDto {
   @Field(() => ID)
   id!: string;

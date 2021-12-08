@@ -50,7 +50,7 @@ Content-Type: application/json
 
 {
   "variables": { "slug": "{{ slug }}" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ edges { node { author { name } content } } } } }"
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
 }
 
 
@@ -59,7 +59,7 @@ Content-Type: application/json
 client.test("Retrieve comment successfully", function() {
   client.assert(response.status === 200, "Response status is not 200");
   client.assert(response.body.data!==null, "Must returned data inside response");
-  client.assert(response.body.data.showcase.comments.edges[0].node.author.name==="Trương Hùng Phong", "Must show exact name of author");
-  client.assert(response.body.data.showcase.comments.edges[0].node.content==="lorem ipsum dolo sit amet", "Must show exact content of comment");
+  client.assert(response.body.data.showcase.comments.nodes[0].author.name==="Trương Hùng Phong", "Must show exact name of author");
+  client.assert(response.body.data.showcase.comments.nodes[0].content==="lorem ipsum dolo sit amet", "Must show exact content of comment");
 });
 %}
