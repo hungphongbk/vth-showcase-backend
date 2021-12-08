@@ -45,6 +45,7 @@ services:
   staging:
     depends_on:
       - postgres
+      - redis
     image: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
     command: npm run start:prod
     ports:

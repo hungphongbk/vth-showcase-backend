@@ -8,8 +8,10 @@ nginx_container_name=${2:-nginx}
 is_squashed=${3:-false}
 docker_compose_cmd='docker-compose -f ../docker-compose.prod.yml'
 
+nginx_id=$(docker ps -f name=$nginx_container_name -q | head -n1)
+
 reload_nginx() {
-  ${docker_compose_cmd} run --rm --entrypoint "/usr/sbin/nginx -s reload" $nginx_container_name
+  docker exec $nginx_id nginx -s reload
 }
 
 squash_db() {
@@ -32,18 +34,19 @@ wait_for_available() {
   local port=$1
   retry=0
   server_status $port
+  rs=0
 
   while [[ $status -gt "404" ]]; do
     if [[ $retry -gt 20 ]];then
+      rs=1
       break;
-      return 1
     fi
     ((retry++))
-    echo "New instance of $service_name:$port is getting ready..."
+    echo "$retry) New instance of $service_name:$port is getting ready..."
     sleep 3
     server_status $port
   done
-  return 0
+  return $rs
 }
 
 #
@@ -75,6 +78,8 @@ if [[ -z $container_port ]]; then
   exit 1
 fi
 
+sleep 1
+
 wait_for_available $container_port
 if [ $? -gt 0 ]; then
   >&2 echo "New container has not been successfully deployed. Roll back..."
@@ -82,8 +87,6 @@ if [ $? -gt 0 ]; then
   exit 1
 fi
 echo "$service_name:$container_port is ready. Spinning up right now..."
-
-reload_nginx
 echo "Remove old $service_name container..."
 docker rm $old_container_id -f &>/dev/null
 sleep 1
