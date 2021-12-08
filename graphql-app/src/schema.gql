@@ -69,7 +69,6 @@ type CommentDto {
   createdAt: DateTime!
   id: ID!
   rate: [CommentRateEnum!]!
-  showcase: Showcase!
   updatedAt: DateTime!
 }
 
@@ -683,7 +682,6 @@ type Mutation {
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   removeImageListsFromShowcase(input: RemoveImageListsFromShowcaseInput!): Showcase!
   removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
-  removeShowcaseFromCommentDto(input: RemoveShowcaseFromCommentDtoInput!): CommentDto!
   setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
   setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
   setCommentsOnShowcase(input: SetCommentsOnShowcaseInput!): Showcase!
@@ -692,7 +690,6 @@ type Mutation {
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
-  setShowcaseOnCommentDto(input: SetShowcaseOnCommentDtoInput!): CommentDto!
   updateManyCommentDtos(input: UpdateManyCommentDtosInput!): UpdateManyResponse!
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
@@ -910,14 +907,6 @@ input RemoveImagesFromImageListInput {
   relationIds: [ID!]!
 }
 
-input RemoveShowcaseFromCommentDtoInput {
-  """The id of the record."""
-  id: ID!
-
-  """The id of relation."""
-  relationId: String!
-}
-
 input SetAuthorOnCommentDtoInput {
   """The id of the record."""
   id: ID!
@@ -980,14 +969,6 @@ input SetImagesOnImageListInput {
 
   """The ids of the relations."""
   relationIds: [ID!]!
-}
-
-input SetShowcaseOnCommentDtoInput {
-  """The id of the record."""
-  id: ID!
-
-  """The id of relation."""
-  relationId: String!
 }
 
 input SettingCreateDto {

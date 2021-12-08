@@ -33,7 +33,7 @@ Content-Type: application/json
 {
   "operationName": "postNewComment",
   "variables": { "slug": "{{ slug }}" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } showcase { name } } }"
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
 }
 
 > {%
@@ -41,7 +41,6 @@ client.test("Request executed successfully", function() {
   client.assert(response.status === 200, "Response status is not 200");
   client.assert(response.body.data!==null, "Must returned data inside response");
   client.assert(response.body.data.postAuthorizedComment.author.name==="Trương Hùng Phong", "Must show name of author");
-  client.assert(response.body.data.postAuthorizedComment.showcase.name==="ci-test", "Must show name of showcase");
 });
 %}
 

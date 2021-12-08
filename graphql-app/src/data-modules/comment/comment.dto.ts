@@ -8,13 +8,11 @@ import {
 import { FilterableField, Relation } from '@nestjs-query/query-graphql';
 import { AuthDto } from '../../auth/dtos/auth.dto';
 import { CommentRateEnum } from './comment.entity';
-import { ShowcaseDto } from '../showcase/dtos/showcase.dtos';
 
 registerEnumType(CommentRateEnum, { name: 'CommentRateEnum' });
 
 @ObjectType()
 @Relation('author', () => AuthDto, { nullable: true })
-@Relation('showcase', () => ShowcaseDto, { nullable: false })
 export class CommentDto {
   @FilterableField(() => ID)
   id: number;
