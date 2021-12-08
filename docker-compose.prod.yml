@@ -46,7 +46,7 @@ services:
     depends_on:
       - postgres
       - redis
-    image: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
+    image: ghcr.io/hungphongbk/vth-showcase-backend:develop
     command: npm run start:prod
     ports:
       - "3001"
@@ -60,11 +60,8 @@ services:
   prod:
     depends_on:
       - postgres
-    container_name: graphql-app-prod
-    image: registry.digitalocean.com/vaithuhay-solutions/vth-graphql-app-prod:latest
-    build:
-      context: graphql-app
-      target: production
+      - redis
+    image: ghcr.io/hungphongbk/vth-showcase-backend:main
     command: npm run start:prod
     ports:
       - "3000"
