@@ -50,12 +50,12 @@ wait_for_available() {
 # SPINNING UP SERVER
 #
 
-echo $is_squashed
-if [[ $is_squashed == "true" ]]; then
-  echo "Squash Postgres migrations..."
-  squash_db
-  echo "Squash completed!"
-fi
+#echo $is_squashed
+#if [[ $is_squashed == "true" ]]; then
+#  echo "Squash Postgres migrations..."
+#  squash_db
+#  echo "Squash completed!"
+#fi
 
 old_container_id=$(docker ps -f name=$service_name -q | head -n1)
 ${docker_compose_cmd} up -d --no-build --no-deps --scale $service_name=2 --no-recreate $service_name

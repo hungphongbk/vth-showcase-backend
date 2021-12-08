@@ -9,7 +9,7 @@ import {
 import { ShowcaseQueryService } from './showcase.queryService';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../auth/gql.auth.guard';
 import { GqlCurrentUser } from '../../auth/decorators/current-user.decorator';
 import { AuthDto } from '../../auth/dtos/auth.dto';
@@ -19,6 +19,7 @@ class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
 
 @Resolver(() => ShowcaseDto)
 export class ShowcaseResolver {
+  private readonly logger = new Logger(ShowcaseResolver.name);
   constructor(private readonly service: ShowcaseQueryService) {}
 
   @Query(() => ShowcaseConnection)
@@ -67,9 +68,11 @@ export class ShowcaseResolver {
 
   @Mutation(() => Boolean)
   async deleteOneShowcase(@Args('slug') slug: string) {
+    this.logger.log(`deleteOneShowcase: deleting showcase ${slug}`);
     await this.service.deleteMany({
       slug: { eq: slug },
     });
+    this.logger.log('deleteOneShowcase: Successfully');
     return true;
   }
 }

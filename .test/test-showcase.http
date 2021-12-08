@@ -6,32 +6,11 @@ X-Test-Uid: {{ X_TEST_UID }}
 
 > {% client.global.set("auth_token", response.body.token); %}
 
-<> 2021-12-05T123137.200.json
-<> 2021-12-05T123053.200.json
-<> 2021-12-03T161741.200.json
-<> 2021-12-03T160106.200.json
-<> 2021-12-03T155912.200.json
-<> 2021-12-01T202621.200.json
-<> 2021-12-01T202059.200.json
-<> 2021-12-01T201306.200.json
-<> 2021-12-01T201229.502.html
-<> 2021-12-01T201205.200.json
-<> 2021-12-01T200524.200.json
-<> 2021-12-01T195558.200.json
-<> 2021-12-01T195440.200.json
-<> 2021-12-01T195340.200.json
-<> 2021-12-01T195022.200.json
-<> 2021-12-01T194930.200.json
-<> 2021-12-01T194645.200.json
-<> 2021-12-01T193937.200.json
-<> 2021-12-01T191709.200.json
-<> 2021-12-01T191603.200.json
-<> 2021-12-01T190428.200.json
-
 ### Do create showcase request
 POST {{HTTP_HOST}}/graphql
 Authorization: Bearer {{auth_token}}
 Content-Type: application/json
+
 
 {
   "operationName": "createShowcase",
@@ -45,27 +24,5 @@ client.test("Request executed successfully", function() {
   client.assert(response.body.data!==null, "Must returned data inside response");
 });
 %}
-
-<> 2021-12-05T123140.200.json
-<> 2021-12-05T123055.400.json
-<> 2021-12-03T161742.200.json
-<> 2021-12-03T160107.200.json
-<> 2021-12-03T155913.200.json
-<> 2021-12-01T202624.200.json
-<> 2021-12-01T202100.200.json
-<> 2021-12-01T201307.200.json
-<> 2021-12-01T201233.502.html
-<> 2021-12-01T201206.200.json
-<> 2021-12-01T200543.400.json
-<> 2021-12-01T195559.200.json
-<> 2021-12-01T195441.200.json
-<> 2021-12-01T195340.400.json
-<> 2021-12-01T195022.400.json
-<> 2021-12-01T194931.400.json
-<> 2021-12-01T194645.400.json
-<> 2021-12-01T193938.200.json
-<> 2021-12-01T191710.200.json
-<> 2021-12-01T191603-1.200.json
-<> 2021-12-01T190428-1.200.json
 
 ###
