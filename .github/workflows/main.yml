@@ -1,3 +1,4 @@
+# Just trigger new host
 name: Server Build & Push
 
 on:
