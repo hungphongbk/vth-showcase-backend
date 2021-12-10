@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linode-deploy
+  labels:
+    app: vaithuhay-solutions-staging
+spec:
+  selector:
+    matchLabels:
+      app: vaithuhay-solutions-staging
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: vaithuhay-solutions-staging
+    spec:
+      containers:
+        - name: vaithuhay-solutions-staging
+          image: ghcr.io/hungphongbk/vth-showcase-backend:develop
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaithuhay-staging-service
+  labels:
+    app: vaithuhay-solutions
+spec:
+  type: LoadBalancer
+  selector:
+    app: vaithuhay-solutions
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 3000
