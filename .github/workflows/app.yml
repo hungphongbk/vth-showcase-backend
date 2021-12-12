@@ -83,15 +83,8 @@ jobs:
   deploy_preview:
     environment: preview
     name: Deploy integrated app to VPS
-    runs-on: ubuntu-latest
     needs: build
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.4.1
-        with:
-          access_token: ${{ github.token }}
-      - name: Call Deployment Workflow
-        uses: hungphongbk/vth-deployment/.github/workflows/deployment.yml@main
-        with:
-          deployment_name: showcase
-          namespace: staging
+    uses: hungphongbk/vth-deployment/.github/workflows/deployment.yml@main
+      with:
+        deployment_name: showcase
+        namespace: staging
