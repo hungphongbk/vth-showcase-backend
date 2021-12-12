@@ -85,6 +85,6 @@ jobs:
     name: Deploy integrated app to VPS
     needs: build
     uses: hungphongbk/vth-deployment/.github/workflows/deployment.yml@main
-      with:
-        deployment_name: showcase
-        namespace: staging
+    with:
+      deployment_name: showcase
+      namespace: staging
