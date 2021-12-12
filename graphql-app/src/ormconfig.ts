@@ -9,6 +9,7 @@ const config = {
   password: process.env.DB_PASS || 'postgres',
   database: process.env.DB_NAME || 'test',
 };
+
 const isProduction = process.env.NODE_ENV === 'production';
 const migrationSrcDir = isProduction ? 'dist' : 'src';
 
@@ -30,6 +31,7 @@ const connectionOptions: ConnectionOptions = {
   // you can disable this if you prefer running migration manually.
   migrationsRun: true,
   logging: [!isProduction && 'query', 'warn', 'error'] as any,
+  // logging: 'all',
   // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
   migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
   cli: {

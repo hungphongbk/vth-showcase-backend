@@ -1,5 +1,5 @@
 # Just trigger new host
-name: Server Build & Push
+name: Server Build & Deploy to Kubernetes
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
       - develop
     paths:
       - 'graphql-app/**'
-      - docker-compose.prod.yml
       - '.github/workflows/**'
   pull_request:
     branches:
@@ -87,35 +86,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v2
-      - id: log
-        run: |
-          echo "::set-output name=message::$(git log --no-merges -1 --pretty=format:%s)"
-      - run: |
-          echo ${{ !contains(steps.log.outputs.message, '#squash') }}
-      - if: contains(steps.log.outputs.message, '#squash')
-        run: |
-          echo "ORM_SQUASHED=true" >> $GITHUB_ENV
-
-      - name: Copy docker-compose.prod.yml
-        uses: appleboy/scp-action@v0.1.2
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml,.data/init-letsencrypt.sh,.data/**/*,.scripts/reload.sh"
-          target: "/home/vth-showcase"
-      - name: Restart docker compose
-        uses: appleboy/ssh-action@v0.1.4
+          access_token: ${{ github.token }}
+      - name: Call Deployment Workflow
+        uses: hungphongbk/vth-deployment/.github/workflow/deployment.yml@main
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/vth-showcase
-            touch .env.staging
-            echo "${{ secrets.SERVER_ENV }}" > .env.staging
-            docker-compose -f docker-compose.prod.yml pull
-            cd .scripts
-            chmod +x reload.sh
-            ./reload.sh staging nginx ${{ env.ORM_SQUASHED }}
+          deployment_name: showcase
+          namespace: staging
