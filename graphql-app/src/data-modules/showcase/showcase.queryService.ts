@@ -12,6 +12,9 @@ import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entit
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 import { AuthEntity } from '../../auth/auth.entity';
+import { CACHE_MANAGER, Inject } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+import { CacheDecorator } from '../../common/decorators/cache.decorator';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -34,6 +37,7 @@ export class ShowcaseQueryService extends RelationQueryService<
     private readonly hfQueryService: QueryService<ShowcaseHFEntity>,
     @InjectQueryService(ImageListEntity)
     private readonly imgListService: QueryService<ImageListEntity>,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
     super(service, {
       author: {
@@ -59,7 +63,10 @@ export class ShowcaseQueryService extends RelationQueryService<
     });
   }
 
+  @CacheDecorator({ key: 'getOneShowcase' })
   async getOneShowcase(slug: string): Promise<ShowcaseDto> {
-    return (await this.service.query({ filter: { slug: { eq: slug } } }))[0]!;
+    console.log(slug);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return (await this.service.query({ filter: { slug: { eq: slug } } }))[0];
   }
 }
