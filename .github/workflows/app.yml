@@ -16,7 +16,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
 jobs:
   build:
@@ -88,4 +87,5 @@ jobs:
     with:
       deployment_name: showcase
       namespace: staging
-      kubeconfig: ${{ env.KUBECONFIG }}
+    secrets:
+      KUBECONFIG: ${{ secrets.KUBECONFIG }}
