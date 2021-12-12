@@ -91,7 +91,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
       - name: Call Deployment Workflow
-        uses: hungphongbk/vth-deployment/.github/workflow/deployment.yml@main
+        uses: hungphongbk/vth-deployment/.github/workflows/deployment.yml@main
         with:
           deployment_name: showcase
           namespace: staging
