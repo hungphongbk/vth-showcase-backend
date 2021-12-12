@@ -1,4 +1,0 @@
-resources:
-  - config-map.yml
-  - postgres-storage.yml
-  - postgres.yml

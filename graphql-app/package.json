@@ -82,7 +82,7 @@
     "rxjs": "^7.2.0",
     "slugify": "^1.6.2",
     "ts-node": "^10.4.0",
-    "typeorm": "^0.2.40",
+    "typeorm": "^0.2.41",
     "typeorm-extension": "^1.0.1",
     "typeorm-seeding": "^1.6.1"
   },
