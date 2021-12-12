@@ -81,7 +81,6 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   deploy_preview:
-    environment: preview
     name: Deploy integrated app to VPS
     needs: build
     uses: hungphongbk/vth-deployment/.github/workflows/deployment.yml@main
