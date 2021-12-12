@@ -9,3 +9,10 @@ export class GqlAuthGuard extends AuthGuard('firebase') {
     return ctx.getContext().req;
   }
 }
+
+@Injectable()
+export class GqlOptionalAuthGuard extends GqlAuthGuard {
+  handleRequest(err, user) {
+    return user;
+  }
+}

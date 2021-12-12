@@ -1,0 +1,22 @@
+{
+  "name": "Vth Showcase Backend",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "localhost": {
+        "url": "http://localhost:3000/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      },
+      "kubernetes": {
+        "url": "https://api.showcase-dev.vaithuhay.com/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

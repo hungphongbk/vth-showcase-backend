@@ -833,6 +833,7 @@ type Query {
     """Specify to sort results."""
     sorting: [ShowcaseHighlightFeatureSort!] = []
   ): ShowcaseHighlightFeatureConnection!
+  showcaseInvestorStat(slug: String!): ShowcaseInvestorStatDto
   showcases(
     """Specify to filter the records returned."""
     filter: ShowcaseFilter = {}
@@ -1269,6 +1270,13 @@ input ShowcaseInventoryDtoInput {
 
   """Vòng quay vốn an toàn tương ứng"""
   revolvingInterval: Float!
+}
+
+type ShowcaseInvestorStatDto {
+  campaignDuration: Float!
+  firstYearRevenue: Float!
+  growthRate: Float!
+  totalRevenue: Float!
 }
 
 type ShowcaseMaxAggregate {

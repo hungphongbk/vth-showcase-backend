@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt } from 'passport-jwt';
 import {
@@ -6,8 +6,12 @@ import {
   FirebaseUser,
 } from '@tfarras/nestjs-firebase-auth';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
-import { AuthEntity } from './auth.entity';
+import { AuthEntity, AuthRoleType } from './auth.entity';
 import { AuthDto } from './dtos/auth.dto';
+import {
+  FIREBASE_ADMIN_INJECT,
+  FirebaseAdminSDK,
+} from '@tfarras/nestjs-firebase-admin';
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(
@@ -17,6 +21,8 @@ export class FirebaseStrategy extends PassportStrategy(
   public constructor(
     @InjectQueryService(AuthEntity)
     private readonly userService: QueryService<AuthDto>,
+    @Inject(FIREBASE_ADMIN_INJECT)
+    private readonly firebaseAdmin: FirebaseAdminSDK,
   ) {
     super({
       extractor: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -27,7 +33,14 @@ export class FirebaseStrategy extends PassportStrategy(
     // Do here whatever you want and return your user
     let userObj = await this.userService.findById(payload.uid);
     if (!userObj) {
-      userObj = await this.userService.createOne(payload);
+      const newPayload: any = {
+        ...payload,
+        role:
+          payload.claims.investor === true
+            ? AuthRoleType.INVESTOR
+            : AuthRoleType.USER,
+      };
+      userObj = await this.userService.createOne(newPayload);
     }
     return userObj;
   }

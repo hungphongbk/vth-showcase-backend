@@ -10,9 +10,10 @@ import { ShowcaseQueryService } from './showcase.queryService';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { Logger, UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth/gql.auth.guard';
+import { GqlAuthGuard, GqlOptionalAuthGuard } from '../../auth/gql.auth.guard';
 import { GqlCurrentUser } from '../../auth/decorators/current-user.decorator';
 import { AuthDto } from '../../auth/dtos/auth.dto';
+import { ShowcaseInvestorStatDto } from './dtos/showcase.investor-stat.dto';
 
 @ArgsType()
 class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
@@ -35,6 +36,19 @@ export class ShowcaseResolver {
   @Query(() => ShowcaseDto)
   async showcase(@Args('slug') slug: string): Promise<ShowcaseDto | undefined> {
     return await this.service.getOneShowcase(slug);
+  }
+
+  @UseGuards(GqlOptionalAuthGuard)
+  @Query(() => ShowcaseInvestorStatDto, { nullable: true })
+  async showcaseInvestorStat(
+    @Args('slug') slug: string,
+    @GqlCurrentUser() user: AuthDto,
+  ) {
+    if (!user) return null;
+    const showcase = await this.service.getOneShowcase(slug);
+    const stat = new ShowcaseInvestorStatDto(showcase);
+    if (!stat.canReadThisStat(user)) return null;
+    return stat;
   }
 
   @Query(() => [String])
