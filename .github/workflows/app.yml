@@ -88,3 +88,4 @@ jobs:
     with:
       deployment_name: showcase
       namespace: staging
+      kubeconfig: ${{ secrets.KUBECONFIG }}
