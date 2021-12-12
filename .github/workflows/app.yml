@@ -87,5 +87,6 @@ jobs:
     with:
       deployment_name: showcase
       namespace: staging
+      environment: preview
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
