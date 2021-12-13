@@ -90,3 +90,4 @@ jobs:
       environment: preview
     secrets:
       KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      GH_DEPLOYMENT_PAT: ${{ secrets.GH_DEPLOYMENT_PAT }}

@@ -3,6 +3,8 @@ on:
     secrets:
       KUBECONFIG:
         required: true
+      GH_DEPLOYMENT_PAT:
+        required: true
     inputs:
       environment:
         required: true
