@@ -49,6 +49,7 @@
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.2.3",
     "@nestjs/platform-fastify": "^8.2.3",
+    "@nestjs/terminus": "^8.0.3",
     "@nestjs/typeorm": "^8.0.2",
     "@tfarras/nestjs-firebase-admin": "^2.0.1",
     "@tfarras/nestjs-firebase-auth": "^2.0.0",

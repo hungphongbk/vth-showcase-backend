@@ -11,6 +11,7 @@ import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
 import { AuthModule } from './auth/auth.module';
 import { DataModulesModule } from './data-modules/data-modules.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HealthModule } from './health/health.module';
 import * as redisStore from 'cache-manager-redis-store';
 import * as Joi from '@hapi/joi';
 
@@ -49,6 +50,7 @@ import * as Joi from '@hapi/joi';
     }),
     DataModulesModule,
     AuthModule,
+    HealthModule,
   ],
   providers: [
     GqlLoggingPlugin,
