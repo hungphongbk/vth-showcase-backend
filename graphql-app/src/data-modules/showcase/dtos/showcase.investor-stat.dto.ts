@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Directive, Field, ObjectType } from '@nestjs/graphql';
 import { ShowcaseDto } from './showcase.dtos';
 import * as _ from 'lodash';
 import { differenceInDays, parseISO } from 'date-fns';
@@ -9,7 +9,7 @@ import { AuthDto } from '../../../auth/dtos/auth.dto';
 export class ShowcaseInvestorStatDto {
   constructor(private readonly showcase: ShowcaseDto) {}
 
-  @Field()
+  @Field({ description: 'Doanh thu dự kiến năm đầu' })
   get firstYearRevenue(): number {
     return (
       12.0 *
@@ -18,7 +18,7 @@ export class ShowcaseInvestorStatDto {
     );
   }
 
-  @Field()
+  @Field({ description: 'Doanh thu tổng' })
   get totalRevenue(): number {
     return _.chain(['pioneer', 'promo', 'preorder'])
       .map(
@@ -41,6 +41,48 @@ export class ShowcaseInvestorStatDto {
   @Field()
   get growthRate(): number {
     return this.showcase.inventory.expectedGrowthRate;
+  }
+
+  @Field()
+  get adCostRate(): number {
+    return this.showcase.inventory.adCostRate;
+  }
+
+  @Directive('@currency')
+  @Field(() => String, { description: 'Tổng chi phí quảng cáo trung bình' })
+  get adCost(): number {
+    return (this.adCostRate / 100.0) * this.firstYearRevenue;
+  }
+
+  @Field()
+  get operatingCostRate(): number {
+    return this.showcase.inventory.operatingCostRate;
+  }
+
+  @Directive('@currency')
+  @Field(() => String)
+  get operatingCost(): number {
+    return (this.operatingCostRate / 100.0) * this.firstYearRevenue;
+  }
+
+  @Field()
+  get capitalizationRate(): number {
+    return this.showcase.inventory.capitalizationRate;
+  }
+
+  @Directive('@currency')
+  @Field(() => String)
+  get capitalizationCost(): number {
+    return (this.capitalizationRate / 100.0) * this.firstYearRevenue;
+  }
+
+  @Directive('@currency')
+  @Field(() => String)
+  get expectedProfit(): number {
+    return (
+      this.firstYearRevenue -
+      (this.capitalizationCost + this.adCost + this.operatingCost)
+    );
   }
 
   canReadThisStat(user: AuthDto): boolean {

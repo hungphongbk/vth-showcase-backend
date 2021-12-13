@@ -1273,9 +1273,21 @@ input ShowcaseInventoryDtoInput {
 }
 
 type ShowcaseInvestorStatDto {
+  """Tổng chi phí quảng cáo trung bình"""
+  adCost: String!
+  adCostRate: Float!
   campaignDuration: Float!
+  capitalizationCost: String!
+  capitalizationRate: Float!
+  expectedProfit: String!
+
+  """Doanh thu dự kiến năm đầu"""
   firstYearRevenue: Float!
   growthRate: Float!
+  operatingCost: String!
+  operatingCostRate: Float!
+
+  """Doanh thu tổng"""
   totalRevenue: Float!
 }
 
