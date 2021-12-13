@@ -6,7 +6,12 @@ export class CurrencyDirective extends SchemaDirectiveVisitor {
     const { resolve = defaultFieldResolver } = field;
     field.resolve = async function (...args) {
       const result = await resolve.apply(this, args);
-      return (result * 1.0).toLocaleString('vi-VN') + ' VNĐ';
+      return (
+        (result * 1.0).toLocaleString('vi-VN', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }) + ' VNĐ'
+      );
     };
   }
 }
