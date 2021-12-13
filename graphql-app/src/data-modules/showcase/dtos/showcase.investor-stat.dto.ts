@@ -85,6 +85,25 @@ export class ShowcaseInvestorStatDto {
     );
   }
 
+  @Field(() => Number)
+  get revolvingInterval(): number {
+    return this.showcase.inventory.revolvingInterval;
+  }
+
+  @Field(() => Number)
+  get revolvingPerDay(): number {
+    return 365.0 / this.revolvingInterval;
+  }
+
+  @Directive('@currency')
+  @Field(() => String)
+  get initialCapital() {
+    const inv = this.showcase.inventory;
+    const sumOfCapRate =
+      (inv.capitalizationRate + inv.adCostRate + inv.operatingCostRate) * 0.01;
+    return (this.firstYearRevenue / this.revolvingPerDay) * sumOfCapRate;
+  }
+
   canReadThisStat(user: AuthDto): boolean {
     return (
       user.role === AuthRoleType.INVESTOR ||

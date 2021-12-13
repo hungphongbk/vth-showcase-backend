@@ -1284,8 +1284,11 @@ type ShowcaseInvestorStatDto {
   """Doanh thu dự kiến năm đầu"""
   firstYearRevenue: Float!
   growthRate: Float!
+  initialCapital: String!
   operatingCost: String!
   operatingCostRate: Float!
+  revolvingInterval: Float!
+  revolvingPerDay: Float!
 
   """Doanh thu tổng"""
   totalRevenue: Float!
