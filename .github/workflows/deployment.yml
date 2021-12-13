@@ -1,0 +1,47 @@
+on:
+  workflow_call:
+    secrets:
+      KUBECONFIG:
+        required: true
+    inputs:
+      environment:
+        required: true
+        type: string
+      deployment_name:
+        required: true
+        type: string
+      namespace:
+        required: true
+        type: string
+jobs:
+  deploy:
+    name: Deploy to LKE
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          repository: hungphongbk/vth-deployment
+          token: ${{ secrets.GH_DEPLOYMENT_PAT }}
+
+      - uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Print kubectl & kustomize versions
+        run: |-
+          kubectl version
+          kustomize version
+
+      - name: Deploy to LKE
+        run: |-
+          kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
+
+      - name: Update Image
+        run: kubectl rollout restart deployment ${{ inputs.deployment_name }} -n ${{ inputs.namespace }}
+
+      - name: Status
+        run: |-
+          kubectl rollout status deployment ${{ inputs.deployment_name }} -n ${{ inputs.namespace }}
