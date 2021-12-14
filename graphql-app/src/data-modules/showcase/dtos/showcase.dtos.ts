@@ -1,4 +1,5 @@
 import {
+  Directive,
   Field,
   GraphQLISODateTime,
   ID,
@@ -41,6 +42,7 @@ registerEnumType(PublishStatus, {
   name: 'PublishStatus',
 });
 
+@Directive('@cacheControl')
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
 @Relation('author', () => AuthDto)

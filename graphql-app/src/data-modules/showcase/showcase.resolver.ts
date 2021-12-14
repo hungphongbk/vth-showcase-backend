@@ -1,4 +1,12 @@
-import { Args, ArgsType, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ArgsType,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcaseConnection, ShowcaseQuery } from './dtos/query.types';
 import {
@@ -14,11 +22,13 @@ import { GqlAuthGuard, GqlOptionalAuthGuard } from '../../auth/gql.auth.guard';
 import { GqlCurrentUser } from '../../auth/decorators/current-user.decorator';
 import { AuthDto } from '../../auth/dtos/auth.dto';
 import { ShowcaseInvestorStatDto } from './dtos/showcase.investor-stat.dto';
+import { CacheControlDirective } from '../../gql/directives/cache-control.directive';
 
 @ArgsType()
 class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
 
 @Resolver(() => ShowcaseDto)
+@UseGuards(GqlOptionalAuthGuard)
 export class ShowcaseResolver {
   private readonly logger = new Logger(ShowcaseResolver.name);
   constructor(private readonly service: ShowcaseQueryService) {}
@@ -38,24 +48,24 @@ export class ShowcaseResolver {
     return await this.service.getOneShowcase(slug);
   }
 
-  @UseGuards(GqlOptionalAuthGuard)
-  @Query(() => ShowcaseInvestorStatDto, { nullable: true })
-  async showcaseInvestorStat(
-    @Args('slug') slug: string,
+  @CacheControlDirective({ scope: 'PRIVATE' })
+  @ResolveField('investorStat', () => ShowcaseInvestorStatDto, {
+    nullable: true,
+  })
+  async investorStat(
+    @Parent() parent: ShowcaseDto,
     @GqlCurrentUser() user: AuthDto,
   ) {
     if (!user) return null;
-    const showcase = await this.service.getOneShowcase(slug);
-    const stat = new ShowcaseInvestorStatDto(showcase);
+    const stat = new ShowcaseInvestorStatDto(parent);
     if (!stat.canReadThisStat(user)) return null;
     return stat;
   }
 
+  @CacheControlDirective({})
   @Query(() => [String])
   async slugs(): Promise<string[]> {
-    return (await this.service.query({ paging: { limit: 10000 } })).map(
-      (i) => i.slug,
-    );
+    return await this.service.slugs();
   }
 
   @UseGuards(GqlAuthGuard)

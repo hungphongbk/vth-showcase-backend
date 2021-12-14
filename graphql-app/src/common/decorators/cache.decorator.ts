@@ -33,9 +33,10 @@ export function CacheDecorator({
       else {
         logger.log('cache miss. Will assign');
         const willBeCachedValue = await original.apply(this, args);
-        await cacheManager.set(entryKey, willBeCachedValue, {
-          ttl: ttl ?? 30,
-        });
+        if (typeof willBeCachedValue !== 'undefined')
+          await cacheManager.set(entryKey, willBeCachedValue, {
+            ttl: ttl ?? 30,
+          });
         return willBeCachedValue;
       }
     };

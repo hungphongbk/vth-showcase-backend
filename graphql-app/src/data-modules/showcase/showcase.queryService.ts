@@ -14,7 +14,7 @@ import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 import { AuthEntity } from '../../auth/auth.entity';
 import { CACHE_MANAGER, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { CacheDecorator } from '../../common/decorators/cache.decorator';
+import { Connection } from 'typeorm';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -38,6 +38,7 @@ export class ShowcaseQueryService extends RelationQueryService<
     @InjectQueryService(ImageListEntity)
     private readonly imgListService: QueryService<ImageListEntity>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private dbConnection: Connection,
   ) {
     super(service, {
       author: {
@@ -63,10 +64,19 @@ export class ShowcaseQueryService extends RelationQueryService<
     });
   }
 
-  @CacheDecorator({ key: 'getOneShowcase' })
   async getOneShowcase(slug: string): Promise<ShowcaseDto> {
-    console.log(slug);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return (await this.service.query({ filter: { slug: { eq: slug } } }))[0];
+  }
+
+  async slugs() {
+    return (
+      await this.dbConnection
+        .createQueryBuilder()
+        .select('showcase.slug')
+        .from(ShowcaseEntity, 'showcase')
+        .limit(10000)
+        .getMany()
+    ).map((showcase) => showcase.slug);
   }
 }
