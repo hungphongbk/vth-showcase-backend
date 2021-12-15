@@ -1,4 +1,5 @@
 import {
+  Body,
   CACHE_MANAGER,
   CacheInterceptor,
   Controller,
@@ -6,8 +7,10 @@ import {
   HttpStatus,
   Inject,
   Logger,
+  Param,
   Post,
   Res,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -17,6 +20,9 @@ import {
 } from '@tfarras/nestjs-firebase-admin';
 import fetch from 'node-fetch';
 import { Cache } from 'cache-manager';
+import { ControllerAuthGuard } from './gql.auth.guard';
+import { AuthEntity, AuthRoleType } from './auth.entity';
+import { InjectQueryService, QueryService } from '@nestjs-query/core';
 
 const CACHE_KEY = 'X-Test-Token';
 
@@ -28,6 +34,8 @@ export class AuthController {
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    @InjectQueryService(AuthEntity)
+    private readonly userService: QueryService<AuthEntity>,
   ) {}
 
   private static cacheKey(uid: string): string {
@@ -76,5 +84,22 @@ export class AuthController {
 
     res.status(HttpStatus.OK);
     return { token };
+  }
+
+  @Post('update-role/:uid')
+  @UseGuards(ControllerAuthGuard)
+  async updateRole(
+    @Param('uid') uid: string,
+    @Body('role') role: AuthRoleType,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    try {
+      await this.userService.updateOne(uid, { role });
+      res.status(HttpStatus.OK).json({ status: 'ok' });
+    } catch (e) {
+      res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: 'error', message: e.message });
+    }
   }
 }
