@@ -11,7 +11,7 @@ import { CommentCreateDto } from './comment.create.dto';
 import { ShowcaseQueryService } from '../showcase/showcase.queryService';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../auth/gql.auth.guard';
-import { GqlCurrentUser } from '../../auth/decorators/current-user.decorator';
+import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 import { AuthDto } from '../../auth/dtos/auth.dto';
 
 @ArgsType()
@@ -47,7 +47,7 @@ export class CommentResolver {
   async postAuthorizedComment(
     @Args('slug') slug: string,
     @MutationHookArgs() input: CreateCommentArgsType,
-    @GqlCurrentUser() user: AuthDto,
+    @CurrentUser() user: AuthDto,
   ) {
     let comment = await this.service.createOne(input.input);
     const showcase = await this.showcaseService.getOneShowcase(slug);

@@ -19,7 +19,7 @@ import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard, GqlOptionalAuthGuard } from '../../auth/gql.auth.guard';
-import { GqlCurrentUser } from '../../auth/decorators/current-user.decorator';
+import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 import { AuthDto } from '../../auth/dtos/auth.dto';
 import { ShowcaseInvestorStatDto } from './dtos/showcase.investor-stat.dto';
 import { CacheControlDirective } from '../../gql/directives/cache-control.directive';
@@ -54,7 +54,7 @@ export class ShowcaseResolver {
   })
   async investorStat(
     @Parent() parent: ShowcaseDto,
-    @GqlCurrentUser() user: AuthDto,
+    @CurrentUser() user: AuthDto,
   ) {
     if (!user) return null;
     const stat = new ShowcaseInvestorStatDto(parent);
@@ -72,7 +72,7 @@ export class ShowcaseResolver {
   @ResolverMutation(() => ShowcaseDto)
   async createOneShowcase(
     @MutationHookArgs() input: CreateOneShowcase,
-    @GqlCurrentUser() user: AuthDto,
+    @CurrentUser() user: AuthDto,
   ) {
     let showcase = await this.service.createOne(input.input);
     showcase = await this.service.setRelation('author', showcase.id, user.uid);

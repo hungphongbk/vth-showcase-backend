@@ -774,6 +774,7 @@ type Query {
     """Specify to sort results."""
     sorting: [CommentDtoSort!] = []
   ): CommentDtoConnection!
+  currentUser: User!
   imageList(
     """The id of the record to find."""
     id: ID!

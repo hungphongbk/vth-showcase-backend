@@ -1,10 +1,20 @@
-import { Args, Field, InputType, Mutation, Resolver } from '@nestjs/graphql';
-import { Inject } from '@nestjs/common';
+import {
+  Args,
+  Field,
+  InputType,
+  Mutation,
+  Query,
+  Resolver,
+} from '@nestjs/graphql';
+import { Inject, UseGuards } from '@nestjs/common';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@tfarras/nestjs-firebase-admin';
 import { firestore } from 'firebase-admin';
+import { AuthDto } from './dtos/auth.dto';
+import { GqlAuthGuard } from './gql.auth.guard';
+import { CurrentUser } from './decorators/current-user.decorator';
 import CollectionReference = firestore.CollectionReference;
 
 @InputType()
@@ -54,5 +64,11 @@ export class AuthResolver {
   ) {
     await this.collection.add(form);
     return true;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => AuthDto)
+  async currentUser(@CurrentUser() user: AuthDto) {
+    return user;
   }
 }
