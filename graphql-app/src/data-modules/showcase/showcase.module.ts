@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ShowcaseEntity } from './entities/showcase.entity';
-import { ShowcaseResolver } from './showcase.resolver';
+import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { ShowcaseQueryService } from './showcase.queryService';
@@ -9,6 +9,10 @@ import { HighlightFeatureModule } from '../highlight-feature/highlight-feature.m
 import { ImageListModule } from '../image-list/image-list.module';
 import { AuthModule } from '../../auth';
 import { ShowcaseDto } from './dtos/showcase.dtos';
+import {
+  ShowcaseAuthAugmentResolver,
+  ShowcaseAuthResolver,
+} from './resolvers/showcase-auth.resolver';
 
 const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
   authRelModule = AuthModule.forFeature({
@@ -45,7 +49,12 @@ const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
     HighlightFeatureModule,
     ImageListModule,
   ],
-  providers: [ShowcaseResolver, ShowcaseQueryService],
+  providers: [
+    ShowcaseResolver,
+    ShowcaseAuthResolver,
+    ShowcaseAuthAugmentResolver,
+    ShowcaseQueryService,
+  ],
   exports: [ShowcaseQueryService],
 })
 export class ShowcaseModule {}

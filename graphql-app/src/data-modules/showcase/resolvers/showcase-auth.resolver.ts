@@ -1,0 +1,108 @@
+import {
+  Args,
+  ArgsType,
+  Mutation,
+  Parent,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { ShowcaseDto } from '../dtos/showcase.dtos';
+import { Inject, Logger, UseGuards } from '@nestjs/common';
+import {
+  AuthDto,
+  AuthQueryService,
+  AuthRoleType,
+  CurrentUser,
+  GqlAuthGuard,
+} from '../../../auth';
+import { ShowcaseQueryService } from '../showcase.queryService';
+import {
+  MutationArgsType,
+  MutationHookArgs,
+} from '@nestjs-query/query-graphql';
+import { ShowcaseCreateInputDto } from '../dtos/showcase.create.dto';
+import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
+import { UserStatusEnum } from '../dtos/user-status.enum';
+import {
+  FIREBASE_ADMIN_INJECT,
+  FirebaseAdminSDK,
+} from '@tfarras/nestjs-firebase-admin';
+
+@ArgsType()
+class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
+
+@Resolver(() => ShowcaseDto)
+@UseGuards(GqlAuthGuard)
+export class ShowcaseAuthResolver {
+  private readonly logger = new Logger(ShowcaseAuthResolver.name);
+  constructor(
+    private readonly service: ShowcaseQueryService,
+    private readonly authQueryService: AuthQueryService,
+  ) {}
+
+  @ResolverMutation(() => ShowcaseDto)
+  async createOneShowcase(
+    @MutationHookArgs() input: CreateOneShowcase,
+    @CurrentUser() user: AuthDto,
+  ) {
+    const showcase = await this.service.createOne(input.input);
+    showcase.authorUid = user.uid;
+    return showcase;
+  }
+
+  @ResolverMutation(() => Boolean)
+  async updateOneShowcase(
+    @Args('slug') slug: string,
+    @MutationHookArgs() input: CreateOneShowcase,
+    // @GqlCurrentUser() user: AuthDto,
+  ) {
+    await this.service.updateMany(input.input, { slug: { eq: slug } });
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async deleteOneShowcase(@Args('slug') slug: string) {
+    this.logger.log(`deleteOneShowcase: deleting showcase ${slug}`);
+    await this.service.deleteMany({
+      slug: { eq: slug },
+    });
+    this.logger.log('deleteOneShowcase: Successfully');
+    return true;
+  }
+}
+
+@Resolver(() => AuthDto)
+export class ShowcaseAuthAugmentResolver {
+  constructor(
+    @Inject(FIREBASE_ADMIN_INJECT)
+    private readonly firebaseAdmin: FirebaseAdminSDK,
+    private readonly service: ShowcaseQueryService,
+    private readonly authQueryService: AuthQueryService,
+  ) {}
+
+  @ResolveField('approvalStatus', () => UserStatusEnum)
+  async approvalStatus(@Parent() user: AuthDto) {
+    if (user.role === AuthRoleType.INVESTOR)
+      return UserStatusEnum.APPROVED_INVESTOR;
+    // check current user is existing in firebase cloud firestore
+    const submitInvestorRef = this.firebaseAdmin
+        .firestore()
+        .collection('submit-investor'),
+      submitInvestorRefSnapshot = await submitInvestorRef
+        .where('email', '==', user.email)
+        .get();
+    if (submitInvestorRefSnapshot.empty) {
+      //return status depends on showcase creation query
+      const totalOfCreatedShowcases = await this.service.count({
+        authorUid: { eq: user.uid },
+      });
+      return totalOfCreatedShowcases > 0
+        ? UserStatusEnum.APPROVED_CREATOR
+        : UserStatusEnum.PENDING_CREATOR;
+    } else {
+      return submitInvestorRefSnapshot.docs[0].data().status === 'approved'
+        ? UserStatusEnum.APPROVED_INVESTOR
+        : UserStatusEnum.PENDING_INVESTOR;
+    }
+  }
+}
