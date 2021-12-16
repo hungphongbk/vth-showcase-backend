@@ -17,6 +17,8 @@ import { GqlModule } from './gql/gql.module';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().required(),
         REDIS_HOST: Joi.string().required(),
         REDIS_PORT: Joi.number().required(),
         // ...

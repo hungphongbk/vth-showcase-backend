@@ -9,7 +9,6 @@ const config = {
   password: process.env.DB_PASS || 'postgres',
   database: process.env.DB_NAME || 'test',
 };
-
 const isProduction = process.env.NODE_ENV === 'production';
 const migrationSrcDir = isProduction ? 'dist' : 'src';
 

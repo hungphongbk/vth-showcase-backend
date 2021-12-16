@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="3ff5c17a-7cf1-4c64-95e1-a2b531eb11d3" name="vaithuhay-solutions">
-        <fileTransfer rootFolder="/home/vth-showcase" accessType="SFTP" host="139.162.14.122" port="22" sshConfigId="0541406e-abbd-4a23-97e4-7d3610c88018" sshConfig="Vaithuhay solutions" authAgent="true">
+        <fileTransfer rootFolder="/home/vth-showcase" accessType="SFTP" host="207.148.126.213" port="22" sshConfigId="0541406e-abbd-4a23-97e4-7d3610c88018" sshConfig="Vaithuhay solutions" authAgent="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
