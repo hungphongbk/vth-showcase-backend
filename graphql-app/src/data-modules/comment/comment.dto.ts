@@ -6,7 +6,7 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { FilterableField, Relation } from '@nestjs-query/query-graphql';
-import { AuthDto } from '../../auth/dtos/auth.dto';
+import { AuthDto } from '../../auth';
 import { CommentRateEnum } from './comment.entity';
 
 registerEnumType(CommentRateEnum, { name: 'CommentRateEnum' });

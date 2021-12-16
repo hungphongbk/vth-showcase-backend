@@ -18,9 +18,13 @@ import { ShowcaseQueryService } from './showcase.queryService';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { Logger, UseGuards } from '@nestjs/common';
-import { GqlAuthGuard, GqlOptionalAuthGuard } from '../../auth/gql.auth.guard';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import { AuthDto } from '../../auth/dtos/auth.dto';
+import {
+  AuthDto,
+  AuthQueryService,
+  CurrentUser,
+  GqlAuthGuard,
+  GqlOptionalAuthGuard,
+} from '../../auth';
 import { ShowcaseInvestorStatDto } from './dtos/showcase.investor-stat.dto';
 import { CacheControlDirective } from '../../gql/directives/cache-control.directive';
 
@@ -31,7 +35,15 @@ class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
 @UseGuards(GqlOptionalAuthGuard)
 export class ShowcaseResolver {
   private readonly logger = new Logger(ShowcaseResolver.name);
-  constructor(private readonly service: ShowcaseQueryService) {}
+  constructor(
+    private readonly service: ShowcaseQueryService,
+    private readonly authQueryService: AuthQueryService,
+  ) {}
+
+  // @ResolveField(() => AuthDto)
+  // async author(@Parent() parent: ShowcaseDto): Promise<AuthDto> {
+  //   return await this.authQueryService.getById(parent.authorUid);
+  // }
 
   @Query(() => ShowcaseConnection)
   async showcases(
@@ -74,8 +86,8 @@ export class ShowcaseResolver {
     @MutationHookArgs() input: CreateOneShowcase,
     @CurrentUser() user: AuthDto,
   ) {
-    let showcase = await this.service.createOne(input.input);
-    showcase = await this.service.setRelation('author', showcase.id, user.uid);
+    const showcase = await this.service.createOne(input.input);
+    showcase.authorUid = user.uid;
     return showcase;
   }
 

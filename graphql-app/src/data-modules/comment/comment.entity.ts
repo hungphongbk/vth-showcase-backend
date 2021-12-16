@@ -2,12 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ShowcaseEntity } from '../showcase/entities/showcase.entity';
-import { AuthoredContentEntity } from '../../auth/authored.content.entity';
 
 export enum CommentRateEnum {
   SIEU_PHAM = 'sieu-pham',
@@ -19,7 +19,10 @@ export enum CommentRateEnum {
 }
 
 @Entity('comment')
-export class CommentEntity extends AuthoredContentEntity('comments') {
+export class CommentEntity {
+  @Column()
+  @Index()
+  authorUid!: string;
   @PrimaryGeneratedColumn('identity')
   id: number;
 

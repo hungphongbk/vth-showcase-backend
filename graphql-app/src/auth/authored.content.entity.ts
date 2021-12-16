@@ -1,14 +1,10 @@
-import { JoinColumn, ManyToOne } from 'typeorm';
-import { AuthEntity } from './auth.entity';
+import { Column, Index } from 'typeorm';
 
-export function AuthoredContentEntity<
-  T extends keyof AuthEntity = keyof AuthEntity,
->(relatedField: T) {
+export function AuthoredContentEntity() {
   abstract class AuthoredContentEntityClass {
-    @ManyToOne(() => AuthEntity, (obj) => obj[relatedField])
-    @JoinColumn({ name: 'authorUid' })
-    author!: AuthEntity;
+    @Column()
+    @Index()
+    authorUid!: string;
   }
-
   return AuthoredContentEntityClass;
 }

@@ -6,7 +6,6 @@ import * as connectionOptions from './ormconfig';
 import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 import firebaseConfig from './config/firebase.config';
 import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
-import { AuthModule } from './auth/auth.module';
 import { DataModulesModule } from './data-modules/data-modules.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
@@ -40,7 +39,6 @@ import { GqlModule } from './gql/gql.module';
     TypeOrmModule.forRoot(connectionOptions),
     GqlModule,
     DataModulesModule,
-    AuthModule,
     HealthModule,
   ],
   providers: [

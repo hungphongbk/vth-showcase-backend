@@ -2,8 +2,7 @@ import { Directive, Field, ObjectType } from '@nestjs/graphql';
 import { ShowcaseDto } from './showcase.dtos';
 import * as _ from 'lodash';
 import { differenceInDays, parseISO } from 'date-fns';
-import { AuthRoleType } from '../../../auth/auth.entity';
-import { AuthDto } from '../../../auth/dtos/auth.dto';
+import { AuthDto, AuthRoleType } from '../../../auth/dtos/auth.dto';
 
 @ObjectType()
 export class ShowcaseInvestorStatDto {

@@ -10,9 +10,7 @@ import {
 import { CommentCreateDto } from './comment.create.dto';
 import { ShowcaseQueryService } from '../showcase/showcase.queryService';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth/gql.auth.guard';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import { AuthDto } from '../../auth/dtos/auth.dto';
+import { AuthDto, CurrentUser, GqlAuthGuard } from '../../auth';
 
 @ArgsType()
 class CreateCommentArgsType extends MutationArgsType(CommentCreateDto) {}
@@ -21,7 +19,7 @@ class CreateCommentArgsType extends MutationArgsType(CommentCreateDto) {}
 export class CommentResolver {
   constructor(
     @InjectQueryService(CommentEntity)
-    private readonly service: QueryService<CommentDto>,
+    private readonly commentQueryService: QueryService<CommentDto>,
     private readonly showcaseService: ShowcaseQueryService,
   ) {}
 
@@ -30,9 +28,9 @@ export class CommentResolver {
     @Args('slug') slug: string,
     @MutationHookArgs() input: CreateCommentArgsType,
   ) {
-    let comment = await this.service.createOne(input.input);
+    let comment = await this.commentQueryService.createOne(input.input);
     const showcase = await this.showcaseService.getOneShowcase(slug);
-    comment = await this.service.setRelation(
+    comment = await this.commentQueryService.setRelation(
       'showcase',
       comment.id,
       showcase.id,
@@ -49,14 +47,16 @@ export class CommentResolver {
     @MutationHookArgs() input: CreateCommentArgsType,
     @CurrentUser() user: AuthDto,
   ) {
-    let comment = await this.service.createOne(input.input);
+    let comment = await this.commentQueryService.createOne({
+      ...input.input,
+      authorUid: user.uid,
+    });
     const showcase = await this.showcaseService.getOneShowcase(slug);
-    comment = await this.service.setRelation(
+    comment = await this.commentQueryService.setRelation(
       'showcase',
       comment.id,
       showcase.id,
     );
-    comment = await this.service.setRelation('author', comment.id, user.uid);
     return comment;
   }
 }

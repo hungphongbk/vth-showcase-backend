@@ -1,6 +1,15 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
-import { AuthRoleType } from '../auth.entity';
+
+export enum AuthRoleType {
+  SUPERADMIN = 'superadmin',
+  ADMIN = 'admin',
+  INVESTOR = 'investor',
+  USER = 'user',
+}
+registerEnumType(AuthRoleType, {
+  name: 'AuthRoleType',
+});
 
 @ObjectType('User')
 export class AuthDto {
@@ -13,6 +22,9 @@ export class AuthDto {
   @FilterableField()
   email: string;
 
-  @FilterableField(() => AuthRoleType)
-  role!: AuthRoleType;
+  @Field()
+  photoURL: string;
+
+  @Field(() => AuthRoleType)
+  role: AuthRoleType;
 }
