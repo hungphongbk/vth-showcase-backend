@@ -1464,9 +1464,17 @@ input UpdateShowcaseHighlightFeature {
 }
 
 type User {
+  approvalStatus: UserStatusEnum!
   email: String!
   name: String!
   photoURL: String!
   role: AuthRoleType!
   uid: ID!
+}
+
+enum UserStatusEnum {
+  APPROVED_CREATOR
+  APPROVED_INVESTOR
+  PENDING_CREATOR
+  PENDING_INVESTOR
 }
