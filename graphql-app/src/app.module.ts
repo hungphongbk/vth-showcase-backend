@@ -12,6 +12,7 @@ import { HealthModule } from './health/health.module';
 import * as redisStore from 'cache-manager-redis-store';
 import * as Joi from '@hapi/joi';
 import { GqlModule } from './gql/gql.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { GqlModule } from './gql/gql.module';
       useFactory: firebaseConfig,
     }),
     TypeOrmModule.forRoot(connectionOptions),
+    ScheduleModule.forRoot(),
     GqlModule,
     DataModulesModule,
     HealthModule,

@@ -13,6 +13,7 @@ import {
   ShowcaseAuthAugmentResolver,
   ShowcaseAuthResolver,
 } from './resolvers/showcase-auth.resolver';
+import { RemoveCiTestService } from './remove-ci-test.service';
 
 const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
   authRelModule = AuthModule.forFeature({
@@ -54,6 +55,7 @@ const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
     ShowcaseAuthResolver,
     ShowcaseAuthAugmentResolver,
     ShowcaseQueryService,
+    RemoveCiTestService,
   ],
   exports: [ShowcaseQueryService],
 })

@@ -1,4 +1,5 @@
 import {
+  DeleteManyResponse,
   InjectQueryService,
   Query,
   QueryService,
@@ -69,5 +70,11 @@ export class ShowcaseQueryService extends RelationQueryService<
         .limit(10000)
         .getMany()
     ).map((showcase) => showcase.slug);
+  }
+
+  async removeCiTests(): Promise<DeleteManyResponse> {
+    return await this.service.deleteMany({
+      slug: { like: 'ci-test%' },
+    });
   }
 }
