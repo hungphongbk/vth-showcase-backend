@@ -65,6 +65,7 @@ export class ShowcaseQueryService extends RelationQueryService<
         .createQueryBuilder()
         .select('showcase.slug')
         .from(ShowcaseEntity, 'showcase')
+        .where("showcase.slug NOT LIKE 'ci-test%'")
         .limit(10000)
         .getMany()
     ).map((showcase) => showcase.slug);

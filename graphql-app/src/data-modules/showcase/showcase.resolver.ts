@@ -27,6 +27,7 @@ import {
 } from '../../auth';
 import { ShowcaseInvestorStatDto } from './dtos/showcase.investor-stat.dto';
 import { CacheControlDirective } from '../../gql/directives/cache-control.directive';
+import * as deepmerge from 'deepmerge';
 
 @ArgsType()
 class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
@@ -51,7 +52,9 @@ export class ShowcaseResolver {
   ): Promise<ConnectionType<ShowcaseDto>> {
     return ShowcaseConnection.createFromPromise(
       (q) => this.service.query(q),
-      query,
+      deepmerge(query, {
+        filter: { slug: { notLike: 'ci-test%' } },
+      } as ShowcaseQuery),
     );
   }
 
