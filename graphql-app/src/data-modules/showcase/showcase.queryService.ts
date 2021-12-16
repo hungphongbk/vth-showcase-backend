@@ -8,7 +8,7 @@ import {
 } from '@nestjs-query/core';
 import { MediaEntity } from '../media/media.entity';
 import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
-import { ShowcaseDto } from './dtos/showcase.dtos';
+import { PublishStatus, ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
@@ -76,14 +76,14 @@ export class ShowcaseQueryService extends RelationQueryService<
 
   async slugs() {
     return (
-      await this.dbConnection
-        .createQueryBuilder()
-        .select('showcase.slug')
-        .from(ShowcaseEntity, 'showcase')
-        .where("showcase.slug NOT LIKE 'ci-test%'")
-        .limit(10000)
-        .getMany()
-    ).map((showcase) => showcase.slug);
+      await this.service.query({
+        filter: {
+          slug: { notLike: 'ci-test%' },
+          publishStatus: { eq: PublishStatus.PUBLISHED },
+        },
+        paging: { limit: 10000 },
+      })
+    ).map((s) => s.slug);
   }
 
   async removeCiTests(): Promise<DeleteManyResponse> {
