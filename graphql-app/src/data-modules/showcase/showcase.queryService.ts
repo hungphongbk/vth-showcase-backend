@@ -1,4 +1,5 @@
 import {
+  AssemblerQueryService,
   DeleteManyResponse,
   InjectQueryService,
   Query,
@@ -12,10 +13,11 @@ import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
-import { CACHE_MANAGER, Inject } from '@nestjs/common';
+import { CACHE_MANAGER, forwardRef, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Connection } from 'typeorm';
 import { InjectAuthoredQueryService } from '../../auth';
+import { ShowcaseAssembler } from './showcase.assembler';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -23,13 +25,25 @@ const query = (showcase: ShowcaseDto): Query<any> => ({
   },
 });
 
+export class ShowcaseBaseQueryService extends AssemblerQueryService<
+  ShowcaseDto,
+  ShowcaseEntity
+> {
+  constructor(
+    @Inject(forwardRef(() => ShowcaseAssembler)) assembler: ShowcaseAssembler,
+    @InjectAuthoredQueryService(ShowcaseEntity)
+    private readonly service: QueryService<ShowcaseEntity>,
+  ) {
+    super(assembler, service);
+  }
+}
+
 export class ShowcaseQueryService extends RelationQueryService<
   ShowcaseDto,
   ShowcaseCreateInputDto
 > {
   constructor(
-    @InjectAuthoredQueryService(ShowcaseEntity)
-    private readonly service: QueryService<ShowcaseDto>,
+    private readonly service: ShowcaseBaseQueryService,
     @InjectQueryService(MediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ShowcaseHFEntity)

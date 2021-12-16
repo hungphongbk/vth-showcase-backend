@@ -3,7 +3,10 @@ import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { ShowcaseQueryService } from './showcase.queryService';
+import {
+  ShowcaseBaseQueryService,
+  ShowcaseQueryService,
+} from './showcase.queryService';
 import { MediaModule } from '../media/media.module';
 import { HighlightFeatureModule } from '../highlight-feature/highlight-feature.module';
 import { ImageListModule } from '../image-list/image-list.module';
@@ -14,6 +17,7 @@ import {
   ShowcaseAuthResolver,
 } from './resolvers/showcase-auth.resolver';
 import { RemoveCiTestService } from './remove-ci-test.service';
+import { ShowcaseAssembler } from './showcase.assembler';
 
 const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
   authRelModule = AuthModule.forFeature({
@@ -32,7 +36,8 @@ const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
         HighlightFeatureModule,
         ImageListModule,
       ],
-      services: [ShowcaseQueryService],
+      services: [ShowcaseQueryService, ShowcaseBaseQueryService],
+      assemblers: [ShowcaseAssembler],
       resolvers: [
         {
           DTOClass: ShowcaseDto,
