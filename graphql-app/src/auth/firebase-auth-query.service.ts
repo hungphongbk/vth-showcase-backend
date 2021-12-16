@@ -1,6 +1,8 @@
 import {
+  applyFilter,
   applyQuery,
   DeepPartial,
+  Filter,
   NoOpQueryService,
   Query,
   QueryService,
@@ -19,7 +21,8 @@ import {
 } from '../common/decorators/cache.decorator';
 import { auth } from 'firebase-admin';
 
-const AUTH_GET_BY_ID = Symbol('auth-get-by-id');
+const AUTH_GET_BY_ID = Symbol('auth-get-by-id'),
+  AUTH_GET_ALL = Symbol('auth-get-all');
 
 @QueryService(FirebaseUserClass)
 export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass> {
@@ -58,16 +61,22 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     if (query.filter?.uid?.eq) {
       return [await this.getById(query.filter?.uid?.eq)];
     }
-    return applyQuery(
-      (await this.firebaseAdmin.auth().listUsers(100))
-        .users as unknown as FirebaseUserClass[],
-      query,
-    );
+    return applyQuery(await this._getAll(), query);
+  }
+
+  async count(filter: Filter<FirebaseUserClass>): Promise<number> {
+    return applyFilter(await this._getAll(), filter).length;
   }
 
   private async _getById(id: string | number): Promise<FirebaseUserClass> {
     return (await this.firebaseAdmin
       .auth()
       .getUser(id + '')) as unknown as Promise<FirebaseUserClass>;
+  }
+
+  @CacheDecorator({ key: AUTH_GET_ALL, ttl: 30 })
+  private async _getAll(): Promise<FirebaseUserClass[]> {
+    return (await this.firebaseAdmin.auth().listUsers(100))
+      .users as unknown as FirebaseUserClass[];
   }
 }

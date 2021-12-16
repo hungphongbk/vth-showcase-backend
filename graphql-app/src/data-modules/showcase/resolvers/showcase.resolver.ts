@@ -7,6 +7,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthDto, CurrentUser, GqlOptionalAuthGuard } from '../../../auth';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import { CacheControlDirective } from '../../../gql/directives/cache-control.directive';
+import * as deepmerge from 'deepmerge';
 
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlOptionalAuthGuard)
@@ -19,7 +20,9 @@ export class ShowcaseResolver {
   ): Promise<ConnectionType<ShowcaseDto>> {
     return ShowcaseConnection.createFromPromise(
       (q) => this.service.query(q),
-      query,
+      deepmerge(query, {
+        filter: { slug: { notLike: 'ci-test%' } },
+      } as ShowcaseQuery),
     );
   }
 
