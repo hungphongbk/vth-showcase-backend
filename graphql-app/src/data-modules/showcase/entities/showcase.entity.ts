@@ -22,10 +22,10 @@ import * as crypto from 'crypto';
 import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
 import { InvestmentPackageEntity } from '../../investment/investment.package.entity';
 import { CommentEntity } from '../../comment/comment.entity';
-import { AuthoredContentEntity } from '../../../auth/authored.content.entity';
+import { AuthoredContentEntity } from '../../../auth';
 
 @Entity('showcase')
-export class ShowcaseEntity extends AuthoredContentEntity('showcasePosts') {
+export class ShowcaseEntity extends AuthoredContentEntity {
   @PrimaryGeneratedColumn('identity')
   id: number;
 

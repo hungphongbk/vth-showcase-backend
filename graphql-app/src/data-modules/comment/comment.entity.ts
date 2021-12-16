@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ShowcaseEntity } from '../showcase/entities/showcase.entity';
-import { AuthoredContentEntity } from '../../auth/authored.content.entity';
+import { AuthoredContentEntity } from '../../auth';
 
 export enum CommentRateEnum {
   SIEU_PHAM = 'sieu-pham',
@@ -19,7 +19,7 @@ export enum CommentRateEnum {
 }
 
 @Entity('comment')
-export class CommentEntity extends AuthoredContentEntity('comments') {
+export class CommentEntity extends AuthoredContentEntity {
   @PrimaryGeneratedColumn('identity')
   id: number;
 

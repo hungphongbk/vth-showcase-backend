@@ -56,7 +56,7 @@ export class CommentResolver {
       comment.id,
       showcase.id,
     );
-    comment = await this.service.setRelation('author', comment.id, user.uid);
+    comment.authorUid = user.uid;
     return comment;
   }
 }

@@ -11,10 +11,10 @@ import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
 import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
-import { AuthEntity } from '../../auth/auth.entity';
 import { CACHE_MANAGER, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Connection } from 'typeorm';
+import { InjectAuthoredQueryService } from '../../auth';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -27,10 +27,8 @@ export class ShowcaseQueryService extends RelationQueryService<
   ShowcaseCreateInputDto
 > {
   constructor(
-    @InjectQueryService(ShowcaseEntity)
+    @InjectAuthoredQueryService(ShowcaseEntity)
     private readonly service: QueryService<ShowcaseDto>,
-    @InjectQueryService(AuthEntity)
-    private readonly authQueryService: QueryService<AuthEntity>,
     @InjectQueryService(MediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ShowcaseHFEntity)
@@ -41,14 +39,6 @@ export class ShowcaseQueryService extends RelationQueryService<
     private dbConnection: Connection,
   ) {
     super(service, {
-      author: {
-        service: authQueryService,
-        query: (showcase) => ({
-          filter: {
-            id: { eq: showcase.authorUid },
-          },
-        }),
-      },
       image: {
         service: mediaQueryService,
         query,

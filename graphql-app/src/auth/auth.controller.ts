@@ -21,8 +21,8 @@ import {
 import fetch from 'node-fetch';
 import { Cache } from 'cache-manager';
 import { ControllerAuthGuard } from './gql.auth.guard';
-import { AuthEntity, AuthRoleType } from './auth.entity';
-import { InjectQueryService, QueryService } from '@nestjs-query/core';
+import { AuthRoleType } from './dtos/auth.dto';
+import { AuthQueryService } from './auth.query.service';
 
 const CACHE_KEY = 'X-Test-Token';
 
@@ -34,8 +34,7 @@ export class AuthController {
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    @InjectQueryService(AuthEntity)
-    private readonly userService: QueryService<AuthEntity>,
+    private readonly userService: AuthQueryService,
   ) {}
 
   private static cacheKey(uid: string): string {

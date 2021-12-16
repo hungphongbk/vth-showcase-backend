@@ -7,20 +7,32 @@ import { ShowcaseQueryService } from './showcase.queryService';
 import { MediaModule } from '../media/media.module';
 import { HighlightFeatureModule } from '../highlight-feature/highlight-feature.module';
 import { ImageListModule } from '../image-list/image-list.module';
+import { AuthModule } from '../../auth';
 import { ShowcaseDto } from './dtos/showcase.dtos';
-import { AuthModule } from '../../auth/auth.module';
 
-const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]);
+const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
+  authRelModule = AuthModule.forFeature({
+    imports: [showcaseOrmModule],
+    EntityClass: ShowcaseEntity,
+  });
 
 @Module({
   imports: [
-    AuthModule,
+    authRelModule,
     NestjsQueryGraphQLModule.forFeature({
-      imports: [showcaseOrmModule],
+      imports: [
+        showcaseOrmModule,
+        authRelModule,
+        MediaModule,
+        HighlightFeatureModule,
+        ImageListModule,
+      ],
+      services: [ShowcaseQueryService],
       resolvers: [
         {
           DTOClass: ShowcaseDto,
           EntityClass: ShowcaseEntity,
+          ServiceClass: ShowcaseQueryService,
           read: { disabled: true },
           create: { disabled: true },
           update: { disabled: true },

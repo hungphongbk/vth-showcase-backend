@@ -107,4 +107,5 @@ dist
 .data/uploads
 !.gitkeep
 /.test/http-client.env.json
+/.test/*.graphql
 /.kube/config.yml
