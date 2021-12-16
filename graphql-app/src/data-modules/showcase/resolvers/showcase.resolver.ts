@@ -4,10 +4,16 @@ import { ShowcaseConnection, ShowcaseQuery } from '../dtos/query.types';
 import { ConnectionType } from '@nestjs-query/query-graphql';
 import { ShowcaseQueryService } from '../showcase.queryService';
 import { UseGuards } from '@nestjs/common';
-import { AuthDto, CurrentUser, GqlOptionalAuthGuard } from '../../../auth';
+import {
+  AuthDto,
+  AuthRoleType,
+  CurrentUser,
+  GqlOptionalAuthGuard,
+} from '../../../auth';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import { CacheControlDirective } from '../../../gql/directives/cache-control.directive';
 import * as deepmerge from 'deepmerge';
+import { ForbiddenError } from 'apollo-server-express';
 
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlOptionalAuthGuard)
@@ -26,9 +32,26 @@ export class ShowcaseResolver {
     );
   }
 
+  /**
+   * Chỉ trả về showcase khi
+   * 1/ showcase được published
+   * 2/ showcase status và requested bởi author, hoặc superadmin
+   *
+   */
   @Query(() => ShowcaseDto)
-  async showcase(@Args('slug') slug: string): Promise<ShowcaseDto | undefined> {
-    return await this.service.getOneShowcase(slug);
+  async showcase(
+    @Args('slug') slug: string,
+    @CurrentUser() user: AuthDto,
+  ): Promise<ShowcaseDto | undefined> {
+    const showcase = await this.service.getOneShowcase(slug);
+    if (showcase.isPublished) return showcase;
+    if (
+      user.role === AuthRoleType.ADMIN ||
+      user.role === AuthRoleType.SUPERADMIN
+    )
+      return showcase;
+    if (showcase.isCreatedBy(user)) return showcase;
+    throw new ForbiddenError('Bạn không có quyền truy cập vào Showcase này');
   }
 
   @CacheControlDirective({ scope: 'PRIVATE' })

@@ -10,6 +10,7 @@ import {
   FilterableField,
   IDField,
   OffsetConnection,
+  QueryOptions,
   Relation,
   UnPagedRelation,
 } from '@nestjs-query/query-graphql';
@@ -49,6 +50,9 @@ registerEnumType(PublishStatus, {
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
 @UnPagedRelation('imageLists', () => ImageListDto)
 @OffsetConnection('comments', () => CommentDto, { enableTotalCount: true })
+@QueryOptions({
+  defaultFilter: { publishStatus: { eq: PublishStatus.PUBLISHED } },
+})
 export class ShowcaseDto {
   @Field(() => ID)
   id!: string;
@@ -100,4 +104,11 @@ export class ShowcaseDto {
 
   @Field(() => ShowcaseInventoryDto, { nullable: true })
   inventory!: ShowcaseInventoryDto;
+
+  get isPublished() {
+    return this.publishStatus === PublishStatus.PUBLISHED;
+  }
+  isCreatedBy(user: AuthDto) {
+    return this.authorUid === user.uid;
+  }
 }
