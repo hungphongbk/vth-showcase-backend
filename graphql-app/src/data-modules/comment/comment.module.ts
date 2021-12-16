@@ -6,6 +6,7 @@ import { CommentDto } from './comment.dto';
 import { CommentResolver } from './comment.resolver';
 import { ShowcaseModule } from '../showcase/showcase.module';
 import { AuthModule } from '../../auth';
+import { CommentQueryService } from './comment-query.service';
 
 const ormModule = NestjsQueryTypeOrmModule.forFeature([CommentEntity]),
   authoredModule = AuthModule.forFeature({
@@ -18,10 +19,12 @@ const ormModule = NestjsQueryTypeOrmModule.forFeature([CommentEntity]),
     authoredModule,
     NestjsQueryGraphQLModule.forFeature({
       imports: [ormModule, authoredModule],
+      services: [CommentQueryService],
       resolvers: [
         {
           DTOClass: CommentDto,
           EntityClass: CommentEntity,
+          ServiceClass: CommentQueryService,
         },
       ],
     }),

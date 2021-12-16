@@ -14,16 +14,19 @@ import {
   Module,
 } from '@nestjs/common';
 import { AuthQueryService } from './auth.query.service';
-import { ShowcaseEntity } from '../data-modules/showcase/entities/showcase.entity';
 import { AuthAssembler } from './auth.assembler';
 import { PassportModule } from '@nestjs/passport';
 import { FirebaseAuthQueryService } from './firebase-auth-query.service';
+import { AuthControllerModule } from './modules/auth.controller.module';
+import { FirebaseStrategy } from './firebase.strategy';
+import { AuthResolver } from './resolvers/auth.resolver';
+import { AuthAdminResolver } from './resolvers/auth.admin.resolver';
 
 function creator<DTO, C = DeepPartial<DTO>>(EntityClass: Class<any>) {
   @Injectable()
   class AuthRelationQueryService extends RelationQueryService<DTO, C> {
     constructor(
-      @InjectQueryService(ShowcaseEntity) service: QueryService<DTO>,
+      @InjectQueryService(EntityClass) service: QueryService<DTO>,
       private readonly authQueryService: AuthQueryService,
     ) {
       super(service, {
@@ -71,6 +74,7 @@ export class AuthModule<DTO, C = DeepPartial<DTO>> {
       module: AuthModule,
       imports: [
         PassportModule.register({ defaultStrategy: 'firebase' }),
+        AuthControllerModule,
         ...opts.imports,
       ],
       providers: [
@@ -78,8 +82,11 @@ export class AuthModule<DTO, C = DeepPartial<DTO>> {
         AuthQueryService,
         AuthAssembler,
         FirebaseAuthQueryService,
+        FirebaseStrategy,
+        AuthResolver,
+        AuthAdminResolver,
       ],
-      exports: [provider, AuthQueryService],
+      exports: [provider, AuthQueryService, FirebaseStrategy],
     };
   }
 }

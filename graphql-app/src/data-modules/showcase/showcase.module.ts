@@ -18,7 +18,7 @@ const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
 
 @Module({
   imports: [
-    authRelModule,
+    // authRelModule,
     NestjsQueryGraphQLModule.forFeature({
       imports: [
         showcaseOrmModule,

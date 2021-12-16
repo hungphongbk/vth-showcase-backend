@@ -9,7 +9,7 @@ import {
   QueryFieldMap,
   transformQuery,
 } from '@nestjs-query/core';
-import { AuthDto } from './dtos/auth.dto';
+import { AuthDto, AuthRoleType } from './dtos/auth.dto';
 import { transform } from 'lodash';
 
 export class FirebaseUserClass implements admin.auth.UserRecord {
@@ -78,19 +78,32 @@ export class AuthAssembler extends AbstractAssembler<
   convertToDTO(entity: FirebaseUserClass): AuthDto {
     const dto = new AuthDto();
     transformByMapper(entity, dto, mapUserRecordToDto);
+    dto.role =
+      (Object.keys(entity.customClaims)[0] as unknown as AuthRoleType) ??
+      AuthRoleType.USER;
     return dto;
   }
 
   convertToEntity(dto: AuthDto): FirebaseUserClass {
     const entity = new FirebaseUserClass();
     transformByMapper(dto, entity, mapDtoToUserRecord);
+
+    entity.customClaims = {
+      [dto.role]: true,
+    };
+
     return entity;
   }
 
   convertToUpdateEntity(
     update: DeepPartial<AuthDto>,
   ): DeepPartial<FirebaseUserClass> {
-    return undefined;
+    const entity = new FirebaseUserClass();
+    entity.customClaims = {
+      [update.role]: true,
+    };
+
+    return entity;
   }
 
   convertAggregateQuery(

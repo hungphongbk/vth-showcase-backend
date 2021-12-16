@@ -33,4 +33,4 @@ Origin: http://localhost:3000
 Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
-{"query":"query CurrentUser {  currentUser {    uid    email    name  }}"}
+{"query":"query CurrentUser {  currentUser { uid email name role }}"}

@@ -22,5 +22,9 @@ export class AuthDto {
   @FilterableField()
   email: string;
 
+  @Field()
+  photoURL: string;
+
+  @Field(() => AuthRoleType)
   role: AuthRoleType;
 }

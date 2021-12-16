@@ -1,4 +1,5 @@
 import {
+  applyQuery,
   DeepPartial,
   NoOpQueryService,
   Query,
@@ -57,12 +58,16 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     if (query.filter?.uid?.eq) {
       return [await this.getById(query.filter?.uid?.eq)];
     }
-    return super.query(query);
+    return applyQuery(
+      (await this.firebaseAdmin.auth().listUsers(100))
+        .users as unknown as FirebaseUserClass[],
+      query,
+    );
   }
 
-  private _getById(id: string | number): Promise<FirebaseUserClass> {
-    return this.firebaseAdmin
+  private async _getById(id: string | number): Promise<FirebaseUserClass> {
+    return (await this.firebaseAdmin
       .auth()
-      .getUser(id + '') as unknown as Promise<FirebaseUserClass>;
+      .getUser(id + '')) as unknown as Promise<FirebaseUserClass>;
   }
 }
