@@ -1,6 +1,8 @@
 import { join } from 'path';
-import 'typeorm-seeding';
-import { ConnectionOptions } from 'typeorm-seeding';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import * as entities from './**/*.entity.ts';
 
 const config = {
   host: process.env.DB_HOST || 'localhost',
@@ -12,20 +14,19 @@ const config = {
 const isProduction = process.env.NODE_ENV === 'production';
 const migrationSrcDir = isProduction ? 'dist' : 'src';
 
-const connectionOptions: ConnectionOptions = {
+console.log(config);
+
+const connectionOptions: PostgresConnectionOptions = {
   type: 'postgres',
   host: config.host,
   port: config.port as unknown as number,
   username: config.user,
   password: config.password,
   database: config.database,
-  entities: [
-    join(__dirname, '**/*.entity{.ts,.js}'),
-    join(__dirname, '**/*.model{.ts,.js}'),
-  ],
   // We are using migrations, synchronize should be set to false.
   synchronize: false,
   dropSchema: false,
+  entities: [join(__dirname, '**/*.entity{.ts,.js}')],
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
   migrationsRun: true,
@@ -36,8 +37,6 @@ const connectionOptions: ConnectionOptions = {
   cli: {
     migrationsDir: `${migrationSrcDir}/migrations`,
   },
-  seeds: [`${migrationSrcDir}/seeds/**/*{.js,.ts}`],
-  factories: [`${migrationSrcDir}/factories/**/*{.js,.ts}`],
 };
 
 export = connectionOptions;

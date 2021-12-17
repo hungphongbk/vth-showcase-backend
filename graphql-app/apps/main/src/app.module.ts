@@ -1,8 +1,6 @@
 // noinspection PointlessArithmeticExpressionJS
 
 import { CacheModule, Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import * as connectionOptions from './ormconfig';
 import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 import firebaseConfig from './config/firebase.config';
 import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
@@ -39,7 +37,6 @@ import { ScheduleModule } from '@nestjs/schedule';
     FirebaseAdminModule.forRootAsync({
       useFactory: firebaseConfig,
     }),
-    TypeOrmModule.forRoot(connectionOptions),
     ScheduleModule.forRoot(),
     GqlModule,
     DataModulesModule,
