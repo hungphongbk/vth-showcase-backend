@@ -1,4 +1,4 @@
-import { Field, InputType, OmitType } from '@nestjs/graphql';
+import { Field, InputType, OmitType, PartialType } from '@nestjs/graphql';
 import { PublishStatus, ShowcaseDto } from './showcase.dtos';
 import { MediaCreateDto } from '../../media/dtos/media.create.dto';
 import { ShowcaseHFCreateInputDto } from '../../highlight-feature/dtos/showcaseHF.create.dto';
@@ -28,3 +28,8 @@ export class ShowcaseCreateInputDto extends ShowcaseCreateBase {
   @Field(() => [CreateImageListInputDto], { nullable: true })
   imageLists?: CreateImageListInputDto[];
 }
+
+@InputType()
+export class ShowcaseUpdateInputDto extends PartialType(
+  ShowcaseCreateInputDto,
+) {}

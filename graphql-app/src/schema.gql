@@ -653,7 +653,7 @@ type Mutation {
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
-  updateOneShowcase(input: ShowcaseCreateInputDto!, slug: String!): Boolean!
+  updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   updateOneUser(role: AuthRoleType!, uid: String!): Boolean!
 }
@@ -1304,6 +1304,23 @@ input ShowcaseStatusFilterComparison {
   notILike: ShowcaseStatus
   notIn: [ShowcaseStatus!]
   notLike: ShowcaseStatus
+}
+
+input ShowcaseUpdateInputDto {
+  brand: ShowcaseBrandInput
+  description: String
+  expectedQuantity: ShowcasePriceInput
+  expectedSaleAt: DateTime = null
+  expectedSaleEndAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
+  highlightFeatures: [ShowcaseHFCreateInputDto!]
+  id: String
+  image: MediaInput
+  imageLists: [CreateImageListInputDto!]
+  inventory: ShowcaseInventoryDtoInput
+  name: String
+  publishStatus: PublishStatus
+  status: ShowcaseStatus
 }
 
 """Sort Directions"""

@@ -10,7 +10,6 @@ import { PublishStatus, ShowcaseDto } from '../dtos/showcase.dtos';
 import { Inject, Logger, UseGuards } from '@nestjs/common';
 import {
   AuthDto,
-  AuthQueryService,
   AuthRoleType,
   CurrentUser,
   GqlAuthGuard,
@@ -20,7 +19,10 @@ import {
   MutationArgsType,
   MutationHookArgs,
 } from '@nestjs-query/query-graphql';
-import { ShowcaseCreateInputDto } from '../dtos/showcase.create.dto';
+import {
+  ShowcaseCreateInputDto,
+  ShowcaseUpdateInputDto,
+} from '../dtos/showcase.create.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { UserStatusEnum } from '../dtos/user-status.enum';
 import {
@@ -33,14 +35,14 @@ import { ShowcaseConnection } from '../dtos/query.types';
 @ArgsType()
 class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
 
+@ArgsType()
+class UpdateOneShowcase extends MutationArgsType(ShowcaseUpdateInputDto) {}
+
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlAuthGuard)
 export class ShowcaseAuthResolver {
   private readonly logger = new Logger(ShowcaseAuthResolver.name);
-  constructor(
-    private readonly service: ShowcaseQueryService,
-    private readonly authQueryService: AuthQueryService,
-  ) {}
+  constructor(private readonly service: ShowcaseQueryService) {}
 
   /**
    * Tạo một Showcase mới
@@ -67,7 +69,7 @@ export class ShowcaseAuthResolver {
   @ResolverMutation(() => Boolean)
   async updateOneShowcase(
     @Args('slug') slug: string,
-    @MutationHookArgs() input: CreateOneShowcase,
+    @MutationHookArgs() input: UpdateOneShowcase,
     // @GqlCurrentUser() user: AuthDto,
   ) {
     await this.service.updateMany(input.input, { slug: { eq: slug } });
