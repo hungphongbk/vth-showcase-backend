@@ -1,7 +1,24 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/main/src",
   "compilerOptions": {
-    "plugins": ["@nestjs/graphql"]
+    "plugins": [
+      "@nestjs/graphql"
+    ],
+    "webpack": true,
+    "tsConfigPath": "apps/main/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/main",
+  "projects": {
+    "main": {
+      "type": "application",
+      "root": "apps/main",
+      "entryFile": "main",
+      "sourceRoot": "apps/main/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/main/tsconfig.app.json"
+      }
+    }
   }
 }

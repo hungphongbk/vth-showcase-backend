@@ -3,6 +3,7 @@ import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { InvestmentPackageEntity } from './investment.package.entity';
 import { InvestmentPackageDto } from './investment.package.dto';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 const ormModule = NestjsQueryTypeOrmModule.forFeature([
   InvestmentPackageEntity,
@@ -10,6 +11,7 @@ const ormModule = NestjsQueryTypeOrmModule.forFeature([
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([InvestmentPackageEntity]),
     NestjsQueryGraphQLModule.forFeature({
       imports: [ormModule],
       resolvers: [

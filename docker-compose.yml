@@ -3,6 +3,7 @@ services:
   redis:
     container_name: redis
     hostname: redis
+    user: root
     image: "redis:alpine"
     ports:
       - "6379:6379"

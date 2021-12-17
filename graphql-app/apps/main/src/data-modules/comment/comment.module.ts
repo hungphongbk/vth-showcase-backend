@@ -7,6 +7,7 @@ import { CommentResolver } from './comment.resolver';
 import { ShowcaseModule } from '../showcase/showcase.module';
 import { AuthModule } from '../../auth';
 import { CommentQueryService } from './comment-query.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 const ormModule = NestjsQueryTypeOrmModule.forFeature([CommentEntity]),
   authoredModule = AuthModule.forFeature({
@@ -16,6 +17,7 @@ const ormModule = NestjsQueryTypeOrmModule.forFeature([CommentEntity]),
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([CommentEntity]),
     authoredModule,
     NestjsQueryGraphQLModule.forFeature({
       imports: [ormModule, authoredModule],

@@ -4,12 +4,14 @@ import { ImageListEntity } from './entities/image-list.entity';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { CreateImageListInputDto } from './dto/create-image-list-input.dto';
 import { ImageListDto } from './dto/image-list.dto';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ImageListMediaEntity } from './entities/image-list.media.entity';
 
 const ormModule = NestjsQueryTypeOrmModule.forFeature([ImageListEntity]);
 
 @Module({
   imports: [
-    // NestjsQueryTypeOrmModule.forFeature([ImageListEntity])
+    TypeOrmModule.forFeature([ImageListEntity, ImageListMediaEntity]),
     NestjsQueryGraphQLModule.forFeature({
       imports: [ormModule],
       resolvers: [
