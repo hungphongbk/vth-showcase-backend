@@ -12,7 +12,10 @@ import { PublishStatus, ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
-import { ShowcaseCreateInputDto } from './dtos/showcase.create.dto';
+import {
+  ShowcaseCreateInputDto,
+  ShowcaseUpdateInputDto,
+} from './dtos/showcase.create.dto';
 import { CACHE_MANAGER, forwardRef, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Connection } from 'typeorm';
@@ -27,13 +30,17 @@ const query = (showcase: ShowcaseDto): Query<any> => ({
 
 export class ShowcaseBaseQueryService extends AssemblerQueryService<
   ShowcaseDto,
-  ShowcaseEntity
+  ShowcaseEntity,
+  ShowcaseCreateInputDto,
+  ShowcaseUpdateInputDto
 > {
   constructor(
     @Inject(forwardRef(() => ShowcaseAssembler)) assembler: ShowcaseAssembler,
     @InjectAuthoredQueryService(ShowcaseEntity)
     private readonly service: QueryService<ShowcaseEntity>,
   ) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     super(assembler, service);
   }
 }
@@ -90,5 +97,13 @@ export class ShowcaseQueryService extends RelationQueryService<
     return await this.service.deleteMany({
       slug: { like: 'ci-test%' },
     });
+  }
+
+  async updateOne(
+    slug: string | number,
+    update: ShowcaseUpdateInputDto,
+  ): Promise<ShowcaseDto> {
+    await super.updateMany(update, { slug: { eq: slug as string } });
+    return await this.getOneShowcase(slug as string);
   }
 }

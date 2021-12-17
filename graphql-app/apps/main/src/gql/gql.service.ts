@@ -6,8 +6,6 @@ import { Cache } from 'cache-manager';
 import { ConfigService } from '@nestjs/config';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
 import Redis from 'ioredis';
-import { ApolloServerPluginCacheControl } from 'apollo-server-core';
-import responseCachePlugin from 'apollo-server-plugin-response-cache';
 
 @Injectable()
 export class GqlService implements GqlOptionsFactory {
@@ -35,12 +33,12 @@ export class GqlService implements GqlOptionsFactory {
         cache,
       },
       plugins: [
-        ApolloServerPluginCacheControl({ defaultMaxAge: 15 }),
-        responseCachePlugin({
-          cache,
-          sessionId: (requestContext) =>
-            requestContext.request.http.headers.get('Authorization') || null,
-        }),
+        // ApolloServerPluginCacheControl({ defaultMaxAge: 15 }),
+        // responseCachePlugin({
+        //   cache,
+        //   sessionId: (requestContext) =>
+        //     requestContext.request.http.headers.get('Authorization') || null,
+        // }),
       ],
     };
   }

@@ -72,7 +72,7 @@ export class ShowcaseAuthResolver {
     @MutationHookArgs() input: UpdateOneShowcase,
     // @GqlCurrentUser() user: AuthDto,
   ) {
-    await this.service.updateMany(input.input, { slug: { eq: slug } });
+    await this.service.updateOne(slug, input.input);
     return true;
   }
 
