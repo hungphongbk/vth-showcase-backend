@@ -11,6 +11,7 @@ import {
 } from '@nestjs-query/core';
 import { AuthDto, AuthRoleType } from './dtos/auth.dto';
 import { transform } from 'lodash';
+import { NotImplementedException } from '@nestjs/common';
 
 export class FirebaseUserClass implements admin.auth.UserRecord {
   displayName: string;
@@ -70,9 +71,10 @@ export class AuthAssembler extends AbstractAssembler<
   }
 
   convertToCreateEntity(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     create: DeepPartial<AuthDto>,
   ): DeepPartial<FirebaseUserClass> {
-    return undefined;
+    throw new NotImplementedException();
   }
 
   convertToDTO(entity: FirebaseUserClass): AuthDto {
@@ -107,14 +109,16 @@ export class AuthAssembler extends AbstractAssembler<
   }
 
   convertAggregateQuery(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     aggregate: AggregateQuery<AuthDto>,
   ): AggregateQuery<FirebaseUserClass> {
-    return undefined;
+    throw new NotImplementedException();
   }
 
   convertAggregateResponse(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     aggregate: AggregateResponse<FirebaseUserClass>,
   ): AggregateResponse<AuthDto> {
-    return undefined;
+    throw new NotImplementedException();
   }
 }

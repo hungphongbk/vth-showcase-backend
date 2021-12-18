@@ -38,6 +38,7 @@ class SubmitInvestorInputDto {
   fund: string;
 }
 
+// noinspection JSUnusedGlobalSymbols
 const converter = {
   toFirestore: (data: SubmitInvestorInputDto) => data,
   fromFirestore: (snap: FirebaseFirestore.QueryDocumentSnapshot) =>

@@ -5,7 +5,6 @@ export * from './auth.controller';
 export * from './auth.module';
 export * from './auth.query.service';
 export * from './resolvers/auth.resolver';
-export * from './authored.content.entity';
 export * from './firebase.strategy';
 export * from './firebase-auth-query.service';
 export * from './gql.auth.guard';

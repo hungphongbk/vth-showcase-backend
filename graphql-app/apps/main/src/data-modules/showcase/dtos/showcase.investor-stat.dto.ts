@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Directive, Field, ObjectType } from '@nestjs/graphql';
 import { ShowcaseDto } from './showcase.dtos';
 import * as _ from 'lodash';
 import { differenceInDays, parseISO } from 'date-fns';
-import { AuthDto, AuthRoleType } from '../../../auth/dtos/auth.dto';
+import { AuthDto, AuthRoleType } from '../../../auth';
 
 @ObjectType()
 export class ShowcaseInvestorStatDto {

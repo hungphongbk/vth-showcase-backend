@@ -5,13 +5,9 @@ import { SettingEntity } from './setting.entity';
 import {
   MutationArgsType,
   MutationHookArgs,
-  QueryArgsType,
 } from '@nestjs-query/query-graphql';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { SettingCreateDto } from './dtos/setting.create.dto';
-
-@ArgsType()
-class SettingQuery extends QueryArgsType(SettingDto) {}
 
 @ArgsType()
 class CreateOneSetting extends MutationArgsType(SettingCreateDto) {}

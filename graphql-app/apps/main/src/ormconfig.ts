@@ -1,8 +1,5 @@
 import { join } from 'path';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import * as entities from './**/*.entity.ts';
 
 const config = {
   host: process.env.DB_HOST || 'localhost',

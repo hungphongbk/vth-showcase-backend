@@ -19,4 +19,5 @@ async function bootstrap() {
   Logger.log('Showcase app has been started successfully on port 3000');
 }
 
+// noinspection JSIgnoredPromiseFromCall
 bootstrap();

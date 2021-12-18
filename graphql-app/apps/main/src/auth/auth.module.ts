@@ -62,7 +62,7 @@ function getServiceToken(DTOClass: { name: string }) {
 
 @Global()
 @Module({})
-export class AuthModule<DTO, C = DeepPartial<DTO>> {
+export class AuthModule<DTO> {
   static forFeature(opts: ModuleOpts): DynamicModule {
     const clazz = creator(opts.EntityClass);
 
