@@ -23,7 +23,9 @@ export class FirebaseUserClass implements admin.auth.UserRecord {
   emailVerified: boolean;
   metadata: admin.auth.UserMetadata;
   providerData: admin.auth.UserInfo[];
-  customClaims: any;
+  customClaims?: {
+    [key: string]: any;
+  };
 
   toJSON(): object {
     return undefined;
@@ -81,7 +83,7 @@ export class AuthAssembler extends AbstractAssembler<
     const dto = new AuthDto();
     transformByMapper(entity, dto, mapUserRecordToDto);
     dto.role =
-      (Object.keys(entity.customClaims)[0] as unknown as AuthRoleType) ??
+      (Object.keys(entity.customClaims ?? {})[0] as unknown as AuthRoleType) ??
       AuthRoleType.USER;
     return dto;
   }
