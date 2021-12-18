@@ -14,27 +14,22 @@
     "start": "DB_PORT=5433 nest start main",
     "start:dev": "DB_PORT=5433 nest start main --watch",
     "start:debug": "DB_PORT=5433 nest start main --watch --debug",
-    "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config apps/main/test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
-    "typeorm:prod": "typeorm --config dist/ormconfig.js",
-    "migration": "npm run typeorm migration:run",
-    "migration:create": "npm run typeorm migration:create -- -n",
-    "migration:generate": "npm run typeorm migration:generate -- -n",
-    "migration:revert": "npm run typeorm migration:revert",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config apps/main/src/ormconfig.ts",
+    "mig": "npm run typeorm migration:run",
+    "mig:create": "npm run typeorm migration:create -- -n",
+    "mig:generate": "npm run typeorm migration:generate -- -n",
+    "mig:revert": "npm run typeorm migration:revert",
     "typeorm-seeding": "ts-node ./node_modules/typeorm-seeding/dist/cli.js --configName src/ormconfig.ts",
-    "typeorm-seeding:prod": "node ./node_modules/typeorm-seeding/dist/cli.js --configName dist/ormconfig.js",
     "seed:config": "npm run typeorm-seeding config",
     "seed:run": "npm run typeorm-seeding seed",
     "schema:drop": "npm run typeorm schema:drop",
     "schema:sync": "npm run typeorm schema:sync",
-    "schema:drop:prod": "npm run typeorm:prod schema:drop",
-    "schema:sync:prod": "npm run typeorm:prod schema:sync",
     "init:dev": "npm run schema:drop && npm run schema:sync && npm run seed:run"
   },
   "dependencies": {
@@ -70,6 +65,7 @@
     "date-fns": "^2.27.0",
     "faker": "^5.5.3",
     "firebase-admin": "^9.12.0",
+    "form-data": "^4.0.0",
     "glob": "^7.2.0",
     "graphql": "^15.7.2",
     "graphql-scalars": "^1.13.6",
@@ -107,6 +103,7 @@
     "@types/node-fetch": "^3.0.3",
     "@types/passport-jwt": "^3.0.6",
     "@types/supertest": "^2.0.11",
+    "@types/webpack-env": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "dotenv-cli": "^4.1.0",
@@ -139,7 +136,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/upload(|/.*)$": "<rootDir>/libs/upload/src/$1"
+    }
   }
 }

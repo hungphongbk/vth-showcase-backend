@@ -17,7 +17,18 @@
       "entryFile": "main",
       "sourceRoot": "apps/main/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/main/tsconfig.app.json"
+        "tsConfigPath": "apps/main/tsconfig.app.json",
+        "assets": [
+          "**/*.png"]
+      }
+    },
+    "upload": {
+      "type": "library",
+      "root": "libs/upload",
+      "entryFile": "index",
+      "sourceRoot": "libs/upload/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/upload/tsconfig.lib.json"
       }
     }
   }

@@ -25,7 +25,7 @@ import { CommentEntity } from '../../comment/comment.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
-  @Column()
+  @Column({ nullable: false })
   @Index()
   authorUid!: string;
   @PrimaryGeneratedColumn('identity')

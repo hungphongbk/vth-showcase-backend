@@ -11,7 +11,7 @@ const config = {
 const isProduction = process.env.NODE_ENV === 'production';
 const migrationSrcDir = isProduction ? 'dist' : 'src';
 
-console.log(config);
+console.log(join(__dirname, 'migrations/*{.ts,.js}'));
 
 const connectionOptions: PostgresConnectionOptions = {
   type: 'postgres',
@@ -32,7 +32,7 @@ const connectionOptions: PostgresConnectionOptions = {
   // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
   migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
   cli: {
-    migrationsDir: `${migrationSrcDir}/migrations`,
+    migrationsDir: join(__dirname, `migrations`),
   },
 };
 

@@ -19,6 +19,13 @@ import { InvestmentPackageEntity } from './investment/investment.package.entity'
 import { CommentEntity } from './comment/comment.entity';
 import { SettingEntity } from './setting/setting.entity';
 
+function globImport(r: any) {
+  return r
+    .keys()
+    .map(r)
+    .reduce((acc, val) => [...acc, ...Object.values(val)], []);
+}
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -36,6 +43,9 @@ import { SettingEntity } from './setting/setting.entity';
             CommentEntity,
             SettingEntity,
           ],
+          migrations: globImport(
+            require.context('../migrations', false, /\.ts/),
+          ),
         }),
     }),
     ShowcaseModule,

@@ -11,6 +11,7 @@ import * as redisStore from 'cache-manager-redis-store';
 import * as Joi from '@hapi/joi';
 import { GqlModule } from './gql/gql.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { UploadModule } from '@app/upload';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     GqlModule,
     DataModulesModule,
     HealthModule,
+    UploadModule,
   ],
   providers: [
     GqlLoggingPlugin,

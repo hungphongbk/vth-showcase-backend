@@ -6,6 +6,9 @@ export class InvestmentPackageEntity {
   id: number;
 
   @Column({ nullable: false })
+  slug: string;
+
+  @Column({ nullable: false })
   displayName: string;
 
   @Column({ nullable: false })
