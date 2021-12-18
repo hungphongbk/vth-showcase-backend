@@ -27,6 +27,7 @@ const connectionOptions: PostgresConnectionOptions = {
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
   migrationsRun: true,
+  migrationsTransactionMode: 'each',
   logging: [!isProduction && 'query', 'warn', 'error'] as any,
   // logging: 'all',
   // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
