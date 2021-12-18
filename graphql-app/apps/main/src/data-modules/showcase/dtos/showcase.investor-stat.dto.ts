@@ -106,7 +106,9 @@ export class ShowcaseInvestorStatDto {
 
   canReadThisStat(user: AuthDto): boolean {
     return (
-      user.role === AuthRoleType.INVESTOR ||
+      [AuthRoleType.INVESTOR, AuthRoleType.ADMIN, AuthRoleType.SUPERADMIN].some(
+        (v) => v === user.role,
+      ) ||
       (user.role === AuthRoleType.USER && user.uid === this.showcase.authorUid)
     );
   }
