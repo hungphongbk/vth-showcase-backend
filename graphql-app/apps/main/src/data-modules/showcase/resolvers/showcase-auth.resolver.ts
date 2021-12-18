@@ -56,8 +56,7 @@ export class ShowcaseAuthResolver {
     if (/^ci-test/.test(input.input.name))
       input.input.publishStatus = PublishStatus.PUBLISHED;
     input.input.authorUid = user.uid;
-    const showcase = await this.service.createOne(input.input);
-    return showcase;
+    return await this.service.createOne(input.input);
   }
 
   /**
