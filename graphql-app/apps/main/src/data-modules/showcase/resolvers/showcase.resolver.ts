@@ -11,7 +11,6 @@ import {
   GqlOptionalAuthGuard,
 } from '../../../auth';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
-import { CacheControlDirective } from '../../../gql/directives/cache-control.directive';
 import * as deepmerge from 'deepmerge';
 import { ForbiddenError } from 'apollo-server-express';
 
@@ -54,7 +53,6 @@ export class ShowcaseResolver {
     throw new ForbiddenError('Bạn không có quyền truy cập vào Showcase này');
   }
 
-  @CacheControlDirective({ scope: 'PRIVATE' })
   @ResolveField('investorStat', () => ShowcaseInvestorStatDto, {
     nullable: true,
   })
@@ -68,7 +66,6 @@ export class ShowcaseResolver {
     return stat;
   }
 
-  @CacheControlDirective({})
   @Query(() => [String])
   async slugs(): Promise<string[]> {
     return await this.service.slugs();
