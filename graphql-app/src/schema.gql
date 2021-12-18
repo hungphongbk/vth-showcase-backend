@@ -938,14 +938,6 @@ type SettingDto {
   value: JSONObject!
 }
 
-type SettingDtoEdge {
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
-
-  """The node containing the SettingDto"""
-  node: SettingDto!
-}
-
 type Showcase {
   author: User!
   brand: ShowcaseBrand!
