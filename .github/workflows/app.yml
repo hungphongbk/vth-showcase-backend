@@ -26,7 +26,7 @@ jobs:
       contents: read
       packages: write
     env:
-      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-${{ job.container.id }}
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-graphql
       IMAGE_NAME: ${{ github.repository }}
       FIREBASE_CRED_DIR: ./graphql-app/main/src.private
       FIREBASE_CRED_PATH: ./graphql-app/main/src.private/firebase-credentials.json
@@ -91,7 +91,7 @@ jobs:
       packages: write
     env:
       IMAGE_NAME: ${{ github.repository_owner }}/upload-server
-      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-${{ job.container.id }}
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
