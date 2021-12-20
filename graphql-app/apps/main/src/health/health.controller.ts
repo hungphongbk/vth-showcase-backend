@@ -4,22 +4,20 @@ import {
   HealthCheckService,
   HttpHealthIndicator,
 } from '@nestjs/terminus';
-import { UPLOAD_CONFIG, UploadConfig } from '@app/upload/uploadConfig';
+import { UploadService } from '@app/upload';
 
 @Controller('health')
 export class HealthController {
   constructor(
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
-    @Inject(UPLOAD_CONFIG)
-    private readonly config: UploadConfig,
+    @Inject(UploadService)
+    private readonly uploadService: UploadService,
   ) {}
 
   @Get()
   @HealthCheck()
   check() {
-    return this.health.check([
-      () => this.http.pingCheck('upload-service', this.config.publicPath),
-    ]);
+    return this.health.check([() => this.uploadService.pingcheck()]);
   }
 }

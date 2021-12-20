@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 import { EntityRepository } from 'typeorm';
 import { UPLOAD_CONFIG, UploadConfig } from '@app/upload/uploadConfig';
 import { urlJoin } from 'url-join-ts';
+import { HttpHealthIndicator } from '@nestjs/terminus';
 
 export type UploadResponse = {
   id: string;
@@ -20,12 +21,23 @@ export class UploadService {
   constructor(
     @Inject(UPLOAD_CONFIG)
     private readonly config: UploadConfig,
+    private http: HttpHealthIndicator,
   ) {}
 
-  get uploadURL() {
-    let url = `${this.config.host}:${this.config.port}/upload?token=${this.config.token}`;
-    if (!/^http/.test(url)) url = 'http://' + url;
+  get internalHostPath() {
+    let url = `${this.config.host}:${this.config.port}`;
+    if (!/^http/.test(url)) {
+      // noinspection HttpUrlsUsage
+      url = 'http://' + url;
+    }
     return url;
+  }
+  get uploadURL() {
+    return `${this.internalHostPath}/upload?token=${this.config.token}`;
+  }
+
+  pingcheck() {
+    return this.http.pingCheck('upload-service', this.internalHostPath);
   }
 
   async execute(filePath: PathLike): Promise<UploadResponse> {
