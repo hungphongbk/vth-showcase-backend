@@ -146,7 +146,7 @@ jobs:
       - build-upload
     uses: hungphongbk/vth-showcase-backend/.github/workflows/deployment.yml@develop
     with:
-      deployment_name: showcase
+      deployment_name: showcase upload
       namespace: staging
       environment: preview
     secrets:
