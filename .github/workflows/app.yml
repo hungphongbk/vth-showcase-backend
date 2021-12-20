@@ -4,9 +4,11 @@ name: Server Build & Deploy to Kubernetes
 on:
   push:
     branches:
-      - develop
+      - '*'
+      - '!master'
     paths:
       - 'graphql-app/**'
+      - 'upload-app/**'
       - '.github/workflows/**'
   pull_request:
     branches:
@@ -15,16 +17,17 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  build-app:
     name: Build integrated app
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     env:
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-${{ job.container.id }}
+      IMAGE_NAME: ${{ github.repository }}
       FIREBASE_CRED_DIR: ./graphql-app/main/src.private
       FIREBASE_CRED_PATH: ./graphql-app/main/src.private/firebase-credentials.json
     steps:
@@ -46,7 +49,7 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx-cache
+          path: ${{ env.DOCKERX_CACHE_PREFIX }}
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
@@ -72,17 +75,75 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          cache-from: type=local,src=${{ env.DOCKERX_CACHE_PREFIX }}
+          cache-to: type=local,dest=${{ env.DOCKERX_CACHE_PREFIX }}-new
 
       - name: Revalidate cache
         run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          rm -rf ${{ env.DOCKERX_CACHE_PREFIX }}
+          mv ${{ env.DOCKERX_CACHE_PREFIX }}-new ${{ env.DOCKERX_CACHE_PREFIX }}
+
+  build-upload:
+    name: Build upload server
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE_NAME: ${{ github.repository_owner }}/upload-server
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-${{ job.container.id }}
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      # Setup cache
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.DOCKERX_CACHE_PREFIX }}
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Authenticate with Github Container Registry
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: upload-app
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=${{ env.DOCKERX_CACHE_PREFIX }}
+          cache-to: type=local,dest=${{ env.DOCKERX_CACHE_PREFIX }}-new
+
+      - name: Revalidate cache
+        run: |
+          rm -rf ${{ env.DOCKERX_CACHE_PREFIX }}
+          mv ${{ env.DOCKERX_CACHE_PREFIX }}-new ${{ env.DOCKERX_CACHE_PREFIX }}
 
   deploy_preview:
     name: Deploy integrated app to VPS
-    needs: build
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - build-app
+      - build-upload
     uses: hungphongbk/vth-showcase-backend/.github/workflows/deployment.yml@develop
     with:
       deployment_name: showcase

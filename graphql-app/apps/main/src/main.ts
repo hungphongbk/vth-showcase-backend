@@ -13,6 +13,10 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
   app.use(morgan('tiny'));
+
+  // begin seeder
+  // end seeder
+
   // 0.0.0.0 due to fastify specification
   // https://docs.nestjs.com/techniques/performance
   await app.listen(3000, '0.0.0.0');

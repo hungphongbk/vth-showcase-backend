@@ -20,4 +20,7 @@ export class MediaDto {
 
   @Field()
   type: string;
+
+  @Field({ nullable: true })
+  preloadUrl: string;
 }

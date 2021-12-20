@@ -18,22 +18,23 @@ import {
 } from './resolvers/showcase-auth.resolver';
 import { RemoveCiTestService } from './remove-ci-test.service';
 import { ShowcaseAssembler } from './showcase.assembler';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
+import { ShowcaseOrmModule } from './showcase-orm.module';
 
-const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
+const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
+    ShowcaseEntity,
+  ]),
   authRelModule = AuthModule.forFeature({
-    imports: [showcaseOrmModule],
+    imports: [showcaseQueryOrmModule],
     EntityClass: ShowcaseEntity,
   });
 
 @Module({
   imports: [
     // authRelModule,
-    TypeOrmModule.forFeature([ShowcaseEntity, ShowcaseMediaEntity]),
+    ShowcaseOrmModule,
     NestjsQueryGraphQLModule.forFeature({
       imports: [
-        showcaseOrmModule,
+        showcaseQueryOrmModule,
         authRelModule,
         MediaModule,
         HighlightFeatureModule,
@@ -53,7 +54,7 @@ const showcaseOrmModule = NestjsQueryTypeOrmModule.forFeature([ShowcaseEntity]),
         },
       ],
     }),
-    showcaseOrmModule,
+    showcaseQueryOrmModule,
     MediaModule,
     HighlightFeatureModule,
     ImageListModule,

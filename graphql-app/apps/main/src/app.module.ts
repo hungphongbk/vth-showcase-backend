@@ -12,6 +12,7 @@ import * as Joi from '@hapi/joi';
 import { GqlModule } from './gql/gql.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from '@app/upload';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { UploadModule } from '@app/upload';
     DataModulesModule,
     HealthModule,
     UploadModule,
+    SeederModule,
   ],
   providers: [
     GqlLoggingPlugin,

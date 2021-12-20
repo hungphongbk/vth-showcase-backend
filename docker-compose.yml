@@ -30,12 +30,18 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
   upload:
-    image: mayth/simple-upload-server:latest
-    command: "-token ${UPLOAD_HOST_TOKEN} -cors /var/root"
+    image: upload-app:latest
+    build:
+      context: upload-app
     ports:
       - "25478:25478"
     volumes:
-      - $PWD/.data/uploads:/var/root
+      - uploads:/var/root
+    environment:
+      UPLOAD_PGHOST: postgres
+      UPLOAD_PGPORT: 5432
+    depends_on:
+      - postgres
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
@@ -46,3 +52,4 @@ services:
       RABBITMQ_DEFAULT_PASS: rabbitmq
 volumes:
   pgdata:
+  uploads:

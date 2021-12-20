@@ -10,4 +10,7 @@ export class MediaCreateDto {
 
   @Field({ nullable: false })
   mimetype: string;
+
+  @Field({ nullable: true })
+  preloadUrl: string;
 }

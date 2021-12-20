@@ -510,6 +510,7 @@ type MediaDto implements IdInterface {
   id: ID!
   mimetype: String!
   path: String!
+  preloadUrl: String
   type: String!
 }
 
@@ -543,6 +544,7 @@ type MediaDtoDeleteResponse {
   id: ID
   mimetype: String
   path: String
+  preloadUrl: String
   type: String
 }
 
@@ -593,6 +595,7 @@ input MediaInput {
   filename: String!
   mimetype: String!
   path: String!
+  preloadUrl: String
 }
 
 type Mutation {
@@ -1423,6 +1426,7 @@ input UpdateMediaDto {
   id: ID
   mimetype: String
   path: String
+  preloadUrl: String
   type: String
 }
 

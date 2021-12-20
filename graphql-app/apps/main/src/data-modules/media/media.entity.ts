@@ -25,4 +25,7 @@ export class MediaEntity {
 
   @Column()
   mimetype: string;
+
+  @Column()
+  preloadUrl: string;
 }

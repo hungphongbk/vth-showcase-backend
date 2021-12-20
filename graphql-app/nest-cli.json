@@ -19,7 +19,8 @@
       "compilerOptions": {
         "tsConfigPath": "apps/main/tsconfig.app.json",
         "assets": [
-          "**/*.png"]
+          "**/*.png"
+        ]
       }
     },
     "upload": {

@@ -29,7 +29,7 @@ export class ShowcaseEntity {
   @Index()
   authorUid!: string;
   @PrimaryGeneratedColumn('identity')
-  id: number;
+  id?: number;
 
   @Column()
   name: string;
@@ -115,6 +115,7 @@ export class ShowcaseEntity {
 
   @BeforeInsert()
   async generateSlug() {
+    if (typeof this.slug !== 'undefined') return;
     const currentTs = new Date().valueOf().toString();
     const id = crypto
       .createHash('sha1')
