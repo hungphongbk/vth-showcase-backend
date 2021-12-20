@@ -47,4 +47,4 @@ jobs:
       - name: Status
         run: |-
           kubectl rollout status deployment upload -n ${{ inputs.namespace }}
-          kubectl rollout status deployment staging -n ${{ inputs.namespace }}
+          kubectl rollout status deployment showcase -n ${{ inputs.namespace }}

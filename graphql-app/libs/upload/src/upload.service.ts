@@ -23,7 +23,9 @@ export class UploadService {
   ) {}
 
   get uploadURL() {
-    return `${this.config.host}:${this.config.port}/upload?token=${this.config.token}`;
+    let url = `${this.config.host}:${this.config.port}/upload?token=${this.config.token}`;
+    if (!/^http/.test(url)) url = 'http://' + url;
+    return url;
   }
 
   async execute(filePath: PathLike): Promise<UploadResponse> {
