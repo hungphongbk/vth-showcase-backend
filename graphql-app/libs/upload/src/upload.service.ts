@@ -37,8 +37,11 @@ export class UploadService {
   }
 
   pingcheck() {
-    this.logger.log(this.internalHostPath);
-    return this.http.pingCheck('upload-service', this.internalHostPath);
+    return this.http.pingCheck('upload-service', this.internalHostPath, {
+      headers: {
+        'X-Health-Check': 1,
+      },
+    });
   }
 
   async execute(filePath: PathLike): Promise<UploadResponse> {
