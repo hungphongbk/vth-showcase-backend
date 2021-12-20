@@ -7,6 +7,7 @@ import { uploadConfig } from '@app/upload/uploadConfig';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       validationSchema: Joi.object({
         UPLOAD_HOST_TOKEN: Joi.string().required(),
         UPLOAD_PGPORT: Joi.number().required(),

@@ -38,6 +38,7 @@
     "@nestjs-query/core": "^0.30.0",
     "@nestjs-query/query-graphql": "^0.30.0",
     "@nestjs-query/query-typeorm": "^0.30.0",
+    "@nestjs/axios": "^0.0.3",
     "@nestjs/common": "^8.2.3",
     "@nestjs/config": "^1.1.5",
     "@nestjs/core": "^8.2.3",
