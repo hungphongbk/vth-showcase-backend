@@ -3,6 +3,7 @@ module github.com/hungphongbk/vth-showcase-backend
 go 1.17
 
 require (
+	github.com/RaMin0/gin-health-check v0.0.0-20180807004848-a677317b3f01
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg/v10 v10.10.6
 	github.com/google/uuid v1.3.0
@@ -24,7 +25,6 @@ require (
 require (
 	github.com/Netflix/go-env v0.0.0-20210215222557-e437a7e7f9fb
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/go-pg/pg v8.0.7+incompatible
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect

@@ -7,7 +7,7 @@ export const uploadConfig = registerAs('upload', () => {
     ),
     port = +process.env.UPLOAD_PORT,
     token: string = process.env.UPLOAD_HOST_TOKEN,
-    publicPath = `${host}:${port}`;
+    publicPath = process.env.UPLOAD_PUBLICPATH || `${host}:${port}`;
 
   return { host, port, token, publicPath };
 });

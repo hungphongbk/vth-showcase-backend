@@ -6,6 +6,7 @@ import (
 	"github.com/hungphongbk/vth-showcase-backend/main/env"
 	"net/http"
 
+	healthcheck "github.com/RaMin0/gin-health-check"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,6 +21,7 @@ func setupRouter() *gin.Engine {
 
 	r := gin.Default()
 	r.Use(gin.Logger())
+	r.Use(healthcheck.Default())
 
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
 	r.Use(gin.CustomRecovery(func(c *gin.Context, recovered interface{}) {
