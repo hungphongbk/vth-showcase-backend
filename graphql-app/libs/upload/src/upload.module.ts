@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { uploadConfig } from '@app/upload/uploadConfig';
 import { HttpModule } from '@nestjs/axios';
+import { TerminusModule } from '@nestjs/terminus';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { HttpModule } from '@nestjs/axios';
       load: [uploadConfig],
     }),
     HttpModule,
+    TerminusModule,
   ],
   providers: [UploadService],
   exports: [UploadService],
