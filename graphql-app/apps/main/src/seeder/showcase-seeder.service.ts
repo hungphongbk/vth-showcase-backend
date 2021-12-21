@@ -63,6 +63,7 @@ export class ShowcaseSeederService implements OnApplicationBootstrap {
     showcaseEntity.image = imgEntity;
     showcaseEntity.highlightFeatures = hfEntities;
     await this.repo.save(showcaseEntity);
+    return 'cached';
   }
 
   onApplicationBootstrap() {

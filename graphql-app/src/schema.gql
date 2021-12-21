@@ -1210,6 +1210,12 @@ input ShowcaseInventoryDtoInput {
   revolvingInterval: Float!
 }
 
+type ShowcaseInvestorPackageDto {
+  firstYearBenefit: String!
+  fund: String!
+  package: InvestmentPackageDto!
+}
+
 type ShowcaseInvestorStatDto {
   """Tổng chi phí quảng cáo trung bình"""
   adCost: String!
@@ -1225,6 +1231,7 @@ type ShowcaseInvestorStatDto {
   initialCapital: String!
   operatingCost: String!
   operatingCostRate: Float!
+  packages: [ShowcaseInvestorPackageDto!]!
   revolvingInterval: Float!
   revolvingPerDay: Float!
 

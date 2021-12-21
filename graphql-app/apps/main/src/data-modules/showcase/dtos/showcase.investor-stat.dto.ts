@@ -14,7 +14,7 @@ export class ShowcaseInvestorStatDto {
     return (
       12.0 *
       (this.totalRevenue * (30 / this.campaignDuration)) *
-      (1 + (this.showcase.inventory.expectedGrowthRate * 12.0) / 100)
+      (1 + (this.inventory.expectedGrowthRate * 12.0) / 100)
     );
   }
 
@@ -40,12 +40,12 @@ export class ShowcaseInvestorStatDto {
 
   @Field()
   get growthRate(): number {
-    return this.showcase.inventory.expectedGrowthRate;
+    return this.inventory.expectedGrowthRate;
   }
 
   @Field()
   get adCostRate(): number {
-    return this.showcase.inventory.adCostRate;
+    return this.inventory.adCostRate;
   }
 
   @Directive('@currency')
@@ -56,7 +56,7 @@ export class ShowcaseInvestorStatDto {
 
   @Field()
   get operatingCostRate(): number {
-    return this.showcase.inventory.operatingCostRate;
+    return this.inventory.operatingCostRate;
   }
 
   @Directive('@currency')
@@ -67,7 +67,7 @@ export class ShowcaseInvestorStatDto {
 
   @Field()
   get capitalizationRate(): number {
-    return this.showcase.inventory.capitalizationRate;
+    return this.inventory.capitalizationRate;
   }
 
   @Directive('@currency')
@@ -87,7 +87,7 @@ export class ShowcaseInvestorStatDto {
 
   @Field(() => Number)
   get revolvingInterval(): number {
-    return this.showcase.inventory.revolvingInterval;
+    return this.inventory.revolvingInterval;
   }
 
   @Field(() => Number)
@@ -98,12 +98,15 @@ export class ShowcaseInvestorStatDto {
   @Directive('@currency')
   @Field(() => String)
   get initialCapital() {
-    const inv = this.showcase.inventory;
+    const inv = this.inventory;
     const sumOfCapRate =
       (inv.capitalizationRate + inv.adCostRate + inv.operatingCostRate) * 0.01;
     return (this.firstYearRevenue / this.revolvingPerDay) * sumOfCapRate;
   }
 
+  get inventory() {
+    return this.showcase.inventory;
+  }
   canReadThisStat(user: AuthDto): boolean {
     return (
       [AuthRoleType.INVESTOR, AuthRoleType.ADMIN, AuthRoleType.SUPERADMIN].some(

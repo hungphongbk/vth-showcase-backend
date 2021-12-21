@@ -14,13 +14,13 @@ import {
   Relation,
   UnPagedRelation,
 } from '@nestjs-query/query-graphql';
-import { ShowcasePriceDto } from './showcasePrice.dto';
+import { ShowcasePriceDto } from './showcase-price.dto';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
-import { ShowcaseBrandDto } from './showcaseBrand.dto';
+import { ShowcaseBrandDto } from './showcase-brand.dto';
 import { ImageListDto } from '../../image-list/dto/image-list.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
-import { ShowcaseInventoryDto } from './showcaseInventory.dto';
+import { ShowcaseInventoryDto } from './showcase-inventory.dto';
 import { CommentDto } from '../../comment/comment.dto';
 import { AuthDto } from '../../../auth';
 

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ShowcaseEntity } from './entities/showcase.entity';
-import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import {
@@ -19,6 +18,9 @@ import {
 import { RemoveCiTestService } from './remove-ci-test.service';
 import { ShowcaseAssembler } from './showcase.assembler';
 import { ShowcaseOrmModule } from './showcase-orm.module';
+import { InvestmentModule } from '../investment/investment.module';
+import { ShowcaseResolver } from './resolvers/showcase.resolver';
+import { ShowcaseInvestorStatResolver } from './resolvers/showcase-investor-stat.resolver';
 
 const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
     ShowcaseEntity,
@@ -39,6 +41,7 @@ const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
         MediaModule,
         HighlightFeatureModule,
         ImageListModule,
+        InvestmentModule,
       ],
       services: [ShowcaseQueryService, ShowcaseBaseQueryService],
       assemblers: [ShowcaseAssembler],
@@ -63,6 +66,7 @@ const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
     ShowcaseResolver,
     ShowcaseAuthResolver,
     ShowcaseAuthAugmentResolver,
+    ShowcaseInvestorStatResolver,
     ShowcaseQueryService,
     RemoveCiTestService,
   ],
