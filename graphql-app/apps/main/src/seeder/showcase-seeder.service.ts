@@ -1,4 +1,5 @@
 import {
+  CACHE_MANAGER,
   Inject,
   Injectable,
   Logger,
@@ -7,10 +8,16 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShowcaseEntity } from '../data-modules/showcase/entities/showcase.entity';
 import { Connection, Repository } from 'typeorm';
-import { UploadService } from '@app/upload';
-import { ShowcaseSeedData } from './showcase-data/showcase-data';
-import { join } from 'path';
+import {
+  ShowcaseHFData,
+  ShowcaseSeedData,
+} from './showcase-data/showcase-data';
 import { ShowcaseMediaEntity } from '../data-modules/showcase/entities/showcase.media.entity';
+import { MediaSeederService } from './media-seeder.service';
+import { ShowcaseHFEntity } from '../data-modules/highlight-feature/entities/showcaseHF.entity';
+import { ShowcaseHFMediaEntity } from '../data-modules/highlight-feature/entities/showcaseHF.media.entity';
+import { Cache } from 'cache-manager';
+import { CacheDecorator } from '../common/decorators/cache.decorator';
 
 @Injectable()
 export class ShowcaseSeederService implements OnApplicationBootstrap {
@@ -20,29 +27,45 @@ export class ShowcaseSeederService implements OnApplicationBootstrap {
     @InjectRepository(ShowcaseEntity)
     private readonly repo: Repository<ShowcaseEntity>,
     private readonly connection: Connection,
-    @Inject(UploadService) private readonly upload: UploadService,
+    private readonly mediaSeederService: MediaSeederService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  findShowcaseData(): Promise<ShowcaseEntity | undefined> {
-    return this.repo.findOne({ slug: ShowcaseSeedData.slug });
+  async deleteOldShowcase(): Promise<void> {
+    const entity = await this.repo.findOne({ slug: ShowcaseSeedData.slug });
+    if (entity) await this.repo.delete(entity.id);
   }
 
-  async onApplicationBootstrap(): Promise<void> {
-    if (await this.findShowcaseData()) return;
+  @CacheDecorator({ key: ShowcaseSeederService.name, ttl: 300 })
+  async createNewSeedShowcase() {
+    await this.deleteOldShowcase();
     this.logger.log('create new demo data');
 
-    const image = await this.upload.execute(
-        join(__dirname, 'seeder/showcase-data/banner.png'),
-      ),
-      imgEntity = new ShowcaseMediaEntity();
-    imgEntity.path = image.path;
-    imgEntity.preloadUrl = image.preload;
-    imgEntity.filename = 'foo.webp';
-    imgEntity.mimetype = 'image/webp';
+    const imgEntity = await this.mediaSeederService.create(
+      ShowcaseMediaEntity,
+      'seeder/showcase-data/banner.png',
+    );
+
+    const hfEntities = await Promise.all(
+      ShowcaseHFData.map(async (_entity, index) => {
+        const entity = new ShowcaseHFEntity();
+        Object.assign(entity, _entity);
+        entity.image = await this.mediaSeederService.create(
+          ShowcaseHFMediaEntity,
+          `seeder/showcase-data/tinh-nang-${index + 1}.png`,
+        );
+        return entity;
+      }),
+    );
 
     const showcaseEntity = new ShowcaseEntity();
     Object.assign(showcaseEntity, ShowcaseSeedData);
     showcaseEntity.image = imgEntity;
+    showcaseEntity.highlightFeatures = hfEntities;
     await this.repo.save(showcaseEntity);
+  }
+
+  onApplicationBootstrap() {
+    return this.createNewSeedShowcase();
   }
 }

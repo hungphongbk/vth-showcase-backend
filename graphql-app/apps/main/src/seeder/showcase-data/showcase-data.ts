@@ -4,6 +4,7 @@ import {
 } from '../../data-modules/showcase/dtos/showcase.dtos';
 import { addDays } from 'date-fns';
 import { ShowcaseEntity } from '../../data-modules/showcase/entities/showcase.entity';
+import { ShowcaseHFEntity } from '../../data-modules/highlight-feature/entities/showcaseHF.entity';
 
 const current = new Date();
 export const ShowcaseSeedData: Partial<ShowcaseEntity> = {
@@ -16,7 +17,8 @@ export const ShowcaseSeedData: Partial<ShowcaseEntity> = {
   },
   status: ShowcaseStatus.COMING,
   publishStatus: PublishStatus.PUBLISHED,
-  description: 'description',
+  description:
+    'GravaStar là thương hiệu thiết kế và sản xuất thiết bị loa và phụ kiện đi kèm trên thị trường. Các thiết kế của thương hiệu mang ý tưởng điên rồ, độc đáo vượt qua mọi giới hạn sẵn có',
   createdAt: current,
   updatedAt: current,
   expectedSaleAt: current,
@@ -41,3 +43,21 @@ export const ShowcaseSeedData: Partial<ShowcaseEntity> = {
     expectedGrowthRate: 2,
   },
 };
+
+export const ShowcaseHFData: Partial<ShowcaseHFEntity>[] = [
+  {
+    name: 'Thiết kế tựa lưng cong theo cột sống',
+    description:
+      'Ghế công thái học Ergonomic Chairs tập trung thiết kế kế tựa lưng phù hợp với 4 vị trí của cột sống chuẩn khoa học là cổ, ngực, thắt lưng và mông. Thông qua vị trí đó, tựa lưng được mô tả lại giống như độ cong của cột sống chuẩn công thái học, kết hợp với khung ghế linh hoạt giúp lưng bạn luôn trong tư thế thẳng và tự nhiên nhất có thể.',
+  },
+  {
+    name: 'Chất liệu cao cấp',
+    description:
+      'Chất liệu lưới của thân ghế và đệm ngồi đảm bảo độ bền cao, lưới có độ căng lớn và không bị biến dạng khi sử dụng, khoảng cách giữa các lỗ khí được phân bổ hợp lý giúp Lưng thoáng mát không bị hầm hay tạo cảm giác ngột ngạt.',
+  },
+  {
+    name: 'Khung ghế ngồi mang lại sự thoải mái',
+    description:
+      'Ghế Ergonomic đã chuyển đổi khung ngồi có độ nghiêng lớn thành hình dạng giá đỡ hình vòm, thiết kế này giúp vừa vặn nâng chân lên 8 độ giúp lưng, hông và chân thoải mái, góp phần giảm áp lực lên eo và đùi.',
+  },
+];
