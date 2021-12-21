@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/cors"
 	"github.com/hungphongbk/vth-showcase-backend/main/db"
 	"github.com/hungphongbk/vth-showcase-backend/main/env"
 	"net/http"
@@ -22,6 +23,7 @@ func setupRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(gin.Logger())
 	r.Use(healthcheck.Default())
+	r.Use(cors.Default())
 
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
 	r.Use(gin.CustomRecovery(func(c *gin.Context, recovered interface{}) {
@@ -39,5 +41,8 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	r := setupRouter()
-	r.Run(":25478") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	err := r.Run(":25478")
+	if err != nil {
+		panic(err)
+	} // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
