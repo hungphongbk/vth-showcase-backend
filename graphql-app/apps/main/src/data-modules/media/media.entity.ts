@@ -28,4 +28,10 @@ export class MediaEntity {
 
   @Column()
   preloadUrl: string;
+
+  @Column({ nullable: true })
+  width: number;
+
+  @Column({ nullable: true })
+  height: number;
 }

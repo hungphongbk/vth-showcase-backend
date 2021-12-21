@@ -42,9 +42,8 @@ jobs:
           kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
 
       - name: Update Image
-        run: kubectl rollout restart deployment ${{ inputs.deployment_name }} -n ${{ inputs.namespace }}
-
-      - name: Status
         run: |-
+          kubectl rollout restart deployment upload -n ${{ inputs.namespace }}
           kubectl rollout status deployment upload -n ${{ inputs.namespace }}
+          kubectl rollout restart deployment showcase -n ${{ inputs.namespace }}
           kubectl rollout status deployment showcase -n ${{ inputs.namespace }}

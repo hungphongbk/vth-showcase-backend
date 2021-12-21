@@ -50,22 +50,52 @@ func (s Server) Save(buffer []byte, Filename string) (string, error) {
 	}
 	return dstPath, nil
 }
-func (s Server) CreateOutput(buffer []byte, Filename string) ([]byte, string, error) {
-	converted, err := bimg.NewImage(buffer).Convert(bimg.WEBP)
+func (s Server) CreateOutput(buffer []byte, Filename string) (*struct {
+	buffer         []byte
+	Path           string
+	Width          int
+	Height         int
+	OriginalSize   int
+	CompressedSize int
+}, error) {
+	options := bimg.Options{
+		Quality: 80,
+	}
+	originalSize := len(buffer)
+	converted, err := bimg.NewImage(buffer).Process(options)
 	if err != nil {
-		return nil, "", err
+		return nil, err
+	}
+
+	converted, err = bimg.NewImage(converted).Convert(bimg.WEBP)
+	if err != nil {
+		return nil, err
 	}
 
 	// distribute converted and compressed base64 since here
 
 	dstPath, err := s.Save(converted, Filename)
 	if err != nil {
-		return nil, "", err
+		return nil, err
 	}
-	return converted, dstPath, nil
+
+	size, err := bimg.NewImage(converted).Size()
+	if err != nil {
+		return nil, err
+	}
+	compressedSize := len(converted)
+	return &struct {
+		buffer         []byte
+		Path           string
+		Width          int
+		Height         int
+		OriginalSize   int
+		CompressedSize int
+	}{buffer: converted, Path: dstPath, Width: size.Width, Height: size.Height, OriginalSize: originalSize, CompressedSize: compressedSize}, nil
 }
 
 func (s Server) post(c *gin.Context) {
+	// read file & generate name
 	file, _ := c.FormFile("file")
 	originalFileName := file.Filename
 	uuid := uuid.NewString()
@@ -79,13 +109,15 @@ func (s Server) post(c *gin.Context) {
 	if err != nil {
 		panic(err)
 	}
-	converted, dstPath, err := s.CreateOutput(buffer, uuidFileName)
-	uploadedURL := fmt.Sprintf("/assets%s", strings.TrimPrefix(dstPath, s.DocumentRoot))
+
+	// compress & create output
+	converted, err := s.CreateOutput(buffer, uuidFileName)
 	if err != nil {
 		panic(err)
 	}
+	uploadedURL := fmt.Sprintf("/assets%s", strings.TrimPrefix(converted.Path, s.DocumentRoot))
 
-	preload, err := s.SaveThumbnail(converted)
+	preload, err := s.SaveThumbnail(converted.buffer)
 	if err != nil {
 		panic(err)
 	}
@@ -95,7 +127,11 @@ func (s Server) post(c *gin.Context) {
 		Id:               uuid,
 		OriginalFileName: originalFileName,
 		Path:             uploadedURL,
-		DiskPath:         dstPath,
+		DiskPath:         converted.Path,
+		Width:            converted.Width,
+		Height:           converted.Height,
+		OriginalSize:     converted.OriginalSize,
+		CompressedSize:   converted.CompressedSize,
 	})
 
 	if err != nil {
@@ -105,5 +141,7 @@ func (s Server) post(c *gin.Context) {
 		"id":      uuid,
 		"path":    uploadedURL,
 		"preload": preload,
+		"width":   converted.Width,
+		"height":  converted.Height,
 	})
 }

@@ -23,4 +23,10 @@ export class MediaDto {
 
   @Field({ nullable: true })
   preloadUrl: string;
+
+  @Field({ nullable: true })
+  width: number;
+
+  @Field({ nullable: true })
+  height: number;
 }

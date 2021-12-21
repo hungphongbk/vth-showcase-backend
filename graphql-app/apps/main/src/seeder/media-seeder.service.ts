@@ -20,6 +20,8 @@ export class MediaSeederService {
     imgEntity.preloadUrl = image.preload;
     imgEntity.filename = 'foo.webp';
     imgEntity.mimetype = 'image/webp';
+    imgEntity.width = image.width;
+    imgEntity.height = image.height;
     return imgEntity;
   }
 }

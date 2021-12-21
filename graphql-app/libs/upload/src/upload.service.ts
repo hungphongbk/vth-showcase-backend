@@ -12,6 +12,8 @@ export type UploadResponse = {
   id: string;
   path: string;
   preload: string;
+  width: number;
+  height: number;
 };
 
 @Injectable()

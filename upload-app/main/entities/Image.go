@@ -14,6 +14,10 @@ type Image struct {
 	OriginalFileName string
 	Path             string
 	DiskPath         string
+	Width            int
+	Height           int
+	OriginalSize     int
+	CompressedSize   int
 	CreatedAt        time.Time `pg:"default:now()"`
 }
 
