@@ -8,7 +8,7 @@ import { DataModulesModule } from './data-modules/data-modules.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import * as redisStore from 'cache-manager-redis-store';
-import * as Joi from '@hapi/joi';
+import * as Joi from 'joi';
 import { GqlModule } from './gql/gql.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from '@app/upload';

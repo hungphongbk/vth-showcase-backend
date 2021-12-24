@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SentryLoggerService } from './sentry-logger.service';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from '@hapi/joi';
+import * as Joi from 'joi';
 
 @Module({
   imports: [

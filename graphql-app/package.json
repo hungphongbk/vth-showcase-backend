@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "@graphql-tools/utils": "^7.10.0",
-    "@hapi/joi": "^17.1.1",
     "@nestjs-query/core": "^0.30.0",
     "@nestjs-query/query-graphql": "^0.30.0",
     "@nestjs-query/query-typeorm": "^0.30.0",
