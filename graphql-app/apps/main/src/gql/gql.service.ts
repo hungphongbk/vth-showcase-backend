@@ -40,6 +40,29 @@ export class GqlService implements GqlOptionsFactory {
         //     requestContext.request.http.headers.get('Authorization') || null,
         // }),
       ],
+      formatError: (error) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const sentryId =
+          error && error.originalError && (error.originalError as any).sentryId;
+        // if we didn't report this to sentry, we know this error is something we expected, so just return the error.
+        if (sentryId === undefined) {
+          return error;
+        }
+
+        let errorResponse: { message: string; debug?: object } = {
+          message: `Something unexpected happened. Sentry ID: ${sentryId}`,
+        };
+
+        // attach the whole error object for non-production environment.
+        // if (!config.isProduction) {
+        errorResponse = {
+          ...errorResponse,
+          debug: error,
+        };
+        // }
+
+        return errorResponse;
+      },
     };
   }
 }

@@ -13,6 +13,7 @@ import { GqlModule } from './gql/gql.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from '@app/upload';
 import { SeederModule } from './seeder/seeder.module';
+import { SentryLoggerModule } from './sentry-logger/sentry-logger.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { SeederModule } from './seeder/seeder.module';
     HealthModule,
     UploadModule,
     SeederModule,
+    SentryLoggerModule,
   ],
   providers: [
     GqlLoggingPlugin,
