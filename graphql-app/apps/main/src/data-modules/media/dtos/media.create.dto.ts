@@ -13,4 +13,10 @@ export class MediaCreateDto {
 
   @Field({ nullable: true })
   preloadUrl: string;
+
+  @Field({ nullable: true })
+  width: string;
+
+  @Field({ nullable: true })
+  height: string;
 }

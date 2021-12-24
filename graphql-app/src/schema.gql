@@ -597,9 +597,11 @@ input MediaDtoUpdateFilter {
 
 input MediaInput {
   filename: String!
+  height: String
   mimetype: String!
   path: String!
   preloadUrl: String
+  width: String
 }
 
 type Mutation {
