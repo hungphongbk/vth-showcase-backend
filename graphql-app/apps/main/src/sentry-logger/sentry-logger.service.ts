@@ -9,6 +9,10 @@ export class SentryLoggerService {
     Sentry.init();
   }
 
+  get Severity() {
+    return Sentry.Severity;
+  }
+
   captureException(exception: any, captureContext?: CaptureContext) {
     return Sentry.captureException(exception, captureContext);
   }

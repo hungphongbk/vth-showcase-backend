@@ -26,8 +26,6 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
         logger.log(requestContext.request.operationName);
       },
       async didEncounterErrors(ctx) {
-        const context = ctx.context;
-
         for (const error of ctx.errors) {
           const err = error.originalError || error;
 
@@ -41,9 +39,23 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
             //     ip_address: context.req.ip,
             //   });
             // }
-            scope.setExtra('body', context.req.body);
-            scope.setExtra('origin', context.req.headers.origin);
-            scope.setExtra('user-agent', context.req.headers['user-agent']);
+            scope.setTag('kind', ctx.operation.operation);
+            // Log query and variables as extras
+            // (make sure to strip out sensitive data!)
+            scope.setExtra('query', ctx.request.query);
+            scope.setExtra('variables', ctx.request.variables);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if (err.path) {
+              // We can also add the path as breadcrumb
+              scope.addBreadcrumb({
+                category: 'query-path',
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                message: err.path.join(' > '),
+                level: sentry.Severity.Debug,
+              });
+            }
             sentryId = sentry.captureException(err);
           });
 
