@@ -7,6 +7,7 @@ import {
 } from 'apollo-server-plugin-base';
 import { Logger } from '@nestjs/common';
 import { SentryLoggerService } from '../sentry-logger/sentry-logger.service';
+import * as Sentry from '@sentry/node';
 
 @Plugin()
 export class GqlLoggingPlugin implements ApolloServerPlugin {
@@ -19,8 +20,7 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
   async requestDidStart(
     requestContext: GraphQLRequestContext<BaseContext>,
   ): Promise<GraphQLRequestListener> {
-    const logger = this.logger,
-      sentry = this.sentry;
+    const logger = this.logger;
     return {
       async willSendResponse() {
         logger.log(requestContext.request.operationName);
@@ -30,15 +30,7 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
           const err = error.originalError || error;
 
           let sentryId = `gql-${new Date().valueOf().toString()}`;
-          sentry.withScope((scope) => {
-            // if (context.user) {
-            //   scope.setUser({
-            //     id: context.user.id,
-            //     email: context.user.email,
-            //     username: context.user.handle,
-            //     ip_address: context.req.ip,
-            //   });
-            // }
+          Sentry.withScope((scope) => {
             scope.setTag('kind', ctx.operation.operation);
             // Log query and variables as extras
             // (make sure to strip out sensitive data!)
@@ -53,10 +45,10 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 message: err.path.join(' > '),
-                level: sentry.Severity.Debug,
+                level: Sentry.Severity.Debug,
               });
             }
-            sentryId = sentry.captureException(err);
+            sentryId = Sentry.captureException(err);
           });
 
           // HACK; set sentry id to indicate this is an error that we did not expect. `formatError` handler will check for this.
