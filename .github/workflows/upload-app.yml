@@ -1,5 +1,5 @@
 # Just trigger new host
-name: GraphQL App Deployment
+name: Upload App Deployment
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - '*'
       - '!master'
     paths:
-      - 'graphql-app/**'
+      - 'upload-app/**'
       - '.github/workflows/**'
   pull_request:
     branches:
@@ -18,32 +18,23 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  build-app:
-    name: Build integrated app
+  build-upload:
+    name: Build upload server
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     env:
-      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-graphql
-      IMAGE_NAME: ${{ github.repository }}
-      FIREBASE_CRED_DIR: ./graphql-app/main/src.private
-      FIREBASE_CRED_PATH: ./graphql-app/main/src.private/firebase-credentials.json
+      IMAGE_NAME: ${{ github.repository_owner }}/upload-server
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-
-      - name: Create env file & credential files
-        run: |
-          mkdir -p $FIREBASE_CRED_DIR
-          touch $FIREBASE_CRED_PATH
-          echo '${{ secrets.FIREBASE_CREDS }}' > $FIREBASE_CRED_PATH
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
-
       # Setup cache
       - name: Cache Docker layers
         uses: actions/cache@v2
@@ -70,7 +61,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: graphql-app
+          context: upload-app
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -86,10 +77,10 @@ jobs:
     name: Deploy integrated app to VPS
     if: github.ref == 'refs/heads/develop'
     needs:
-      - build-app
+      - build-upload
     uses: hungphongbk/vth-showcase-backend/.github/workflows/deployment.yml@develop
     with:
-      deployment_name: showcase
+      deployment_name: upload
       namespace: staging
       environment: preview
     secrets:

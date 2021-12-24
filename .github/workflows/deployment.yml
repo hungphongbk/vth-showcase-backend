@@ -43,7 +43,5 @@ jobs:
 
       - name: Update Image
         run: |-
-          kubectl rollout restart deployment upload -n ${{ inputs.namespace }}
-          kubectl rollout status deployment upload -n ${{ inputs.namespace }}
-          kubectl rollout restart deployment showcase -n ${{ inputs.namespace }}
-          kubectl rollout status deployment showcase -n ${{ inputs.namespace }}
+          kubectl rollout restart deployment ${{ input.deployment_name }} -n ${{ inputs.namespace }}
+          kubectl rollout status deployment ${{ input.deployment_name }} -n ${{ inputs.namespace }}
