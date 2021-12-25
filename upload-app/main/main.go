@@ -5,6 +5,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/hungphongbk/vth-showcase-backend/main/db"
 	"github.com/hungphongbk/vth-showcase-backend/main/env"
+	"github.com/hungphongbk/vth-showcase-backend/main/repository"
 	"net/http"
 
 	healthcheck "github.com/RaMin0/gin-health-check"
@@ -19,6 +20,7 @@ func setupRouter() *gin.Engine {
 	}
 	server := NewServer(environment)
 	db.InitDb(environment)
+	repository.Image.Init(environment)
 
 	r := gin.Default()
 	r.Use(gin.Logger())
@@ -32,7 +34,10 @@ func setupRouter() *gin.Engine {
 		}
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}))
+	r.Static("/admin", "./admin")
 	r.Static("/assets", environment.DocumentRoot)
+	r.GET("/upload", server.getAll)
+	r.GET("/upload/stat", server.stat)
 	r.POST("/upload", server.post)
 	r.DELETE("/upload/:id", server.del)
 
