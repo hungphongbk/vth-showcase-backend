@@ -6,6 +6,7 @@ import (
 	"github.com/hungphongbk/vth-showcase-backend/main/db"
 	"github.com/hungphongbk/vth-showcase-backend/main/env"
 	"github.com/hungphongbk/vth-showcase-backend/main/repository"
+	"log"
 	"net/http"
 
 	healthcheck "github.com/RaMin0/gin-health-check"
@@ -49,5 +50,7 @@ func main() {
 	err := r.Run(":25478")
 	if err != nil {
 		panic(err)
-	} // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	} else {
+		log.Println("MediaUpload server has been started successfully. Version 1.0.0")
+	}
 }
