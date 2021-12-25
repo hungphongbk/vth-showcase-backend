@@ -1,5 +1,5 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { ShowcaseDto } from '../dtos/showcase.dtos';
+import { ShowcaseDto, ShowcaseStatus } from '../dtos/showcase.dtos';
 import { ShowcaseConnection, ShowcaseQuery } from '../dtos/query.types';
 import { ConnectionType } from '@nestjs-query/query-graphql';
 import { ShowcaseQueryService } from '../showcase.queryService';
@@ -61,6 +61,7 @@ export class ShowcaseResolver {
     @CurrentUser() user: AuthDto,
   ) {
     if (!user) return null;
+    if (parent.status !== ShowcaseStatus.COMING) return null;
     const stat = new ShowcaseInvestorStatDto(parent);
     if (!stat.canReadThisStat(user)) return null;
     return stat;
