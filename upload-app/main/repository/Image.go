@@ -42,12 +42,12 @@ func (repo *ImageRepository) AddImage(i entities.Image) error {
 }
 
 func (repo *ImageRepository) DeleteImage(i entities.Image) error {
-	//before delete
-	err := os.Remove(i.DiskPath)
+	_, err := db.Connection.Model(&i).WherePK().Delete()
 	if err != nil {
 		return err
 	}
-	_, err = db.Connection.Model(&i).WherePK().Delete()
+	//after delete
+	err = os.Remove(i.DiskPath)
 	if err != nil {
 		return err
 	}
