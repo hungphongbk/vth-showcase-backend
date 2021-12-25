@@ -183,6 +183,11 @@ input CreateManyMediaDtosInput {
   mediaDtos: [MediaInput!]!
 }
 
+input CreateManyPrjUpdateDtosInput {
+  """Array of records to create"""
+  prjUpdateDtos: [CreatePrjUpdateDto!]!
+}
+
 input CreateManyShowcaseHighlightFeaturesInput {
   """Array of records to create"""
   showcaseHighlightFeatures: [ShowcaseHFCreateInputDto!]!
@@ -208,9 +213,20 @@ input CreateOneMediaDtoInput {
   mediaDto: MediaInput!
 }
 
+input CreateOnePrjUpdateDtoInput {
+  """The record to create"""
+  prjUpdateDto: CreatePrjUpdateDto!
+}
+
 input CreateOneShowcaseHighlightFeatureInput {
   """The record to create"""
   showcaseHighlightFeature: ShowcaseHFCreateInputDto!
+}
+
+input CreatePrjUpdateDto {
+  content: String
+  createdAt: DateTime
+  id: ID
 }
 
 input CursorPaging {
@@ -272,6 +288,11 @@ input DeleteManyMediaDtosInput {
   filter: MediaDtoDeleteFilter!
 }
 
+input DeleteManyPrjUpdateDtosInput {
+  """Filter to find records to delete"""
+  filter: PrjUpdateDtoDeleteFilter!
+}
+
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -303,6 +324,11 @@ input DeleteOneInvestmentPackageDtoInput {
 }
 
 input DeleteOneMediaDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOnePrjUpdateDtoInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -620,11 +646,13 @@ type Mutation {
   createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
+  createManyPrjUpdateDtos(input: CreateManyPrjUpdateDtosInput!): [PrjUpdateDto!]!
   createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
   createOneCommentDto(input: CreateOneCommentDtoInput!): CommentDto!
   createOneImageList(input: CreateOneImageListInput!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
+  createOnePrjUpdateDto(input: CreateOnePrjUpdateDtoInput!): PrjUpdateDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
@@ -632,16 +660,19 @@ type Mutation {
   deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
+  deleteManyPrjUpdateDtos(input: DeleteManyPrjUpdateDtosInput!): DeleteManyResponse!
   deleteManyShowcaseHighlightFeatures(input: DeleteManyShowcaseHighlightFeaturesInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneCommentDto(input: DeleteOneCommentDtoInput!): CommentDtoDeleteResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
+  deleteOnePrjUpdateDto(input: DeleteOnePrjUpdateDtoInput!): PrjUpdateDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Boolean!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
   postAnonymousComment(input: CommentCreateDto!, slug: String!): CommentDto!
   postAuthorizedComment(input: CommentCreateDto!, slug: String!): CommentDto!
+  postProjectUpdate(input: PrjUpdateCreateDto!, slug: String!): PrjUpdateDto!
   removeAuthorFromCommentDto(input: RemoveAuthorFromCommentDtoInput!): CommentDto!
   removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
   removeCommentsFromShowcase(input: RemoveCommentsFromShowcaseInput!): Showcase!
@@ -663,11 +694,13 @@ type Mutation {
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
+  updateManyPrjUpdateDtos(input: UpdateManyPrjUpdateDtosInput!): UpdateManyResponse!
   updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
   updateOneCommentDto(input: UpdateOneCommentDtoInput!): CommentDto!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
+  updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
@@ -702,6 +735,90 @@ type PageInfo {
 
   """The cursor of the first returned record."""
   startCursor: ConnectionCursor
+}
+
+input PrjUpdateCreateDto {
+  content: String!
+}
+
+type PrjUpdateDto {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+}
+
+type PrjUpdateDtoAggregateGroupBy {
+  id: ID
+}
+
+type PrjUpdateDtoAvgAggregate {
+  id: Float
+}
+
+type PrjUpdateDtoConnection {
+  """Array of edges."""
+  edges: [PrjUpdateDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type PrjUpdateDtoCountAggregate {
+  id: Int
+}
+
+input PrjUpdateDtoDeleteFilter {
+  and: [PrjUpdateDtoDeleteFilter!]
+  id: IDFilterComparison
+  or: [PrjUpdateDtoDeleteFilter!]
+}
+
+type PrjUpdateDtoDeleteResponse {
+  content: String
+  createdAt: DateTime
+  id: ID
+}
+
+type PrjUpdateDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the PrjUpdateDto"""
+  node: PrjUpdateDto!
+}
+
+input PrjUpdateDtoFilter {
+  and: [PrjUpdateDtoFilter!]
+  id: IDFilterComparison
+  or: [PrjUpdateDtoFilter!]
+}
+
+type PrjUpdateDtoMaxAggregate {
+  id: ID
+}
+
+type PrjUpdateDtoMinAggregate {
+  id: ID
+}
+
+input PrjUpdateDtoSort {
+  direction: SortDirection!
+  field: PrjUpdateDtoSortFields!
+  nulls: SortNulls
+}
+
+enum PrjUpdateDtoSortFields {
+  id
+}
+
+type PrjUpdateDtoSumAggregate {
+  id: Float
+}
+
+input PrjUpdateDtoUpdateFilter {
+  and: [PrjUpdateDtoUpdateFilter!]
+  id: IDFilterComparison
+  or: [PrjUpdateDtoUpdateFilter!]
 }
 
 enum PublishStatus {
@@ -786,6 +903,20 @@ type Query {
     """Specify to sort results."""
     sorting: [MediaDtoSort!] = []
   ): MediaDtoConnection!
+  prjUpdateDto(
+    """The id of the record to find."""
+    id: ID!
+  ): PrjUpdateDto
+  prjUpdateDtos(
+    """Specify to filter the records returned."""
+    filter: PrjUpdateDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [PrjUpdateDtoSort!] = []
+  ): PrjUpdateDtoConnection!
   setting(key: String!): SettingDto
   settings(keys: [String!]!): [SettingDto!]!
   showcase(slug: String!): Showcase!
@@ -997,6 +1128,13 @@ type Showcase {
   slug: String!
   status: ShowcaseStatus!
   updatedAt: DateTime!
+  updates(
+    """Specify to filter the records returned."""
+    filter: PrjUpdateDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [PrjUpdateDtoSort!] = []
+  ): [PrjUpdateDto!]!
 }
 
 type ShowcaseAggregateGroupBy {
@@ -1429,6 +1567,14 @@ input UpdateManyMediaDtosInput {
   update: UpdateMediaDto!
 }
 
+input UpdateManyPrjUpdateDtosInput {
+  """Filter used to find fields to update"""
+  filter: PrjUpdateDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdatePrjUpdateDto!
+}
+
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
@@ -1485,12 +1631,26 @@ input UpdateOneMediaDtoInput {
   update: UpdateMediaDto!
 }
 
+input UpdateOnePrjUpdateDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdatePrjUpdateDto!
+}
+
 input UpdateOneShowcaseHighlightFeatureInput {
   """The id of the record to update"""
   id: ID!
 
   """The update to apply."""
   update: UpdateShowcaseHighlightFeature!
+}
+
+input UpdatePrjUpdateDto {
+  content: String
+  createdAt: DateTime
+  id: ID
 }
 
 input UpdateShowcaseHighlightFeature {

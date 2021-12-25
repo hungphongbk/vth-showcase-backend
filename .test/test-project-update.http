@@ -6,32 +6,31 @@ X-Test-Uid: {{ X_TEST_UID }}
 
 > {% client.global.set("auth_token", response.body.token); %}
 
-### Post comment with a user
+### Post update
 POST {{HTTP_HOST}}/graphql
 Authorization: Bearer {{auth_token}}
 Content-Type: application/json
 
 {
-  "operationName": "postNewComment",
+  "operationName": "postNewUpdate",
   "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
 }
 
 > {%
 client.test("Request executed successfully", function() {
   client.assert(response.status === 200, "Response status is not 200");
   client.assert(response.body.data!==null, "Must returned data inside response");
-  client.assert(response.body.data.postAuthorizedComment.author.name==="Trương Hùng Phong", "Must show name of author");
 });
 %}
 
-### Retrieve new comment on showcase
+### Retrieve new update on showcase
 POST {{HTTP_HOST}}/graphql
 Content-Type: application/json
 
 {
   "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
+  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
 }
 
 
@@ -40,7 +39,6 @@ Content-Type: application/json
 client.test("Retrieve comment successfully", function() {
   client.assert(response.status === 200, "Response status is not 200");
   client.assert(response.body.data!==null, "Must returned data inside response");
-  client.assert(response.body.data.showcase.comments.nodes[0].author.name==="Trương Hùng Phong", "Must show exact name of author");
-  client.assert(response.body.data.showcase.comments.nodes[0].content==="lorem ipsum dolo sit amet", "Must show exact content of comment");
+  client.assert(response.body.data.showcase.updates[0].content==="lorem ipsum dolo sit amet", "Must show exact content of comment");
 });
 %}

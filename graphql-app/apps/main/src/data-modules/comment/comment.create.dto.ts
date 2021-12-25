@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { CommentRateEnum } from './comment.entity';
+import { CommentRateEnum } from './comment.enum';
 
 @InputType()
 export class CommentCreateDto {

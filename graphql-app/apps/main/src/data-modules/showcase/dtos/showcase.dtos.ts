@@ -1,5 +1,4 @@
 import {
-  Directive,
   Field,
   GraphQLISODateTime,
   ID,
@@ -23,6 +22,7 @@ import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { ShowcaseInventoryDto } from './showcase-inventory.dto';
 import { CommentDto } from '../../comment/comment.dto';
 import { AuthDto } from '../../../auth';
+import { PrjUpdateDto } from '../../prj-update/prj-update.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -43,13 +43,17 @@ registerEnumType(PublishStatus, {
   name: 'PublishStatus',
 });
 
-@Directive('@cacheControl')
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
 @Relation('author', () => AuthDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
 @UnPagedRelation('imageLists', () => ImageListDto)
 @OffsetConnection('comments', () => CommentDto, { enableTotalCount: true })
+@UnPagedRelation('updates', () => PrjUpdateDto, {
+  enableTotalCount: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
 @QueryOptions({
   defaultFilter: { publishStatus: { eq: PublishStatus.PUBLISHED } },
 })

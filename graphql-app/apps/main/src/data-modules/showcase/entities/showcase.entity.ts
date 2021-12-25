@@ -20,8 +20,9 @@ import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.en
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import * as crypto from 'crypto';
 import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
-import { InvestmentPackageEntity } from '../../investment/investment.package.entity';
+import { InvestmentPackageEntity } from '../../investment';
 import { CommentEntity } from '../../comment/comment.entity';
+import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -112,6 +113,12 @@ export class ShowcaseEntity {
     cascade: true,
   })
   comments: CommentEntity[];
+
+  @OneToMany(() => PrjUpdateEntity, (obj) => obj.showcase, {
+    eager: true,
+    cascade: true,
+  })
+  updates: PrjUpdateEntity[];
 
   @BeforeInsert()
   async generateSlug() {

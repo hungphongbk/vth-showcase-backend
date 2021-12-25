@@ -8,15 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ShowcaseEntity } from '../showcase/entities/showcase.entity';
-
-export enum CommentRateEnum {
-  SIEU_PHAM = 'sieu-pham',
-  CO_TIEM_NANG = 'co-tiem-nang',
-  DANG_TIEN = 'dang-tien',
-  HAY = 'hay',
-  CUNG_DUOC = 'cung-duoc',
-  XAM_XI = 'xam-xi',
-}
+import { CommentRateEnum } from './comment.enum';
 
 @Entity('comment')
 export class CommentEntity {

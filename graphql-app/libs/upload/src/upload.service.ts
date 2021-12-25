@@ -1,12 +1,12 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import * as fs from 'fs';
-import { PathLike } from 'fs';
 import * as FormData from 'form-data';
 import fetch from 'node-fetch';
 import { EntityRepository } from 'typeorm';
 import { UPLOAD_CONFIG, UploadConfig } from '@app/upload/uploadConfig';
 import { urlJoin } from 'url-join-ts';
 import { HttpHealthIndicator } from '@nestjs/terminus';
+import * as fs from 'fs';
+import { PathLike } from 'fs';
 
 export type UploadResponse = {
   id: string;
