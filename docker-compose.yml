@@ -30,9 +30,10 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
   upload:
-    image: upload-app:latest
-    build:
-      context: upload-app
+#    image: upload-app:latest
+#    build:
+#      context: upload-app
+    image: ghcr.io/hungphongbk/upload-server:develop
     ports:
       - "25478:25478"
     volumes:

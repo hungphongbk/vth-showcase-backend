@@ -9,8 +9,11 @@ import (
 func (s Server) del(c *gin.Context) {
 	id := c.Param("id")
 	err := repository.Image.DeleteImageById(id)
+	var message = ""
 	if err != nil {
-		panic(err)
+		message = "file_not_found"
 	}
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{
+		message: message,
+	})
 }
