@@ -743,6 +743,7 @@ type Query {
   ): CommentDtoConnection!
   currentUser: User!
   getAllUsers: [User!]!
+  getOneUser(uid: String!): User!
   imageList(
     """The id of the record to find."""
     id: ID!

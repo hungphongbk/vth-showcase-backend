@@ -15,6 +15,12 @@ export class AuthAdminResolver {
   }
 
   @UseGuards(GqlAuthGuard)
+  @Query(() => AuthDto)
+  async getOneUser(@Args('uid') uid: string) {
+    return await this.userQueryService.getById(uid);
+  }
+
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
   async updateOneUser(
     @Args('uid') uid: string,
