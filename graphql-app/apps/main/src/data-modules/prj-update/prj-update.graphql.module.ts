@@ -9,6 +9,10 @@ export const PrjUpdateGraphqlModule = NestjsQueryGraphQLModule.forFeature({
     {
       DTOClass: PrjUpdateDto,
       EntityClass: PrjUpdateEntity,
+      read: { one: { disabled: true }, many: { disabled: true } },
+      create: { one: { disabled: true }, many: { disabled: true } },
+      update: { one: { disabled: true }, many: { disabled: true } },
+      delete: { one: { disabled: true }, many: { disabled: true } },
     },
   ],
 });
