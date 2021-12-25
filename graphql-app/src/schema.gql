@@ -512,7 +512,7 @@ type MediaDto implements IdInterface {
   mimetype: String!
   path: String!
   preloadUrl: String
-  type: String!
+  type: MediaType!
   width: Float
 }
 
@@ -548,7 +548,7 @@ type MediaDtoDeleteResponse {
   mimetype: String
   path: String
   preloadUrl: String
-  type: String
+  type: MediaType
   width: Float
 }
 
@@ -601,7 +601,14 @@ input MediaInput {
   mimetype: String!
   path: String!
   preloadUrl: String
+  type: MediaType
   width: Float
+}
+
+enum MediaType {
+  HF
+  IMGLIST
+  SHOWCASE
 }
 
 type Mutation {
@@ -1228,7 +1235,7 @@ type ShowcaseInvestorStatDto {
   expectedProfit: String!
 
   """Doanh thu dự kiến năm đầu"""
-  firstYearRevenue: Float!
+  firstYearRevenue: String!
   growthRate: Float!
   initialCapital: String!
   operatingCost: String!
@@ -1238,7 +1245,7 @@ type ShowcaseInvestorStatDto {
   revolvingPerDay: Float!
 
   """Doanh thu tổng"""
-  totalRevenue: Float!
+  totalRevenue: String!
 }
 
 type ShowcaseMaxAggregate {
@@ -1441,7 +1448,7 @@ input UpdateMediaDto {
   mimetype: String
   path: String
   preloadUrl: String
-  type: String
+  type: MediaType
   width: Float
 }
 

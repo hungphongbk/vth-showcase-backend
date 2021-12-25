@@ -5,8 +5,12 @@ import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { MediaCreateDto } from './dtos/media.create.dto';
 import { MediaDto } from './dtos/media.dto';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ShowcaseMediaEntity } from '../showcase/entities/showcase.media.entity';
 
-const mediaOrmModule = NestjsQueryTypeOrmModule.forFeature([MediaEntity]);
+const mediaOrmModule = NestjsQueryTypeOrmModule.forFeature([
+  MediaEntity,
+  ShowcaseMediaEntity,
+]);
 
 @Module({
   imports: [

@@ -18,7 +18,7 @@ import {
 import { RemoveCiTestService } from './remove-ci-test.service';
 import { ShowcaseAssembler } from './showcase.assembler';
 import { ShowcaseOrmModule } from './showcase-orm.module';
-import { InvestmentModule } from '../investment/investment.module';
+import { InvestmentModule } from '../investment';
 import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { ShowcaseInvestorStatResolver } from './resolvers/showcase-investor-stat.resolver';
 

@@ -66,10 +66,10 @@ export class ShowcaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   expectedSaleAt!: Date | null;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   expectedSaleEndAt!: Date | null;
 
   @Column({ type: 'jsonb', nullable: true })

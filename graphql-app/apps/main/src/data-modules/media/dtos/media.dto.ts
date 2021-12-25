@@ -1,6 +1,11 @@
 import { FilterableField, IDField } from '@nestjs-query/query-graphql';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { IdInterface } from '../../../gql/interfaces/id.interface';
+import { MediaType } from '../media.entity';
+
+registerEnumType(MediaType, {
+  name: 'MediaType',
+});
 
 @ObjectType({
   implements: () => [IdInterface],
@@ -18,8 +23,8 @@ export class MediaDto {
   @Field({ nullable: false })
   mimetype: string;
 
-  @Field()
-  type: string;
+  @Field(() => MediaType)
+  type: MediaType;
 
   @Field({ nullable: true })
   preloadUrl: string;

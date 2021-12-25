@@ -2,14 +2,15 @@
 import { Directive, Field, ObjectType } from '@nestjs/graphql';
 import { ShowcaseDto } from './showcase.dtos';
 import * as _ from 'lodash';
-import { differenceInDays, parseISO } from 'date-fns';
+import { differenceInDays } from 'date-fns';
 import { AuthDto, AuthRoleType } from '../../../auth';
 
 @ObjectType()
 export class ShowcaseInvestorStatDto {
   constructor(private readonly showcase: ShowcaseDto) {}
 
-  @Field({ description: 'Doanh thu dự kiến năm đầu' })
+  @Directive('@currency')
+  @Field(() => String, { description: 'Doanh thu dự kiến năm đầu' })
   get firstYearRevenue(): number {
     return (
       12.0 *
@@ -18,7 +19,8 @@ export class ShowcaseInvestorStatDto {
     );
   }
 
-  @Field({ description: 'Doanh thu tổng' })
+  @Directive('@currency')
+  @Field(() => String, { description: 'Doanh thu tổng' })
   get totalRevenue(): number {
     return _.chain(['pioneer', 'promo', 'preorder'])
       .map(
@@ -33,8 +35,8 @@ export class ShowcaseInvestorStatDto {
   @Field()
   get campaignDuration(): number {
     return differenceInDays(
-      parseISO(this.showcase.expectedSaleEndAt as unknown as string),
-      parseISO(this.showcase.expectedSaleAt as unknown as string),
+      this.showcase.expectedSaleEndAt,
+      this.showcase.expectedSaleAt,
     );
   }
 

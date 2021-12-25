@@ -6,8 +6,6 @@ import {
   QueryService,
   RelationQueryService,
 } from '@nestjs-query/core';
-import { MediaEntity } from '../media/media.entity';
-import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
 import { PublishStatus, ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcaseEntity } from './entities/showcase.entity';
 import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
@@ -16,11 +14,19 @@ import {
   ShowcaseCreateInputDto,
   ShowcaseUpdateInputDto,
 } from './dtos/showcase.create.dto';
-import { CACHE_MANAGER, forwardRef, Inject } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  forwardRef,
+  Inject,
+  NotFoundException,
+} from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { Connection } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectAuthoredQueryService } from '../../auth';
 import { ShowcaseAssembler } from './showcase.assembler';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MediaCreateDto } from '../media/dtos/media.create.dto';
+import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -51,14 +57,15 @@ export class ShowcaseQueryService extends RelationQueryService<
 > {
   constructor(
     private readonly service: ShowcaseBaseQueryService,
-    @InjectQueryService(MediaEntity)
+    @InjectQueryService(ShowcaseMediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ShowcaseHFEntity)
     private readonly hfQueryService: QueryService<ShowcaseHFEntity>,
     @InjectQueryService(ImageListEntity)
     private readonly imgListService: QueryService<ImageListEntity>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private dbConnection: Connection,
+    @InjectRepository(ShowcaseEntity)
+    private readonly repo: Repository<ShowcaseEntity>,
   ) {
     super(service, {
       image: {
@@ -99,11 +106,31 @@ export class ShowcaseQueryService extends RelationQueryService<
     });
   }
 
+  async updateImage(slug: string, image: MediaCreateDto) {
+    const showcaseId = await this.getShowcaseIdFromSlug(slug);
+    const { id } = await this.mediaQueryService.createOne(image);
+    await this.mediaQueryService.deleteMany({ showcaseId: { eq: showcaseId } });
+    await this.setRelation('image', showcaseId, id);
+  }
+
   async updateOne(
-    slug: string | number,
+    slug: string,
     update: ShowcaseUpdateInputDto,
   ): Promise<ShowcaseDto> {
-    await super.updateMany(update, { slug: { eq: slug as string } });
+    const { image, highlightFeatures, ...rest } = update;
+    if (image) {
+      await this.updateImage(slug, image);
+    }
+    await super.updateOne(await this.getShowcaseIdFromSlug(slug), rest);
     return await this.getOneShowcase(slug as string);
+  }
+
+  private async getShowcaseIdFromSlug(slug: string): Promise<number> {
+    const entity = await this.repo.findOne(
+      { slug },
+      { select: ['id'], cache: 60 },
+    );
+    if (!entity) throw new NotFoundException(`slug ${slug} not found!`);
+    return entity.id;
   }
 }

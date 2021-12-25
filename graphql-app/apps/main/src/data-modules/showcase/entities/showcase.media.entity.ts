@@ -10,4 +10,6 @@ export class ShowcaseMediaEntity extends MediaEntity {
   })
   @JoinColumn()
   showcase!: ShowcaseEntity;
+
+  showcaseId: number;
 }

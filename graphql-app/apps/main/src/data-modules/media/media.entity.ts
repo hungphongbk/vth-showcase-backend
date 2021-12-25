@@ -34,4 +34,6 @@ export class MediaEntity {
 
   @Column({ nullable: true })
   height: number;
+
+  type?: MediaType;
 }

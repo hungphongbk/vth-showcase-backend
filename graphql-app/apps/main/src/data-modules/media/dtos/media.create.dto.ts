@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { MediaType } from '../media.entity';
 
 @InputType('MediaInput')
 export class MediaCreateDto {
@@ -19,4 +20,7 @@ export class MediaCreateDto {
 
   @Field({ nullable: true })
   height: number;
+
+  @Field(() => MediaType, { nullable: true })
+  type: MediaType;
 }
