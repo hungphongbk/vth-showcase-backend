@@ -769,6 +769,10 @@ type Query {
     """Specify to sort results."""
     sorting: [MediaDtoSort!] = []
   ): MediaDtoConnection!
+  prjUpdateDto(
+    """The id of the record to find."""
+    id: ID!
+  ): PrjUpdateDto
   setting(key: String!): SettingDto
   settings(keys: [String!]!): [SettingDto!]!
   showcase(slug: String!): Showcase!
