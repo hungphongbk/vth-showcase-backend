@@ -20,7 +20,7 @@ const ormModule = NestjsQueryTypeOrmModule.forFeature([ImageListEntity]);
           DTOClass: ImageListDto,
           EntityClass: ImageListEntity,
           read: { many: { disabled: true } },
-          create: { one: { disabled: true }, many: { disabled: true } },
+          create: { many: { disabled: true } },
           update: { many: { disabled: true } },
           delete: { many: { disabled: true } },
         },
