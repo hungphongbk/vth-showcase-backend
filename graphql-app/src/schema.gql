@@ -142,11 +142,6 @@ input CreateManyMediaDtosInput {
   mediaDtos: [MediaInput!]!
 }
 
-input CreateManyShowcaseHighlightFeaturesInput {
-  """Array of records to create"""
-  showcaseHighlightFeatures: [ShowcaseHFCreateInputDto!]!
-}
-
 input CreateOneImageListInput {
   """The record to create"""
   imageList: CreateImageListInputDto!
@@ -160,11 +155,6 @@ input CreateOneInvestmentPackageDtoInput {
 input CreateOneMediaDtoInput {
   """The record to create"""
   mediaDto: MediaInput!
-}
-
-input CreateOneShowcaseHighlightFeatureInput {
-  """The record to create"""
-  showcaseHighlightFeature: ShowcaseHFCreateInputDto!
 }
 
 input CursorPaging {
@@ -224,11 +214,6 @@ input DeleteManyMediaDtosInput {
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
-}
-
-input DeleteManyShowcaseHighlightFeaturesInput {
-  """Filter to find records to delete"""
-  filter: ShowcaseHighlightFeatureDeleteFilter!
 }
 
 input DeleteManyShowcasesInput {
@@ -568,17 +553,14 @@ type Mutation {
   createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
-  createManyShowcaseHighlightFeatures(input: CreateManyShowcaseHighlightFeaturesInput!): [ShowcaseHighlightFeature!]!
   createOneImageList(input: CreateOneImageListInput!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
-  createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
-  deleteManyShowcaseHighlightFeatures(input: DeleteManyShowcaseHighlightFeaturesInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
@@ -609,7 +591,6 @@ type Mutation {
   updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
-  updateManyShowcaseHighlightFeatures(input: UpdateManyShowcaseHighlightFeaturesInput!): UpdateManyResponse!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
@@ -793,16 +774,6 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): ShowcaseHighlightFeature
-  showcaseHighlightFeatures(
-    """Specify to filter the records returned."""
-    filter: ShowcaseHighlightFeatureFilter = {}
-
-    """Limit or page results."""
-    paging: CursorPaging = {first: 10}
-
-    """Specify to sort results."""
-    sorting: [ShowcaseHighlightFeatureSort!] = []
-  ): ShowcaseHighlightFeatureConnection!
   showcases(
     """Specify to filter the records returned."""
     filter: ShowcaseFilter = {publishStatus: {eq: PUBLISHED}}
@@ -1124,24 +1095,9 @@ type ShowcaseHighlightFeatureAggregateGroupBy {
   name: String
 }
 
-type ShowcaseHighlightFeatureConnection {
-  """Array of edges."""
-  edges: [ShowcaseHighlightFeatureEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-}
-
 type ShowcaseHighlightFeatureCountAggregate {
   id: Int
   name: Int
-}
-
-input ShowcaseHighlightFeatureDeleteFilter {
-  and: [ShowcaseHighlightFeatureDeleteFilter!]
-  id: IDFilterComparison
-  name: StringFieldComparison
-  or: [ShowcaseHighlightFeatureDeleteFilter!]
 }
 
 type ShowcaseHighlightFeatureDeleteResponse {
@@ -1184,13 +1140,6 @@ input ShowcaseHighlightFeatureSort {
 enum ShowcaseHighlightFeatureSortFields {
   id
   name
-}
-
-input ShowcaseHighlightFeatureUpdateFilter {
-  and: [ShowcaseHighlightFeatureUpdateFilter!]
-  id: IDFilterComparison
-  name: StringFieldComparison
-  or: [ShowcaseHighlightFeatureUpdateFilter!]
 }
 
 """Thông tin về chi phí vận hành showcase"""
@@ -1425,14 +1374,6 @@ input UpdateManyMediaDtosInput {
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
-}
-
-input UpdateManyShowcaseHighlightFeaturesInput {
-  """Filter used to find fields to update"""
-  filter: ShowcaseHighlightFeatureUpdateFilter!
-
-  """The update to apply to all records found using the filter"""
-  update: UpdateShowcaseHighlightFeature!
 }
 
 input UpdateMediaDto {
