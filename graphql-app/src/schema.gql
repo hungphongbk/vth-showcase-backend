@@ -565,7 +565,7 @@ type Mutation {
   updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
-  updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFCreateInputDto!): ShowcaseHighlightFeature!
   updateOneUser(role: AuthRoleType!, uid: String!): Boolean!
 }
 
@@ -1367,14 +1367,6 @@ input UpdateOnePrjUpdateDtoInput {
 
   """The update to apply."""
   update: UpdatePrjUpdateDto!
-}
-
-input UpdateOneShowcaseHighlightFeatureInput {
-  """The id of the record to update"""
-  id: ID!
-
-  """The update to apply."""
-  update: ShowcaseHFCreateInputDto!
 }
 
 input UpdatePrjUpdateDto {

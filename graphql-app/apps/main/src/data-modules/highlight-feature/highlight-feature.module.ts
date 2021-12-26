@@ -8,6 +8,7 @@ import { ShowcaseHFMediaEntity } from './entities/showcaseHF.media.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HighlightFeatureResolver } from './highlight-feature.resolver';
 import { ShowcaseModule } from '../showcase/showcase.module';
+import { MediaModule } from '../media/media.module';
 
 const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
   ShowcaseHFEntity,
@@ -26,13 +27,14 @@ const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
           EntityClass: ShowcaseHFEntity,
           read: { many: { disabled: true } },
           create: { one: { disabled: true }, many: { disabled: true } },
-          update: { many: { disabled: true } },
+          update: { one: { disabled: true }, many: { disabled: true } },
           delete: { many: { disabled: true } },
         },
       ],
     }),
     showcaseHFOrmModule,
     ShowcaseModule,
+    MediaModule,
   ],
   providers: [HighlightFeatureResolver],
   exports: [showcaseHFOrmModule],

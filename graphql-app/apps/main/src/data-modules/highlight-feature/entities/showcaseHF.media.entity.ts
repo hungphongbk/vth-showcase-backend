@@ -10,4 +10,6 @@ export class ShowcaseHFMediaEntity extends MediaEntity {
   })
   @JoinColumn()
   hf!: ShowcaseHFEntity;
+
+  hfId: number;
 }
