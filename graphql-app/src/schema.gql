@@ -1053,6 +1053,7 @@ input ShowcaseCreateInputDto {
   name: String!
   publishStatus: PublishStatus
   status: ShowcaseStatus!
+  updates: [PrjUpdateCreateDto!]
 }
 
 input ShowcaseDeleteFilter {
@@ -1327,6 +1328,7 @@ input ShowcaseUpdateInputDto {
   name: String
   publishStatus: PublishStatus
   status: ShowcaseStatus
+  updates: [PrjUpdateCreateDto!]
 }
 
 """Sort Directions"""

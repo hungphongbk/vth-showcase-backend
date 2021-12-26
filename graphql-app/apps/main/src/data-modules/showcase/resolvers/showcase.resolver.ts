@@ -11,7 +11,7 @@ import {
   GqlOptionalAuthGuard,
 } from '../../../auth';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
-import deepmerge from 'deepmerge';
+import * as deepmerge from 'deepmerge';
 import { ForbiddenError } from 'apollo-server-express';
 
 @Resolver(() => ShowcaseDto)
