@@ -6,6 +6,8 @@ import { ShowcaseHFCreateInputDto } from './dtos/showcaseHF.create.dto';
 import { ShowcaseHFDto } from './dtos/showcaseHF.dto';
 import { ShowcaseHFMediaEntity } from './entities/showcaseHF.media.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HighlightFeatureResolver } from './highlight-feature.resolver';
+import { ShowcaseModule } from '../showcase/showcase.module';
 
 const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
   ShowcaseHFEntity,
@@ -22,14 +24,16 @@ const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
           DTOClass: ShowcaseHFDto,
           EntityClass: ShowcaseHFEntity,
           read: { many: { disabled: true } },
-          create: { many: { disabled: true } },
+          create: { one: { disabled: true }, many: { disabled: true } },
           update: { many: { disabled: true } },
           delete: { many: { disabled: true } },
         },
       ],
     }),
     showcaseHFOrmModule,
+    ShowcaseModule,
   ],
+  providers: [HighlightFeatureResolver],
   exports: [showcaseHFOrmModule],
 })
 export class HighlightFeatureModule {}

@@ -8,7 +8,6 @@ import {
 } from '@nestjs-query/core';
 import { PublishStatus, ShowcaseDto } from './dtos/showcase.dtos';
 import { ShowcaseEntity } from './entities/showcase.entity';
-import { ShowcaseHFEntity } from '../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../image-list/entities/image-list.entity';
 import {
   ShowcaseCreateInputDto,
@@ -59,8 +58,6 @@ export class ShowcaseQueryService extends RelationQueryService<
     private readonly service: ShowcaseBaseQueryService,
     @InjectQueryService(ShowcaseMediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
-    @InjectQueryService(ShowcaseHFEntity)
-    private readonly hfQueryService: QueryService<ShowcaseHFEntity>,
     @InjectQueryService(ImageListEntity)
     private readonly imgListService: QueryService<ImageListEntity>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
@@ -70,10 +67,6 @@ export class ShowcaseQueryService extends RelationQueryService<
     super(service, {
       image: {
         service: mediaQueryService,
-        query,
-      },
-      highlightFeatures: {
-        service: hfQueryService,
         query,
       },
       imageLists: {

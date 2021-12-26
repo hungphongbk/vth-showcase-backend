@@ -137,6 +137,11 @@ input CreateManyMediaDtosInput {
   mediaDtos: [MediaInput!]!
 }
 
+input CreateOneImageListInput {
+  """The record to create"""
+  imageList: CreateImageListInputDto!
+}
+
 input CreateOneInvestmentPackageDtoInput {
   """The record to create"""
   investmentPackageDto: CreateInvestmentPackageDto!
@@ -145,11 +150,6 @@ input CreateOneInvestmentPackageDtoInput {
 input CreateOneMediaDtoInput {
   """The record to create"""
   mediaDto: MediaInput!
-}
-
-input CreateOneShowcaseHighlightFeatureInput {
-  """The record to create"""
-  showcaseHighlightFeature: ShowcaseHFCreateInputDto!
 }
 
 input CursorPaging {
@@ -522,11 +522,12 @@ type Mutation {
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
+  createOneImageList(input: CreateOneImageListInput!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
-  createOneShowcaseHighlightFeature(input: CreateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!

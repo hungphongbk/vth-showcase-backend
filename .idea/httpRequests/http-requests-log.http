@@ -6,6 +6,74 @@ Content-Type: application/json
   "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
 }
 
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "postNewUpdate",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
+}
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
+}
+
+###
+
+POST http://localhost:3000/graphql
+Accept-Encoding: gzip, deflate, br
+Accept: application/json
+Connection: keep-alive
+DNT: 1
+Origin: http://localhost:3000
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{"query":"query CurrentUser {  currentUser { uid email name role }}"}
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
+}
+
 <> 2021-12-26T063227-2.200.json
 
 ###
@@ -533,88 +601,6 @@ Content-Type: application/json
 }
 
 <> 2021-12-17T201209-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1NmMwNDEwZmE1MjFjMTZlNDQ2NWE4ZjVjODU5NjZhNWY1MDk5NGIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjM5NzQ2NzI2LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2Mzk3NDY3MjYsImV4cCI6MTYzOTc1MDMyNiwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.JCmpfTf0Fsg_9o41DjFY6R2hK-NWNr_9gkmk8gJ_rKwv6OQeLOKIG7ytek1_YLeYT3NbZ_qalVISzbzMXCPfgTGcTo1HIs4XV8kqaBAgt0E9NBra7rSObCwGZlb9qwJFoBMDJ6Wtt8BKkxhVD_ikNdHgx8OwMRohpVEYxeva_OWANjB1IX2tcB5s2Ev7iP_SKaVaIry61gIgvhHN4_Ob9Dtuq3PD3Uz8JoR8mWgF5q4DRIc_Bfe93JoLR23MxqilEGZMLWGUcwbuS2r78HuDu54jhuuyo5MmI5cSt6OCliEjTW6ehc4cxlqW2P1n23R0w3dzhEqOqumUbicStSwDzg
-Content-Type: application/json
-
-{
-  "operationName": "createShowcase",
-  "variables": {},
-  "query": "mutation createShowcase{ createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedQuantity: { regular: 100, pioneer: 25, promo: 35, preorder: 40 } expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" } ] } ] } ) { slug } }"
-}
-
-<> 2021-12-17T201209.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Accept-Encoding: gzip, deflate, br
-Accept: application/json
-Connection: keep-alive
-DNT: 1
-Origin: http://localhost:3000
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1NmMwNDEwZmE1MjFjMTZlNDQ2NWE4ZjVjODU5NjZhNWY1MDk5NGIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjM5NzQ2NzI2LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2Mzk3NDY3MjYsImV4cCI6MTYzOTc1MDMyNiwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.JCmpfTf0Fsg_9o41DjFY6R2hK-NWNr_9gkmk8gJ_rKwv6OQeLOKIG7ytek1_YLeYT3NbZ_qalVISzbzMXCPfgTGcTo1HIs4XV8kqaBAgt0E9NBra7rSObCwGZlb9qwJFoBMDJ6Wtt8BKkxhVD_ikNdHgx8OwMRohpVEYxeva_OWANjB1IX2tcB5s2Ev7iP_SKaVaIry61gIgvhHN4_Ob9Dtuq3PD3Uz8JoR8mWgF5q4DRIc_Bfe93JoLR23MxqilEGZMLWGUcwbuS2r78HuDu54jhuuyo5MmI5cSt6OCliEjTW6ehc4cxlqW2P1n23R0w3dzhEqOqumUbicStSwDzg
-Content-Type: application/json
-
-{"query":"query CurrentUser {  currentUser { uid email name role }}"}
-
-<> 2021-12-17T201208.200.json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
-
-<> 2021-12-17T201206.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "ci-test-56F73DA5" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
-}
-
-<> 2021-12-17T184141.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1NmMwNDEwZmE1MjFjMTZlNDQ2NWE4ZjVjODU5NjZhNWY1MDk5NGIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjM5NzQxMDg4LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2Mzk3NDEwODgsImV4cCI6MTYzOTc0NDY4OCwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.RpivJzslqVfj-hIEpO6zDt-lz4JBEVEWeYd4sSPsVbntqS86qWOFS_LttPMYu7B5z0caN9dpXpO4d5bzK_TvS-T3TSt663voRQ65TFDU9cnhr4lThR0z19qI-h119vYhDNFostgTdyA3dqISt7XPmJ6WGxtF74t-JOsUyoxyFbnnMe8cJgmmwdNB0lA7atP4TlCOW_8p-Y7QTIL5CJKKViDP9fHUkxTiLHbQ7nUFKKruX-Gt3LprmjQDDBlyPdt9-LV86Q_clr9Rn-jXowR6YxzoRvZBNViHLyYltMzRhSbXOQzWM0CDZ2cJE3YdRbw7yTgZwnlblf9xDb9uFSoh4w
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "ci-test-56F73DA5" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-<> 2021-12-17T184140-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1NmMwNDEwZmE1MjFjMTZlNDQ2NWE4ZjVjODU5NjZhNWY1MDk5NGIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjM5NzQxMDg4LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2Mzk3NDEwODgsImV4cCI6MTYzOTc0NDY4OCwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.RpivJzslqVfj-hIEpO6zDt-lz4JBEVEWeYd4sSPsVbntqS86qWOFS_LttPMYu7B5z0caN9dpXpO4d5bzK_TvS-T3TSt663voRQ65TFDU9cnhr4lThR0z19qI-h119vYhDNFostgTdyA3dqISt7XPmJ6WGxtF74t-JOsUyoxyFbnnMe8cJgmmwdNB0lA7atP4TlCOW_8p-Y7QTIL5CJKKViDP9fHUkxTiLHbQ7nUFKKruX-Gt3LprmjQDDBlyPdt9-LV86Q_clr9Rn-jXowR6YxzoRvZBNViHLyYltMzRhSbXOQzWM0CDZ2cJE3YdRbw7yTgZwnlblf9xDb9uFSoh4w
-Content-Type: application/json
-
-{
-  "operationName": "createShowcase",
-  "variables": {},
-  "query": "mutation createShowcase {createOneShowcase(  input: {name: \"ci-test\", description: \"Test description\", expectedSaleAt: \"2022-12-03T09:54:33Z\", status: COMING, expectedSalePrice: {regular: 1000, preorder: 999, promo: 998, pioneer: 997}, brand: {name: \"Test brand name\", description: \"Test brand desc\"}, image: {path: \"ci-test/path\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}, highlightFeatures: [{name: \"ci-test 1\", description: \"desc 1\", image: {path: \"ci-test/path\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}}, {name: \"ci-test 2\", description: \"desc 2\", image: {path: \"ci-test/path2\", mimetype: \"ci-test/mime2\", filename: \"ci-test.filename2\"}}], imageLists: [{images: [{path: \"ci-test/path-of-image-list\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}, {path: \"ci-test/path-of-image-list\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}]}]}) {  id    name author { name }    image {    path    }  highlightFeatures {    name    }  imageLists {    images {      path      }  }}}"
-}
-
-<> 2021-12-17T184140.200.json
 
 ###
 
