@@ -21,6 +21,7 @@ const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
       resolvers: [
         {
           CreateDTOClass: ShowcaseHFCreateInputDto,
+          UpdateDTOClass: ShowcaseHFCreateInputDto,
           DTOClass: ShowcaseHFDto,
           EntityClass: ShowcaseHFEntity,
           read: { many: { disabled: true } },

@@ -1374,19 +1374,13 @@ input UpdateOneShowcaseHighlightFeatureInput {
   id: ID!
 
   """The update to apply."""
-  update: UpdateShowcaseHighlightFeature!
+  update: ShowcaseHFCreateInputDto!
 }
 
 input UpdatePrjUpdateDto {
   content: String
   createdAt: DateTime
   id: ID
-}
-
-input UpdateShowcaseHighlightFeature {
-  description: String
-  id: ID
-  name: String
 }
 
 type User {
