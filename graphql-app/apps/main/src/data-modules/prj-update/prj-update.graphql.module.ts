@@ -11,8 +11,8 @@ export const PrjUpdateGraphqlModule = NestjsQueryGraphQLModule.forFeature({
       EntityClass: PrjUpdateEntity,
       read: { many: { disabled: true } },
       create: { one: { disabled: true }, many: { disabled: true } },
-      update: { one: { disabled: true }, many: { disabled: true } },
-      delete: { one: { disabled: true }, many: { disabled: true } },
+      update: { many: { disabled: true } },
+      delete: { many: { disabled: true } },
     },
   ],
 });

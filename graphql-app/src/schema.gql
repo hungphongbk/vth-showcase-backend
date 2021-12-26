@@ -251,6 +251,11 @@ input DeleteOneMediaDtoInput {
   id: ID!
 }
 
+input DeleteOnePrjUpdateDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
 input DeleteOneShowcaseHighlightFeatureInput {
   """The id of the record to delete."""
   id: ID!
@@ -578,6 +583,7 @@ type Mutation {
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
+  deleteOnePrjUpdateDto(input: DeleteOnePrjUpdateDtoInput!): PrjUpdateDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Boolean!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
   postAnonymousComment(input: CommentCreateDto!, slug: String!): CommentDto!
@@ -607,6 +613,7 @@ type Mutation {
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
+  updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(input: UpdateOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
@@ -663,6 +670,12 @@ type PrjUpdateDtoAvgAggregate {
 
 type PrjUpdateDtoCountAggregate {
   id: Int
+}
+
+type PrjUpdateDtoDeleteResponse {
+  content: String
+  createdAt: DateTime
+  id: ID
 }
 
 type PrjUpdateDtoEdge {
@@ -1457,12 +1470,26 @@ input UpdateOneMediaDtoInput {
   update: UpdateMediaDto!
 }
 
+input UpdateOnePrjUpdateDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdatePrjUpdateDto!
+}
+
 input UpdateOneShowcaseHighlightFeatureInput {
   """The id of the record to update"""
   id: ID!
 
   """The update to apply."""
   update: UpdateShowcaseHighlightFeature!
+}
+
+input UpdatePrjUpdateDto {
+  content: String
+  createdAt: DateTime
+  id: ID
 }
 
 input UpdateShowcaseHighlightFeature {
