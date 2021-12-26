@@ -8,7 +8,8 @@ on:
       - '!master'
     paths:
       - 'upload-app/**'
-      - '.github/workflows/**'
+      - '.github/workflows/upload-app.yml'
+      - '.github/workflows/deployment.yml'
   pull_request:
     branches:
       - main

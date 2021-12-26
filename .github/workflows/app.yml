@@ -8,7 +8,8 @@ on:
       - '!master'
     paths:
       - 'graphql-app/**'
-      - '.github/workflows/**'
+      - '.github/workflows/app.yml'
+      - '.github/workflows/deployment.yml'
   pull_request:
     branches:
       - main
@@ -20,7 +21,7 @@ env:
 jobs:
   build-app:
     name: Build integrated app
-    runs-on: self-hosted
+    runs-on: macos-latest
     permissions:
       contents: read
       packages: write
