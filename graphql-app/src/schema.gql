@@ -127,11 +127,6 @@ input CreateInvestmentPackageDto {
   id: ID
 }
 
-input CreateManyImageListsInput {
-  """Array of records to create"""
-  imageLists: [CreateImageListInputDto!]!
-}
-
 input CreateManyInvestmentPackageDtosInput {
   """Array of records to create"""
   investmentPackageDtos: [CreateInvestmentPackageDto!]!
@@ -140,11 +135,6 @@ input CreateManyInvestmentPackageDtosInput {
 input CreateManyMediaDtosInput {
   """Array of records to create"""
   mediaDtos: [MediaInput!]!
-}
-
-input CreateOneImageListInput {
-  """The record to create"""
-  imageList: CreateImageListInputDto!
 }
 
 input CreateOneInvestmentPackageDtoInput {
@@ -195,11 +185,6 @@ input DateFieldComparisonBetween {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-input DeleteManyImageListsInput {
-  """Filter to find records to delete"""
-  filter: ImageListDeleteFilter!
-}
 
 input DeleteManyInvestmentPackageDtosInput {
   """Filter to find records to delete"""
@@ -282,22 +267,8 @@ type ImageListAggregateGroupBy {
   id: ID
 }
 
-type ImageListConnection {
-  """Array of edges."""
-  edges: [ImageListEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-}
-
 type ImageListCountAggregate {
   id: Int
-}
-
-input ImageListDeleteFilter {
-  and: [ImageListDeleteFilter!]
-  id: IDFilterComparison
-  or: [ImageListDeleteFilter!]
 }
 
 type ImageListDeleteResponse {
@@ -334,12 +305,6 @@ input ImageListSort {
 
 enum ImageListSortFields {
   id
-}
-
-input ImageListUpdateFilter {
-  and: [ImageListUpdateFilter!]
-  id: IDFilterComparison
-  or: [ImageListUpdateFilter!]
 }
 
 type InvestmentPackageDto {
@@ -550,15 +515,12 @@ type Mutation {
   addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   addImageListsToShowcase(input: AddImageListsToShowcaseInput!): Showcase!
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
-  createManyImageLists(input: CreateManyImageListsInput!): [ImageList!]!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
-  createOneImageList(input: CreateOneImageListInput!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
-  deleteManyImageLists(input: DeleteManyImageListsInput!): DeleteManyResponse!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
@@ -588,7 +550,6 @@ type Mutation {
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
   submitInvestor(form: SubmitInvestorInputDto!): Boolean!
-  updateManyImageLists(input: UpdateManyImageListsInput!): UpdateManyResponse!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
@@ -725,16 +686,6 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): ImageList
-  imageLists(
-    """Specify to filter the records returned."""
-    filter: ImageListFilter = {}
-
-    """Limit or page results."""
-    paging: CursorPaging = {first: 10}
-
-    """Specify to sort results."""
-    sorting: [ImageListSort!] = []
-  ): ImageListConnection!
   investmentPackageDto(
     """The id of the record to find."""
     id: ID!
@@ -1345,14 +1296,6 @@ input UpdateInvestmentPackageDto {
   displayName: String
   fundedRate: Float
   id: ID
-}
-
-input UpdateManyImageListsInput {
-  """Filter used to find fields to update"""
-  filter: ImageListUpdateFilter!
-
-  """The update to apply to all records found using the filter"""
-  update: UpdateImageList!
 }
 
 input UpdateManyInvestmentPackageDtosInput {
