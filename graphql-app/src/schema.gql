@@ -1042,8 +1042,9 @@ input ShowcaseHFCreateInputDto {
 }
 
 input ShowcaseHFUpdateInputDto {
-  id: String
+  description: String
   image: MediaInput
+  name: String
 }
 
 type ShowcaseHighlightFeature {
