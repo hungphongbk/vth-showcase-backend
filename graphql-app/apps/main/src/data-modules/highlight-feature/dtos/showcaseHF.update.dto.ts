@@ -1,11 +1,13 @@
-import { Field, InputType, PartialType } from '@nestjs/graphql';
-import { ShowcaseHFBaseDto } from './showcaseHF.dto';
+import { Field, InputType } from '@nestjs/graphql';
 import { MediaCreateDto } from '../../media/dtos/media.create.dto';
 
 @InputType()
-export class ShowcaseHFUpdateInputDto extends PartialType(ShowcaseHFBaseDto) {
-  @Field(() => String, { nullable: true })
-  id?: string;
+export class ShowcaseHFUpdateInputDto {
+  @Field({ nullable: true })
+  name: string;
+
+  @Field({ nullable: true })
+  description: string;
 
   @Field(() => MediaCreateDto, { nullable: true })
   image: MediaCreateDto;
