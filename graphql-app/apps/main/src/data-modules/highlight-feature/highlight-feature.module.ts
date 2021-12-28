@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HighlightFeatureResolver } from './highlight-feature.resolver';
 import { ShowcaseModule } from '../showcase/showcase.module';
 import { MediaModule } from '../media/media.module';
+import { ShowcaseHFUpdateInputDto } from './dtos/showcaseHF.update.dto';
 
 const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
   ShowcaseHFEntity,
@@ -22,7 +23,7 @@ const showcaseHFOrmModule = NestjsQueryTypeOrmModule.forFeature([
       resolvers: [
         {
           CreateDTOClass: ShowcaseHFCreateInputDto,
-          UpdateDTOClass: ShowcaseHFCreateInputDto,
+          UpdateDTOClass: ShowcaseHFUpdateInputDto,
           DTOClass: ShowcaseHFDto,
           EntityClass: ShowcaseHFEntity,
           read: { many: { disabled: true } },

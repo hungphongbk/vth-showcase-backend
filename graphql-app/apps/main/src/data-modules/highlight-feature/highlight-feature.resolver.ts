@@ -12,10 +12,15 @@ import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { ShowcaseHFEntity } from './entities/showcaseHF.entity';
 import { ShowcaseQueryService } from '../showcase/showcase.queryService';
 import { ShowcaseHFMediaEntity } from './entities/showcaseHF.media.entity';
+import { ShowcaseHFUpdateInputDto } from './dtos/showcaseHF.update.dto';
 
 @ArgsType()
 class CreateOneShowcaseHighlightFeatureInput extends MutationArgsType(
   ShowcaseHFCreateInputDto,
+) {}
+@ArgsType()
+class UpdateOneShowcaseHighlightFeatureInput extends MutationArgsType(
+  ShowcaseHFUpdateInputDto,
 ) {}
 
 @Resolver(() => ShowcaseHFDto)
@@ -46,7 +51,7 @@ export class HighlightFeatureResolver {
   @ResolverMutation(() => ShowcaseHFDto)
   async updateOneShowcaseHighlightFeature(
     @Args({ name: 'id', type: () => ID }) id: number,
-    @MutationHookArgs() input: CreateOneShowcaseHighlightFeatureInput,
+    @MutationHookArgs() input: UpdateOneShowcaseHighlightFeatureInput,
   ) {
     const { image, ...rest } = input.input;
     if (image) {

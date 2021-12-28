@@ -565,7 +565,7 @@ type Mutation {
   updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
-  updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFCreateInputDto!): ShowcaseHighlightFeature!
+  updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFUpdateInputDto!): ShowcaseHighlightFeature!
   updateOneUser(role: AuthRoleType!, uid: String!): Boolean!
 }
 
@@ -1039,6 +1039,11 @@ input ShowcaseHFCreateInputDto {
   id: String
   image: MediaInput!
   name: String!
+}
+
+input ShowcaseHFUpdateInputDto {
+  id: String
+  image: MediaInput
 }
 
 type ShowcaseHighlightFeature {
