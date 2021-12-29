@@ -57,6 +57,11 @@ export class ShowcaseEntity {
   publishStatus!: PublishStatus;
 
   @Column({
+    default: false,
+  })
+  isFeatured: boolean;
+
+  @Column({
     type: 'text',
   })
   description: string;

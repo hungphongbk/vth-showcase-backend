@@ -41,6 +41,11 @@ enum AuthRoleType {
   USER
 }
 
+input BooleanFieldComparison {
+  is: Boolean
+  isNot: Boolean
+}
+
 input CommentCreateDto {
   content: String!
   rate: [CommentRateEnum!]!
@@ -921,6 +926,7 @@ type Showcase {
   ): [ImageList!]!
   inventory: ShowcaseInventoryDto
   investorStat: ShowcaseInvestorStatDto
+  isFeatured: Boolean
   name: String!
   publishStatus: PublishStatus!
   slug: String!
@@ -938,6 +944,7 @@ type Showcase {
 type ShowcaseAggregateGroupBy {
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
+  isFeatured: Boolean
   name: String
   publishStatus: PublishStatus
   slug: String
@@ -977,6 +984,7 @@ type ShowcaseConnection {
 type ShowcaseCountAggregate {
   expectedSaleAt: Int
   expectedSaleEndAt: Int
+  isFeatured: Int
   name: Int
   publishStatus: Int
   slug: Int
@@ -996,6 +1004,7 @@ input ShowcaseCreateInputDto {
   image: MediaInput!
   imageLists: [CreateImageListInputDto!]
   inventory: ShowcaseInventoryDtoInput
+  isFeatured: Boolean
   name: String!
   publishStatus: PublishStatus
   status: ShowcaseStatus!
@@ -1006,6 +1015,7 @@ input ShowcaseDeleteFilter {
   and: [ShowcaseDeleteFilter!]
   expectedSaleAt: DateFieldComparison
   expectedSaleEndAt: DateFieldComparison
+  isFeatured: BooleanFieldComparison
   name: StringFieldComparison
   or: [ShowcaseDeleteFilter!]
   publishStatus: PublishStatusFilterComparison
@@ -1026,6 +1036,7 @@ input ShowcaseFilter {
   and: [ShowcaseFilter!]
   expectedSaleAt: DateFieldComparison
   expectedSaleEndAt: DateFieldComparison
+  isFeatured: BooleanFieldComparison
   name: StringFieldComparison
   or: [ShowcaseFilter!]
   publishStatus: PublishStatusFilterComparison
@@ -1213,6 +1224,7 @@ input ShowcaseSort {
 enum ShowcaseSortFields {
   expectedSaleAt
   expectedSaleEndAt
+  isFeatured
   name
   publishStatus
   slug
@@ -1255,6 +1267,7 @@ input ShowcaseUpdateInputDto {
   image: MediaInput
   imageLists: [CreateImageListInputDto!]
   inventory: ShowcaseInventoryDtoInput
+  isFeatured: Boolean
   name: String
   publishStatus: PublishStatus
   status: ShowcaseStatus

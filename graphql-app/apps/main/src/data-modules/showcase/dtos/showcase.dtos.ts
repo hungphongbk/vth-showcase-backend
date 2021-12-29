@@ -85,6 +85,9 @@ export class ShowcaseDto {
   @FilterableField(() => PublishStatus)
   publishStatus!: PublishStatus;
 
+  @FilterableField({ nullable: true })
+  isFeatured: boolean;
+
   @FilterableField(() => GraphQLISODateTime)
   updatedAt!: Date;
 
