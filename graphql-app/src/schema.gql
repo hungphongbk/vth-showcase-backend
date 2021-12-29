@@ -411,13 +411,13 @@ scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publicati
 
 type MediaDto implements IdInterface {
   filename: String!
-  height: Float
+  height: Float!
   id: ID!
   mimetype: String!
   path: String!
-  preloadUrl: String
+  preloadUrl: String!
   type: MediaType!
-  width: Float
+  width: Float!
 }
 
 type MediaDtoAggregateGroupBy {

@@ -26,12 +26,12 @@ export class MediaDto {
   @Field(() => MediaType)
   type: MediaType;
 
-  @Field({ nullable: true })
+  @Field()
   preloadUrl: string;
 
-  @Field({ nullable: true })
+  @Field()
   width: number;
 
-  @Field({ nullable: true })
+  @Field()
   height: number;
 }
