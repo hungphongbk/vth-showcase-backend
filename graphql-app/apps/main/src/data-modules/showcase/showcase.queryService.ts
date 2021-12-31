@@ -85,8 +85,10 @@ export class ShowcaseQueryService extends RelationQueryService<
     return (
       await this.service.query({
         filter: {
-          slug: { notLike: 'ci-test%' },
-          publishStatus: { eq: PublishStatus.PUBLISHED },
+          and: [
+            { slug: { notLike: 'ci-test%' } },
+            { publishStatus: { eq: PublishStatus.PUBLISHED } },
+          ],
         },
         paging: { limit: 10000 },
       })
