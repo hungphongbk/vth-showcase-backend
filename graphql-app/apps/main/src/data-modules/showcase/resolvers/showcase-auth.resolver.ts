@@ -31,6 +31,8 @@ import {
 } from '@tfarras/nestjs-firebase-admin';
 import { ForbiddenError } from 'apollo-server-express';
 import { ShowcaseConnection } from '../dtos/query.types';
+import { SsrAwareMiddleware } from '../../../gql/middlewares/ssr-aware.middleware';
+import { ShowcaseGaDto } from '../dtos/showcase-ga.dto';
 
 @ArgsType()
 class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
@@ -87,6 +89,16 @@ export class ShowcaseAuthResolver {
     });
     this.logger.log('deleteOneShowcase: Successfully');
     return true;
+  }
+
+  @ResolveField('ga', () => ShowcaseGaDto, {
+    nullable: true,
+    middleware: [SsrAwareMiddleware],
+  })
+  async ga(@Parent() showcase) {
+    return {
+      viewCount: 1,
+    };
   }
 }
 

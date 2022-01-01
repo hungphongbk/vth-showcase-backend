@@ -908,6 +908,7 @@ type Showcase {
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
   expectedSalePrice: ShowcasePrice
+  ga: ShowcaseGaDto
   highlightFeatures(
     """Specify to filter the records returned."""
     filter: ShowcaseHighlightFeatureFilter = {}
@@ -1043,6 +1044,10 @@ input ShowcaseFilter {
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
+}
+
+type ShowcaseGaDto {
+  viewCount: Float!
 }
 
 input ShowcaseHFCreateInputDto {
