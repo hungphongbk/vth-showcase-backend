@@ -539,9 +539,11 @@ type Mutation {
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
+  deleteOneMediaFromImageList(id: ID!, mediaId: ID!): ImageList!
   deleteOnePrjUpdateDto(input: DeleteOnePrjUpdateDtoInput!): PrjUpdateDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Boolean!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
+  insertOneMediaToImageList(id: ID!, input: MediaInput!): ImageList!
   postAnonymousComment(input: CommentCreateDto!, slug: String!): CommentDto!
   postAuthorizedComment(input: CommentCreateDto!, slug: String!): CommentDto!
   postProjectUpdate(input: PrjUpdateCreateDto!, slug: String!): PrjUpdateDto!

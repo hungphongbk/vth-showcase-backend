@@ -8,6 +8,9 @@ import { MediaCreateDto } from '../media/dtos/media.create.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { ImageListMediaEntity } from './entities/image-list.media.entity';
 import { ImageListEntity } from './entities/image-list.entity';
+import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../../auth';
 
 @ArgsType()
 class InsertOneMediaToImageListInput extends MutationArgsType(MediaCreateDto) {}
@@ -21,7 +24,8 @@ export class ImageListResolver {
     private readonly mediaQueryService: QueryService<ImageListMediaEntity>,
   ) {}
 
-  @Resolver(() => ImageListDto)
+  @UseGuards(GqlAuthGuard)
+  @ResolverMutation(() => ImageListDto)
   async insertOneMediaToImageList(
     @Args({ name: 'id', type: () => ID }) id: string,
     @MutationHookArgs() input: InsertOneMediaToImageListInput,
@@ -31,7 +35,8 @@ export class ImageListResolver {
     return await this.service.getById(id);
   }
 
-  @Resolver(() => ImageListDto)
+  @UseGuards(GqlAuthGuard)
+  @ResolverMutation(() => ImageListDto)
   async deleteOneMediaFromImageList(
     @Args({ name: 'id', type: () => ID }) id: string,
     @Args({ name: 'mediaId', type: () => ID }) mediaId: string,
