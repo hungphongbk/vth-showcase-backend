@@ -2,7 +2,7 @@ import { Field, InputType, OmitType, PartialType } from '@nestjs/graphql';
 import { PublishStatus, ShowcaseDto } from './showcase.dtos';
 import { MediaCreateDto } from '../../media/dtos/media.create.dto';
 import { ShowcaseHFCreateInputDto } from '../../highlight-feature/dtos/showcaseHF.create.dto';
-import { CreateImageListInputDto } from '../../image-list/dto/create-image-list-input.dto';
+import { ImageListCreateDto } from '../../image-list/dto/image-list.create.dto';
 import { PrjUpdateCreateDto } from '../../prj-update/prj-update.dto';
 
 @InputType({ isAbstract: true })
@@ -26,8 +26,8 @@ export class ShowcaseCreateInputDto extends ShowcaseCreateBase {
   @Field(() => [ShowcaseHFCreateInputDto], { nullable: true })
   highlightFeatures?: ShowcaseHFCreateInputDto[];
 
-  @Field(() => [CreateImageListInputDto], { nullable: true })
-  imageLists?: CreateImageListInputDto[];
+  @Field(() => [ImageListCreateDto], { nullable: true })
+  imageLists?: ImageListCreateDto[];
 
   @Field(() => [PrjUpdateCreateDto], { nullable: true })
   updates?: PrjUpdateCreateDto[];

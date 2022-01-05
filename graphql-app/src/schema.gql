@@ -120,10 +120,6 @@ enum CommentRateEnum {
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
-input CreateImageListInputDto {
-  images: [MediaInput!]
-}
-
 input CreateInvestmentPackageDto {
   benefitRate: Float
   count: Float
@@ -144,7 +140,7 @@ input CreateManyMediaDtosInput {
 
 input CreateOneImageListInput {
   """The record to create"""
-  imageList: CreateImageListInputDto!
+  imageList: ImageListCreateDto!
 }
 
 input CreateOneInvestmentPackageDtoInput {
@@ -279,6 +275,10 @@ type ImageListAggregateGroupBy {
 
 type ImageListCountAggregate {
   id: Int
+}
+
+input ImageListCreateDto {
+  images: [MediaInput!]
 }
 
 type ImageListDeleteResponse {
@@ -1003,7 +1003,7 @@ input ShowcaseCreateInputDto {
   highlightFeatures: [ShowcaseHFCreateInputDto!]
   id: String
   image: MediaInput!
-  imageLists: [CreateImageListInputDto!]
+  imageLists: [ImageListCreateDto!]
   inventory: ShowcaseInventoryDtoInput
   isFeatured: Boolean
   name: String!
@@ -1270,7 +1270,7 @@ input ShowcaseUpdateInputDto {
   highlightFeatures: [ShowcaseHFCreateInputDto!]
   id: String
   image: MediaInput
-  imageLists: [CreateImageListInputDto!]
+  imageLists: [ImageListCreateDto!]
   inventory: ShowcaseInventoryDtoInput
   isFeatured: Boolean
   name: String

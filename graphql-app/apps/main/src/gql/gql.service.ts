@@ -6,6 +6,7 @@ import { Cache } from 'cache-manager';
 import { ConfigService } from '@nestjs/config';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
 import Redis from 'ioredis';
+import { SsrOnlyDirective } from './directives/ssr-only.directive';
 
 @Injectable()
 export class GqlService implements GqlOptionsFactory {
@@ -28,6 +29,7 @@ export class GqlService implements GqlOptionsFactory {
       introspection: true,
       schemaDirectives: {
         currency: CurrencyDirective,
+        ssrOnly: SsrOnlyDirective,
       },
       persistedQueries: {
         cache,

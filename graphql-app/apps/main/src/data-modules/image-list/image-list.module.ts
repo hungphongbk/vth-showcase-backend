@@ -2,21 +2,25 @@ import { Module } from '@nestjs/common';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { ImageListEntity } from './entities/image-list.entity';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
-import { CreateImageListInputDto } from './dto/create-image-list-input.dto';
+import { ImageListCreateDto } from './dto/image-list.create.dto';
 import { ImageListDto } from './dto/image-list.dto';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImageListMediaEntity } from './entities/image-list.media.entity';
+import { ImageListResolver } from './image-list.resolver';
+import { MediaModule } from '../media/media.module';
 
-const ormModule = NestjsQueryTypeOrmModule.forFeature([ImageListEntity]);
+const imageListOrmModule = NestjsQueryTypeOrmModule.forFeature([
+  ImageListEntity,
+]);
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ImageListEntity, ImageListMediaEntity]),
     NestjsQueryGraphQLModule.forFeature({
-      imports: [ormModule],
+      imports: [imageListOrmModule],
       resolvers: [
         {
-          CreateDTOClass: CreateImageListInputDto,
+          CreateDTOClass: ImageListCreateDto,
           DTOClass: ImageListDto,
           EntityClass: ImageListEntity,
           read: { many: { disabled: true } },
@@ -26,8 +30,10 @@ const ormModule = NestjsQueryTypeOrmModule.forFeature([ImageListEntity]);
         },
       ],
     }),
-    ormModule,
+    imageListOrmModule,
+    MediaModule,
   ],
-  exports: [ormModule],
+  providers: [ImageListResolver],
+  exports: [imageListOrmModule],
 })
 export class ImageListModule {}
