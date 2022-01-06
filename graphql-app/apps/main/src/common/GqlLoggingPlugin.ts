@@ -31,15 +31,25 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
 
           let sentryId = `gql-${new Date().valueOf().toString()}`;
           Sentry.withScope((scope) => {
-            scope.setTag('kind', ctx.operation.operation);
+            scope.setTags({
+              kind: ctx.operation.operation,
+              operationName: ctx.operationName || ctx.request.operationName,
+            });
             // Log query and variables as extras
             // (make sure to strip out sensitive data!)
             scope.setExtra('query', ctx.request.query);
-            scope.setExtra('variables', ctx.request.variables);
+            scope.setExtra(
+              'variables',
+              JSON.stringify(ctx.request.variables, null, 2),
+            );
+            scope.setExtra('message', err.message + '');
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if (err.path) {
               // We can also add the path as breadcrumb
+              scope.setExtras({
+                path: error.path,
+              });
               scope.addBreadcrumb({
                 category: 'query-path',
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

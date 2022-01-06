@@ -1,4 +1,108 @@
 POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxNDUzNTM3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDE0NTM1MzcsImV4cCI6MTY0MTQ1NzEzNywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.lkJmqmZ3DmoXSQxFXUKdtcIy83bVruDGiyslZMqSQjjSsfyIGo3pogVYNFZ0PsQpSV8um3vd0-zb9qUiQTc21yA7BHqE-pg-s2kPgxWVcxIebZvc4XVO3DQ4WDOfLSfLYF8Zfp2oq4IPDOSeqpQjZOVmel3bBWCoaOwmH1DodPusw-T2j6GHt-hpeIZ1HrJnVKcxjsSKT_nCC61Cn0jabIY4F7tvMMd8mZsEZysoyWhess0BpE2N9K5nlpW3dI8BeMeurf_dYuIOZ-PBL2V-lwouZ54HHEn2jcCA_S6vschBOuoAE81q4xnMmTLEyqz7xfYY6tMZsowcUFqkXm3hQg
+Content-Type: application/json
+
+{
+  "operationName": "createShowcase",
+  "query": "mutation createShowcase { createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" preloadUrl: \"\" width: 800 height: 600 } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } ] } ] updates: [ {content: \"foo\"} ] } ) { id name image { path } highlightFeatures { name } imageLists { images { path } } updates { content } } }"
+}
+
+<> 2022-01-06T142459.200.json
+
+###
+
+POST http://localhost:3000}/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxNDUzNTM3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDE0NTM1MzcsImV4cCI6MTY0MTQ1NzEzNywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.lkJmqmZ3DmoXSQxFXUKdtcIy83bVruDGiyslZMqSQjjSsfyIGo3pogVYNFZ0PsQpSV8um3vd0-zb9qUiQTc21yA7BHqE-pg-s2kPgxWVcxIebZvc4XVO3DQ4WDOfLSfLYF8Zfp2oq4IPDOSeqpQjZOVmel3bBWCoaOwmH1DodPusw-T2j6GHt-hpeIZ1HrJnVKcxjsSKT_nCC61Cn0jabIY4F7tvMMd8mZsEZysoyWhess0BpE2N9K5nlpW3dI8BeMeurf_dYuIOZ-PBL2V-lwouZ54HHEn2jcCA_S6vschBOuoAE81q4xnMmTLEyqz7xfYY6tMZsowcUFqkXm3hQg
+Content-Type: application/json
+
+{
+  "operationName": "createShowcase",
+  "query": "mutation createShowcase { createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" preloadUrl: \"\" width: 800 height: 600 } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } ] } ] updates: [ {content: \"foo\"} ] } ) { id name image { path } highlightFeatures { name } imageLists { images { path } } updates { content } } }"
+}
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
+}
+
+<> 2022-01-06T141909.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
+}
+
+<> 2022-01-06T141908.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Accept-Encoding: gzip, deflate, br
+Accept: application/json
+Connection: keep-alive
+DNT: 1
+Origin: http://localhost:3000
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxNDUzNTM3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDE0NTM1MzcsImV4cCI6MTY0MTQ1NzEzNywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.lkJmqmZ3DmoXSQxFXUKdtcIy83bVruDGiyslZMqSQjjSsfyIGo3pogVYNFZ0PsQpSV8um3vd0-zb9qUiQTc21yA7BHqE-pg-s2kPgxWVcxIebZvc4XVO3DQ4WDOfLSfLYF8Zfp2oq4IPDOSeqpQjZOVmel3bBWCoaOwmH1DodPusw-T2j6GHt-hpeIZ1HrJnVKcxjsSKT_nCC61Cn0jabIY4F7tvMMd8mZsEZysoyWhess0BpE2N9K5nlpW3dI8BeMeurf_dYuIOZ-PBL2V-lwouZ54HHEn2jcCA_S6vschBOuoAE81q4xnMmTLEyqz7xfYY6tMZsowcUFqkXm3hQg
+Content-Type: application/json
+
+{"query":"query CurrentUser {  currentUser { uid email name role }}"}
+
+<> 2022-01-06T141905-2.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxNDUzNTM3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDE0NTM1MzcsImV4cCI6MTY0MTQ1NzEzNywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.lkJmqmZ3DmoXSQxFXUKdtcIy83bVruDGiyslZMqSQjjSsfyIGo3pogVYNFZ0PsQpSV8um3vd0-zb9qUiQTc21yA7BHqE-pg-s2kPgxWVcxIebZvc4XVO3DQ4WDOfLSfLYF8Zfp2oq4IPDOSeqpQjZOVmel3bBWCoaOwmH1DodPusw-T2j6GHt-hpeIZ1HrJnVKcxjsSKT_nCC61Cn0jabIY4F7tvMMd8mZsEZysoyWhess0BpE2N9K5nlpW3dI8BeMeurf_dYuIOZ-PBL2V-lwouZ54HHEn2jcCA_S6vschBOuoAE81q4xnMmTLEyqz7xfYY6tMZsowcUFqkXm3hQg
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-06T141905-1.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxNDUzNTM3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDE0NTM1MzcsImV4cCI6MTY0MTQ1NzEzNywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.lkJmqmZ3DmoXSQxFXUKdtcIy83bVruDGiyslZMqSQjjSsfyIGo3pogVYNFZ0PsQpSV8um3vd0-zb9qUiQTc21yA7BHqE-pg-s2kPgxWVcxIebZvc4XVO3DQ4WDOfLSfLYF8Zfp2oq4IPDOSeqpQjZOVmel3bBWCoaOwmH1DodPusw-T2j6GHt-hpeIZ1HrJnVKcxjsSKT_nCC61Cn0jabIY4F7tvMMd8mZsEZysoyWhess0BpE2N9K5nlpW3dI8BeMeurf_dYuIOZ-PBL2V-lwouZ54HHEn2jcCA_S6vschBOuoAE81q4xnMmTLEyqz7xfYY6tMZsowcUFqkXm3hQg
+Content-Type: application/json
+
+{
+  "operationName": "postNewUpdate",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
+}
+
+<> 2022-01-06T141905.200.json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
+
+<> 2022-01-06T141858.200.json
+
+###
+
+POST http://localhost:3000/graphql
 Content-Type: application/json
 
 {
@@ -473,114 +577,6 @@ Content-Type: application/json
 }
 
 <> 2021-12-26T063136-2.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNDc1MDkzLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA0NzUwOTMsImV4cCI6MTY0MDQ3ODY5MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.Xge7hr_Zov4cy_mMZfMkBUWFrgmt5JOh3aLjebyEb59XW_yvjL1nWTdmikHym1G1aEceOoVnJ3YSjar2j-i7W2VBbctveIYLGepLep89wSggPBPi3FifWamjCDXhET6dsrTfNEjV7oOitCITS4EopP5H4CBLMmH4EaHa3sdCzB4YVnD1JTDOnI21-nuO-s97_z8oudWEKhXr7GnU9oJZR91eCK2f2iesNQ5YrJKxuquYLXH-5vml-jLHqy_P3enJyswJj19Zr0cL4ixbldx6AVrBuB-NcgT_NiL1_RhXsEd92IvSlOZ4m71eB5qab5eUosX2QJuneGLY2E_4RvRUDA
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-<> 2021-12-26T063136-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNDc1MDkzLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA0NzUwOTMsImV4cCI6MTY0MDQ3ODY5MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.Xge7hr_Zov4cy_mMZfMkBUWFrgmt5JOh3aLjebyEb59XW_yvjL1nWTdmikHym1G1aEceOoVnJ3YSjar2j-i7W2VBbctveIYLGepLep89wSggPBPi3FifWamjCDXhET6dsrTfNEjV7oOitCITS4EopP5H4CBLMmH4EaHa3sdCzB4YVnD1JTDOnI21-nuO-s97_z8oudWEKhXr7GnU9oJZR91eCK2f2iesNQ5YrJKxuquYLXH-5vml-jLHqy_P3enJyswJj19Zr0cL4ixbldx6AVrBuB-NcgT_NiL1_RhXsEd92IvSlOZ4m71eB5qab5eUosX2QJuneGLY2E_4RvRUDA
-Content-Type: application/json
-
-{
-  "operationName": "postNewUpdate",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
-}
-
-<> 2021-12-26T063136.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNDc1MDkzLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA0NzUwOTMsImV4cCI6MTY0MDQ3ODY5MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.Xge7hr_Zov4cy_mMZfMkBUWFrgmt5JOh3aLjebyEb59XW_yvjL1nWTdmikHym1G1aEceOoVnJ3YSjar2j-i7W2VBbctveIYLGepLep89wSggPBPi3FifWamjCDXhET6dsrTfNEjV7oOitCITS4EopP5H4CBLMmH4EaHa3sdCzB4YVnD1JTDOnI21-nuO-s97_z8oudWEKhXr7GnU9oJZR91eCK2f2iesNQ5YrJKxuquYLXH-5vml-jLHqy_P3enJyswJj19Zr0cL4ixbldx6AVrBuB-NcgT_NiL1_RhXsEd92IvSlOZ4m71eB5qab5eUosX2QJuneGLY2E_4RvRUDA
-Content-Type: application/json
-
-{
-  "operationName": "createShowcase",
-  "variables": {},
-  "query": "mutation createShowcase {createOneShowcase(  input: {name: \"ci-test\", description: \"Test description\", expectedSaleAt: \"2022-12-03T09:54:33Z\", status: COMING, expectedSalePrice: {regular: 1000, preorder: 999, promo: 998, pioneer: 997}, brand: {name: \"Test brand name\", description: \"Test brand desc\"}, image: {path: \"ci-test/path\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}, highlightFeatures: [{name: \"ci-test 1\", description: \"desc 1\", image: {path: \"ci-test/path\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}}, {name: \"ci-test 2\", description: \"desc 2\", image: {path: \"ci-test/path2\", mimetype: \"ci-test/mime2\", filename: \"ci-test.filename2\"}}], imageLists: [{images: [{path: \"ci-test/path-of-image-list\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}, {path: \"ci-test/path-of-image-list\", mimetype: \"ci-test/mime\", filename: \"ci-test.filename\"}]}]}) {  id    name author { name }    image {    path    }  highlightFeatures {    name    }  imageLists {    images {      path      }  }}}"
-}
-
-<> 2021-12-26T063135-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Accept-Encoding: gzip, deflate, br
-Accept: application/json
-Connection: keep-alive
-DNT: 1
-Origin: http://localhost:3000
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNDc1MDkzLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA0NzUwOTMsImV4cCI6MTY0MDQ3ODY5MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.Xge7hr_Zov4cy_mMZfMkBUWFrgmt5JOh3aLjebyEb59XW_yvjL1nWTdmikHym1G1aEceOoVnJ3YSjar2j-i7W2VBbctveIYLGepLep89wSggPBPi3FifWamjCDXhET6dsrTfNEjV7oOitCITS4EopP5H4CBLMmH4EaHa3sdCzB4YVnD1JTDOnI21-nuO-s97_z8oudWEKhXr7GnU9oJZR91eCK2f2iesNQ5YrJKxuquYLXH-5vml-jLHqy_P3enJyswJj19Zr0cL4ixbldx6AVrBuB-NcgT_NiL1_RhXsEd92IvSlOZ4m71eB5qab5eUosX2QJuneGLY2E_4RvRUDA
-Content-Type: application/json
-
-{"query":"query CurrentUser {  currentUser { uid email name role }}"}
-
-<> 2021-12-26T063135.200.json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
-
-<> 2021-12-26T063133.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
-}
-
-<> 2021-12-26T052059-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNDY5Mjk2LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA0NjkyOTYsImV4cCI6MTY0MDQ3Mjg5NiwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.eYgxQZR7Y8rhQNrAziW5b6tjsQcFWcrmTED1ycEB4uwSjYQwpqOiLHVoexz_WLXj8xWLGgsZ0lxi4qnOsyckT0tXQ4LUUejVzMZ5CQRHvzYyvylFGT68EgWS0VxEBfOxuDvCsJJ7N68-GbBogm-sxLRlVjMXNuobj8eOwT2heo7v0AW71M2n37Dokp4Y1ON0vhKctBsuSa7hVFPRGwzACDwqXgDn7qYuakZFkdl6bSxGpBhuI9o3aM4zVmCHiGJxYuPF_5t1gf2xfup-RiTX2oZnRGb1PAFe1qDigomQSOJB8TMNHZvvffnXuhmexoHaPzi5DTaVfTgBgc5IRokxJw
-Content-Type: application/json
-
-{
-  "operationName": "postNewUpdate",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
-}
-
-<> 2021-12-26T052059.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
-}
-
-<> 2021-12-26T052010.200.json
 
 ###
 
