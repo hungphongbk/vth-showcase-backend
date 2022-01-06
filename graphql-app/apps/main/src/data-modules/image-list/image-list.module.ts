@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImageListMediaEntity } from './entities/image-list.media.entity';
 import { ImageListResolver } from './image-list.resolver';
 import { MediaModule } from '../media/media.module';
+import { ShowcaseModule } from '../showcase/showcase.module';
 
 const imageListOrmModule = NestjsQueryTypeOrmModule.forFeature([
   ImageListEntity,
@@ -24,7 +25,7 @@ const imageListOrmModule = NestjsQueryTypeOrmModule.forFeature([
           DTOClass: ImageListDto,
           EntityClass: ImageListEntity,
           read: { many: { disabled: true } },
-          create: { many: { disabled: true } },
+          create: { many: { disabled: true }, one: { disabled: true } },
           update: { many: { disabled: true } },
           delete: { many: { disabled: true } },
         },
@@ -32,6 +33,7 @@ const imageListOrmModule = NestjsQueryTypeOrmModule.forFeature([
     }),
     imageListOrmModule,
     MediaModule,
+    ShowcaseModule,
   ],
   providers: [ImageListResolver],
   exports: [imageListOrmModule],

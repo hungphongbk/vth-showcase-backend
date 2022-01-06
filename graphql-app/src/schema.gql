@@ -138,11 +138,6 @@ input CreateManyMediaDtosInput {
   mediaDtos: [MediaInput!]!
 }
 
-input CreateOneImageListInput {
-  """The record to create"""
-  imageList: ImageListCreateDto!
-}
-
 input CreateOneInvestmentPackageDtoInput {
   """The record to create"""
   investmentPackageDto: CreateInvestmentPackageDto!
@@ -527,7 +522,7 @@ type Mutation {
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
-  createOneImageList(input: CreateOneImageListInput!): ImageList!
+  createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOneSetting(input: SettingCreateDto!): Boolean!

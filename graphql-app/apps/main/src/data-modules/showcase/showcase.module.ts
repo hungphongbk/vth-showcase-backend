@@ -7,7 +7,6 @@ import {
   ShowcaseQueryService,
 } from './showcase.queryService';
 import { MediaModule } from '../media/media.module';
-import { ImageListModule } from '../image-list/image-list.module';
 import { AuthModule } from '../../auth';
 import { ShowcaseDto } from './dtos/showcase.dtos';
 import {
@@ -38,7 +37,6 @@ const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
         showcaseQueryOrmModule,
         authRelModule,
         MediaModule,
-        ImageListModule,
         InvestmentModule,
       ],
       services: [ShowcaseQueryService, ShowcaseBaseQueryService],
@@ -57,7 +55,6 @@ const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
     }),
     showcaseQueryOrmModule,
     MediaModule,
-    ImageListModule,
   ],
   providers: [
     ShowcaseResolver,
