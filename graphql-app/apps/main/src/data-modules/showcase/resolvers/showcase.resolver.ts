@@ -1,5 +1,12 @@
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { ShowcaseDto, ShowcaseStatus } from '../dtos/showcase.dtos';
+import {
+  Args,
+  Directive,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { ShowcaseDto, ShowcaseStatus } from '../dtos/showcase.dto';
 import { ShowcaseConnection, ShowcaseQuery } from '../dtos/query.types';
 import { ConnectionType } from '@nestjs-query/query-graphql';
 import { ShowcaseQueryService } from '../showcase.queryService';
@@ -13,11 +20,18 @@ import {
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import * as deepmerge from 'deepmerge';
 import { ForbiddenError } from 'apollo-server-express';
+import { ImageListDto } from '../../image-list/dto/image-list.dto';
+import { InjectQueryService, QueryService } from '@nestjs-query/core';
+import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlOptionalAuthGuard)
 export class ShowcaseResolver {
-  constructor(private readonly service: ShowcaseQueryService) {}
+  constructor(
+    private readonly service: ShowcaseQueryService,
+    @InjectQueryService(ImageListEntity)
+    private readonly imageListsQueryService: QueryService<ImageListDto>,
+  ) {}
 
   @Query(() => ShowcaseConnection)
   async showcases(
@@ -70,5 +84,13 @@ export class ShowcaseResolver {
   @Query(() => [String])
   async slugs(): Promise<string[]> {
     return await this.service.slugs();
+  }
+
+  @ResolveField('imageLists', () => [ImageListDto])
+  @Directive('@ssrAware')
+  imageLists(@Parent() parent: ShowcaseDto) {
+    return this.imageListsQueryService.query({
+      filter: { showcaseId: { eq: parent.id } },
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { QueryArgsType } from '@nestjs-query/query-graphql';
-import { ShowcaseDto } from './showcase.dtos';
+import { ShowcaseDto } from './showcase.dto';
 import { ArgsType } from '@nestjs/graphql';
 
 @ArgsType()

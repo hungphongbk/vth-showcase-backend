@@ -1,12 +1,13 @@
 import {
   Args,
   ArgsType,
+  Directive,
   Mutation,
   Parent,
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { PublishStatus, ShowcaseDto } from '../dtos/showcase.dtos';
+import { PublishStatus, ShowcaseDto } from '../dtos/showcase.dto';
 import { Inject, Logger, UseGuards } from '@nestjs/common';
 import {
   AuthDto,
@@ -31,7 +32,6 @@ import {
 } from '@tfarras/nestjs-firebase-admin';
 import { ForbiddenError } from 'apollo-server-express';
 import { ShowcaseConnection } from '../dtos/query.types';
-import { SsrAwareMiddleware } from '../../../gql/middlewares/ssr-aware.middleware';
 import { ShowcaseGaDto } from '../dtos/showcase-ga.dto';
 
 @ArgsType()
@@ -93,8 +93,8 @@ export class ShowcaseAuthResolver {
 
   @ResolveField('ga', () => ShowcaseGaDto, {
     nullable: true,
-    middleware: [SsrAwareMiddleware],
   })
+  @Directive('@ssrAware')
   async ga(@Parent() showcase) {
     return {
       viewCount: 1,

@@ -11,7 +11,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dtos';
+import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dto';
 import slugify from 'slugify';
 import { IShowcasePrice } from '../interfaces/IShowcasePrice';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';

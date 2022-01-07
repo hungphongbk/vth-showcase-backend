@@ -16,7 +16,6 @@ import {
 import { ShowcasePriceDto } from './showcase-price.dto';
 import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
 import { ShowcaseBrandDto } from './showcase-brand.dto';
-import { ImageListDto } from '../../image-list/dto/image-list.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { ShowcaseInventoryDto } from './showcase-inventory.dto';
@@ -47,7 +46,6 @@ registerEnumType(PublishStatus, {
 @Relation('image', () => MediaDto)
 @Relation('author', () => AuthDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
-@UnPagedRelation('imageLists', () => ImageListDto)
 @OffsetConnection('comments', () => CommentDto, { enableTotalCount: true })
 @UnPagedRelation('updates', () => PrjUpdateDto, {
   enableTotalCount: true,

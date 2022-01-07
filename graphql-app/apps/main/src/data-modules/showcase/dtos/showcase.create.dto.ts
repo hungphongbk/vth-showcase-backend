@@ -1,5 +1,5 @@
 import { Field, InputType, OmitType, PartialType } from '@nestjs/graphql';
-import { PublishStatus, ShowcaseDto } from './showcase.dtos';
+import { PublishStatus, ShowcaseDto } from './showcase.dto';
 import { MediaCreateDto } from '../../media/dtos/media.create.dto';
 import { ShowcaseHFCreateInputDto } from '../../highlight-feature/dtos/showcaseHF.create.dto';
 import { ImageListCreateDto } from '../../image-list/dto/image-list.create.dto';

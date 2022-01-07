@@ -6,7 +6,7 @@ import {
   QueryService,
   RelationQueryService,
 } from '@nestjs-query/core';
-import { PublishStatus, ShowcaseDto } from './dtos/showcase.dtos';
+import { PublishStatus, ShowcaseDto } from './dtos/showcase.dto';
 import { ShowcaseEntity } from './entities/showcase.entity';
 import {
   ShowcaseCreateInputDto,
@@ -25,6 +25,8 @@ import { ShowcaseAssembler } from './showcase.assembler';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MediaCreateDto } from '../media/dtos/media.create.dto';
 import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
+import { ImageListMediaEntity } from '../image-list/entities/image-list.media.entity';
+import { ImageListDto } from '../image-list/dto/image-list.dto';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -57,6 +59,8 @@ export class ShowcaseQueryService extends RelationQueryService<
     private readonly service: ShowcaseBaseQueryService,
     @InjectQueryService(ShowcaseMediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
+    @InjectQueryService(ImageListMediaEntity)
+    private readonly imageListsService: QueryService<ImageListDto>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @InjectRepository(ShowcaseEntity)
     private readonly repo: Repository<ShowcaseEntity>,
@@ -64,6 +68,10 @@ export class ShowcaseQueryService extends RelationQueryService<
     super(service, {
       image: {
         service: mediaQueryService,
+        query,
+      },
+      imageLists: {
+        service: imageListsService,
         query,
       },
     });

@@ -10,4 +10,6 @@ import { MediaDto } from '../../media/dtos/media.dto';
 export class ImageListDto implements IdInterface {
   @FilterableField(() => ID)
   id: string;
+
+  showcaseId: string;
 }

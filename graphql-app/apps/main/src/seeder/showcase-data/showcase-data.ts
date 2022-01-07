@@ -1,7 +1,7 @@
 import {
   PublishStatus,
   ShowcaseStatus,
-} from '../../data-modules/showcase/dtos/showcase.dtos';
+} from '../../data-modules/showcase/dtos/showcase.dto';
 import { addDays } from 'date-fns';
 import { ShowcaseEntity } from '../../data-modules/showcase/entities/showcase.entity';
 import { ShowcaseHFEntity } from '../../data-modules/highlight-feature/entities/showcaseHF.entity';

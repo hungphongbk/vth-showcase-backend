@@ -18,6 +18,8 @@ import { ShowcaseHFEntity } from '../data-modules/highlight-feature/entities/sho
 import { ShowcaseHFMediaEntity } from '../data-modules/highlight-feature/entities/showcaseHF.media.entity';
 import { Cache } from 'cache-manager';
 import { CacheDecorator } from '../common/decorators/cache.decorator';
+import { ImageListMediaEntity } from '../data-modules/image-list/entities/image-list.media.entity';
+import { ImageListEntity } from '../data-modules/image-list/entities/image-list.entity';
 
 @Injectable()
 export class ShowcaseSeederService implements OnApplicationBootstrap {
@@ -57,11 +59,22 @@ export class ShowcaseSeederService implements OnApplicationBootstrap {
         return entity;
       }),
     );
+    //
+    const imgListEntity = new ImageListEntity();
+    imgListEntity.images = await Promise.all(
+      ShowcaseHFData.map(async (_entity, index) => {
+        return await this.mediaSeederService.create(
+          ImageListMediaEntity,
+          `seeder/showcase-data/tinh-nang-${index + 1}.png`,
+        );
+      }),
+    );
 
     const showcaseEntity = new ShowcaseEntity();
     Object.assign(showcaseEntity, ShowcaseSeedData);
     showcaseEntity.image = imgEntity;
     showcaseEntity.highlightFeatures = hfEntities;
+    showcaseEntity.imageLists = [imgListEntity];
     await this.repo.save(showcaseEntity);
     return 'cached';
   }
