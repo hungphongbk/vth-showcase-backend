@@ -19,6 +19,8 @@ import { CommentEntity } from './comment/comment.entity';
 import { CommentModule } from './comment/comment.module';
 import { PrjUpdateEntity } from './prj-update/prj-update.entity';
 import { PrjUpdateModule } from './prj-update/prj-update.module';
+import { PreorderModule } from './preorder/preorder.module';
+import { PreorderEntity } from './preorder/entities/preorder.entity';
 
 function globImport(r: any) {
   return r
@@ -44,6 +46,7 @@ function globImport(r: any) {
             CommentEntity,
             SettingEntity,
             PrjUpdateEntity,
+            PreorderEntity,
           ],
           migrations: globImport(
             require.context('../migrations', false, /\.ts/),
@@ -58,6 +61,7 @@ function globImport(r: any) {
     InvestmentModule,
     CommentModule,
     PrjUpdateModule,
+    PreorderModule,
   ],
 })
 export class DataModulesModule {}

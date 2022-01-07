@@ -23,6 +23,7 @@ import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
 import { InvestmentPackageEntity } from '../../investment';
 import { CommentEntity } from '../../comment/comment.entity';
 import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
+import { PreorderEntity } from '../../preorder/entities/preorder.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity {
@@ -124,6 +125,12 @@ export class ShowcaseEntity {
     cascade: true,
   })
   updates: PrjUpdateEntity[];
+
+  @OneToMany(() => PreorderEntity, (obj) => obj.showcase, {
+    eager: true,
+    cascade: true,
+  })
+  preorders: PreorderEntity[];
 
   @BeforeInsert()
   async generateSlug() {

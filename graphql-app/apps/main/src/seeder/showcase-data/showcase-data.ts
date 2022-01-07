@@ -6,7 +6,8 @@ import { addDays } from 'date-fns';
 import { ShowcaseEntity } from '../../data-modules/showcase/entities/showcase.entity';
 import { ShowcaseHFEntity } from '../../data-modules/highlight-feature/entities/showcaseHF.entity';
 
-const current = new Date();
+const current = new Date(),
+  createdAt = new Date(2022, 1, 7);
 export const ShowcaseSeedData: Partial<ShowcaseEntity> = {
   authorUid: '386pnR8ow4hJr7nl7bj92Txf2fn1',
   name: 'Showcase mặc định',
@@ -19,8 +20,8 @@ export const ShowcaseSeedData: Partial<ShowcaseEntity> = {
   publishStatus: PublishStatus.PUBLISHED,
   description:
     'GravaStar là thương hiệu thiết kế và sản xuất thiết bị loa và phụ kiện đi kèm trên thị trường. Các thiết kế của thương hiệu mang ý tưởng điên rồ, độc đáo vượt qua mọi giới hạn sẵn có',
-  createdAt: current,
-  updatedAt: current,
+  createdAt: createdAt,
+  updatedAt: createdAt,
   expectedSaleAt: current,
   expectedSaleEndAt: addDays(current, 70),
   expectedQuantity: {

@@ -17,7 +17,6 @@ import { MediaSeederService } from './media-seeder.service';
 import { ShowcaseHFEntity } from '../data-modules/highlight-feature/entities/showcaseHF.entity';
 import { ShowcaseHFMediaEntity } from '../data-modules/highlight-feature/entities/showcaseHF.media.entity';
 import { Cache } from 'cache-manager';
-import { CacheDecorator } from '../common/decorators/cache.decorator';
 import { ImageListMediaEntity } from '../data-modules/image-list/entities/image-list.media.entity';
 import { ImageListEntity } from '../data-modules/image-list/entities/image-list.entity';
 
@@ -33,14 +32,25 @@ export class ShowcaseSeederService implements OnApplicationBootstrap {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async deleteOldShowcase(): Promise<void> {
+  async deleteOldShowcase(): Promise<boolean> {
     const entity = await this.repo.findOne({ slug: ShowcaseSeedData.slug });
-    if (entity) await this.repo.delete(entity.id);
+    if (!entity) return true;
+    if (
+      entity &&
+      entity.createdAt.getTime() !== ShowcaseSeedData.createdAt.getTime()
+    ) {
+      await this.repo.delete(entity.id);
+      return true;
+    }
+    return false;
   }
 
-  @CacheDecorator({ key: ShowcaseSeederService.name, ttl: 300 })
   async createNewSeedShowcase() {
-    await this.deleteOldShowcase();
+    const rs = await this.deleteOldShowcase();
+    if (!rs) {
+      this.logger.log('skip demo data creation. Use the old one');
+      return;
+    }
     this.logger.log('create new demo data');
 
     const imgEntity = await this.mediaSeederService.create(

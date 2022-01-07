@@ -500,6 +500,7 @@ type Mutation {
   createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
+  createOnePreorder(slug: String!): PreorderDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
@@ -572,6 +573,11 @@ type PageInfo {
 
   """The cursor of the first returned record."""
   startCursor: ConnectionCursor
+}
+
+type PreorderDto {
+  createdAt: DateTime!
+  id: ID!
 }
 
 input PrjUpdateCreateDto {
