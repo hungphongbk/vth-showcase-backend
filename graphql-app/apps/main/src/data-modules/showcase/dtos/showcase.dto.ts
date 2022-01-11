@@ -22,6 +22,7 @@ import { ShowcaseInventoryDto } from './showcase-inventory.dto';
 import { CommentDto } from '../../comment/comment.dto';
 import { AuthDto } from '../../../auth';
 import { PrjUpdateDto } from '../../prj-update/prj-update.dto';
+import { PreorderDto } from '../../preorder/dtos/preorder.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -51,6 +52,11 @@ registerEnumType(PublishStatus, {
   enableTotalCount: true,
   disableRemove: true,
   disableUpdate: true,
+})
+@OffsetConnection('preorders', () => PreorderDto, {
+  enableTotalCount: true,
+  disableUpdate: true,
+  disableRemove: true,
 })
 @QueryOptions({
   defaultFilter: { publishStatus: { eq: PublishStatus.PUBLISHED } },
