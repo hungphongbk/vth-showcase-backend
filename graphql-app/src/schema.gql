@@ -500,7 +500,7 @@ type Mutation {
   createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
-  createOnePreorder(slug: String!): PreorderDto!
+  createOnePreorder(input: PreorderRequestInputDto, slug: String!): PreorderResponseDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
@@ -594,6 +594,18 @@ input PreorderDtoSort {
 
 enum PreorderDtoSortFields {
   id
+}
+
+input PreorderRequestInputDto {
+  email: String!
+  name: String!
+  phoneNumber: String!
+}
+
+type PreorderResponseDto {
+  createdAt: DateTime!
+  customToken: String
+  id: ID!
 }
 
 input PrjUpdateCreateDto {
