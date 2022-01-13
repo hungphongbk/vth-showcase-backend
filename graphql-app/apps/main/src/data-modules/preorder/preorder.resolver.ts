@@ -92,13 +92,18 @@ export class PreorderResolver {
   async createUserAnonymously(
     input: PreorderRequestInputDto,
   ): Promise<[UserRecord, string]> {
-    const userRecord = await this.firebaseAdmin.auth().createUser({
-      email: input.email,
-      emailVerified: true,
-      phoneNumber: input.phoneNumber,
-      displayName: input.name,
-      disabled: false,
-    });
+    let userRecord;
+    try {
+      userRecord = await this.firebaseAdmin.auth().getUserByEmail(input.email);
+    } catch (e) {
+      userRecord = await this.firebaseAdmin.auth().createUser({
+        email: input.email,
+        emailVerified: true,
+        phoneNumber: input.phoneNumber,
+        displayName: input.name,
+        disabled: false,
+      });
+    }
 
     const customToken = await this.firebaseAdmin
       .auth()
