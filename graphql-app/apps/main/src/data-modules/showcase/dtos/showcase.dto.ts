@@ -119,6 +119,7 @@ export class ShowcaseDto {
   get isPublished() {
     return this.publishStatus === PublishStatus.PUBLISHED;
   }
+
   isCreatedBy(user: AuthDto) {
     return this.authorUid === user.uid;
   }

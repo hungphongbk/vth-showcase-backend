@@ -576,8 +576,18 @@ type PageInfo {
 }
 
 type PreorderDto {
+  author: User
   createdAt: DateTime!
   id: ID!
+  showcase: Showcase!
+}
+
+type PreorderDtoAggregateGroupBy {
+  id: ID
+}
+
+type PreorderDtoAvgAggregate {
+  id: Float
 }
 
 type PreorderDtoConnection {
@@ -586,6 +596,10 @@ type PreorderDtoConnection {
 
   """Paging information"""
   pageInfo: PageInfo!
+}
+
+type PreorderDtoCountAggregate {
+  id: Int
 }
 
 type PreorderDtoEdge {
@@ -602,6 +616,14 @@ input PreorderDtoFilter {
   or: [PreorderDtoFilter!]
 }
 
+type PreorderDtoMaxAggregate {
+  id: ID
+}
+
+type PreorderDtoMinAggregate {
+  id: ID
+}
+
 input PreorderDtoSort {
   direction: SortDirection!
   field: PreorderDtoSortFields!
@@ -610,6 +632,10 @@ input PreorderDtoSort {
 
 enum PreorderDtoSortFields {
   id
+}
+
+type PreorderDtoSumAggregate {
+  id: Float
 }
 
 input PreorderRequestInputDto {
