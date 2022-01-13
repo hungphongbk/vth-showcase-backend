@@ -24,7 +24,8 @@ import {
   FirebaseAdminSDK,
 } from '@tfarras/nestjs-firebase-admin';
 import { auth } from 'firebase-admin';
-import { PreorderConnection } from './preorder.connection';
+import { PreorderConnection, PreorderDtoQuery } from './preorder.connection';
+import * as deepmerge from 'deepmerge';
 import UserRecord = auth.UserRecord;
 
 @ObjectType({ isAbstract: true })
@@ -65,11 +66,14 @@ export class PreorderResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => PreorderConnection)
-  preorders(@CurrentUser() user: AuthDto) {
-    return PreorderConnection.createFromPromise(this.service.query, {
-      filter: { authorUid: { eq: user.uid } },
-      paging: { limit: 10 },
-    });
+  preorders(@CurrentUser() user: AuthDto, @Args() query: PreorderDtoQuery) {
+    return PreorderConnection.createFromPromise(
+      (q) => this.service.query(q),
+      deepmerge(query, {
+        filter: { authorUid: { eq: user.uid } },
+        paging: { limit: 10 },
+      }),
+    );
   }
 
   @UseGuards(GqlOptionalAuthGuard)
