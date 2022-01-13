@@ -580,6 +580,22 @@ type PreorderDto {
   id: ID!
 }
 
+type PreorderDtoConnection {
+  """Array of edges."""
+  edges: [PreorderDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type PreorderDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the PreorderDto"""
+  node: PreorderDto!
+}
+
 input PreorderDtoFilter {
   and: [PreorderDtoFilter!]
   id: IDFilterComparison
@@ -1403,6 +1419,7 @@ type User {
   email: String!
   name: String!
   photoURL: String!
+  preorders: PreorderDtoConnection!
   role: AuthRoleType!
   showcases: ShowcaseConnection!
   uid: ID!
