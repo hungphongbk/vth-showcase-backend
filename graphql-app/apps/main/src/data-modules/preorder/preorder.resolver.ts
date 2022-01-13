@@ -4,13 +4,19 @@ import {
   InputType,
   IntersectionType,
   ObjectType,
+  Query,
   Resolver,
 } from '@nestjs/graphql';
 import { PreorderDto } from './dtos/preorder.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { PreorderEntity } from './entities/preorder.entity';
 import { Inject, UseGuards } from '@nestjs/common';
-import { AuthDto, CurrentUser, GqlOptionalAuthGuard } from '../../auth';
+import {
+  AuthDto,
+  CurrentUser,
+  GqlAuthGuard,
+  GqlOptionalAuthGuard,
+} from '../../auth';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { ShowcaseQueryService } from '../showcase/showcase.queryService';
 import {
@@ -18,6 +24,7 @@ import {
   FirebaseAdminSDK,
 } from '@tfarras/nestjs-firebase-admin';
 import { auth } from 'firebase-admin';
+import { PreorderConnection } from './preorder.connection';
 import UserRecord = auth.UserRecord;
 
 @ObjectType({ isAbstract: true })
@@ -54,6 +61,15 @@ export class PreorderResolver {
     private readonly firebaseAdmin: FirebaseAdminSDK,
   ) {
     //
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => PreorderConnection)
+  preorders(@CurrentUser() user: AuthDto) {
+    return PreorderConnection.createFromPromise(this.service.query, {
+      filter: { authorUid: { eq: user.uid } },
+      paging: { limit: 10 },
+    });
   }
 
   @UseGuards(GqlOptionalAuthGuard)

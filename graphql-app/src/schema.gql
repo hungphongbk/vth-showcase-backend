@@ -768,6 +768,7 @@ type Query {
     """Specify to sort results."""
     sorting: [MediaDtoSort!] = []
   ): MediaDtoConnection!
+  preorders: PreorderDtoConnection!
   prjUpdateDto(
     """The id of the record to find."""
     id: ID!
@@ -1445,7 +1446,6 @@ type User {
   email: String!
   name: String!
   photoURL: String!
-  preorders: PreorderDtoConnection!
   role: AuthRoleType!
   showcases: ShowcaseConnection!
   uid: ID!
