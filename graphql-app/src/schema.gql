@@ -958,6 +958,11 @@ type Showcase {
   inventory: ShowcaseInventoryDto
   investorStat: ShowcaseInvestorStatDto
   isFeatured: Boolean
+
+  """
+  Trả về người dùng hiện tại đã preorder sản phẩm này chưa. Nếu chưa đăng nhập, luôn trả về false
+  """
+  isPreordered: Boolean
   name: String!
   preorders(
     """Specify to filter the records returned."""
