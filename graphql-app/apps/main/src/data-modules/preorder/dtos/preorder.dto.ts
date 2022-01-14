@@ -28,6 +28,7 @@ export class PreorderDto {
   id: number;
 
   authorUid: string;
+  showcaseId: string;
 
   @Field(() => GraphQLISODateTime)
   createdAt!: Date;

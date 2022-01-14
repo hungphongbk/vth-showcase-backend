@@ -96,13 +96,20 @@ export class PreorderResolver {
       token = anonymous[1];
     }
 
-    let preorder = await this.service.createOne({ authorUid: uid });
     const showcase = await this.showcaseService.getOneShowcase(slug);
-    preorder = await this.service.setRelation(
-      'showcase',
-      preorder.id,
-      showcase.id,
-    );
+    let preorder = (
+      await this.service.query({
+        filter: { authorUid: { eq: uid }, showcaseId: { eq: showcase.id } },
+      })
+    )[0];
+    if (!preorder) {
+      preorder = await this.service.createOne({ authorUid: uid });
+      preorder = await this.service.setRelation(
+        'showcase',
+        preorder.id,
+        showcase.id,
+      );
+    }
     return {
       ...preorder,
       customToken: token,
