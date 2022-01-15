@@ -6,12 +6,12 @@ import {
   QueryService,
   RelationQueryService,
 } from '@nestjs-query/core';
-import { PublishStatus, ShowcaseDto } from './dtos/showcase.dto';
-import { ShowcaseEntity } from './entities/showcase.entity';
+import { PublishStatus, ShowcaseDto } from '../dtos/showcase.dto';
+import { ShowcaseEntity } from '../entities/showcase.entity';
 import {
   ShowcaseCreateInputDto,
   ShowcaseUpdateInputDto,
-} from './dtos/showcase.create.dto';
+} from '../dtos/showcase.create.dto';
 import {
   CACHE_MANAGER,
   forwardRef,
@@ -20,13 +20,14 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { InjectAuthoredQueryService } from '../../auth';
-import { ShowcaseAssembler } from './showcase.assembler';
+import { InjectAuthoredQueryService } from '../../../auth';
+import { ShowcaseAssembler } from '../showcase.assembler';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MediaCreateDto } from '../media/dtos/media.create.dto';
-import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
-import { ImageListMediaEntity } from '../image-list/entities/image-list.media.entity';
-import { ImageListDto } from '../image-list/dto/image-list.dto';
+import { MediaCreateDto } from '../../media/dtos/media.create.dto';
+import { ShowcaseMediaEntity } from '../entities/showcase.media.entity';
+import { ImageListMediaEntity } from '../../image-list/entities/image-list.media.entity';
+import { ImageListDto } from '../../image-list/dto/image-list.dto';
+import { ShowcaseViewEntity } from '../entities/showcase-view.entity';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -43,6 +44,22 @@ export class ShowcaseBaseQueryService extends AssemblerQueryService<
   constructor(
     @Inject(forwardRef(() => ShowcaseAssembler)) assembler: ShowcaseAssembler,
     @InjectAuthoredQueryService(ShowcaseEntity)
+    private readonly service: QueryService<ShowcaseEntity>,
+  ) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    super(assembler, service);
+  }
+}
+export class ShowcaseViewBaseQueryService extends AssemblerQueryService<
+  ShowcaseDto,
+  ShowcaseEntity,
+  ShowcaseCreateInputDto,
+  ShowcaseUpdateInputDto
+> {
+  constructor(
+    @Inject(forwardRef(() => ShowcaseAssembler)) assembler: ShowcaseAssembler,
+    @InjectAuthoredQueryService(ShowcaseViewEntity)
     private readonly service: QueryService<ShowcaseEntity>,
   ) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

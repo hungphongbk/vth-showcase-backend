@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ShowcaseEntity } from './entities/showcase.entity';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
-import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import {
   ShowcaseBaseQueryService,
   ShowcaseQueryService,
-} from './showcase.queryService';
+} from './query-services/showcase-query.service';
 import { MediaModule } from '../media/media.module';
 import { AuthModule } from '../../auth';
 import { ShowcaseDto } from './dtos/showcase.dto';
@@ -15,19 +14,17 @@ import {
 } from './resolvers/showcase-auth.resolver';
 import { RemoveCiTestService } from './remove-ci-test.service';
 import { ShowcaseAssembler } from './showcase.assembler';
-import { ShowcaseOrmModule } from './showcase-orm.module';
+import { ShowcaseOrmModule } from './orm-services/showcase-orm.module';
 import { InvestmentModule } from '../investment';
 import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { ShowcaseInvestorStatResolver } from './resolvers/showcase-investor-stat.resolver';
 import { ImageListGraphqlModule } from '../image-list/image-list.graphql.module';
+import { ShowcaseQueryOrmModule } from './orm-services/showcase-query-orm.module';
 
-const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
-    ShowcaseEntity,
-  ]),
-  authRelModule = AuthModule.forFeature({
-    imports: [showcaseQueryOrmModule],
-    EntityClass: ShowcaseEntity,
-  });
+const authRelModule = AuthModule.forFeature({
+  imports: [ShowcaseQueryOrmModule],
+  EntityClass: ShowcaseEntity,
+});
 
 @Module({
   imports: [
@@ -35,7 +32,7 @@ const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
     ShowcaseOrmModule,
     NestjsQueryGraphQLModule.forFeature({
       imports: [
-        showcaseQueryOrmModule,
+        ShowcaseQueryOrmModule,
         authRelModule,
         MediaModule,
         InvestmentModule,
@@ -55,7 +52,7 @@ const showcaseQueryOrmModule = NestjsQueryTypeOrmModule.forFeature([
         },
       ],
     }),
-    showcaseQueryOrmModule,
+    ShowcaseQueryOrmModule,
     MediaModule,
   ],
   providers: [

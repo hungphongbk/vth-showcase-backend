@@ -2,7 +2,7 @@ import { Args, ArgsType, Resolver } from '@nestjs/graphql';
 import { PrjUpdateCreateDto, PrjUpdateDto } from './prj-update.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { PrjUpdateEntity } from './prj-update.entity';
-import { ShowcaseQueryService } from '../showcase/showcase.queryService';
+import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
 import {
   MutationArgsType,
   MutationHookArgs,
