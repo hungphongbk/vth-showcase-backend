@@ -13,25 +13,26 @@ import {
 } from 'typeorm';
 import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dto';
 import slugify from 'slugify';
-import { IShowcasePrice } from '../interfaces/IShowcasePrice';
-import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
+import { ShowcasePriceInterface } from '../interfaces/showcase-price.interface';
+import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
 import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import * as crypto from 'crypto';
-import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
+import { ShowcaseInventoryInterface } from '../interfaces/showcase-inventory.interface';
 import { InvestmentPackageEntity } from '../../investment';
 import { CommentEntity } from '../../comment/comment.entity';
 import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
 import { PreorderEntity } from '../../preorder/entities/preorder.entity';
+import { ShowcaseInterface } from '../interfaces/showcase.interface';
 
 @Entity('showcase')
-export class ShowcaseEntity {
+export class ShowcaseEntity implements ShowcaseInterface {
   @Column({ nullable: false })
   @Index()
   authorUid!: string;
   @PrimaryGeneratedColumn('identity')
-  id?: number;
+  id: number;
 
   @Column()
   name: string;
@@ -41,7 +42,7 @@ export class ShowcaseEntity {
   slug: string;
 
   @Column({ type: 'jsonb' })
-  brand: IShowcaseBrand;
+  brand: ShowcaseBrandInterface;
 
   @Column({
     type: 'enum',
@@ -80,10 +81,10 @@ export class ShowcaseEntity {
   expectedSaleEndAt!: Date | null;
 
   @Column({ type: 'jsonb', nullable: true })
-  expectedQuantity!: IShowcasePrice;
+  expectedQuantity!: ShowcasePriceInterface;
 
   @Column({ type: 'jsonb', nullable: true })
-  expectedSalePrice: IShowcasePrice;
+  expectedSalePrice: ShowcasePriceInterface;
 
   @OneToOne(() => ShowcaseMediaEntity, (media) => media.showcase, {
     eager: true,
@@ -108,7 +109,7 @@ export class ShowcaseEntity {
   imageLists!: ImageListEntity[];
 
   @Column({ type: 'jsonb', nullable: true })
-  inventory: IShowcaseInventory;
+  inventory: ShowcaseInventoryInterface;
 
   @ManyToMany(() => InvestmentPackageEntity)
   @JoinTable()

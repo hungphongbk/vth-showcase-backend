@@ -1,10 +1,10 @@
 import { InputType, ObjectType } from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
-import { IShowcasePrice } from '../interfaces/IShowcasePrice';
+import { ShowcasePriceInterface } from '../interfaces/showcase-price.interface';
 
 @ObjectType('ShowcasePrice')
 @InputType('ShowcasePriceInput')
-export class ShowcasePriceDto implements IShowcasePrice {
+export class ShowcasePriceDto implements ShowcasePriceInterface {
   @FilterableField()
   pioneer: number;
 

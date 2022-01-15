@@ -1,9 +1,9 @@
-import { IShowcaseInventory } from '../interfaces/IShowcaseInventory';
+import { ShowcaseInventoryInterface } from '../interfaces/showcase-inventory.interface';
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType({ description: 'Thông tin về chi phí vận hành showcase' })
 @InputType('ShowcaseInventoryDtoInput')
-export class ShowcaseInventoryDto implements IShowcaseInventory {
+export class ShowcaseInventoryDto implements ShowcaseInventoryInterface {
   @Field({ description: 'Tỉ lệ chi phí quảng cáo' })
   adCostRate: number;
 

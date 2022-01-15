@@ -1,7 +1,10 @@
 import {
   AssemblerQueryService,
   DeleteManyResponse,
+  FindByIdOptions,
+  GetByIdOptions,
   InjectQueryService,
+  ProxyQueryService,
   Query,
   QueryService,
   RelationQueryService,
@@ -68,12 +71,45 @@ export class ShowcaseViewBaseQueryService extends AssemblerQueryService<
   }
 }
 
+export class ShowcaseProxyQueryService extends ProxyQueryService<
+  ShowcaseDto,
+  ShowcaseCreateInputDto
+> {
+  constructor(
+    @Inject(ShowcaseBaseQueryService)
+    private readonly baseService: ShowcaseBaseQueryService,
+    @Inject(ShowcaseViewBaseQueryService)
+    private readonly readService: ShowcaseViewBaseQueryService,
+  ) {
+    super(baseService);
+  }
+
+  findById(
+    id: string | number,
+    opts?: FindByIdOptions<ShowcaseDto>,
+  ): Promise<ShowcaseDto | undefined> {
+    return this.readService.findById(id, opts);
+  }
+
+  getById(
+    id: string | number,
+    opts?: GetByIdOptions<ShowcaseDto>,
+  ): Promise<ShowcaseDto> {
+    return this.readService.getById(id, opts);
+  }
+
+  query(query: Query<ShowcaseDto>): Promise<ShowcaseDto[]> {
+    return this.readService.query(query);
+  }
+}
+
 export class ShowcaseQueryService extends RelationQueryService<
   ShowcaseDto,
   ShowcaseCreateInputDto
 > {
   constructor(
-    private readonly service: ShowcaseBaseQueryService,
+    @Inject(ShowcaseProxyQueryService)
+    private readonly service: ShowcaseProxyQueryService,
     @InjectQueryService(ShowcaseMediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ImageListMediaEntity)
@@ -130,6 +166,7 @@ export class ShowcaseQueryService extends RelationQueryService<
     slug: string,
     update: ShowcaseUpdateInputDto,
   ): Promise<ShowcaseDto> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { image, highlightFeatures, ...rest } = update;
     if (image) {
       await this.updateImage(slug, image);
