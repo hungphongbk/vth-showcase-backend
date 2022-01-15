@@ -8,7 +8,6 @@ import {
 import {
   FilterableField,
   IDField,
-  OffsetConnection,
   QueryOptions,
   Relation,
   UnPagedRelation,
@@ -50,7 +49,7 @@ registerEnumType(PublishStatus, {
   disableUpdate: true,
   disableRemove: true,
 })
-@OffsetConnection('comments', () => CommentDto, {
+@UnPagedRelation('comments', () => CommentDto, {
   enableTotalCount: true,
   disableUpdate: true,
   disableRemove: true,
@@ -60,7 +59,7 @@ registerEnumType(PublishStatus, {
   disableRemove: true,
   disableUpdate: true,
 })
-@OffsetConnection('preorders', () => PreorderDto, {
+@UnPagedRelation('preorders', () => PreorderDto, {
   enableTotalCount: true,
   disableUpdate: true,
   disableRemove: true,
