@@ -47,7 +47,11 @@ registerEnumType(PublishStatus, {
 @Relation('image', () => MediaDto)
 @Relation('author', () => AuthDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
-@OffsetConnection('comments', () => CommentDto, { enableTotalCount: true })
+@OffsetConnection('comments', () => CommentDto, {
+  enableTotalCount: true,
+  disableUpdate: true,
+  disableRemove: true,
+})
 @UnPagedRelation('updates', () => PrjUpdateDto, {
   enableTotalCount: true,
   disableRemove: true,

@@ -2,14 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input AddCommentsToShowcaseInput {
-  """The id of the record."""
-  id: String!
-
-  """The ids of the relations."""
-  relationIds: [ID!]!
-}
-
 input AddHighlightFeaturesToShowcaseInput {
   """The id of the record."""
   id: String!
@@ -492,7 +484,6 @@ enum MediaType {
 }
 
 type Mutation {
-  addCommentsToShowcase(input: AddCommentsToShowcaseInput!): Showcase!
   addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
@@ -520,14 +511,12 @@ type Mutation {
   postProjectUpdate(input: PrjUpdateCreateDto!, slug: String!): PrjUpdateDto!
   removeAuthorFromCommentDto(input: RemoveAuthorFromCommentDtoInput!): CommentDto!
   removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
-  removeCommentsFromShowcase(input: RemoveCommentsFromShowcaseInput!): Showcase!
   removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
   setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
   setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
-  setCommentsOnShowcase(input: SetCommentsOnShowcaseInput!): Showcase!
   setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
@@ -818,14 +807,6 @@ input RemoveAuthorFromShowcaseInput {
   relationId: ID!
 }
 
-input RemoveCommentsFromShowcaseInput {
-  """The id of the record."""
-  id: String!
-
-  """The ids of the relations."""
-  relationIds: [ID!]!
-}
-
 input RemoveHighlightFeaturesFromShowcaseInput {
   """The id of the record."""
   id: String!
@@ -872,14 +853,6 @@ input SetAuthorOnShowcaseInput {
 
   """The id of relation."""
   relationId: ID!
-}
-
-input SetCommentsOnShowcaseInput {
-  """The id of the record."""
-  id: String!
-
-  """The ids of the relations."""
-  relationIds: [ID!]!
 }
 
 input SetHighlightFeaturesOnShowcaseInput {
