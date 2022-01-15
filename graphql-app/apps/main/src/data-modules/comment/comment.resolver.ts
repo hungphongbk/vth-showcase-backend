@@ -8,7 +8,7 @@ import {
   MutationHookArgs,
 } from '@nestjs-query/query-graphql';
 import { CommentCreateDto } from './comment.create.dto';
-import { ShowcaseQueryService } from '../showcase/showcase.queryService';
+import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthDto, CurrentUser, GqlAuthGuard } from '../../auth';
 

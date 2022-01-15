@@ -2,14 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input AddHighlightFeaturesToShowcaseInput {
-  """The id of the record."""
-  id: String!
-
-  """The ids of the relations."""
-  relationIds: [ID!]!
-}
-
 input AddImagesToImageListInput {
   """The id of the record."""
   id: ID!
@@ -484,7 +476,6 @@ enum MediaType {
 }
 
 type Mutation {
-  addHighlightFeaturesToShowcase(input: AddHighlightFeaturesToShowcaseInput!): Showcase!
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
@@ -511,13 +502,11 @@ type Mutation {
   postProjectUpdate(input: PrjUpdateCreateDto!, slug: String!): PrjUpdateDto!
   removeAuthorFromCommentDto(input: RemoveAuthorFromCommentDtoInput!): CommentDto!
   removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
-  removeHighlightFeaturesFromShowcase(input: RemoveHighlightFeaturesFromShowcaseInput!): Showcase!
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
   setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
   setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
-  setHighlightFeaturesOnShowcase(input: SetHighlightFeaturesOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
@@ -532,6 +521,26 @@ type Mutation {
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFUpdateInputDto!): ShowcaseHighlightFeature!
   updateOneUser(role: AuthRoleType!, uid: String!): Boolean!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
 }
 
 type OffsetPageInfo {
@@ -807,14 +816,6 @@ input RemoveAuthorFromShowcaseInput {
   relationId: ID!
 }
 
-input RemoveHighlightFeaturesFromShowcaseInput {
-  """The id of the record."""
-  id: String!
-
-  """The ids of the relations."""
-  relationIds: [ID!]!
-}
-
 input RemoveImageFromShowcaseHighlightFeatureInput {
   """The id of the record."""
   id: ID!
@@ -855,14 +856,6 @@ input SetAuthorOnShowcaseInput {
   relationId: ID!
 }
 
-input SetHighlightFeaturesOnShowcaseInput {
-  """The id of the record."""
-  id: String!
-
-  """The ids of the relations."""
-  relationIds: [ID!]!
-}
-
 input SetImageOnShowcaseHighlightFeatureInput {
   """The id of the record."""
   id: ID!
@@ -901,6 +894,7 @@ type SettingDto {
 type Showcase {
   author: User!
   brand: ShowcaseBrand!
+  commentCount: Float
   comments(
     """Specify to filter the records returned."""
     filter: CommentDtoFilter = {}
@@ -937,6 +931,7 @@ type Showcase {
   """
   isPreordered: Boolean
   name: String!
+  preorderCount: Float
   preorders(
     """Specify to filter the records returned."""
     filter: PreorderDtoFilter = {}
@@ -961,10 +956,12 @@ type Showcase {
 }
 
 type ShowcaseAggregateGroupBy {
+  commentCount: Float
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
   isFeatured: Boolean
   name: String
+  preorderCount: Float
   publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
@@ -1001,10 +998,12 @@ type ShowcaseConnection {
 }
 
 type ShowcaseCountAggregate {
+  commentCount: Int
   expectedSaleAt: Int
   expectedSaleEndAt: Int
   isFeatured: Int
   name: Int
+  preorderCount: Int
   publishStatus: Int
   slug: Int
   status: Int
@@ -1032,11 +1031,13 @@ input ShowcaseCreateInputDto {
 
 input ShowcaseDeleteFilter {
   and: [ShowcaseDeleteFilter!]
+  commentCount: NumberFieldComparison
   expectedSaleAt: DateFieldComparison
   expectedSaleEndAt: DateFieldComparison
   isFeatured: BooleanFieldComparison
   name: StringFieldComparison
   or: [ShowcaseDeleteFilter!]
+  preorderCount: NumberFieldComparison
   publishStatus: PublishStatusFilterComparison
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
@@ -1053,11 +1054,13 @@ type ShowcaseEdge {
 
 input ShowcaseFilter {
   and: [ShowcaseFilter!]
+  commentCount: NumberFieldComparison
   expectedSaleAt: DateFieldComparison
   expectedSaleEndAt: DateFieldComparison
   isFeatured: BooleanFieldComparison
   name: StringFieldComparison
   or: [ShowcaseFilter!]
+  preorderCount: NumberFieldComparison
   publishStatus: PublishStatusFilterComparison
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
@@ -1256,10 +1259,12 @@ input ShowcaseSort {
 }
 
 enum ShowcaseSortFields {
+  commentCount
   expectedSaleAt
   expectedSaleEndAt
   isFeatured
   name
+  preorderCount
   publishStatus
   slug
   status

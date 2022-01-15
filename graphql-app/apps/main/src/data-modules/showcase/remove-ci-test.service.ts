@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { ShowcaseQueryService } from './showcase.queryService';
+import { ShowcaseQueryService } from './query-services/showcase-query.service';
 
 @Injectable()
 export class RemoveCiTestService {

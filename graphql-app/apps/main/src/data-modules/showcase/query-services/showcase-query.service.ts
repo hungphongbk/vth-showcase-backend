@@ -1,17 +1,20 @@
 import {
   AssemblerQueryService,
   DeleteManyResponse,
+  FindByIdOptions,
+  GetByIdOptions,
   InjectQueryService,
+  ProxyQueryService,
   Query,
   QueryService,
   RelationQueryService,
 } from '@nestjs-query/core';
-import { PublishStatus, ShowcaseDto } from './dtos/showcase.dto';
-import { ShowcaseEntity } from './entities/showcase.entity';
+import { PublishStatus, ShowcaseDto } from '../dtos/showcase.dto';
+import { ShowcaseEntity } from '../entities/showcase.entity';
 import {
   ShowcaseCreateInputDto,
   ShowcaseUpdateInputDto,
-} from './dtos/showcase.create.dto';
+} from '../dtos/showcase.create.dto';
 import {
   CACHE_MANAGER,
   forwardRef,
@@ -20,13 +23,14 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { InjectAuthoredQueryService } from '../../auth';
-import { ShowcaseAssembler } from './showcase.assembler';
+import { InjectAuthoredQueryService } from '../../../auth';
+import { ShowcaseAssembler } from '../showcase.assembler';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MediaCreateDto } from '../media/dtos/media.create.dto';
-import { ShowcaseMediaEntity } from './entities/showcase.media.entity';
-import { ImageListMediaEntity } from '../image-list/entities/image-list.media.entity';
-import { ImageListDto } from '../image-list/dto/image-list.dto';
+import { MediaCreateDto } from '../../media/dtos/media.create.dto';
+import { ShowcaseMediaEntity } from '../entities/showcase.media.entity';
+import { ImageListMediaEntity } from '../../image-list/entities/image-list.media.entity';
+import { ImageListDto } from '../../image-list/dto/image-list.dto';
+import { ShowcaseViewEntity } from '../entities/showcase-view.entity';
 
 const query = (showcase: ShowcaseDto): Query<any> => ({
   filter: {
@@ -50,13 +54,62 @@ export class ShowcaseBaseQueryService extends AssemblerQueryService<
     super(assembler, service);
   }
 }
+export class ShowcaseViewBaseQueryService extends AssemblerQueryService<
+  ShowcaseDto,
+  ShowcaseEntity,
+  ShowcaseCreateInputDto,
+  ShowcaseUpdateInputDto
+> {
+  constructor(
+    @Inject(forwardRef(() => ShowcaseAssembler)) assembler: ShowcaseAssembler,
+    @InjectAuthoredQueryService(ShowcaseViewEntity)
+    private readonly service: QueryService<ShowcaseEntity>,
+  ) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    super(assembler, service);
+  }
+}
+
+export class ShowcaseProxyQueryService extends ProxyQueryService<
+  ShowcaseDto,
+  ShowcaseCreateInputDto
+> {
+  constructor(
+    @Inject(ShowcaseBaseQueryService)
+    private readonly baseService: ShowcaseBaseQueryService,
+    @Inject(ShowcaseViewBaseQueryService)
+    private readonly readService: ShowcaseViewBaseQueryService,
+  ) {
+    super(baseService);
+  }
+
+  findById(
+    id: string | number,
+    opts?: FindByIdOptions<ShowcaseDto>,
+  ): Promise<ShowcaseDto | undefined> {
+    return this.readService.findById(id, opts);
+  }
+
+  getById(
+    id: string | number,
+    opts?: GetByIdOptions<ShowcaseDto>,
+  ): Promise<ShowcaseDto> {
+    return this.readService.getById(id, opts);
+  }
+
+  query(query: Query<ShowcaseDto>): Promise<ShowcaseDto[]> {
+    return this.readService.query(query);
+  }
+}
 
 export class ShowcaseQueryService extends RelationQueryService<
   ShowcaseDto,
   ShowcaseCreateInputDto
 > {
   constructor(
-    private readonly service: ShowcaseBaseQueryService,
+    @Inject(ShowcaseProxyQueryService)
+    private readonly service: ShowcaseProxyQueryService,
     @InjectQueryService(ShowcaseMediaEntity)
     private readonly mediaQueryService: QueryService<ShowcaseMediaEntity>,
     @InjectQueryService(ImageListMediaEntity)
@@ -113,6 +166,7 @@ export class ShowcaseQueryService extends RelationQueryService<
     slug: string,
     update: ShowcaseUpdateInputDto,
   ): Promise<ShowcaseDto> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { image, highlightFeatures, ...rest } = update;
     if (image) {
       await this.updateImage(slug, image);

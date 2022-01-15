@@ -8,7 +8,15 @@ import { PrjUpdateCreateDto } from '../../prj-update/prj-update.dto';
 @InputType({ isAbstract: true })
 class ShowcaseCreateBase extends OmitType(
   ShowcaseDto,
-  ['id', 'slug', 'publishStatus', 'createdAt', 'updatedAt'],
+  [
+    'id',
+    'slug',
+    'publishStatus',
+    'createdAt',
+    'updatedAt',
+    'commentCount',
+    'preorderCount',
+  ],
   InputType,
 ) {
   @Field(() => String, { nullable: true })

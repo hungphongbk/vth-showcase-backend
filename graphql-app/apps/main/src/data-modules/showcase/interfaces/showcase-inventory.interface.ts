@@ -1,4 +1,4 @@
-export interface IShowcaseInventory {
+export interface ShowcaseInventoryInterface {
   capitalizationRate: number;
   adCostRate: number;
   operatingCostRate: number;

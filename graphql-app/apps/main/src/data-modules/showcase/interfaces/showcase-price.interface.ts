@@ -1,4 +1,4 @@
-export interface IShowcasePrice {
+export interface ShowcasePriceInterface {
   regular: number;
   pioneer: number;
   promo: number;

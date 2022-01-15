@@ -14,7 +14,7 @@ import {
   UnPagedRelation,
 } from '@nestjs-query/query-graphql';
 import { ShowcasePriceDto } from './showcase-price.dto';
-import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
+import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
 import { ShowcaseBrandDto } from './showcase-brand.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
@@ -46,7 +46,10 @@ registerEnumType(PublishStatus, {
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
 @Relation('author', () => AuthDto)
-@UnPagedRelation('highlightFeatures', () => ShowcaseHFDto)
+@UnPagedRelation('highlightFeatures', () => ShowcaseHFDto, {
+  disableUpdate: true,
+  disableRemove: true,
+})
 @OffsetConnection('comments', () => CommentDto, {
   enableTotalCount: true,
   disableUpdate: true,
@@ -79,7 +82,7 @@ export class ShowcaseDto {
   authorUid: string;
 
   @Field(() => ShowcaseBrandDto, { nullable: false })
-  brand!: IShowcaseBrand;
+  brand!: ShowcaseBrandInterface;
 
   @Field(() => GraphQLISODateTime)
   createdAt!: Date;
@@ -119,6 +122,11 @@ export class ShowcaseDto {
 
   @Field(() => ShowcaseInventoryDto, { nullable: true })
   inventory!: ShowcaseInventoryDto;
+
+  @FilterableField(() => Number, { nullable: true })
+  commentCount: boolean;
+  @FilterableField(() => Number, { nullable: true })
+  preorderCount: boolean;
 
   get isPublished() {
     return this.publishStatus === PublishStatus.PUBLISHED;

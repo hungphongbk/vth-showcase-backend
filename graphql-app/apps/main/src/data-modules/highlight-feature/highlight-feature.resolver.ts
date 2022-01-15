@@ -10,7 +10,7 @@ import {
 import { ShowcaseHFCreateInputDto } from './dtos/showcaseHF.create.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { ShowcaseHFEntity } from './entities/showcaseHF.entity';
-import { ShowcaseQueryService } from '../showcase/showcase.queryService';
+import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
 import { ShowcaseHFMediaEntity } from './entities/showcaseHF.media.entity';
 import { ShowcaseHFUpdateInputDto } from './dtos/showcaseHF.update.dto';
 

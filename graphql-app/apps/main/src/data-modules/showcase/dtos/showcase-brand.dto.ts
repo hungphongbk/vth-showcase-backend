@@ -1,9 +1,9 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { IShowcaseBrand } from '../interfaces/IShowcaseBrand';
+import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
 
 @ObjectType('ShowcaseBrand')
 @InputType('ShowcaseBrandInput')
-export class ShowcaseBrandDto implements IShowcaseBrand {
+export class ShowcaseBrandDto implements ShowcaseBrandInterface {
   @Field()
   name: string;
 

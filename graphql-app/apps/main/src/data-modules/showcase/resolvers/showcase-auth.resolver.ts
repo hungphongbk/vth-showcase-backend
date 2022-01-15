@@ -15,7 +15,7 @@ import {
   CurrentUser,
   GqlAuthGuard,
 } from '../../../auth';
-import { ShowcaseQueryService } from '../showcase.queryService';
+import { ShowcaseQueryService } from '../query-services/showcase-query.service';
 import {
   MutationArgsType,
   MutationHookArgs,
