@@ -13,7 +13,7 @@ import { Cache } from 'cache-manager';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
-} from '@tfarras/nestjs-firebase-admin';
+} from '@hungphongbk/nestjs-firebase-admin';
 import {
   CacheArg,
   CacheDecorator,

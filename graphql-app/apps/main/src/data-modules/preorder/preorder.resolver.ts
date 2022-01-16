@@ -22,7 +22,7 @@ import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
-} from '@tfarras/nestjs-firebase-admin';
+} from '@hungphongbk/nestjs-firebase-admin';
 import { auth } from 'firebase-admin';
 import { PreorderConnection, PreorderDtoQuery } from './preorder.connection';
 import * as deepmerge from 'deepmerge';

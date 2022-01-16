@@ -17,7 +17,7 @@ import { Response } from 'express';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
-} from '@tfarras/nestjs-firebase-admin';
+} from '@hungphongbk/nestjs-firebase-admin';
 import fetch from 'node-fetch';
 import { Cache } from 'cache-manager';
 import { ControllerAuthGuard } from './gql.auth.guard';

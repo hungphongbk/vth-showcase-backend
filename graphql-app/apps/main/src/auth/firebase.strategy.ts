@@ -4,11 +4,11 @@ import { ExtractJwt } from 'passport-jwt';
 import {
   FirebaseAuthStrategy,
   FirebaseUser,
-} from '@tfarras/nestjs-firebase-auth';
+} from '@hungphongbk/nestjs-firebase-auth';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
-} from '@tfarras/nestjs-firebase-admin';
+} from '@hungphongbk/nestjs-firebase-admin';
 import { AuthDto } from './dtos/auth.dto';
 import { AuthQueryService } from './auth.query.service';
 

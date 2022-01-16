@@ -3,7 +3,7 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 import firebaseConfig from './config/firebase.config';
-import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
+import { FirebaseAdminModule } from '@hungphongbk/nestjs-firebase-admin';
 import { DataModulesModule } from './data-modules/data-modules.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HealthModule } from './health/health.module';

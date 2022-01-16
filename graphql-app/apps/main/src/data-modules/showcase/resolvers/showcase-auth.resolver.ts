@@ -29,7 +29,7 @@ import { UserStatusEnum } from '../dtos/user-status.enum';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
-} from '@tfarras/nestjs-firebase-admin';
+} from '@hungphongbk/nestjs-firebase-admin';
 import { ForbiddenError } from 'apollo-server-express';
 import { ShowcaseConnection } from '../dtos/query.types';
 import { ShowcaseGaDto } from '../dtos/showcase-ga.dto';
