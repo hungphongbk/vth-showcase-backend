@@ -10,7 +10,7 @@ import {
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
 import { AuthDto } from './dtos/auth.dto';
-import { AuthQueryService } from './auth.query.service';
+import { AuthQueryService } from './services/auth.query.service';
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(

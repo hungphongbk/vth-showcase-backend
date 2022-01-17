@@ -22,7 +22,7 @@ import fetch from 'node-fetch';
 import { Cache } from 'cache-manager';
 import { ControllerAuthGuard } from './gql.auth.guard';
 import { AuthRoleType } from './dtos/auth.dto';
-import { AuthQueryService } from './auth.query.service';
+import { AuthQueryService } from './services/auth.query.service';
 
 const CACHE_KEY = 'X-Test-Token';
 
