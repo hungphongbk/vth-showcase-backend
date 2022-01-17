@@ -1,0 +1,1413 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddImagesToImageListInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+enum AuthRoleType {
+  ADMIN
+  INVESTOR
+  SUPERADMIN
+  USER
+}
+
+input BooleanFieldComparison {
+  is: Boolean
+  isNot: Boolean
+}
+
+input CommentCreateDto {
+  content: String!
+  isTopComment: Boolean
+  rate: [CommentRateEnum!]!
+}
+
+type CommentDto {
+  author: User
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  isTopComment: Boolean!
+  rate: [CommentRateEnum!]!
+  updatedAt: DateTime!
+}
+
+type CommentDtoAggregateGroupBy {
+  id: ID
+  isTopComment: Boolean
+}
+
+type CommentDtoAvgAggregate {
+  id: Float
+}
+
+type CommentDtoCountAggregate {
+  id: Int
+  isTopComment: Int
+}
+
+type CommentDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the CommentDto"""
+  node: CommentDto!
+}
+
+input CommentDtoFilter {
+  and: [CommentDtoFilter!]
+  id: IDFilterComparison
+  isTopComment: BooleanFieldComparison
+  or: [CommentDtoFilter!]
+}
+
+type CommentDtoMaxAggregate {
+  id: ID
+}
+
+type CommentDtoMinAggregate {
+  id: ID
+}
+
+input CommentDtoSort {
+  direction: SortDirection!
+  field: CommentDtoSortFields!
+  nulls: SortNulls
+}
+
+enum CommentDtoSortFields {
+  id
+  isTopComment
+}
+
+type CommentDtoSumAggregate {
+  id: Float
+}
+
+enum CommentRateEnum {
+  CO_TIEM_NANG
+  CUNG_DUOC
+  DANG_TIEN
+  HAY
+  SIEU_PHAM
+  XAM_XI
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+input CreateInvestmentPackageDto {
+  benefitRate: Float
+  count: Float
+  displayName: String
+  fundedRate: Float
+  id: ID
+}
+
+input CreateManyInvestmentPackageDtosInput {
+  """Array of records to create"""
+  investmentPackageDtos: [CreateInvestmentPackageDto!]!
+}
+
+input CreateManyMediaDtosInput {
+  """Array of records to create"""
+  mediaDtos: [MediaInput!]!
+}
+
+input CreateOneInvestmentPackageDtoInput {
+  """The record to create"""
+  investmentPackageDto: CreateInvestmentPackageDto!
+}
+
+input CreateOneMediaDtoInput {
+  """The record to create"""
+  mediaDto: MediaInput!
+}
+
+input CursorPaging {
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteManyInvestmentPackageDtosInput {
+  """Filter to find records to delete"""
+  filter: InvestmentPackageDtoDeleteFilter!
+}
+
+input DeleteManyMediaDtosInput {
+  """Filter to find records to delete"""
+  filter: MediaDtoDeleteFilter!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteManyShowcasesInput {
+  """Filter to find records to delete"""
+  filter: ShowcaseDeleteFilter!
+}
+
+input DeleteOneImageListInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneInvestmentPackageDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneMediaDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOnePrjUpdateDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneShowcaseHighlightFeatureInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input IDFilterComparison {
+  eq: ID
+  gt: ID
+  gte: ID
+  iLike: ID
+  in: [ID!]
+  is: Boolean
+  isNot: Boolean
+  like: ID
+  lt: ID
+  lte: ID
+  neq: ID
+  notILike: ID
+  notIn: [ID!]
+  notLike: ID
+}
+
+interface IdInterface {
+  id: ID!
+}
+
+type ImageList implements IdInterface {
+  id: ID!
+  images(
+    """Specify to filter the records returned."""
+    filter: MediaDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [MediaDtoSort!] = []
+  ): [MediaDto!]!
+}
+
+type ImageListAggregateGroupBy {
+  id: ID
+}
+
+type ImageListCountAggregate {
+  id: Int
+}
+
+input ImageListCreateDto {
+  images: [MediaInput!]
+}
+
+type ImageListDeleteResponse {
+  id: ID
+}
+
+type ImageListEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ImageList"""
+  node: ImageList!
+}
+
+type ImageListMaxAggregate {
+  id: ID
+}
+
+type ImageListMinAggregate {
+  id: ID
+}
+
+type InvestmentPackageDto {
+  benefitRate: Float!
+  count: Float!
+  displayName: String!
+  fundedRate: Float!
+  id: ID!
+}
+
+type InvestmentPackageDtoAggregateGroupBy {
+  displayName: String
+  id: ID
+}
+
+type InvestmentPackageDtoAvgAggregate {
+  id: Float
+}
+
+type InvestmentPackageDtoConnection {
+  """Array of edges."""
+  edges: [InvestmentPackageDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type InvestmentPackageDtoCountAggregate {
+  displayName: Int
+  id: Int
+}
+
+input InvestmentPackageDtoDeleteFilter {
+  and: [InvestmentPackageDtoDeleteFilter!]
+  displayName: StringFieldComparison
+  id: IDFilterComparison
+  or: [InvestmentPackageDtoDeleteFilter!]
+}
+
+type InvestmentPackageDtoDeleteResponse {
+  benefitRate: Float
+  count: Float
+  displayName: String
+  fundedRate: Float
+  id: ID
+}
+
+type InvestmentPackageDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the InvestmentPackageDto"""
+  node: InvestmentPackageDto!
+}
+
+input InvestmentPackageDtoFilter {
+  and: [InvestmentPackageDtoFilter!]
+  displayName: StringFieldComparison
+  id: IDFilterComparison
+  or: [InvestmentPackageDtoFilter!]
+}
+
+type InvestmentPackageDtoMaxAggregate {
+  displayName: String
+  id: ID
+}
+
+type InvestmentPackageDtoMinAggregate {
+  displayName: String
+  id: ID
+}
+
+input InvestmentPackageDtoSort {
+  direction: SortDirection!
+  field: InvestmentPackageDtoSortFields!
+  nulls: SortNulls
+}
+
+enum InvestmentPackageDtoSortFields {
+  displayName
+  id
+}
+
+type InvestmentPackageDtoSumAggregate {
+  id: Float
+}
+
+input InvestmentPackageDtoUpdateFilter {
+  and: [InvestmentPackageDtoUpdateFilter!]
+  displayName: StringFieldComparison
+  id: IDFilterComparison
+  or: [InvestmentPackageDtoUpdateFilter!]
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type MediaDto implements IdInterface {
+  filename: String!
+  height: Float!
+  id: ID!
+  mimetype: String!
+  path: String!
+  preloadUrl: String!
+  type: MediaType!
+  width: Float!
+}
+
+type MediaDtoAggregateGroupBy {
+  filename: String
+  id: ID
+}
+
+type MediaDtoConnection {
+  """Array of edges."""
+  edges: [MediaDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type MediaDtoCountAggregate {
+  filename: Int
+  id: Int
+}
+
+input MediaDtoDeleteFilter {
+  and: [MediaDtoDeleteFilter!]
+  filename: StringFieldComparison
+  id: IDFilterComparison
+  or: [MediaDtoDeleteFilter!]
+}
+
+type MediaDtoDeleteResponse {
+  filename: String
+  height: Float
+  id: ID
+  mimetype: String
+  path: String
+  preloadUrl: String
+  type: MediaType
+  width: Float
+}
+
+type MediaDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the MediaDto"""
+  node: MediaDto!
+}
+
+input MediaDtoFilter {
+  and: [MediaDtoFilter!]
+  filename: StringFieldComparison
+  id: IDFilterComparison
+  or: [MediaDtoFilter!]
+}
+
+type MediaDtoMaxAggregate {
+  filename: String
+  id: ID
+}
+
+type MediaDtoMinAggregate {
+  filename: String
+  id: ID
+}
+
+input MediaDtoSort {
+  direction: SortDirection!
+  field: MediaDtoSortFields!
+  nulls: SortNulls
+}
+
+enum MediaDtoSortFields {
+  filename
+  id
+}
+
+input MediaDtoUpdateFilter {
+  and: [MediaDtoUpdateFilter!]
+  filename: StringFieldComparison
+  id: IDFilterComparison
+  or: [MediaDtoUpdateFilter!]
+}
+
+input MediaInput {
+  filename: String!
+  height: Float
+  mimetype: String!
+  path: String!
+  preloadUrl: String
+  type: MediaType
+  width: Float
+}
+
+enum MediaType {
+  HF
+  IMGLIST
+  SHOWCASE
+}
+
+type Mutation {
+  addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
+  createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
+  createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
+  createOneImageList(slug: String!): ImageList!
+  createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
+  createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
+  createOnePreorder(input: PreorderRequestInputDto, slug: String!): PreorderResponseDto!
+  createOneSetting(input: SettingCreateDto!): Boolean!
+  createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
+  createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
+  deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
+  deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
+  deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
+  deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
+  deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
+  deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
+  deleteOneMediaFromImageList(id: ID!, mediaId: ID!): ImageList!
+  deleteOnePrjUpdateDto(input: DeleteOnePrjUpdateDtoInput!): PrjUpdateDtoDeleteResponse!
+  deleteOneShowcase(slug: String!): Boolean!
+  deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
+  insertOneMediaToImageList(id: ID!, input: MediaInput!): ImageList!
+  postAnonymousComment(input: CommentCreateDto!, slug: String!): CommentDto!
+  postAuthorizedComment(input: CommentCreateDto!, slug: String!): CommentDto!
+  postProjectUpdate(input: PrjUpdateCreateDto!, slug: String!): PrjUpdateDto!
+  removeAuthorFromCommentDto(input: RemoveAuthorFromCommentDtoInput!): CommentDto!
+  removeAuthorFromShowcase(input: RemoveAuthorFromShowcaseInput!): Showcase!
+  removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
+  removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
+  setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
+  setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
+  setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
+  setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
+  setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
+  submitInvestor(form: SubmitInvestorInputDto!): Boolean!
+  updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
+  updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
+  updateOneImageList(input: UpdateOneImageListInput!): ImageList!
+  updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
+  updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
+  updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
+  updateOneSetting(input: SettingCreateDto!): Boolean!
+  updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
+  updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFUpdateInputDto!): ShowcaseHighlightFeature!
+  updateOneUser(role: AuthRoleType!, uid: String!): Boolean!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
+}
+
+type PageInfo {
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+}
+
+type PreorderDto {
+  author: User
+  createdAt: DateTime!
+  id: ID!
+  showcase: Showcase!
+}
+
+type PreorderDtoAggregateGroupBy {
+  id: ID
+}
+
+type PreorderDtoAvgAggregate {
+  id: Float
+}
+
+type PreorderDtoConnection {
+  """Array of edges."""
+  edges: [PreorderDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type PreorderDtoCountAggregate {
+  id: Int
+}
+
+type PreorderDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the PreorderDto"""
+  node: PreorderDto!
+}
+
+input PreorderDtoFilter {
+  and: [PreorderDtoFilter!]
+  id: IDFilterComparison
+  or: [PreorderDtoFilter!]
+}
+
+type PreorderDtoMaxAggregate {
+  id: ID
+}
+
+type PreorderDtoMinAggregate {
+  id: ID
+}
+
+input PreorderDtoSort {
+  direction: SortDirection!
+  field: PreorderDtoSortFields!
+  nulls: SortNulls
+}
+
+enum PreorderDtoSortFields {
+  id
+}
+
+type PreorderDtoSumAggregate {
+  id: Float
+}
+
+input PreorderRequestInputDto {
+  email: String!
+  name: String!
+  phoneNumber: String!
+}
+
+type PreorderResponseDto {
+  createdAt: DateTime!
+  customToken: String
+  id: ID!
+}
+
+input PrjUpdateCreateDto {
+  content: String!
+}
+
+type PrjUpdateDto {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+}
+
+type PrjUpdateDtoAggregateGroupBy {
+  id: ID
+}
+
+type PrjUpdateDtoAvgAggregate {
+  id: Float
+}
+
+type PrjUpdateDtoCountAggregate {
+  id: Int
+}
+
+type PrjUpdateDtoDeleteResponse {
+  content: String
+  createdAt: DateTime
+  id: ID
+}
+
+type PrjUpdateDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the PrjUpdateDto"""
+  node: PrjUpdateDto!
+}
+
+input PrjUpdateDtoFilter {
+  and: [PrjUpdateDtoFilter!]
+  id: IDFilterComparison
+  or: [PrjUpdateDtoFilter!]
+}
+
+type PrjUpdateDtoMaxAggregate {
+  id: ID
+}
+
+type PrjUpdateDtoMinAggregate {
+  id: ID
+}
+
+input PrjUpdateDtoSort {
+  direction: SortDirection!
+  field: PrjUpdateDtoSortFields!
+  nulls: SortNulls
+}
+
+enum PrjUpdateDtoSortFields {
+  id
+}
+
+type PrjUpdateDtoSumAggregate {
+  id: Float
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+input PublishStatusFilterComparison {
+  eq: PublishStatus
+  gt: PublishStatus
+  gte: PublishStatus
+  iLike: PublishStatus
+  in: [PublishStatus!]
+  is: Boolean
+  isNot: Boolean
+  like: PublishStatus
+  lt: PublishStatus
+  lte: PublishStatus
+  neq: PublishStatus
+  notILike: PublishStatus
+  notIn: [PublishStatus!]
+  notLike: PublishStatus
+}
+
+type Query {
+  currentUser: User!
+  getAllUsers: [User!]!
+  getOneUser(uid: String!): User!
+  investmentPackageDto(
+    """The id of the record to find."""
+    id: ID!
+  ): InvestmentPackageDto
+  investmentPackageDtos(
+    """Specify to filter the records returned."""
+    filter: InvestmentPackageDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [InvestmentPackageDtoSort!] = []
+  ): InvestmentPackageDtoConnection!
+  mediaDto(
+    """The id of the record to find."""
+    id: ID!
+  ): MediaDto
+  mediaDtos(
+    """Specify to filter the records returned."""
+    filter: MediaDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [MediaDtoSort!] = []
+  ): MediaDtoConnection!
+  preorders(
+    """Specify to filter the records returned."""
+    filter: PreorderDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [PreorderDtoSort!] = []
+  ): PreorderDtoConnection!
+  prjUpdateDto(
+    """The id of the record to find."""
+    id: ID!
+  ): PrjUpdateDto
+  setting(key: String!): SettingDto
+  settings(keys: [String!]!): [SettingDto!]!
+  showcase(slug: String!): Showcase!
+  showcaseHighlightFeature(
+    """The id of the record to find."""
+    id: ID!
+  ): ShowcaseHighlightFeature
+  showcases(
+    """Specify to filter the records returned."""
+    filter: ShowcaseFilter = {publishStatus: {eq: PUBLISHED}}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseSort!] = []
+  ): ShowcaseConnection!
+  slugs: [String!]!
+}
+
+input RemoveAuthorFromCommentDtoInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveAuthorFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveImageFromShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveImageFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveImagesFromImageListInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetAuthorOnCommentDtoInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetAuthorOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetImageOnShowcaseHighlightFeatureInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetImageOnShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetImagesOnImageListInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SettingCreateDto {
+  key: String!
+  value: JSONObject!
+}
+
+type SettingDto {
+  id: ID!
+  key: String!
+  value: JSONObject!
+}
+
+type Showcase {
+  author: User!
+  brand: ShowcaseBrand!
+  commentCount: Float
+  comments(
+    """Specify to filter the records returned."""
+    filter: CommentDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [CommentDtoSort!] = []
+  ): [CommentDto!]!
+  createdAt: DateTime!
+  description: String!
+  expectedQuantity: ShowcasePrice
+  expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
+  expectedSalePrice: ShowcasePrice
+  ga: ShowcaseGaDto
+  highlightFeatures(
+    """Specify to filter the records returned."""
+    filter: ShowcaseHighlightFeatureFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseHighlightFeatureSort!] = []
+  ): [ShowcaseHighlightFeature!]!
+  id: ID!
+  image: MediaDto!
+  imageLists: [ImageList!]!
+  inventory: ShowcaseInventoryDto
+  investorStat: ShowcaseInvestorStatDto
+  isFeatured: Boolean
+
+  """
+  Trả về người dùng hiện tại đã preorder sản phẩm này chưa. Nếu chưa đăng nhập, luôn trả về false
+  """
+  isPreordered: Boolean
+  name: String!
+  preorderCount: Float
+  preorders(
+    """Specify to filter the records returned."""
+    filter: PreorderDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [PreorderDtoSort!] = []
+  ): [PreorderDto!]!
+  publishStatus: PublishStatus!
+  slug: String!
+  status: ShowcaseStatus!
+  updatedAt: DateTime!
+  updates(
+    """Specify to filter the records returned."""
+    filter: PrjUpdateDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [PrjUpdateDtoSort!] = []
+  ): [PrjUpdateDto!]!
+}
+
+type ShowcaseAggregateGroupBy {
+  commentCount: Float
+  expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
+  isFeatured: Boolean
+  name: String
+  preorderCount: Float
+  publishStatus: PublishStatus
+  slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
+}
+
+type ShowcaseBrand {
+  description: String!
+  name: String!
+}
+
+input ShowcaseBrandInput {
+  description: String!
+  name: String!
+}
+
+type ShowcaseConnection {
+  """Array of edges."""
+  edges: [ShowcaseEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type ShowcaseCountAggregate {
+  commentCount: Int
+  expectedSaleAt: Int
+  expectedSaleEndAt: Int
+  isFeatured: Int
+  name: Int
+  preorderCount: Int
+  publishStatus: Int
+  slug: Int
+  status: Int
+  updatedAt: Int
+}
+
+input ShowcaseCreateInputDto {
+  brand: ShowcaseBrandInput!
+  description: String!
+  expectedQuantity: ShowcasePriceInput
+  expectedSaleAt: DateTime = null
+  expectedSaleEndAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
+  highlightFeatures: [ShowcaseHFCreateInputDto!]
+  id: String
+  image: MediaInput!
+  imageLists: [ImageListCreateDto!]
+  inventory: ShowcaseInventoryDtoInput
+  isFeatured: Boolean
+  name: String!
+  publishStatus: PublishStatus
+  status: ShowcaseStatus!
+  updates: [PrjUpdateCreateDto!]
+}
+
+input ShowcaseDeleteFilter {
+  and: [ShowcaseDeleteFilter!]
+  commentCount: NumberFieldComparison
+  expectedSaleAt: DateFieldComparison
+  expectedSaleEndAt: DateFieldComparison
+  isFeatured: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ShowcaseDeleteFilter!]
+  preorderCount: NumberFieldComparison
+  publishStatus: PublishStatusFilterComparison
+  slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
+}
+
+type ShowcaseEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the Showcase"""
+  node: Showcase!
+}
+
+input ShowcaseFilter {
+  and: [ShowcaseFilter!]
+  commentCount: NumberFieldComparison
+  expectedSaleAt: DateFieldComparison
+  expectedSaleEndAt: DateFieldComparison
+  isFeatured: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ShowcaseFilter!]
+  preorderCount: NumberFieldComparison
+  publishStatus: PublishStatusFilterComparison
+  slug: StringFieldComparison
+  status: ShowcaseStatusFilterComparison
+  updatedAt: DateFieldComparison
+}
+
+type ShowcaseGaDto {
+  viewCount: Float!
+}
+
+input ShowcaseHFCreateInputDto {
+  description: String!
+  id: String
+  image: MediaInput!
+  name: String!
+}
+
+input ShowcaseHFUpdateInputDto {
+  description: String
+  image: MediaInput
+  name: String
+}
+
+type ShowcaseHighlightFeature {
+  description: String!
+  id: ID!
+  image: MediaDto!
+  name: String!
+}
+
+type ShowcaseHighlightFeatureAggregateGroupBy {
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureCountAggregate {
+  id: Int
+  name: Int
+}
+
+type ShowcaseHighlightFeatureDeleteResponse {
+  description: String
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ShowcaseHighlightFeature"""
+  node: ShowcaseHighlightFeature!
+}
+
+input ShowcaseHighlightFeatureFilter {
+  and: [ShowcaseHighlightFeatureFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [ShowcaseHighlightFeatureFilter!]
+}
+
+type ShowcaseHighlightFeatureMaxAggregate {
+  id: ID
+  name: String
+}
+
+type ShowcaseHighlightFeatureMinAggregate {
+  id: ID
+  name: String
+}
+
+input ShowcaseHighlightFeatureSort {
+  direction: SortDirection!
+  field: ShowcaseHighlightFeatureSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseHighlightFeatureSortFields {
+  id
+  name
+}
+
+"""Thông tin về chi phí vận hành showcase"""
+type ShowcaseInventoryDto {
+  """Tỉ lệ chi phí quảng cáo"""
+  adCostRate: Float!
+
+  """Tỉ lệ giá vốn/giá bán sản phẩm"""
+  capitalizationRate: Float!
+
+  """Tốc độ tăng trưởng kì vọng"""
+  expectedGrowthRate: Float!
+
+  """Tỉ lệ chi phí vận hành"""
+  operatingCostRate: Float!
+
+  """Vòng quay vốn an toàn tương ứng"""
+  revolvingInterval: Float!
+}
+
+input ShowcaseInventoryDtoInput {
+  """Tỉ lệ chi phí quảng cáo"""
+  adCostRate: Float!
+
+  """Tỉ lệ giá vốn/giá bán sản phẩm"""
+  capitalizationRate: Float!
+
+  """Tốc độ tăng trưởng kì vọng"""
+  expectedGrowthRate: Float!
+
+  """Tỉ lệ chi phí vận hành"""
+  operatingCostRate: Float!
+
+  """Vòng quay vốn an toàn tương ứng"""
+  revolvingInterval: Float!
+}
+
+type ShowcaseInvestorPackageDto {
+  firstYearBenefit: String!
+  fund: String!
+  package: InvestmentPackageDto!
+}
+
+type ShowcaseInvestorStatDto {
+  """Tổng chi phí quảng cáo trung bình"""
+  adCost: String!
+  adCostRate: Float!
+  campaignDuration: Float!
+  capitalizationCost: String!
+  capitalizationRate: Float!
+  expectedProfit: String!
+
+  """Doanh thu dự kiến năm đầu"""
+  firstYearRevenue: String!
+  growthRate: Float!
+  initialCapital: String!
+  operatingCost: String!
+  operatingCostRate: Float!
+  packages: [ShowcaseInvestorPackageDto!]!
+  revolvingInterval: Float!
+  revolvingPerDay: Float!
+
+  """Doanh thu tổng"""
+  totalRevenue: String!
+}
+
+type ShowcaseMaxAggregate {
+  expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
+  name: String
+  publishStatus: PublishStatus
+  slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
+}
+
+type ShowcaseMinAggregate {
+  expectedSaleAt: DateTime
+  expectedSaleEndAt: DateTime
+  name: String
+  publishStatus: PublishStatus
+  slug: String
+  status: ShowcaseStatus
+  updatedAt: DateTime
+}
+
+type ShowcasePrice {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
+}
+
+input ShowcasePriceInput {
+  pioneer: Float!
+  preorder: Float!
+  promo: Float!
+  regular: Float!
+}
+
+input ShowcaseSort {
+  direction: SortDirection!
+  field: ShowcaseSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseSortFields {
+  commentCount
+  expectedSaleAt
+  expectedSaleEndAt
+  isFeatured
+  name
+  preorderCount
+  publishStatus
+  slug
+  status
+  updatedAt
+}
+
+enum ShowcaseStatus {
+  COMING
+  IDEA
+  SHOWCASE
+}
+
+input ShowcaseStatusFilterComparison {
+  eq: ShowcaseStatus
+  gt: ShowcaseStatus
+  gte: ShowcaseStatus
+  iLike: ShowcaseStatus
+  in: [ShowcaseStatus!]
+  is: Boolean
+  isNot: Boolean
+  like: ShowcaseStatus
+  lt: ShowcaseStatus
+  lte: ShowcaseStatus
+  neq: ShowcaseStatus
+  notILike: ShowcaseStatus
+  notIn: [ShowcaseStatus!]
+  notLike: ShowcaseStatus
+}
+
+input ShowcaseUpdateInputDto {
+  brand: ShowcaseBrandInput
+  description: String
+  expectedQuantity: ShowcasePriceInput
+  expectedSaleAt: DateTime = null
+  expectedSaleEndAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
+  highlightFeatures: [ShowcaseHFCreateInputDto!]
+  id: String
+  image: MediaInput
+  imageLists: [ImageListCreateDto!]
+  inventory: ShowcaseInventoryDtoInput
+  isFeatured: Boolean
+  name: String
+  publishStatus: PublishStatus
+  status: ShowcaseStatus
+  updates: [PrjUpdateCreateDto!]
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+input SubmitInvestorInputDto {
+  email: String!
+  fund: String!
+  job: String!
+  method: String!
+  phone: String!
+  purpose: String!
+}
+
+input UpdateImageList {
+  id: ID
+}
+
+input UpdateInvestmentPackageDto {
+  benefitRate: Float
+  count: Float
+  displayName: String
+  fundedRate: Float
+  id: ID
+}
+
+input UpdateManyInvestmentPackageDtosInput {
+  """Filter used to find fields to update"""
+  filter: InvestmentPackageDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateInvestmentPackageDto!
+}
+
+input UpdateManyMediaDtosInput {
+  """Filter used to find fields to update"""
+  filter: MediaDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateMediaDto!
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateMediaDto {
+  filename: String
+  height: Float
+  id: ID
+  mimetype: String
+  path: String
+  preloadUrl: String
+  type: MediaType
+  width: Float
+}
+
+input UpdateOneImageListInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateImageList!
+}
+
+input UpdateOneInvestmentPackageDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateInvestmentPackageDto!
+}
+
+input UpdateOneMediaDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateMediaDto!
+}
+
+input UpdateOnePrjUpdateDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdatePrjUpdateDto!
+}
+
+input UpdatePrjUpdateDto {
+  content: String
+  createdAt: DateTime
+  id: ID
+}
+
+type User {
+  approvalStatus: UserStatusEnum!
+  email: String!
+  name: String!
+  photoURL: String!
+  role: AuthRoleType!
+  showcases: ShowcaseConnection!
+  uid: ID!
+}
+
+enum UserStatusEnum {
+  APPROVED_CREATOR
+  APPROVED_INVESTOR
+  PENDING_CREATOR
+  PENDING_INVESTOR
+}

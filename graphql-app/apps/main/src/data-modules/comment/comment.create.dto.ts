@@ -3,6 +3,9 @@ import { CommentRateEnum } from './comment.enum';
 
 @InputType()
 export class CommentCreateDto {
+  @Field({ nullable: true })
+  isTopComment?: boolean;
+
   @Field()
   content: string;
 
