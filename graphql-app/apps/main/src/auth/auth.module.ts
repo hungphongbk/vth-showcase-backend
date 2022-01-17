@@ -1,19 +1,12 @@
-import {
-  Class,
-  DeepPartial,
-  InjectQueryService,
-  QueryService,
-  RelationQueryService,
-} from '@nestjs-query/core';
+import { Class } from '@nestjs-query/core';
 import {
   DynamicModule,
   ForwardReference,
   Global,
   Inject,
-  Injectable,
   Module,
 } from '@nestjs/common';
-import { AuthQueryService } from './auth.query.service';
+import { AuthQueryService } from './services/auth.query.service';
 import { AuthAssembler } from './auth.assembler';
 import { PassportModule } from '@nestjs/passport';
 import { FirebaseAuthQueryService } from './firebase-auth-query.service';
@@ -21,33 +14,7 @@ import { AuthControllerModule } from './modules/auth.controller.module';
 import { FirebaseStrategy } from './firebase.strategy';
 import { AuthResolver } from './resolvers/auth.resolver';
 import { AuthAdminResolver } from './resolvers/auth.admin.resolver';
-
-function creator<DTO, C = DeepPartial<DTO>>(EntityClass: Class<any>) {
-  @Injectable()
-  class AuthRelationQueryService extends RelationQueryService<DTO, C> {
-    constructor(
-      @InjectQueryService(EntityClass) service: QueryService<DTO>,
-      private readonly authQueryService: AuthQueryService,
-    ) {
-      super(service, {
-        author: {
-          service: authQueryService,
-          query: (dto) => {
-            return {
-              filter: {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                uid: { eq: dto.authorUid },
-              },
-            };
-          },
-        },
-      });
-    }
-  }
-
-  return AuthRelationQueryService;
-}
+import { authRelationQueryService } from './services/auth-relation-query.service';
 
 interface ModuleOpts {
   imports: Array<
@@ -56,18 +23,14 @@ interface ModuleOpts {
   EntityClass: Class<any>;
 }
 
-function getServiceToken(DTOClass: { name: string }) {
-  return `${DTOClass.name}AuthoredQueryService`;
-}
-
 @Global()
 @Module({})
 export class AuthModule<DTO> {
   static forFeature(opts: ModuleOpts): DynamicModule {
-    const clazz = creator(opts.EntityClass);
+    const clazz = authRelationQueryService(opts.EntityClass);
 
     const provider = {
-      provide: getServiceToken(opts.EntityClass),
+      provide: authRelationQueryService.getServiceToken(opts.EntityClass),
       useClass: clazz,
     };
     return {
@@ -94,5 +57,5 @@ export class AuthModule<DTO> {
 export function InjectAuthoredQueryService<DTO>(
   DTOClass: Class<DTO>,
 ): ParameterDecorator {
-  return Inject(getServiceToken(DTOClass));
+  return Inject(authRelationQueryService.getServiceToken(DTOClass));
 }

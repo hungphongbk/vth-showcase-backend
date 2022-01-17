@@ -3,6 +3,32 @@ Content-Type: application/json
 
 {
   "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
+}
+
+<> 2022-01-17T124234.500.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyMzk4MTUyLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDIzOTgxNTIsImV4cCI6MTY0MjQwMTc1MiwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.0nMlCMPoxvcPY2Nq2-0hHc6niNeia7hDTVgIz3M_QE052btpZwCekNS-ehQJyoKghfODEYaEsf0ndEL-8EJ-qTr1krlzqUJKlj01faL9c9u2X_0C_1MEVESLQOAUGBCcJ5qUSLFV-wx3Tnx8WNHkyXbggaMk9JkiroQssDmNN_iTFiWApz-3JInpZ2YW49coaC3pG8cG8SVrUm2IA9sCjsg-wXi81iOQMF24tHXuV-N6vjYFyudaWdyi9vu2rzmLL1zz_E8291GVeHn0IAkZfIHYXI5fSr871F3SwL-lstRd90Ho4AbO1mXbI3R1cIX8uwtbYiKCYm9xkVT5ic9gUg
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-17T124234.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
   "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
 }
 
@@ -560,24 +586,6 @@ Content-Type: application/json
 
 POST http://localhost:3000/auth/login
 Accept: application/json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
-}
-
-<> 2021-12-26T063227-2.200.json
 
 ###
 

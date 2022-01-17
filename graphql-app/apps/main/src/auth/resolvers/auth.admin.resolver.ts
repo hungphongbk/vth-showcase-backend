@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../gql.auth.guard';
 import { AuthDto, AuthRoleType } from '../dtos/auth.dto';
-import { AuthQueryService } from '../auth.query.service';
+import { AuthQueryService } from '../services/auth.query.service';
 
 @Resolver()
 export class AuthAdminResolver {

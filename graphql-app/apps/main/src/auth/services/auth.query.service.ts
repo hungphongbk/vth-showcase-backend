@@ -1,7 +1,7 @@
 import { AssemblerQueryService, QueryService } from '@nestjs-query/core';
-import { AuthAssembler, FirebaseUserClass } from './auth.assembler';
-import { AuthDto } from './dtos/auth.dto';
-import { FirebaseAuthQueryService } from './firebase-auth-query.service';
+import { AuthAssembler, FirebaseUserClass } from '../auth.assembler';
+import { AuthDto } from '../dtos/auth.dto';
+import { FirebaseAuthQueryService } from '../firebase-auth-query.service';
 import { forwardRef, Inject } from '@nestjs/common';
 
 @QueryService(AuthDto)

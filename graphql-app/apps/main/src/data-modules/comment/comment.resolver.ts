@@ -50,6 +50,7 @@ export class CommentResolver {
     let comment = await this.commentQueryService.createOne({
       ...input.input,
       authorUid: user.uid,
+      isTopComment: input.input.isTopComment ?? false,
     });
     const showcase = await this.showcaseService.getOneShowcase(slug);
     comment = await this.commentQueryService.setRelation(

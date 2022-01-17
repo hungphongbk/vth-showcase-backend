@@ -25,6 +25,9 @@ export class CommentDto {
   @Field(() => [CommentRateEnum])
   rate!: CommentRateEnum[];
 
+  @FilterableField(() => Boolean, { nullable: false })
+  isTopComment!: boolean;
+
   @Field(() => GraphQLISODateTime)
   createdAt!: Date;
 
