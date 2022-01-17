@@ -35,6 +35,9 @@ export class CommentEntity {
   })
   rate!: CommentRateEnum[];
 
+  @Column({ type: 'boolean', default: false, nullable: false })
+  isTopComment!: boolean;
+
   @CreateDateColumn()
   createdAt!: Date;
 
