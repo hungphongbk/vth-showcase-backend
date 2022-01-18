@@ -731,6 +731,10 @@ input PublishStatusFilterComparison {
 }
 
 type Query {
+  commentDto(
+    """The id of the record to find."""
+    id: ID!
+  ): CommentDto
   currentUser: User!
   getAllUsers: [User!]!
   getOneUser(uid: String!): User!
