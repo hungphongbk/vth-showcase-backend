@@ -66,6 +66,7 @@ registerEnumType(PublishStatus, {
 })
 @QueryOptions({
   defaultFilter: { publishStatus: { eq: PublishStatus.PUBLISHED } },
+  enableTotalCount: true,
 })
 export class ShowcaseDto {
   @Field(() => ID)
