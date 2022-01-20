@@ -42,6 +42,7 @@ export class ShowcaseResolver {
       deepmerge(query, {
         filter: { slug: { notLike: 'ci-test%' } },
       } as ShowcaseQuery),
+      (f) => this.service.count(f),
     );
   }
 
