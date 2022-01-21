@@ -12,7 +12,7 @@ export const PreorderGraphqlModule = NestjsQueryGraphQLModule.forFeature({
       read: { one: { disabled: true }, many: { disabled: true } },
       create: { one: { disabled: true }, many: { disabled: true } },
       update: { one: { disabled: true }, many: { disabled: true } },
-      delete: { one: { disabled: true }, many: { disabled: true } },
+      delete: { one: { disabled: true }, many: { disabled: false } },
     },
   ],
 });

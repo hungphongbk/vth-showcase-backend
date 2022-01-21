@@ -12,8 +12,10 @@ import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { PreorderEntity } from './entities/preorder.entity';
 import { Inject, UseGuards } from '@nestjs/common';
 import {
+  AuthAssembler,
   AuthDto,
   CurrentUser,
+  FirebaseUserClass,
   GqlAuthGuard,
   GqlOptionalAuthGuard,
 } from '../../auth';
@@ -23,10 +25,9 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
-import { auth } from 'firebase-admin';
 import { PreorderConnection, PreorderDtoQuery } from './preorder.connection';
 import * as deepmerge from 'deepmerge';
-import UserRecord = auth.UserRecord;
+import { MailerService } from '@app/mailer';
 
 @ObjectType({ isAbstract: true })
 class PreorderResponseTokenDto {
@@ -60,6 +61,8 @@ export class PreorderResolver {
     private readonly showcaseService: ShowcaseQueryService,
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
+    @Inject(MailerService) private readonly mailerService: MailerService,
+    @Inject(AuthAssembler) private readonly converter: AuthAssembler,
   ) {
     //
   }
@@ -89,10 +92,12 @@ export class PreorderResolver {
   ): Promise<PreorderResponseDto> {
     let uid = user?.uid,
       token: string | undefined = undefined;
+    let _user = user;
 
     if (!uid) {
       const anonymous = await this.createUserAnonymously(input);
-      uid = anonymous[0].uid;
+      _user = this.converter.convertToDTO(anonymous[0]);
+      uid = _user.uid;
       token = anonymous[1];
     }
 
@@ -110,6 +115,12 @@ export class PreorderResolver {
         showcase.id,
       );
     }
+
+    await this.mailerService.sendPreorderNotify({
+      email: _user.email,
+      name: _user.name,
+      product_name: showcase.name,
+    });
     return {
       ...preorder,
       customToken: token,
@@ -118,7 +129,7 @@ export class PreorderResolver {
 
   async createUserAnonymously(
     input: PreorderRequestInputDto,
-  ): Promise<[UserRecord, string]> {
+  ): Promise<[FirebaseUserClass, string]> {
     let userRecord;
     try {
       userRecord = await this.firebaseAdmin.auth().getUserByEmail(input.email);

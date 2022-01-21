@@ -13,6 +13,7 @@ import { UploadModule } from '@app/upload';
 import { SeederModule } from './seeder/seeder.module';
 import { SentryLoggerModule } from './sentry-logger/sentry-logger.module';
 import { FirebaseModule } from '@app/firebase';
+import { MailerModule } from '@app/mailer';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { FirebaseModule } from '@app/firebase';
       }),
     }),
     FirebaseModule,
+    MailerModule,
     ScheduleModule.forRoot(),
     GqlModule,
     DataModulesModule,

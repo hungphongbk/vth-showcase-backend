@@ -49,7 +49,7 @@ export class AuthModule<DTO> {
         AuthResolver,
         AuthAdminResolver,
       ],
-      exports: [provider, AuthQueryService, FirebaseStrategy],
+      exports: [provider, AuthQueryService, FirebaseStrategy, AuthAssembler],
     };
   }
 }

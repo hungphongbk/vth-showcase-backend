@@ -194,6 +194,11 @@ input DeleteManyMediaDtosInput {
   filter: MediaDtoDeleteFilter!
 }
 
+input DeleteManyPreorderDtosInput {
+  """Filter to find records to delete"""
+  filter: PreorderDtoDeleteFilter!
+}
+
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -514,6 +519,7 @@ type Mutation {
   createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
+  deleteManyPreorderDtos(input: DeleteManyPreorderDtosInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneCommentDto(input: DeleteOneCommentDtoInput!): CommentDtoDeleteResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
@@ -610,6 +616,12 @@ type PreorderDtoConnection {
 
 type PreorderDtoCountAggregate {
   id: Int
+}
+
+input PreorderDtoDeleteFilter {
+  and: [PreorderDtoDeleteFilter!]
+  id: IDFilterComparison
+  or: [PreorderDtoDeleteFilter!]
 }
 
 type PreorderDtoEdge {
