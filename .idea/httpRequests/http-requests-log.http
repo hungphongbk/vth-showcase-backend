@@ -1,4 +1,268 @@
 POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{
+  "operationName": "createShowcase",
+  "query": "mutation createShowcase { createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" preloadUrl: \"\" width: 800 height: 600 } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } ] } ] updates: [ {content: \"foo\"} ] } ) { id name image { path } highlightFeatures { name } imageLists { images { path } } updates { content } } }"
+}
+
+<> 2022-01-21T195139.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ author { name } content } } }"
+}
+
+<> 2022-01-21T195138.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
+}
+
+<> 2022-01-21T195137-2.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-21T195137-1.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{
+  "operationName": "postNewUpdate",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
+}
+
+<> 2022-01-21T195137.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Accept-Encoding: gzip, deflate, br
+Accept: application/json
+Connection: keep-alive
+DNT: 1
+Origin: http://localhost:3000
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{"query":"query CurrentUser {  currentUser { uid email name role }}"}
+
+<> 2022-01-21T195136.200.json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
+
+<> 2022-01-21T195135.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ author { name } content } } }"
+}
+
+<> 2022-01-21T193307-1.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-21T193307.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ author { name } content } } }"
+}
+
+<> 2022-01-21T193254.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-21T193253.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
+}
+
+<> 2022-01-21T193213.500.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQyNzY4MzMxLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDI3NjgzMzEsImV4cCI6MTY0Mjc3MTkzMSwiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.an9su_f9K8VDj6sab7aKgci6W7krskDiwIkbrIEDW7Bv2oKevK1fee-vCNJKcvezn9t3-1PopcpKThNY--zbS02K1TmH7wWtaK3VhlxZs40rvEH_F6Uh3XsYrVlrscWyGGXbTKScdGOGnKT0ADSm8fobBUB0Rll2YN-_UkzgnGScvcTeHMwHzq9nW9qQK8NO1zz_WCk4gO1dLN6xu-zuzWh9RW7UP9ydRR3RPpg0_IPnW1nj9TYeQuaMEv1f5P4wuEyeoiZ4aSyrvfwf3CXIgX5bAqX-CTGjR5AVorkGxG6n3SE1_8pLSELCYjm9Zkx88jUZmPydNl3Yeb7sa4fG5w
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-21T193213.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
+}
+
+<> 2022-01-21T192301.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer null
+Content-Type: application/json
+
+{
+  "operationName": "postNewUpdate",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
+}
+
+<> 2022-01-21T192300-3.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
+}
+
+<> 2022-01-21T192300.500.json
+
+###
+
+POST http://localhost:3000/graphql
+Accept-Encoding: gzip, deflate, br
+Accept: application/json
+Connection: keep-alive
+DNT: 1
+Origin: http://localhost:3000
+Authorization: Bearer null
+Content-Type: application/json
+
+{"query":"query CurrentUser {  currentUser { uid email name role }}"}
+
+<> 2022-01-21T192300-2.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer null
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+<> 2022-01-21T192300-1.200.json
+
+###
+
+POST http://localhost:3000/graphql
+Authorization: Bearer null
+Content-Type: application/json
+
+{
+  "operationName": "createShowcase",
+  "query": "mutation createShowcase { createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" preloadUrl: \"\" width: 800 height: 600 } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } ] } ] updates: [ {content: \"foo\"} ] } ) { id name image { path } highlightFeatures { name } imageLists { images { path } } updates { content } } }"
+}
+
+<> 2022-01-21T192300.200.json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+
+###
+
+POST http://localhost:3000/auth/login
+Accept: application/json
+X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
+
+<> 2022-01-21T192259.500.json
+
+###
+
+POST http://localhost:3000/graphql
 Content-Type: application/json
 
 {
@@ -334,258 +598,6 @@ Content-Type: application/json
 }
 
 <> 2022-01-01T200222.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxMDQxODczLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDEwNDE4NzMsImV4cCI6MTY0MTA0NTQ3MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.LEwOFBysRW8qnJYGAZfzHHCYK24xDOSysgAWqgZf5Gy1LST7DUtoba1WiSc_tCZK_gMQsNfJjqmN1g7EFB4hvfqmUN6NUTqd2wIQFE4zkwCWZ5ZPZ1lDmF9QpiYolZKtfjKTA1rKgePiAx-53kYFdttLXB0Sqwl3Pe8ueBd_v9fauOyN06Oup5lBt9plnF49ZfgoSQVWIsgvDDIm-_OHBafpc2Vlb12J69JQR9my9-2gg2ZslbpEU4d__lF5wjkmH2GSNM45XTqQreP62sYx3RDNP5XyHFVBoyHc9KwVMo_-RyyXR00lOk3V14m0Y8r61Raw5Op5E44Xro5pKRHPKA
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-<> 2022-01-01T200220.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ ga comments{ nodes { author { name } content } } } }"
-}
-
-<> 2022-01-01T195958.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxMDQxODczLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDEwNDE4NzMsImV4cCI6MTY0MTA0NTQ3MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.LEwOFBysRW8qnJYGAZfzHHCYK24xDOSysgAWqgZf5Gy1LST7DUtoba1WiSc_tCZK_gMQsNfJjqmN1g7EFB4hvfqmUN6NUTqd2wIQFE4zkwCWZ5ZPZ1lDmF9QpiYolZKtfjKTA1rKgePiAx-53kYFdttLXB0Sqwl3Pe8ueBd_v9fauOyN06Oup5lBt9plnF49ZfgoSQVWIsgvDDIm-_OHBafpc2Vlb12J69JQR9my9-2gg2ZslbpEU4d__lF5wjkmH2GSNM45XTqQreP62sYx3RDNP5XyHFVBoyHc9KwVMo_-RyyXR00lOk3V14m0Y8r61Raw5Op5E44Xro5pKRHPKA
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-<> 2022-01-01T195957.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ ga comments{ nodes { author { name } content } } } }"
-}
-
-<> 2022-01-01T195758.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjFkMmE2YTZhNDcyYWNhNjNmM2FmNzU2NjIxZjM0Njg2OTI1YjUxYTgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQxMDQxODczLCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDEwNDE4NzMsImV4cCI6MTY0MTA0NTQ3MywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.LEwOFBysRW8qnJYGAZfzHHCYK24xDOSysgAWqgZf5Gy1LST7DUtoba1WiSc_tCZK_gMQsNfJjqmN1g7EFB4hvfqmUN6NUTqd2wIQFE4zkwCWZ5ZPZ1lDmF9QpiYolZKtfjKTA1rKgePiAx-53kYFdttLXB0Sqwl3Pe8ueBd_v9fauOyN06Oup5lBt9plnF49ZfgoSQVWIsgvDDIm-_OHBafpc2Vlb12J69JQR9my9-2gg2ZslbpEU4d__lF5wjkmH2GSNM45XTqQreP62sYx3RDNP5XyHFVBoyHc9KwVMo_-RyyXR00lOk3V14m0Y8r61Raw5Op5E44Xro5pKRHPKA
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-<> 2022-01-01T195757.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ ga comments{ nodes { author { name } content } } } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer {{auth_token}}
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ ga comments{ nodes { author { name } content } } } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer {{auth_token}}
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
-}
-
-<> 2021-12-29T160116-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
-}
-
-<> 2021-12-29T160116.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNzY4NDY3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA3Njg0NjcsImV4cCI6MTY0MDc3MjA2NywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.dyYO_m7PeWzB12y0ZCrW0ACIIPBKkdnmODx7bFHxVmU5T8bJt9TatfI2YgIEfdBS4EAMne8aH38sBhmboOTXFx9GtWazx9Mo0srffzHPYPMoza3-YTyHgPP4z42msz3An2SW5IRxzSJbBrGg_PPoi4dqifmrRO81epOrTDdAKOljfuH_fjCU7kJneM0BLwceUqLbu5CiMKUGp4MQtpupwBHUeu9EKWIQ4fe2B1eqGRWgcCYu12jonxAR9XFFqnVL1Vi14tu7tkJBc684MoTFjWyxI4WejE45VALgsdKV-jqXupuv-jiLHc5hIYq6VJhRdhNwM31shtrw5MvZ5XgnjQ
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-<> 2021-12-29T160115-1.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNzY4NDY3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA3Njg0NjcsImV4cCI6MTY0MDc3MjA2NywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.dyYO_m7PeWzB12y0ZCrW0ACIIPBKkdnmODx7bFHxVmU5T8bJt9TatfI2YgIEfdBS4EAMne8aH38sBhmboOTXFx9GtWazx9Mo0srffzHPYPMoza3-YTyHgPP4z42msz3An2SW5IRxzSJbBrGg_PPoi4dqifmrRO81epOrTDdAKOljfuH_fjCU7kJneM0BLwceUqLbu5CiMKUGp4MQtpupwBHUeu9EKWIQ4fe2B1eqGRWgcCYu12jonxAR9XFFqnVL1Vi14tu7tkJBc684MoTFjWyxI4WejE45VALgsdKV-jqXupuv-jiLHc5hIYq6VJhRdhNwM31shtrw5MvZ5XgnjQ
-Content-Type: application/json
-
-{
-  "operationName": "postNewUpdate",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
-}
-
-<> 2021-12-29T160115.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Accept-Encoding: gzip, deflate, br
-Accept: application/json
-Connection: keep-alive
-DNT: 1
-Origin: http://localhost:3000
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjcxMTQzNzFiMmU4NmY4MGM1YzYxNThmNDUzYzk0NTEyNmZlNzM5Y2MiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVHLGsMahbmcgSMO5bmcgUGhvbmciLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dWTldEaXZ3VDQzZGZLMlZnQmhTdlRPVm5TbkpZbGl0cVo3ZkdDeUE9czk2LWMiLCJzdXBlcmFkbWluIjp0cnVlLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdmFpdGh1aGF5LXNob3djYXNlIiwiYXVkIjoidmFpdGh1aGF5LXNob3djYXNlIiwiYXV0aF90aW1lIjoxNjQwNzY4NDY3LCJ1c2VyX2lkIjoiMzg2cG5SOG93NGhKcjdubDdiajkyVHhmMmZuMSIsInN1YiI6IjM4NnBuUjhvdzRoSnI3bmw3Ymo5MlR4ZjJmbjEiLCJpYXQiOjE2NDA3Njg0NjcsImV4cCI6MTY0MDc3MjA2NywiZW1haWwiOiJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDU5NzI4NzQ0MjY5NDI4MzMwOSJdLCJlbWFpbCI6WyJwcm9ncmFtbWluZ2QzMkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.dyYO_m7PeWzB12y0ZCrW0ACIIPBKkdnmODx7bFHxVmU5T8bJt9TatfI2YgIEfdBS4EAMne8aH38sBhmboOTXFx9GtWazx9Mo0srffzHPYPMoza3-YTyHgPP4z42msz3An2SW5IRxzSJbBrGg_PPoi4dqifmrRO81epOrTDdAKOljfuH_fjCU7kJneM0BLwceUqLbu5CiMKUGp4MQtpupwBHUeu9EKWIQ4fe2B1eqGRWgcCYu12jonxAR9XFFqnVL1Vi14tu7tkJBc684MoTFjWyxI4WejE45VALgsdKV-jqXupuv-jiLHc5hIYq6VJhRdhNwM31shtrw5MvZ5XgnjQ
-Content-Type: application/json
-
-{"query":"query CurrentUser {  currentUser { uid email name role }}"}
-
-<> 2021-12-29T160112.200.json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
-X-Test-Uid: 386pnR8ow4hJr7nl7bj92Txf2fn1
-
-<> 2021-12-29T160107.200.json
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer {{auth_token}}
-Content-Type: application/json
-
-{
-  "operationName": "postNewUpdate",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ nodes { author { name } content } } } }"
-}
-
-###
-
-POST http://localhost:3000/graphql
-Accept-Encoding: gzip, deflate, br
-Accept: application/json
-Connection: keep-alive
-DNT: 1
-Origin: http://localhost:3000
-Authorization: Bearer {{auth_token}}
-Content-Type: application/json
-
-{"query":"query CurrentUser {  currentUser { uid email name role }}"}
-
-###
-
-POST http://localhost:3000/graphql
-Authorization: Bearer {{auth_token}}
-Content-Type: application/json
-
-{
-  "operationName": "postNewComment",
-  "variables": { "slug": "showcase-mac-dinh" },
-  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
-}
-
-###
-
-POST http://localhost:3000/auth/login
-Accept: application/json
 
 ###
 

@@ -28,17 +28,9 @@ jobs:
     env:
       DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-graphql
       IMAGE_NAME: ${{ github.repository }}
-      FIREBASE_CRED_DIR: ./graphql-app/main/src.private
-      FIREBASE_CRED_PATH: ./graphql-app/main/src.private/firebase-credentials.json
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-
-      - name: Create env file & credential files
-        run: |
-          mkdir -p $FIREBASE_CRED_DIR
-          touch $FIREBASE_CRED_PATH
-          echo '${{ secrets.FIREBASE_CREDS }}' > $FIREBASE_CRED_PATH
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx

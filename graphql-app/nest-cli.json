@@ -31,6 +31,24 @@
       "compilerOptions": {
         "tsConfigPath": "libs/upload/tsconfig.lib.json"
       }
+    },
+    "mailer": {
+      "type": "library",
+      "root": "libs/mailer",
+      "entryFile": "index",
+      "sourceRoot": "libs/mailer/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mailer/tsconfig.lib.json"
+      }
+    },
+    "firebase": {
+      "type": "library",
+      "root": "libs/firebase",
+      "entryFile": "index",
+      "sourceRoot": "libs/firebase/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/firebase/tsconfig.lib.json"
+      }
     }
   }
 }

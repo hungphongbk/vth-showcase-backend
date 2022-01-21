@@ -148,7 +148,9 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/upload(|/.*)$": "<rootDir>/libs/upload/src/$1"
+      "^@app/upload(|/.*)$": "<rootDir>/libs/upload/src/$1",
+      "^@app/mailer(|/.*)$": "<rootDir>/libs/mailer/src/$1",
+      "^@app/firebase(|/.*)$": "<rootDir>/libs/firebase/src/$1"
     }
   }
 }

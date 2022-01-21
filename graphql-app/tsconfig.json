@@ -24,6 +24,18 @@
       ],
       "@app/upload/*": [
         "libs/upload/src/*"
+      ],
+      "@app/mailer": [
+        "libs/mailer/src"
+      ],
+      "@app/mailer/*": [
+        "libs/mailer/src/*"
+      ],
+      "@app/firebase": [
+        "libs/firebase/src"
+      ],
+      "@app/firebase/*": [
+        "libs/firebase/src/*"
       ]
     }
   }
