@@ -108,4 +108,4 @@ dist
 !.gitkeep
 /.test/http-client.env.json
 /.test/*.graphql
-/.kube/config.yml
+.idea/httpRequests/http-requests-log.http
