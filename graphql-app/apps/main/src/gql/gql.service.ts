@@ -16,17 +16,20 @@ export class GqlService implements GqlOptionsFactory {
   ) {}
   createGqlOptions(): GqlModuleOptions {
     const cache = new BaseRedisCache({
-      client: new Redis({
-        host: this.configService.get('REDIS_HOST'),
-        port: this.configService.get('REDIS_PORT'),
+        client: new Redis({
+          host: this.configService.get('REDIS_HOST'),
+          port: this.configService.get('REDIS_PORT'),
+        }),
       }),
-    });
+      enableIntrospection =
+        this.configService.get<boolean>('GQL_INTROSPECTION');
+
     return {
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       debug: process.env.NODE_ENV === 'development',
-      playground: true,
-      introspection: true,
+      playground: enableIntrospection,
+      introspection: enableIntrospection,
       schemaDirectives: {
         currency: CurrencyDirective,
         ssrAware: SsrAwareDirective,
