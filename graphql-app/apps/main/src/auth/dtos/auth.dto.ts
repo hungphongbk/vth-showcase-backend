@@ -22,6 +22,9 @@ export class AuthDto {
   @FilterableField()
   email: string;
 
+  @Field({ nullable: true })
+  phoneNumber: string;
+
   @Field()
   photoURL: string;
 

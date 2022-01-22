@@ -1481,6 +1481,7 @@ type User {
   approvalStatus: UserStatusEnum!
   email: String!
   name: String!
+  phoneNumber: String
   photoURL: String!
   role: AuthRoleType!
   showcases: ShowcaseConnection!
