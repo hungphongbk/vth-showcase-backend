@@ -72,6 +72,7 @@
     "graphql": "^15.7.2",
     "graphql-scalars": "^1.13.6",
     "graphql-subscriptions": "^1.2.1",
+    "graphql-type-json": "^0.3.2",
     "graphql-upload": "^12.0.0",
     "ioredis": "^4.28.2",
     "joi": "^17.5.0",
@@ -150,7 +151,8 @@
     "moduleNameMapper": {
       "^@app/upload(|/.*)$": "<rootDir>/libs/upload/src/$1",
       "^@app/mailer(|/.*)$": "<rootDir>/libs/mailer/src/$1",
-      "^@app/firebase(|/.*)$": "<rootDir>/libs/firebase/src/$1"
+      "^@app/firebase(|/.*)$": "<rootDir>/libs/firebase/src/$1",
+      "^@app/query-firestore(|/.*)$": "<rootDir>/libs/query-firestore/src/$1"
     }
   }
 }

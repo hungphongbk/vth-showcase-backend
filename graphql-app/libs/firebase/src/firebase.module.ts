@@ -8,7 +8,6 @@ const firebaseAdminModule = FirebaseAdminModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => {
-    console.log(configService.get('FIREBASE_CONFIG'));
     return {
       credential: cert(JSON.parse(configService.get('FIREBASE_CONFIG'))),
     };

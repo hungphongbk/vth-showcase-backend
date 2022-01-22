@@ -49,6 +49,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/firebase/tsconfig.lib.json"
       }
+    },
+    "query-firestore": {
+      "type": "library",
+      "root": "libs/query-firestore",
+      "entryFile": "index",
+      "sourceRoot": "libs/query-firestore/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/query-firestore/tsconfig.lib.json"
+      }
     }
   }
 }

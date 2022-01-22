@@ -1,11 +1,13 @@
 import { Global, Module } from '@nestjs/common';
 import { MailerService } from './mailer.service';
-import { FirebaseModule } from '@app/firebase';
+import { NestjsQueryFirestoreModule } from '@app/query-firestore';
+import { MailDto } from '@app/mailer/dtos/mail.dto';
+import { MailerResolver } from '@app/mailer/mailer.resolver';
 
 @Global()
 @Module({
-  imports: [FirebaseModule],
-  providers: [MailerService],
+  imports: [NestjsQueryFirestoreModule.forFeature(MailDto)],
+  providers: [MailerService, MailerResolver],
   exports: [MailerService],
 })
 export class MailerModule {}

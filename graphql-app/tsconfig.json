@@ -36,6 +36,12 @@
       ],
       "@app/firebase/*": [
         "libs/firebase/src/*"
+      ],
+      "@app/query-firestore": [
+        "libs/query-firestore/src"
+      ],
+      "@app/query-firestore/*": [
+        "libs/query-firestore/src/*"
       ]
     }
   }
