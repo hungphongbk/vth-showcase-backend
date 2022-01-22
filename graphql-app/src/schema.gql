@@ -125,9 +125,21 @@ input CreateInvestmentPackageDto {
   id: ID
 }
 
+input CreateMailTemplateDto {
+  html: String
+  id: String
+  name: String
+  subject: String
+}
+
 input CreateManyInvestmentPackageDtosInput {
   """Array of records to create"""
   investmentPackageDtos: [CreateInvestmentPackageDto!]!
+}
+
+input CreateManyMailTemplateDtosInput {
+  """Array of records to create"""
+  mailTemplateDtos: [CreateMailTemplateDto!]!
 }
 
 input CreateManyMediaDtosInput {
@@ -138,6 +150,11 @@ input CreateManyMediaDtosInput {
 input CreateOneInvestmentPackageDtoInput {
   """The record to create"""
   investmentPackageDto: CreateInvestmentPackageDto!
+}
+
+input CreateOneMailTemplateDtoInput {
+  """The record to create"""
+  mailTemplateDto: CreateMailTemplateDto!
 }
 
 input CreateOneMediaDtoInput {
@@ -189,6 +206,11 @@ input DeleteManyInvestmentPackageDtosInput {
   filter: InvestmentPackageDtoDeleteFilter!
 }
 
+input DeleteManyMailTemplateDtosInput {
+  """Filter to find records to delete"""
+  filter: MailTemplateDtoDeleteFilter!
+}
+
 input DeleteManyMediaDtosInput {
   """Filter to find records to delete"""
   filter: MediaDtoDeleteFilter!
@@ -222,6 +244,11 @@ input DeleteOneImageListInput {
 input DeleteOneInvestmentPackageDtoInput {
   """The id of the record to delete."""
   id: ID!
+}
+
+input DeleteOneMailTemplateDtoInput {
+  """The id of the record to delete."""
+  id: String!
 }
 
 input DeleteOneMediaDtoInput {
@@ -417,6 +444,88 @@ type MailDto {
   to: [String!]!
 }
 
+type MailTemplateDto {
+  html: String!
+  id: String!
+  name: String!
+  subject: String!
+}
+
+type MailTemplateDtoAggregateGroupBy {
+  id: String
+  name: String
+}
+
+type MailTemplateDtoConnection {
+  """Array of edges."""
+  edges: [MailTemplateDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type MailTemplateDtoCountAggregate {
+  id: Int
+  name: Int
+}
+
+input MailTemplateDtoDeleteFilter {
+  and: [MailTemplateDtoDeleteFilter!]
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [MailTemplateDtoDeleteFilter!]
+}
+
+type MailTemplateDtoDeleteResponse {
+  html: String
+  id: String
+  name: String
+  subject: String
+}
+
+type MailTemplateDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the MailTemplateDto"""
+  node: MailTemplateDto!
+}
+
+input MailTemplateDtoFilter {
+  and: [MailTemplateDtoFilter!]
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [MailTemplateDtoFilter!]
+}
+
+type MailTemplateDtoMaxAggregate {
+  id: String
+  name: String
+}
+
+type MailTemplateDtoMinAggregate {
+  id: String
+  name: String
+}
+
+input MailTemplateDtoSort {
+  direction: SortDirection!
+  field: MailTemplateDtoSortFields!
+  nulls: SortNulls
+}
+
+enum MailTemplateDtoSortFields {
+  id
+  name
+}
+
+input MailTemplateDtoUpdateFilter {
+  and: [MailTemplateDtoUpdateFilter!]
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [MailTemplateDtoUpdateFilter!]
+}
+
 type MailTemplateSpecDto {
   data: JSON!
   name: String!
@@ -536,21 +645,25 @@ enum MediaType {
 type Mutation {
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
+  createManyMailTemplateDtos(input: CreateManyMailTemplateDtosInput!): [MailTemplateDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
   createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
+  createOneMailTemplateDto(input: CreateOneMailTemplateDtoInput!): MailTemplateDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOnePreorder(input: PreorderRequestInputDto, slug: String!): PreorderResponseDto!
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
+  deleteManyMailTemplateDtos(input: DeleteManyMailTemplateDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
   deleteManyPreorderDtos(input: DeleteManyPreorderDtosInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneCommentDto(input: DeleteOneCommentDtoInput!): CommentDtoDeleteResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
+  deleteOneMailTemplateDto(input: DeleteOneMailTemplateDtoInput!): MailTemplateDtoDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
   deleteOneMediaFromImageList(id: ID!, mediaId: ID!): ImageList!
   deleteOnePrjUpdateDto(input: DeleteOnePrjUpdateDtoInput!): PrjUpdateDtoDeleteResponse!
@@ -573,10 +686,12 @@ type Mutation {
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
   submitInvestor(form: SubmitInvestorInputDto!): Boolean!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
+  updateManyMailTemplateDtos(input: UpdateManyMailTemplateDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
   updateOneCommentDto(input: UpdateOneCommentDtoInput!): CommentDto!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
+  updateOneMailTemplateDto(input: UpdateOneMailTemplateDtoInput!): MailTemplateDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
   updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
   updateOneSetting(input: SettingCreateDto!): Boolean!
@@ -818,6 +933,20 @@ type Query {
     """Specify to sort results."""
     sorting: [InvestmentPackageDtoSort!] = []
   ): InvestmentPackageDtoConnection!
+  mailTemplateDto(
+    """The id of the record to find."""
+    id: String!
+  ): MailTemplateDto
+  mailTemplateDtos(
+    """Specify to filter the records returned."""
+    filter: MailTemplateDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [MailTemplateDtoSort!] = []
+  ): MailTemplateDtoConnection!
   mediaDto(
     """The id of the record to find."""
     id: ID!
@@ -1427,12 +1556,27 @@ input UpdateInvestmentPackageDto {
   id: ID
 }
 
+input UpdateMailTemplateDto {
+  html: String
+  id: String
+  name: String
+  subject: String
+}
+
 input UpdateManyInvestmentPackageDtosInput {
   """Filter used to find fields to update"""
   filter: InvestmentPackageDtoUpdateFilter!
 
   """The update to apply to all records found using the filter"""
   update: UpdateInvestmentPackageDto!
+}
+
+input UpdateManyMailTemplateDtosInput {
+  """Filter used to find fields to update"""
+  filter: MailTemplateDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateMailTemplateDto!
 }
 
 input UpdateManyMediaDtosInput {
@@ -1481,6 +1625,14 @@ input UpdateOneInvestmentPackageDtoInput {
 
   """The update to apply."""
   update: UpdateInvestmentPackageDto!
+}
+
+input UpdateOneMailTemplateDtoInput {
+  """The id of the record to update"""
+  id: String!
+
+  """The update to apply."""
+  update: UpdateMailTemplateDto!
 }
 
 input UpdateOneMediaDtoInput {
