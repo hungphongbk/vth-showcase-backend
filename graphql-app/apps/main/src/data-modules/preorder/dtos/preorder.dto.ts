@@ -1,4 +1,4 @@
-import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
+import { GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField,
   QueryOptions,
@@ -37,6 +37,6 @@ export class PreorderDto {
   authorUid: string;
   showcaseId: string;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   createdAt!: Date;
 }

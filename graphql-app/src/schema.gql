@@ -599,6 +599,7 @@ type PreorderDto {
 }
 
 type PreorderDtoAggregateGroupBy {
+  createdAt: DateTime
   id: ID
 }
 
@@ -618,11 +619,13 @@ type PreorderDtoConnection {
 }
 
 type PreorderDtoCountAggregate {
+  createdAt: Int
   id: Int
 }
 
 input PreorderDtoDeleteFilter {
   and: [PreorderDtoDeleteFilter!]
+  createdAt: DateFieldComparison
   id: IDFilterComparison
   or: [PreorderDtoDeleteFilter!]
 }
@@ -637,15 +640,18 @@ type PreorderDtoEdge {
 
 input PreorderDtoFilter {
   and: [PreorderDtoFilter!]
+  createdAt: DateFieldComparison
   id: IDFilterComparison
   or: [PreorderDtoFilter!]
 }
 
 type PreorderDtoMaxAggregate {
+  createdAt: DateTime
   id: ID
 }
 
 type PreorderDtoMinAggregate {
+  createdAt: DateTime
   id: ID
 }
 
@@ -656,6 +662,7 @@ input PreorderDtoSort {
 }
 
 enum PreorderDtoSortFields {
+  createdAt
   id
 }
 
