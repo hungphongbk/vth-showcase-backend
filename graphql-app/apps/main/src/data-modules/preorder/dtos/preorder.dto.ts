@@ -1,5 +1,9 @@
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
-import { FilterableField, Relation } from '@nestjs-query/query-graphql';
+import {
+  FilterableField,
+  QueryOptions,
+  Relation,
+} from '@nestjs-query/query-graphql';
 import { AuthDto } from '../../../auth';
 import { ShowcaseDto } from '../../showcase/dtos/showcase.dto';
 
@@ -22,6 +26,9 @@ import { ShowcaseDto } from '../../showcase/dtos/showcase.dto';
   nullable: false,
   disableUpdate: true,
   disableRemove: true,
+})
+@QueryOptions({
+  enableTotalCount: true,
 })
 export class PreorderDto {
   @FilterableField(() => ID)
