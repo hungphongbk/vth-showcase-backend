@@ -75,15 +75,17 @@ export class FirestoreQueryService<DTO extends EntityDTO>
 
   async createOne(item: DeepPartial<DTO>): Promise<DTO> {
     const { id, ...rest } = item;
-    let res;
-    if (!id) {
+    let res,
+      _id = id;
+    if (!_id) {
       res = await this.collection.add(rest as unknown as DTO);
+      _id = res.id;
     } else {
       res = await this.collection
-        .doc(id as unknown as string)
+        .doc(_id as unknown as string)
         .set(rest as unknown as DTO);
     }
-    return this.convertToDTO(await res.get());
+    return await this.getById(_id as unknown as string);
   }
 
   deleteMany(filter: Filter<DTO>): Promise<DeleteManyResponse> {
