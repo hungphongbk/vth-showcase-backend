@@ -126,6 +126,7 @@ input CreateInvestmentPackageDto {
 }
 
 input CreateMailTemplateDto {
+  _serializedNode: String
   html: String
   id: String
   name: String
@@ -445,6 +446,7 @@ type MailDto {
 }
 
 type MailTemplateDto {
+  _serializedNode: String!
   html: String!
   id: String!
   name: String!
@@ -477,6 +479,7 @@ input MailTemplateDtoDeleteFilter {
 }
 
 type MailTemplateDtoDeleteResponse {
+  _serializedNode: String
   html: String
   id: String
   name: String
@@ -1557,6 +1560,7 @@ input UpdateInvestmentPackageDto {
 }
 
 input UpdateMailTemplateDto {
+  _serializedNode: String
   html: String
   id: String
   name: String

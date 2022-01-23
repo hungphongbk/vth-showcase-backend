@@ -14,4 +14,7 @@ export class MailTemplateDto {
 
   @Field()
   html: string;
+
+  @Field()
+  _serializedNode: string;
 }
