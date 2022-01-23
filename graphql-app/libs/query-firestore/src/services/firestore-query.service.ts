@@ -103,12 +103,14 @@ export class FirestoreQueryService<DTO extends EntityDTO>
     return Promise.resolve(undefined);
   }
 
-  updateOne(
+  async updateOne(
     id: string | number,
     update: DeepPartial<DTO>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     opts?: UpdateOneOptions<DTO>,
   ): Promise<DTO> {
-    return Promise.resolve(undefined);
+    await this.collection.doc(id as string).update(update as unknown as DTO);
+    return await this.getById(id as string);
   }
 
   addRelations<Relation>(
