@@ -12,9 +12,9 @@ export class MailTemplateDto {
   @Field()
   subject: string;
 
-  @Field()
+  @Field({ nullable: true })
   html: string;
 
-  @Field()
+  @Field({ nullable: true })
   _serializedNode: string;
 }
