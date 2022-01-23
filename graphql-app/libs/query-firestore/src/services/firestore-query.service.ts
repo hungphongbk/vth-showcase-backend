@@ -109,7 +109,9 @@ export class FirestoreQueryService<DTO extends EntityDTO>
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     opts?: UpdateOneOptions<DTO>,
   ): Promise<DTO> {
-    await this.collection.doc(id as string).update(update as unknown as DTO);
+    await this.collection
+      .doc(id as string)
+      .update(Object.assign({}, update) as unknown as DTO);
     return await this.getById(id as string);
   }
 
