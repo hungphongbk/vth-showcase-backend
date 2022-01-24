@@ -129,8 +129,8 @@ input CreateMailTemplateDto {
   _serializedNode: String
   html: String
   id: String
-  name: String
   subject: String
+  templateName: String
 }
 
 input CreateManyInvestmentPackageDtosInput {
@@ -447,15 +447,15 @@ type MailDto {
 
 type MailTemplateDto {
   _serializedNode: String
-  html: String!
+  html: String
   id: String!
-  name: String!
   subject: String!
+  templateName: String!
 }
 
 type MailTemplateDtoAggregateGroupBy {
   id: String
-  name: String
+  templateName: String
 }
 
 type MailTemplateDtoConnection {
@@ -468,22 +468,22 @@ type MailTemplateDtoConnection {
 
 type MailTemplateDtoCountAggregate {
   id: Int
-  name: Int
+  templateName: Int
 }
 
 input MailTemplateDtoDeleteFilter {
   and: [MailTemplateDtoDeleteFilter!]
   id: StringFieldComparison
-  name: StringFieldComparison
   or: [MailTemplateDtoDeleteFilter!]
+  templateName: StringFieldComparison
 }
 
 type MailTemplateDtoDeleteResponse {
   _serializedNode: String
   html: String
   id: String
-  name: String
   subject: String
+  templateName: String
 }
 
 type MailTemplateDtoEdge {
@@ -497,18 +497,18 @@ type MailTemplateDtoEdge {
 input MailTemplateDtoFilter {
   and: [MailTemplateDtoFilter!]
   id: StringFieldComparison
-  name: StringFieldComparison
   or: [MailTemplateDtoFilter!]
+  templateName: StringFieldComparison
 }
 
 type MailTemplateDtoMaxAggregate {
   id: String
-  name: String
+  templateName: String
 }
 
 type MailTemplateDtoMinAggregate {
   id: String
-  name: String
+  templateName: String
 }
 
 input MailTemplateDtoSort {
@@ -519,14 +519,14 @@ input MailTemplateDtoSort {
 
 enum MailTemplateDtoSortFields {
   id
-  name
+  templateName
 }
 
 input MailTemplateDtoUpdateFilter {
   and: [MailTemplateDtoUpdateFilter!]
   id: StringFieldComparison
-  name: StringFieldComparison
   or: [MailTemplateDtoUpdateFilter!]
+  templateName: StringFieldComparison
 }
 
 type MailTemplateSpecDto {
@@ -1563,8 +1563,8 @@ input UpdateMailTemplateDto {
   _serializedNode: String
   html: String
   id: String
-  name: String
   subject: String
+  templateName: String
 }
 
 input UpdateManyInvestmentPackageDtosInput {

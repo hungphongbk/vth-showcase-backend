@@ -7,7 +7,7 @@ export class MailTemplateDto {
   id: string;
 
   @FilterableField()
-  name: string;
+  templateName: string;
 
   @Field()
   subject: string;
