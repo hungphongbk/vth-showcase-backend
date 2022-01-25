@@ -1,6 +1,5 @@
 import {
   Args,
-  ArgsType,
   Directive,
   Mutation,
   Parent,
@@ -16,13 +15,10 @@ import {
   GqlAuthGuard,
 } from '../../../auth';
 import { ShowcaseQueryService } from '../query-services/showcase-query.service';
+import { MutationHookArgs } from '@nestjs-query/query-graphql';
 import {
-  MutationArgsType,
-  MutationHookArgs,
-} from '@nestjs-query/query-graphql';
-import {
-  ShowcaseCreateInputDto,
-  ShowcaseUpdateInputDto,
+  CreateOneShowcase,
+  UpdateOneShowcase,
 } from '../dtos/showcase.create.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { UserStatusEnum } from '../dtos/user-status.enum';
@@ -33,12 +29,6 @@ import {
 import { ForbiddenError } from 'apollo-server-express';
 import { ShowcaseConnection } from '../dtos/query.types';
 import { ShowcaseGaDto } from '../dtos/showcase-ga.dto';
-
-@ArgsType()
-class CreateOneShowcase extends MutationArgsType(ShowcaseCreateInputDto) {}
-
-@ArgsType()
-class UpdateOneShowcase extends MutationArgsType(ShowcaseUpdateInputDto) {}
 
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlAuthGuard)

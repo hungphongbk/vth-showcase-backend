@@ -1,4 +1,12 @@
-import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  InputType,
+  Parent,
+  PickType,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import { ShowcaseInvestorPackageDto } from '../dtos/showcase-investor-package.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
@@ -6,6 +14,20 @@ import {
   InvestmentPackageDto,
   InvestmentPackageEntity,
 } from '../../investment';
+import { ShowcaseDto } from '../dtos/showcase.dto';
+
+@InputType()
+class ShowcaseForCalculateDto extends PickType(
+  ShowcaseDto,
+  [
+    'expectedQuantity',
+    'expectedSalePrice',
+    'expectedSaleAt',
+    'expectedSaleEndAt',
+    'inventory',
+  ],
+  InputType,
+) {}
 
 @Resolver(() => ShowcaseInvestorStatDto)
 export class ShowcaseInvestorStatResolver {
@@ -17,5 +39,10 @@ export class ShowcaseInvestorStatResolver {
   async packages(@Parent() parent: ShowcaseInvestorStatDto) {
     const packages = await this.packageService.query({});
     return packages.map((pkg) => new ShowcaseInvestorPackageDto(parent, pkg));
+  }
+
+  @Query(() => ShowcaseInvestorStatDto)
+  calculateInventoryStat(@Args('showcase') showcase: ShowcaseForCalculateDto) {
+    return new ShowcaseInvestorStatDto(showcase as unknown as ShowcaseDto);
   }
 }

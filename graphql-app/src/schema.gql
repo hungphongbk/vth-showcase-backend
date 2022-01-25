@@ -915,6 +915,7 @@ input PublishStatusFilterComparison {
 }
 
 type Query {
+  calculateInventoryStat(showcase: ShowcaseForCalculateDto!): ShowcaseInvestorStatDto!
   commentDto(
     """The id of the record to find."""
     id: ID!
@@ -1263,6 +1264,14 @@ input ShowcaseFilter {
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
+}
+
+input ShowcaseForCalculateDto {
+  expectedQuantity: ShowcasePriceInput
+  expectedSaleAt: DateTime = null
+  expectedSaleEndAt: DateTime = null
+  expectedSalePrice: ShowcasePriceInput
+  inventory: ShowcaseInventoryDtoInput
 }
 
 type ShowcaseGaDto {

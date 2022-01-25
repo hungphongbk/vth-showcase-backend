@@ -1,9 +1,16 @@
-import { Field, InputType, OmitType, PartialType } from '@nestjs/graphql';
+import {
+  ArgsType,
+  Field,
+  InputType,
+  OmitType,
+  PartialType,
+} from '@nestjs/graphql';
 import { PublishStatus, ShowcaseDto } from './showcase.dto';
 import { MediaCreateDto } from '../../media/dtos/media.create.dto';
 import { ShowcaseHFCreateInputDto } from '../../highlight-feature/dtos/showcaseHF.create.dto';
 import { ImageListCreateDto } from '../../image-list/dto/image-list.create.dto';
 import { PrjUpdateCreateDto } from '../../prj-update/prj-update.dto';
+import { MutationArgsType } from '@nestjs-query/query-graphql';
 
 @InputType({ isAbstract: true })
 class ShowcaseCreateBase extends OmitType(
@@ -44,4 +51,14 @@ export class ShowcaseCreateInputDto extends ShowcaseCreateBase {
 @InputType()
 export class ShowcaseUpdateInputDto extends PartialType(
   ShowcaseCreateInputDto,
+) {}
+
+@ArgsType()
+export class CreateOneShowcase extends MutationArgsType(
+  ShowcaseCreateInputDto,
+) {}
+
+@ArgsType()
+export class UpdateOneShowcase extends MutationArgsType(
+  ShowcaseUpdateInputDto,
 ) {}
