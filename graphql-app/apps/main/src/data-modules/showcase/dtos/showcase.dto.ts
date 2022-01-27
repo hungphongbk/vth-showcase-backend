@@ -19,7 +19,7 @@ import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { ShowcaseInventoryDto } from './showcase-inventory.dto';
 import { CommentDto } from '../../comment/comment.dto';
-import { AuthDto } from '../../../auth';
+import { AuthDto } from '@app/auth';
 import { PrjUpdateDto } from '../../prj-update/prj-update.dto';
 import { PreorderDto } from '../../preorder/dtos/preorder.dto';
 

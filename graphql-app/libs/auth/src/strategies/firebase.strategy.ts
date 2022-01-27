@@ -9,8 +9,8 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
-import { AuthDto } from './dtos/auth.dto';
-import { AuthQueryService } from './services/auth.query.service';
+import { AuthDto } from '../dtos/auth.dto';
+import { DecodedIdTokenAssembler } from '../assemblers/decoded-id-token.assembler';
 
 @Injectable()
 export class FirebaseStrategy extends PassportStrategy(
@@ -20,14 +20,15 @@ export class FirebaseStrategy extends PassportStrategy(
   public constructor(
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
-    private readonly service: AuthQueryService,
+    private readonly decodedIdTokenAssembler: DecodedIdTokenAssembler,
   ) {
     super({
       extractor: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
 
-  async validate(payload: FirebaseUser): Promise<AuthDto> {
-    return this.service.getById(payload.uid);
+  validate(payload: FirebaseUser): Promise<AuthDto> {
+    const dto = this.decodedIdTokenAssembler.convertToDTO(payload);
+    return Promise.resolve(dto);
   }
 }

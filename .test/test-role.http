@@ -1,0 +1,46 @@
+### Fetch Firebase USER token
+# @no-log
+POST {{HTTP_HOST}}/auth/login
+Accept: application/json
+X-Test-Uid: {{ X_TEST_NORMAL_UID }}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### List all investor registration with USER role: must returned 401 unauthorized
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "query": "query { investorRegistrationDtos { edges { node { id } } } }"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Success");
+  client.assert(response.body.errors.length > 0, "Must be unauthorized");
+  });
+%}
+
+### Fetch Firebase ADMIN token
+# @no-log
+POST {{HTTP_HOST}}/auth/login
+Accept: application/json
+X-Test-Uid: {{ X_TEST_UID }}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### List all investor registration with USER role: must returned 401 unauthorized
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "query": "query { investorRegistrationDtos { edges { node { id } } } }"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 401");
+  });
+%}

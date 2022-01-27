@@ -9,7 +9,7 @@ import {
   QueryFieldMap,
   transformQuery,
 } from '@nestjs-query/core';
-import { AuthDto, AuthRoleType } from './dtos/auth.dto';
+import { AuthDto, AuthRoleType } from '../dtos/auth.dto';
 import { transform } from 'lodash';
 import { NotImplementedException } from '@nestjs/common';
 

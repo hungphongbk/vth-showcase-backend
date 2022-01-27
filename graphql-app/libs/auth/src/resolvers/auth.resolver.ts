@@ -13,7 +13,7 @@ import {
 } from '@hungphongbk/nestjs-firebase-admin';
 import { firestore } from 'firebase-admin';
 import { AuthDto } from '../dtos/auth.dto';
-import { GqlAuthGuard } from '../gql.auth.guard';
+import { GqlAuthGuard } from '../guards/gql.auth.guard';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import CollectionReference = firestore.CollectionReference;
 

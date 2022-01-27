@@ -10,7 +10,7 @@ import { ImageListMediaEntity } from './entities/image-list.media.entity';
 import { ImageListEntity } from './entities/image-list.entity';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth';
+import { GqlAuthGuard } from '@app/auth';
 import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
 import { ImageListCreateDto } from './dto/image-list.create.dto';
 

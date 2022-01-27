@@ -23,7 +23,7 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Repository } from 'typeorm';
-import { InjectAuthoredQueryService } from '../../../auth';
+import { InjectAuthoredQueryService } from '@app/auth';
 import { ShowcaseAssembler } from '../showcase.assembler';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MediaCreateDto } from '../../media/dtos/media.create.dto';

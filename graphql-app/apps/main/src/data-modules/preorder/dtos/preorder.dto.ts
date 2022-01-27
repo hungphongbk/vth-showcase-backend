@@ -4,7 +4,7 @@ import {
   QueryOptions,
   Relation,
 } from '@nestjs-query/query-graphql';
-import { AuthDto } from '../../../auth';
+import { AuthDto } from '@app/auth';
 import { ShowcaseDto } from '../../showcase/dtos/showcase.dto';
 
 // @ObjectType()

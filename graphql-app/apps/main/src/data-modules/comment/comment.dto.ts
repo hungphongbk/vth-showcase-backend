@@ -10,7 +10,7 @@ import {
   QueryOptions,
   Relation,
 } from '@nestjs-query/query-graphql';
-import { AuthDto } from '../../auth';
+import { AuthDto } from '@app/auth';
 import { CommentRateEnum } from './comment.enum';
 import { SortDirection } from '@nestjs-query/core';
 

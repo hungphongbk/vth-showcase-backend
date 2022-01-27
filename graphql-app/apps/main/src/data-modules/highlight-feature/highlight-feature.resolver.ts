@@ -2,7 +2,7 @@ import { Args, ArgsType, ID, Resolver } from '@nestjs/graphql';
 import { ShowcaseHFDto } from './dtos/showcaseHF.dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth';
+import { GqlAuthGuard } from '@app/auth';
 import {
   MutationArgsType,
   MutationHookArgs,

@@ -5,7 +5,7 @@ import { CommentEntity } from './comment.entity';
 import { CommentDto } from './comment.dto';
 import { CommentResolver } from './comment.resolver';
 import { ShowcaseModule } from '../showcase/showcase.module';
-import { AuthModule } from '../../auth';
+import { AuthModule } from '@app/auth';
 import { CommentQueryService } from './comment-query.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 

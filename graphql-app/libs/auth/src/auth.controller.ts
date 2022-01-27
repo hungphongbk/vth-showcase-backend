@@ -20,7 +20,7 @@ import {
 } from '@hungphongbk/nestjs-firebase-admin';
 import fetch from 'node-fetch';
 import { Cache } from 'cache-manager';
-import { ControllerAuthGuard } from './gql.auth.guard';
+import { ControllerAuthGuard } from './guards/controller-auth.guard';
 import { AuthRoleType } from './dtos/auth.dto';
 import { AuthQueryService } from './services/auth.query.service';
 

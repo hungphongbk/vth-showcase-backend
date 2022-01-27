@@ -10,7 +10,7 @@ import {
 import { CommentCreateDto } from './comment.create.dto';
 import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
 import { UseGuards } from '@nestjs/common';
-import { AuthDto, CurrentUser, GqlAuthGuard } from '../../auth';
+import { AuthDto, CurrentUser, GqlAuthGuard } from '@app/auth';
 
 @ArgsType()
 class CreateCommentArgsType extends MutationArgsType(CommentCreateDto) {}

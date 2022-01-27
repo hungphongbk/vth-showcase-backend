@@ -8,7 +8,7 @@ import {
   ShowcaseViewBaseQueryService,
 } from './query-services/showcase-query.service';
 import { MediaModule } from '../media/media.module';
-import { AuthModule } from '../../auth';
+import { AuthModule } from '@app/auth';
 import { ShowcaseDto } from './dtos/showcase.dto';
 import {
   ShowcaseAuthAugmentResolver,

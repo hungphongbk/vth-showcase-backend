@@ -16,7 +16,7 @@ import {
   AuthRoleType,
   CurrentUser,
   GqlOptionalAuthGuard,
-} from '../../../auth';
+} from '@app/auth';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import * as deepmerge from 'deepmerge';
 import { ForbiddenError } from 'apollo-server-express';

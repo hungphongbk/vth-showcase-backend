@@ -42,6 +42,24 @@
       ],
       "@app/query-firestore/*": [
         "libs/query-firestore/src/*"
+      ],
+      "@app/investor": [
+        "libs/investor/src"
+      ],
+      "@app/investor/*": [
+        "libs/investor/src/*"
+      ],
+      "@app/auth": [
+        "libs/auth/src"
+      ],
+      "@app/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@app/cache": [
+        "libs/cache/src"
+      ],
+      "@app/cache/*": [
+        "libs/cache/src/*"
       ]
     }
   }

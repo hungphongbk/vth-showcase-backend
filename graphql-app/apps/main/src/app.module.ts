@@ -14,6 +14,7 @@ import { SeederModule } from './seeder/seeder.module';
 import { SentryLoggerModule } from './sentry-logger/sentry-logger.module';
 import { FirebaseModule } from '@app/firebase';
 import { MailerModule } from '@app/mailer';
+import { InvestorModule } from '@app/investor';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { MailerModule } from '@app/mailer';
     UploadModule,
     SeederModule,
     SentryLoggerModule,
+    InvestorModule,
   ],
   providers: [
     GqlLoggingPlugin,

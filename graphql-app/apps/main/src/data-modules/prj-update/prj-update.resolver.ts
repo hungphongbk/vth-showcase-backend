@@ -8,7 +8,7 @@ import {
   MutationHookArgs,
 } from '@nestjs-query/query-graphql';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth';
+import { GqlAuthGuard } from '@app/auth';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 
 @ArgsType()

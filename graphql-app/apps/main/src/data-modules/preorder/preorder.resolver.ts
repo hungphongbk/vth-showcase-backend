@@ -18,7 +18,7 @@ import {
   FirebaseUserClass,
   GqlAuthGuard,
   GqlOptionalAuthGuard,
-} from '../../auth';
+} from '@app/auth';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
 import {

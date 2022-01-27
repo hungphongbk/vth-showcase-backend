@@ -1,5 +1,5 @@
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
-import { AuthDto, CurrentUser, GqlOptionalAuthGuard } from '../../auth';
+import { AuthDto, CurrentUser, GqlOptionalAuthGuard } from '@app/auth';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { PreorderEntity } from './entities/preorder.entity';
 import { PreorderDto } from './dtos/preorder.dto';

@@ -6,15 +6,13 @@ import {
   Inject,
   Module,
 } from '@nestjs/common';
-import { AuthQueryService } from './services/auth.query.service';
-import { AuthAssembler } from './auth.assembler';
-import { PassportModule } from '@nestjs/passport';
-import { FirebaseAuthQueryService } from './firebase-auth-query.service';
-import { AuthControllerModule } from './modules/auth.controller.module';
-import { FirebaseStrategy } from './firebase.strategy';
-import { AuthResolver } from './resolvers/auth.resolver';
-import { AuthAdminResolver } from './resolvers/auth.admin.resolver';
-import { authRelationQueryService } from './services/auth-relation-query.service';
+import { AuthQueryService } from '../services/auth.query.service';
+import { FirebaseAuthQueryService } from '../firebase-auth-query.service';
+import { AuthControllerModule } from './auth.controller.module';
+import { AuthResolver } from '../resolvers/auth.resolver';
+import { AuthAdminResolver } from '../resolvers/auth.admin.resolver';
+import { authRelationQueryService } from '../services/auth-relation-query.service';
+import { AuthFirebaseModule } from '@app/auth/modules/auth-firebase.module';
 
 interface ModuleOpts {
   imports: Array<
@@ -35,21 +33,15 @@ export class AuthModule<DTO> {
     };
     return {
       module: AuthModule,
-      imports: [
-        PassportModule.register({ defaultStrategy: 'firebase' }),
-        AuthControllerModule,
-        ...opts.imports,
-      ],
+      imports: [AuthFirebaseModule, AuthControllerModule, ...opts.imports],
       providers: [
         provider,
         AuthQueryService,
-        AuthAssembler,
         FirebaseAuthQueryService,
-        FirebaseStrategy,
         AuthResolver,
         AuthAdminResolver,
       ],
-      exports: [provider, AuthQueryService, FirebaseStrategy, AuthAssembler],
+      exports: [provider, AuthQueryService, AuthFirebaseModule],
     };
   }
 }

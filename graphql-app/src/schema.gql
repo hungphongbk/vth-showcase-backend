@@ -153,6 +153,11 @@ input CreateOneInvestmentPackageDtoInput {
   investmentPackageDto: CreateInvestmentPackageDto!
 }
 
+input CreateOneInvestorRegistrationDtoInput {
+  """The record to create"""
+  investorRegistrationDto: InvestorRegistrationCreateDto!
+}
+
 input CreateOneMailTemplateDtoInput {
   """The record to create"""
   mailTemplateDto: CreateMailTemplateDto!
@@ -243,6 +248,11 @@ input DeleteOneImageListInput {
 }
 
 input DeleteOneInvestmentPackageDtoInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneInvestorRegistrationDtoInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -421,6 +431,85 @@ input InvestmentPackageDtoUpdateFilter {
   displayName: StringFieldComparison
   id: IDFilterComparison
   or: [InvestmentPackageDtoUpdateFilter!]
+}
+
+input InvestorRegistrationCreateDto {
+  email: String!
+  fund: String!
+  job: String!
+  method: String!
+  phone: String!
+  purpose: String!
+}
+
+type InvestorRegistrationDto {
+  email: String!
+  fund: String!
+  id: ID!
+  job: String!
+  method: String!
+  phone: String!
+  promotedUid: String!
+  purpose: String!
+}
+
+type InvestorRegistrationDtoAggregateGroupBy {
+  id: ID
+}
+
+type InvestorRegistrationDtoConnection {
+  """Array of edges."""
+  edges: [InvestorRegistrationDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type InvestorRegistrationDtoCountAggregate {
+  id: Int
+}
+
+type InvestorRegistrationDtoDeleteResponse {
+  email: String
+  fund: String
+  id: ID
+  job: String
+  method: String
+  phone: String
+  promotedUid: String
+  purpose: String
+}
+
+type InvestorRegistrationDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the InvestorRegistrationDto"""
+  node: InvestorRegistrationDto!
+}
+
+input InvestorRegistrationDtoFilter {
+  and: [InvestorRegistrationDtoFilter!]
+  id: IDFilterComparison
+  or: [InvestorRegistrationDtoFilter!]
+}
+
+type InvestorRegistrationDtoMaxAggregate {
+  id: ID
+}
+
+type InvestorRegistrationDtoMinAggregate {
+  id: ID
+}
+
+input InvestorRegistrationDtoSort {
+  direction: SortDirection!
+  field: InvestorRegistrationDtoSortFields!
+  nulls: SortNulls
+}
+
+enum InvestorRegistrationDtoSortFields {
+  id
 }
 
 """
@@ -652,6 +741,7 @@ type Mutation {
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
   createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
+  createOneInvestorRegistrationDto(input: CreateOneInvestorRegistrationDtoInput!): InvestorRegistrationDto!
   createOneMailTemplateDto(input: CreateOneMailTemplateDtoInput!): MailTemplateDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOnePreorder(input: PreorderRequestInputDto, slug: String!): PreorderResponseDto!
@@ -666,6 +756,7 @@ type Mutation {
   deleteOneCommentDto(input: DeleteOneCommentDtoInput!): CommentDtoDeleteResponse!
   deleteOneImageList(input: DeleteOneImageListInput!): ImageListDeleteResponse!
   deleteOneInvestmentPackageDto(input: DeleteOneInvestmentPackageDtoInput!): InvestmentPackageDtoDeleteResponse!
+  deleteOneInvestorRegistrationDto(input: DeleteOneInvestorRegistrationDtoInput!): InvestorRegistrationDtoDeleteResponse!
   deleteOneMailTemplateDto(input: DeleteOneMailTemplateDtoInput!): MailTemplateDtoDeleteResponse!
   deleteOneMediaDto(input: DeleteOneMediaDtoInput!): MediaDtoDeleteResponse!
   deleteOneMediaFromImageList(id: ID!, mediaId: ID!): ImageList!
@@ -694,6 +785,7 @@ type Mutation {
   updateOneCommentDto(input: UpdateOneCommentDtoInput!): CommentDto!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
   updateOneInvestmentPackageDto(input: UpdateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
+  updateOneInvestorRegistrationDto(input: UpdateOneInvestorRegistrationDtoInput!): InvestorRegistrationDto!
   updateOneMailTemplateDto(input: UpdateOneMailTemplateDtoInput!): MailTemplateDto!
   updateOneMediaDto(input: UpdateOneMediaDtoInput!): MediaDto!
   updateOnePrjUpdateDto(input: UpdateOnePrjUpdateDtoInput!): PrjUpdateDto!
@@ -937,6 +1029,20 @@ type Query {
     """Specify to sort results."""
     sorting: [InvestmentPackageDtoSort!] = []
   ): InvestmentPackageDtoConnection!
+  investorRegistrationDto(
+    """The id of the record to find."""
+    id: ID!
+  ): InvestorRegistrationDto
+  investorRegistrationDtos(
+    """Specify to filter the records returned."""
+    filter: InvestorRegistrationDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [InvestorRegistrationDtoSort!] = []
+  ): InvestorRegistrationDtoConnection!
   mailTemplateDto(
     """The id of the record to find."""
     id: String!
@@ -1568,6 +1674,17 @@ input UpdateInvestmentPackageDto {
   id: ID
 }
 
+input UpdateInvestorRegistrationDto {
+  email: String
+  fund: String
+  id: ID
+  job: String
+  method: String
+  phone: String
+  promotedUid: String
+  purpose: String
+}
+
 input UpdateMailTemplateDto {
   _serializedNode: String
   html: String
@@ -1638,6 +1755,14 @@ input UpdateOneInvestmentPackageDtoInput {
 
   """The update to apply."""
   update: UpdateInvestmentPackageDto!
+}
+
+input UpdateOneInvestorRegistrationDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateInvestorRegistrationDto!
 }
 
 input UpdateOneMailTemplateDtoInput {

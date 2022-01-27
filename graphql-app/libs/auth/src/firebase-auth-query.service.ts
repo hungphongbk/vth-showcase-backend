@@ -7,7 +7,7 @@ import {
   Query,
   QueryService,
 } from '@nestjs-query/core';
-import { FirebaseUserClass } from './auth.assembler';
+import { FirebaseUserClass } from './assemblers/auth.assembler';
 import { CACHE_MANAGER, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import {
@@ -18,7 +18,7 @@ import {
   CacheArg,
   CacheDecorator,
   CacheUpdater,
-} from '../common/decorators/cache.decorator';
+} from '../../cache/src/decorators/cache.decorator';
 import { auth } from 'firebase-admin';
 
 const AUTH_GET_BY_ID = Symbol('auth-get-by-id'),

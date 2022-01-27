@@ -152,7 +152,10 @@
       "^@app/upload(|/.*)$": "<rootDir>/libs/upload/src/$1",
       "^@app/mailer(|/.*)$": "<rootDir>/libs/mailer/src/$1",
       "^@app/firebase(|/.*)$": "<rootDir>/libs/firebase/src/$1",
-      "^@app/query-firestore(|/.*)$": "<rootDir>/libs/query-firestore/src/$1"
+      "^@app/query-firestore(|/.*)$": "<rootDir>/libs/query-firestore/src/$1",
+      "^@app/investor(|/.*)$": "<rootDir>/libs/investor/src/$1",
+      "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
+      "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1"
     }
   }
 }
