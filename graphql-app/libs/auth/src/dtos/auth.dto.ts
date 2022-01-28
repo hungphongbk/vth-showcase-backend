@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
+import { AdminField } from '@app/auth/decorators/admin-field.decorator';
 
 export enum AuthRoleType {
   SUPERADMIN = 'superadmin',
@@ -10,6 +11,12 @@ export enum AuthRoleType {
 registerEnumType(AuthRoleType, {
   name: 'AuthRoleType',
 });
+
+@ObjectType({ isAbstract: true })
+class AuthProviderInfoDto {
+  @Field()
+  providerId: string;
+}
 
 @ObjectType('User')
 export class AuthDto {
@@ -30,4 +37,7 @@ export class AuthDto {
 
   @Field(() => AuthRoleType)
   role: AuthRoleType;
+
+  @AdminField(() => [AuthProviderInfoDto], { nullable: true })
+  providedData: AuthProviderInfoDto[];
 }

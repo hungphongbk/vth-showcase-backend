@@ -10,6 +10,10 @@ input AddImagesToImageListInput {
   relationIds: [ID!]!
 }
 
+type AuthProviderInfoDto {
+  providerId: String!
+}
+
 enum AuthRoleType {
   ADMIN
   INVESTOR
@@ -1786,6 +1790,7 @@ type User {
   name: String!
   phoneNumber: String
   photoURL: String!
+  providedData: [AuthProviderInfoDto!]
   role: AuthRoleType!
   showcases: ShowcaseConnection!
   uid: ID!

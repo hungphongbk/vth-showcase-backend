@@ -10,7 +10,7 @@ import {
   transformQuery,
 } from '@nestjs-query/core';
 import { AuthDto, AuthRoleType } from '../dtos/auth.dto';
-import { transform } from 'lodash';
+import { pick, transform } from 'lodash';
 import { NotImplementedException } from '@nestjs/common';
 
 export class FirebaseUserClass implements admin.auth.UserRecord {
@@ -85,6 +85,9 @@ export class AuthAssembler extends AbstractAssembler<
     dto.role =
       (Object.keys(entity.customClaims ?? {})[0] as unknown as AuthRoleType) ??
       AuthRoleType.USER;
+    dto.providedData = entity.providerData.map((data) =>
+      pick(data, ['providerId']),
+    );
     return dto;
   }
 

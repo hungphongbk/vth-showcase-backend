@@ -1,26 +1,24 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../guards/gql.auth.guard';
-import { AuthDto, AuthRoleType } from '../dtos/auth.dto';
-import { AuthQueryService } from '../services/auth.query.service';
+import { GqlAdminAuthGuard } from '@app/auth/guards/gql.auth.guard';
+import { AuthDto, AuthRoleType } from '@app/auth/dtos/auth.dto';
+import { AuthQueryService } from '@app/auth/services/auth.query.service';
 
 @Resolver()
+@UseGuards(GqlAdminAuthGuard)
 export class AuthAdminResolver {
   constructor(private readonly userQueryService: AuthQueryService) {}
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => [AuthDto])
   async getAllUsers() {
     return await this.userQueryService.query({});
   }
 
-  @UseGuards(GqlAuthGuard)
   @Query(() => AuthDto)
   async getOneUser(@Args('uid') uid: string) {
     return await this.userQueryService.getById(uid);
   }
 
-  @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
   async updateOneUser(
     @Args('uid') uid: string,

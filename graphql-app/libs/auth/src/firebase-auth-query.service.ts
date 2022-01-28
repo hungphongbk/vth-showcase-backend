@@ -8,40 +8,28 @@ import {
   QueryService,
 } from '@nestjs-query/core';
 import { FirebaseUserClass } from './assemblers/auth.assembler';
-import { CACHE_MANAGER, Inject } from '@nestjs/common';
-import { Cache } from 'cache-manager';
+import { Inject } from '@nestjs/common';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
-import {
-  CacheArg,
-  CacheDecorator,
-  CacheUpdater,
-} from '../../cache/src/decorators/cache.decorator';
 import { auth } from 'firebase-admin';
-
-const AUTH_GET_BY_ID = Symbol('auth-get-by-id'),
-  AUTH_GET_ALL = Symbol('auth-get-all');
 
 @QueryService(FirebaseUserClass)
 export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass> {
   constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
   ) {
     super();
   }
 
-  @CacheDecorator({ key: AUTH_GET_BY_ID, ttl: 300 })
-  getById(@CacheArg id: string | number): Promise<FirebaseUserClass> {
+  getById(id: string | number): Promise<FirebaseUserClass> {
     return this._getById(id);
   }
 
-  @CacheUpdater({ key: AUTH_GET_BY_ID, ttl: 300 })
   async updateOne(
-    @CacheArg id: string | number,
+    id: string | number,
     update: DeepPartial<FirebaseUserClass>,
   ): Promise<FirebaseUserClass> {
     const { customClaims = undefined, ...fbupdate } = update;
@@ -74,9 +62,8 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
       .getUser(id + '')) as unknown as Promise<FirebaseUserClass>;
   }
 
-  @CacheDecorator({ key: AUTH_GET_ALL, ttl: 30 })
   private async _getAll(): Promise<FirebaseUserClass[]> {
-    return (await this.firebaseAdmin.auth().listUsers(100))
+    return (await this.firebaseAdmin.auth().listUsers(1000))
       .users as unknown as FirebaseUserClass[];
   }
 }
