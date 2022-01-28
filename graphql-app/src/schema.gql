@@ -747,6 +747,7 @@ type Mutation {
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
+  createOneUserDto(input: UserCreateInputDto!): User!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMailTemplateDtos(input: DeleteManyMailTemplateDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
@@ -1794,6 +1795,15 @@ type User {
   role: AuthRoleType!
   showcases: ShowcaseConnection!
   uid: ID!
+}
+
+input UserCreateInputDto {
+  email: String
+  name: String
+  password: String
+  phoneNumber: String
+  photoURL: String
+  role: AuthRoleType
 }
 
 enum UserStatusEnum {

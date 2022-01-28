@@ -14,7 +14,7 @@ export class MailerService {
       to: [email],
       template: {
         name: templateName,
-        data: data,
+        data: Object.assign({}, data),
       },
     });
   }

@@ -56,6 +56,14 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     return applyFilter(await this._getAll(), filter).length;
   }
 
+  async createOne(
+    item: DeepPartial<FirebaseUserClass>,
+  ): Promise<FirebaseUserClass> {
+    return (await this.firebaseAdmin
+      .auth()
+      .createUser(Object.assign({}, item))) as unknown as FirebaseUserClass;
+  }
+
   private async _getById(id: string | number): Promise<FirebaseUserClass> {
     return (await this.firebaseAdmin
       .auth()

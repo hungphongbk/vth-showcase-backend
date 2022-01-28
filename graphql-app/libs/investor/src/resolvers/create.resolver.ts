@@ -30,7 +30,6 @@ export class InvestorCreateResolver {
     @MutationHookArgs() input: CO,
   ): Promise<InvestorRegistrationDto> {
     const dto = await this.service.createOne(input.input);
-    console.log(dto);
     await this.mailService.send<InvestorRegistrationDto>(
       input.input.email,
       'investor-reg-notify',

@@ -76,7 +76,7 @@ export class AuthAssembler extends AbstractAssembler<
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     create: DeepPartial<AuthDto>,
   ): DeepPartial<FirebaseUserClass> {
-    throw new NotImplementedException();
+    return this.convertToEntity(create as unknown as AuthDto);
   }
 
   convertToDTO(entity: FirebaseUserClass): AuthDto {
