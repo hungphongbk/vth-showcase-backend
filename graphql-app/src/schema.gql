@@ -153,11 +153,6 @@ input CreateOneInvestmentPackageDtoInput {
   investmentPackageDto: CreateInvestmentPackageDto!
 }
 
-input CreateOneInvestorRegistrationDtoInput {
-  """The record to create"""
-  investorRegistrationDto: InvestorRegistrationCreateDto!
-}
-
 input CreateOneMailTemplateDtoInput {
   """The record to create"""
   mailTemplateDto: CreateMailTemplateDto!
@@ -741,7 +736,7 @@ type Mutation {
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
   createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
-  createOneInvestorRegistrationDto(input: CreateOneInvestorRegistrationDtoInput!): InvestorRegistrationDto!
+  createOneInvestorRegistrationDto(input: InvestorRegistrationCreateDto!): InvestorRegistrationDto!
   createOneMailTemplateDto(input: CreateOneMailTemplateDtoInput!): MailTemplateDto!
   createOneMediaDto(input: CreateOneMediaDtoInput!): MediaDto!
   createOnePreorder(input: PreorderRequestInputDto, slug: String!): PreorderResponseDto!
@@ -778,7 +773,6 @@ type Mutation {
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
-  submitInvestor(form: SubmitInvestorInputDto!): Boolean!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMailTemplateDtos(input: UpdateManyMailTemplateDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
@@ -1642,15 +1636,6 @@ input StringFieldComparison {
   notILike: String
   notIn: [String!]
   notLike: String
-}
-
-input SubmitInvestorInputDto {
-  email: String!
-  fund: String!
-  job: String!
-  method: String!
-  phone: String!
-  purpose: String!
 }
 
 input UpdateCommentDto {

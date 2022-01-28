@@ -9,21 +9,25 @@ export class MailerService {
     private readonly mailQueryService: QueryService<MailDto>,
   ) {}
 
+  async send<DTO>(email: string, templateName: string, data: DTO) {
+    await this.mailQueryService.createOne({
+      to: [email],
+      template: {
+        name: templateName,
+        data: data,
+      },
+    });
+  }
+
   async sendPreorderNotify(payload: {
     email: string;
     name: string;
     product_name: string;
     // product_link: string;
   }) {
-    await this.mailQueryService.createOne({
-      to: [payload.email],
-      template: {
-        name: 'preorder-notify',
-        data: {
-          name: payload.name,
-          product_name: payload.product_name,
-        },
-      },
+    await this.send<any>(payload.email, 'preorder-notify', {
+      name: payload.name,
+      product_name: payload.product_name,
     });
   }
 }

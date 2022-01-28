@@ -14,7 +14,7 @@ export const InvestorRegistrationGraphqlModule =
         EntityClass: InvestorRegistrationDto,
         CreateDTOClass: InvestorRegistrationCreateDto,
         read: { guards: [GqlAdminAuthGuard] },
-        create: { many: { disabled: true } },
+        create: { disabled: true },
         update: { guards: [GqlAdminAuthGuard], many: { disabled: true } },
         delete: { guards: [GqlAdminAuthGuard], many: { disabled: true } },
       },
