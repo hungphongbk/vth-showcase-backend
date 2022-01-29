@@ -1787,6 +1787,7 @@ input UpdatePrjUpdateDto {
 
 type User {
   approvalStatus: UserStatusEnum!
+  createdAt: DateTime!
   email: String!
   name: String!
   phoneNumber: String

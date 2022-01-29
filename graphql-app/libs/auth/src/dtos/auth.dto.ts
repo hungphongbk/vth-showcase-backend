@@ -1,4 +1,10 @@
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import {
+  Field,
+  GraphQLISODateTime,
+  ID,
+  ObjectType,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
 import { AdminField } from '@app/auth/decorators/admin-field.decorator';
 
@@ -40,4 +46,7 @@ export class AuthDto {
 
   @AdminField(() => [AuthProviderInfoDto], { nullable: true })
   providedData: AuthProviderInfoDto[];
+
+  @Field(() => GraphQLISODateTime)
+  createdAt: Date;
 }

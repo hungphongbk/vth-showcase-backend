@@ -4,7 +4,7 @@ import { AuthDto } from '@app/auth';
 @InputType('UserCreateInputDto')
 export class AuthCreateDto extends OmitType(
   PartialType(AuthDto, InputType),
-  ['uid', 'providedData'],
+  ['uid', 'providedData', 'createdAt'],
   InputType,
 ) {
   @Field({ nullable: true })

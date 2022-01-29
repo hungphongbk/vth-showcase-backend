@@ -11,6 +11,7 @@ import { AuthCreateDto } from '@app/auth/dtos/auth-create-dto';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
 import { generate } from 'generate-password';
 import { MailerService } from '@app/mailer';
+import { SortDirection } from '@nestjs-query/core';
 
 @ArgsType()
 class CO extends MutationArgsType(AuthCreateDto) {}
@@ -25,7 +26,9 @@ export class AuthAdminResolver {
 
   @Query(() => [AuthDto])
   async getAllUsers() {
-    return await this.userQueryService.query({});
+    return await this.userQueryService.query({
+      sorting: [{ field: 'createdAt', direction: SortDirection.DESC }],
+    });
   }
 
   @Query(() => AuthDto)

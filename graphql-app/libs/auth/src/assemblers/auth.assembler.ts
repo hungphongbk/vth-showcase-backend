@@ -44,7 +44,8 @@ function reverse(obj: any): any {
 const mapDtoToUserRecord = {
   uid: 'uid',
   name: 'displayName',
-} as QueryFieldMap<AuthDto, FirebaseUserClass>;
+  createdAt: 'createdAt',
+} as unknown as QueryFieldMap<AuthDto, FirebaseUserClass>;
 const mapUserRecordToDto = reverse(mapDtoToUserRecord) as QueryFieldMap<
   FirebaseUserClass,
   AuthDto
@@ -88,6 +89,7 @@ export class AuthAssembler extends AbstractAssembler<
     dto.providedData = entity.providerData.map((data) =>
       pick(data, ['providerId']),
     );
+    dto.createdAt = new Date(entity.metadata.creationTime);
     return dto;
   }
 

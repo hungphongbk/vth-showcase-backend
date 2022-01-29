@@ -14,6 +14,7 @@ import {
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
 import { auth } from 'firebase-admin';
+import { orderBy } from 'lodash';
 
 @QueryService(FirebaseUserClass)
 export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass> {
@@ -49,7 +50,13 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     if (query.filter?.uid?.eq) {
       return [await this.getById(query.filter?.uid?.eq)];
     }
-    return applyQuery(await this._getAll(), query);
+    let rs = await this._getAll();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (query.sorting.some((s) => s.field === 'createdAt')) {
+      rs = orderBy(rs, (it) => new Date(it.metadata.creationTime), ['desc']);
+    }
+    return applyQuery(rs, query);
   }
 
   async count(filter: Filter<FirebaseUserClass>): Promise<number> {
