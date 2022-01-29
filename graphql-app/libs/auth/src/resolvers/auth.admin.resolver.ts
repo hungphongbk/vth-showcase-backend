@@ -1,4 +1,4 @@
-import { Args, ArgsType, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ArgsType, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { GqlAdminAuthGuard } from '@app/auth/guards/gql.auth.guard';
 import { AuthDto, AuthRoleType } from '@app/auth/dtos/auth.dto';
@@ -12,9 +12,13 @@ import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorator
 import { generate } from 'generate-password';
 import { MailerService } from '@app/mailer';
 import { SortDirection } from '@nestjs-query/core';
+import { AuthUpdateDto } from '@app/auth/dtos/auth-update.dto';
 
 @ArgsType()
 class CO extends MutationArgsType(AuthCreateDto) {}
+
+@ArgsType()
+class UO extends MutationArgsType(AuthUpdateDto) {}
 
 @Resolver()
 @UseGuards(GqlAdminAuthGuard)
@@ -36,12 +40,19 @@ export class AuthAdminResolver {
     return await this.userQueryService.getById(uid);
   }
 
-  @Mutation(() => Boolean)
-  async updateOneUser(
-    @Args('uid') uid: string,
-    @Args({ name: 'role', type: () => AuthRoleType }) role: AuthRoleType,
-  ) {
-    await this.userQueryService.updateOne(uid, { role });
+  @ResolverMutation(() => Boolean, {
+    name: 'updateOneUser',
+  })
+  async updateOneUser(@Args('uid') uid: string, @MutationHookArgs() input: UO) {
+    const dto = await this.userQueryService.updateOne(uid, input.input);
+    if (input.input.role === AuthRoleType.ADMIN) {
+      await this.mailService.send<AuthCreateDto>(
+        dto.email,
+        'new-admin-notify',
+        { ...input.input, email: dto.email },
+      );
+    }
+    return true;
   }
 
   @ResolverMutation(() => AuthDto, {

@@ -36,7 +36,10 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     const { customClaims = undefined, ...fbupdate } = update;
     await this.firebaseAdmin
       .auth()
-      .updateUser(id + '', fbupdate as unknown as auth.UpdateRequest);
+      .updateUser(
+        id + '',
+        Object.assign({}, fbupdate) as unknown as auth.UpdateRequest,
+      );
 
     if (customClaims)
       await this.firebaseAdmin

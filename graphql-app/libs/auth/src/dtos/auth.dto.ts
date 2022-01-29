@@ -2,7 +2,9 @@ import {
   Field,
   GraphQLISODateTime,
   ID,
+  InputType,
   ObjectType,
+  PartialType,
   registerEnumType,
 } from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
@@ -19,10 +21,25 @@ registerEnumType(AuthRoleType, {
 });
 
 @ObjectType({ isAbstract: true })
-class AuthProviderInfoDto {
+export class AuthProviderInfoDto {
+  @Field()
+  uid: string;
+
+  @Field()
+  displayName: string;
+
+  @Field()
+  email: string;
+
   @Field()
   providerId: string;
 }
+
+@InputType()
+export class AuthProviderInfoInputDto extends PartialType(
+  AuthProviderInfoDto,
+  InputType,
+) {}
 
 @ObjectType('User')
 export class AuthDto {

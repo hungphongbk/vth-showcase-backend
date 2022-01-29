@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { auth } from 'firebase-admin';
 import {
   AbstractAssembler,
   AggregateQuery,
@@ -12,6 +13,9 @@ import {
 import { AuthDto, AuthRoleType } from '../dtos/auth.dto';
 import { pick, transform } from 'lodash';
 import { NotImplementedException } from '@nestjs/common';
+import { AuthUpdateDto } from '@app/auth/dtos/auth-update.dto';
+import { UserProvider } from 'firebase-admin/lib/auth';
+import UpdateRequest = auth.UpdateRequest;
 
 export class FirebaseUserClass implements admin.auth.UserRecord {
   displayName: string;
@@ -87,7 +91,7 @@ export class AuthAssembler extends AbstractAssembler<
       (Object.keys(entity.customClaims ?? {})[0] as unknown as AuthRoleType) ??
       AuthRoleType.USER;
     dto.providedData = entity.providerData.map((data) =>
-      pick(data, ['providerId']),
+      pick(data, ['providerId', 'uid', 'displayName', 'email']),
     );
     dto.createdAt = new Date(entity.metadata.creationTime);
     return dto;
@@ -104,13 +108,16 @@ export class AuthAssembler extends AbstractAssembler<
     return entity;
   }
 
-  convertToUpdateEntity(
-    update: DeepPartial<AuthDto>,
-  ): DeepPartial<FirebaseUserClass> {
-    const entity = new FirebaseUserClass();
-    entity.customClaims = {
-      [update.role]: true,
-    };
+  convertToUpdateEntity(update: AuthUpdateDto): DeepPartial<FirebaseUserClass> {
+    const entity = this.convertToEntity(
+      update as unknown as AuthDto,
+    ) as unknown as UpdateRequest & Pick<FirebaseUserClass, 'customClaims'>;
+    if (update.role)
+      entity.customClaims = {
+        [update.role]: true,
+      };
+    if (update.providerToLink)
+      entity.providerToLink = update.providerToLink as unknown as UserProvider;
 
     return entity;
   }

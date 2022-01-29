@@ -11,7 +11,17 @@ input AddImagesToImageListInput {
 }
 
 type AuthProviderInfoDto {
+  displayName: String!
+  email: String!
   providerId: String!
+  uid: String!
+}
+
+input AuthProviderInfoInputDto {
+  displayName: String
+  email: String
+  providerId: String
+  uid: String
 }
 
 enum AuthRoleType {
@@ -791,7 +801,7 @@ type Mutation {
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFUpdateInputDto!): ShowcaseHighlightFeature!
-  updateOneUser(role: AuthRoleType!, uid: String!): Boolean!
+  updateOneUser(input: UserUpdateInputDto!, uid: String!): Boolean!
 }
 
 input NumberFieldComparison {
@@ -1812,4 +1822,13 @@ enum UserStatusEnum {
   APPROVED_INVESTOR
   PENDING_CREATOR
   PENDING_INVESTOR
+}
+
+input UserUpdateInputDto {
+  name: String
+  password: String
+  phoneNumber: String
+  photoURL: String
+  providerToLink: AuthProviderInfoInputDto
+  role: AuthRoleType
 }
