@@ -85,6 +85,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/cache/tsconfig.lib.json"
       }
+    },
+    "seeder": {
+      "type": "application",
+      "root": "apps/seeder",
+      "entryFile": "main",
+      "sourceRoot": "apps/seeder/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/seeder/tsconfig.app.json"
+      }
     }
   }
 }
