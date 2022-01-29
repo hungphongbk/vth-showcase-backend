@@ -8,6 +8,7 @@ import * as Joi from 'joi';
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         SENTRY_DSN: Joi.string().required(),
+        APP_ENV: Joi.string().optional(),
       }),
     }),
   ],
