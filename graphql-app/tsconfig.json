@@ -60,6 +60,12 @@
       ],
       "@app/cache/*": [
         "libs/cache/src/*"
+      ],
+      "@app/fcm": [
+        "libs/fcm/src"
+      ],
+      "@app/fcm/*": [
+        "libs/fcm/src/*"
       ]
     }
   }

@@ -94,6 +94,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/seeder/tsconfig.app.json"
       }
+    },
+    "fcm": {
+      "type": "library",
+      "root": "libs/fcm",
+      "entryFile": "index",
+      "sourceRoot": "libs/fcm/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/fcm/tsconfig.lib.json"
+      }
     }
   }
 }

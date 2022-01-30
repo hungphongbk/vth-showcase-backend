@@ -14,6 +14,7 @@ import { SentryLoggerModule } from './sentry-logger/sentry-logger.module';
 import { FirebaseModule } from '@app/firebase';
 import { MailerModule } from '@app/mailer';
 import { InvestorModule } from '@app/investor';
+import { FcmModule } from '@app/fcm';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { InvestorModule } from '@app/investor';
     SeederModule,
     SentryLoggerModule,
     InvestorModule,
+    FcmModule,
   ],
 })
 export class AppModule {}

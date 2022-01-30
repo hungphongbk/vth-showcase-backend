@@ -24,12 +24,16 @@ import {
 import { ForbiddenError } from 'apollo-server-express';
 import { ShowcaseConnection } from '../dtos/query.types';
 import { ShowcaseGaDto } from '../dtos/showcase-ga.dto';
+import { FcmService } from '@app/fcm';
 
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlAuthGuard)
 export class ShowcaseAuthResolver {
   private readonly logger = new Logger(ShowcaseAuthResolver.name);
-  constructor(private readonly service: ShowcaseQueryService) {}
+  constructor(
+    private readonly service: ShowcaseQueryService,
+    private readonly fcmService: FcmService,
+  ) {}
 
   /**
    * Tạo một Showcase mới
@@ -40,10 +44,22 @@ export class ShowcaseAuthResolver {
     @MutationHookArgs() input: CreateOneShowcase,
     @CurrentUser() user: AuthDto,
   ) {
-    if (/^ci-test/.test(input.input.name))
-      input.input.publishStatus = PublishStatus.PUBLISHED;
+    const isCiTest = /^ci-test/.test(input.input.name);
+    if (isCiTest) input.input.publishStatus = PublishStatus.PUBLISHED;
     input.input.authorUid = user.uid;
-    return await this.service.createOne(input.input);
+    const dto = await this.service.createOne(input.input);
+    if (!isCiTest)
+      await this.fcmService.sendToTopic(
+        'admin',
+        {
+          notification: {
+            title: 'Sản phẩm mới',
+            body: `${user.name} vừa đăng sản phẩm "${dto.name}"`,
+          },
+        },
+        false,
+      );
+    return dto;
   }
 
   /**

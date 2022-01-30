@@ -20,7 +20,7 @@ const connectionOptions: PostgresConnectionOptions = {
   // We are using migrations, synchronize should be set to false.
   synchronize: false,
   dropSchema: false,
-  entities: [join(__dirname, '**/*.entity{.ts,.js}')],
+  entities: [join(process.cwd(), '**/*.entity{.ts,.js}')],
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
   migrationsRun: true,

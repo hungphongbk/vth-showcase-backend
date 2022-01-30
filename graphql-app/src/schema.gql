@@ -286,6 +286,13 @@ input DeleteOneShowcaseHighlightFeatureInput {
   id: ID!
 }
 
+type FcmRegistrationTokenDto {
+  createdAt: DateTime!
+  id: ID!
+  token: String!
+  topic: String!
+}
+
 input IDFilterComparison {
   eq: ID
   gt: ID
@@ -788,6 +795,7 @@ type Mutation {
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
+  subscribeToFcmTopic(token: String!, topic: String!): FcmRegistrationTokenDto!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMailTemplateDtos(input: UpdateManyMailTemplateDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!

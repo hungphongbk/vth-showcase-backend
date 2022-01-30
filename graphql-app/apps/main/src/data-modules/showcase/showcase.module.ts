@@ -23,6 +23,7 @@ import { ShowcaseInvestorStatResolver } from './resolvers/showcase-investor-stat
 import { ImageListGraphqlModule } from '../image-list/image-list.graphql.module';
 import { ShowcaseQueryOrmModule } from './orm-services/showcase-query-orm.module';
 import { ShowcaseViewEntity } from './entities/showcase-view.entity';
+import { FcmModule } from '@app/fcm';
 
 const authRelModule = AuthModule.forFeature({
     imports: [ShowcaseQueryOrmModule],
@@ -76,6 +77,7 @@ const authRelModule = AuthModule.forFeature({
     }),
     ShowcaseQueryOrmModule,
     MediaModule,
+    FcmModule,
   ],
   providers: [
     ShowcaseResolver,

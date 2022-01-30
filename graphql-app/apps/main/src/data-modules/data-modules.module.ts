@@ -23,6 +23,7 @@ function globImport(r: any) {
     TypeOrmModule.forRootAsync({
       useFactory: () =>
         Object.assign(connectionOptions, {
+          entities: [],
           autoLoadEntities: true,
           migrations: globImport(
             require.context('../migrations', false, /\.ts/),

@@ -157,7 +157,8 @@
       "^@app/query-firestore(|/.*)$": "<rootDir>/libs/query-firestore/src/$1",
       "^@app/investor(|/.*)$": "<rootDir>/libs/investor/src/$1",
       "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
-      "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1"
+      "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1",
+      "^@app/fcm(|/.*)$": "<rootDir>/libs/fcm/src/$1"
     }
   }
 }
