@@ -20,7 +20,7 @@ export class FcmResolver {
     @CurrentUser() user: AuthDto,
   ) {
     return this.queryService.createOne({
-      id: token,
+      token,
       topic,
       authorUid: user.uid,
     });
