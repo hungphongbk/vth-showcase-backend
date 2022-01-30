@@ -7,7 +7,6 @@ import { HealthModule } from './health/health.module';
 import * as redisStore from 'cache-manager-redis-store';
 import * as Joi from 'joi';
 import { GqlModule } from './gql/gql.module';
-import { ScheduleModule } from '@nestjs/schedule';
 import { UploadModule } from '@app/upload';
 import { SeederModule } from './seeder/seeder.module';
 import { SentryLoggerModule } from './sentry-logger/sentry-logger.module';
@@ -21,11 +20,8 @@ import { RabbitmqModule } from '@app/rabbitmq';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        DB_HOST: Joi.string().required(),
-        DB_PORT: Joi.number().required(),
         REDIS_HOST: Joi.string().required(),
         REDIS_PORT: Joi.number().required(),
-        // ...
       }),
     }),
     CacheModule.registerAsync({
@@ -41,7 +37,6 @@ import { RabbitmqModule } from '@app/rabbitmq';
     }),
     FirebaseModule,
     MailerModule,
-    ScheduleModule.forRoot(),
     GqlModule,
     DataModulesModule,
     HealthModule,

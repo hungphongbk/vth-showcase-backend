@@ -86,13 +86,13 @@
         "tsConfigPath": "libs/cache/tsconfig.lib.json"
       }
     },
-    "seeder": {
+    "cron": {
       "type": "application",
-      "root": "apps/seeder",
+      "root": "apps/cron",
       "entryFile": "main",
-      "sourceRoot": "apps/seeder/src",
+      "sourceRoot": "apps/cron/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/seeder/tsconfig.app.json"
+        "tsConfigPath": "apps/cron/tsconfig.app.json"
       }
     },
     "fcm": {

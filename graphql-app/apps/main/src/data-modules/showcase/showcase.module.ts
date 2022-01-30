@@ -14,7 +14,6 @@ import {
   ShowcaseAuthAugmentResolver,
   ShowcaseAuthResolver,
 } from './resolvers/showcase-auth.resolver';
-import { RemoveCiTestService } from './remove-ci-test.service';
 import { ShowcaseAssembler } from './showcase.assembler';
 import { ShowcaseOrmModule } from './orm-services/showcase-orm.module';
 import { InvestmentModule } from '../investment';
@@ -85,7 +84,6 @@ const authRelModule = AuthModule.forFeature({
     ShowcaseAuthAugmentResolver,
     ShowcaseInvestorStatResolver,
     ShowcaseQueryService,
-    RemoveCiTestService,
   ],
   exports: [ShowcaseQueryService],
 })
