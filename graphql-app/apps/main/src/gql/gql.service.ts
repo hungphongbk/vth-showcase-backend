@@ -7,12 +7,15 @@ import { ConfigService } from '@nestjs/config';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
 import Redis from 'ioredis';
 import { SsrAwareDirective } from './directives/ssr-aware.directive';
+import { createContext } from './gql.context';
+import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 
 @Injectable()
 export class GqlService implements GqlOptionsFactory {
   constructor(
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly configService: ConfigService,
+    @InjectSentry() private readonly sentryClient: SentryService,
   ) {}
   createGqlOptions(): GqlModuleOptions {
     const cache = new BaseRedisCache({
@@ -22,7 +25,8 @@ export class GqlService implements GqlOptionsFactory {
         }),
       }),
       enableIntrospection =
-        this.configService.get<boolean>('GQL_INTROSPECTION');
+        this.configService.get<boolean>('GQL_INTROSPECTION'),
+      sentryInstance = this.sentryClient.instance();
 
     return {
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -37,14 +41,8 @@ export class GqlService implements GqlOptionsFactory {
       persistedQueries: {
         cache,
       },
-      plugins: [
-        // ApolloServerPluginCacheControl({ defaultMaxAge: 15 }),
-        // responseCachePlugin({
-        //   cache,
-        //   sessionId: (requestContext) =>
-        //     requestContext.request.http.headers.get('Authorization') || null,
-        // }),
-      ],
+      plugins: [],
+      context: (ctx) => createContext(ctx, sentryInstance),
       formatError: (error) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sentryId =

@@ -1,18 +1,29 @@
 import { Module } from '@nestjs/common';
-import { SentryLoggerService } from './sentry-logger.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
+import { SentryModule } from '@ntegral/nestjs-sentry';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        SENTRY_DSN: Joi.string().required(),
-        APP_ENV: Joi.string().optional(),
-      }),
+    SentryModule.forRootAsync({
+      imports: [
+        ConfigModule.forRoot({
+          validationSchema: Joi.object({
+            SENTRY_DSN: Joi.string().required(),
+            APP_ENV: Joi.string().optional(),
+          }),
+        }),
+      ],
+      useFactory: async (config: ConfigService) => {
+        return {
+          dsn: config.get('SENTRY_DSN'),
+          debug: config.get('APP_ENV') !== 'production',
+          environment: config.get('APP_ENV'),
+          release: '1.0',
+        };
+      },
+      inject: [ConfigService],
     }),
   ],
-  providers: [SentryLoggerService],
-  exports: [SentryLoggerService],
 })
 export class SentryLoggerModule {}

@@ -6,21 +6,22 @@ import {
   GraphQLRequestListener,
 } from 'apollo-server-plugin-base';
 import { Logger } from '@nestjs/common';
-import { SentryLoggerService } from '../sentry-logger/sentry-logger.service';
 import * as Sentry from '@sentry/node';
+import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 
 @Plugin()
-export class GqlLoggingPlugin implements ApolloServerPlugin {
+export class GqlSentryLoggingPlugin implements ApolloServerPlugin {
   private readonly logger = new Logger(this.constructor.name, {
     timestamp: false,
   });
 
-  constructor(private readonly sentry: SentryLoggerService) {}
+  constructor(@InjectSentry() private readonly client: SentryService) {}
 
   async requestDidStart(
     requestContext: GraphQLRequestContext<BaseContext>,
   ): Promise<GraphQLRequestListener> {
-    const logger = this.logger;
+    const logger = this.logger,
+      instance = this.client.instance();
     return {
       async willSendResponse() {
         logger.log(requestContext.request.operationName);
@@ -30,7 +31,7 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
           const err = error.originalError || error;
 
           let sentryId = `gql-${new Date().valueOf().toString()}`;
-          Sentry.withScope((scope) => {
+          instance.withScope((scope) => {
             scope.setTags({
               kind: ctx.operation.operation,
               operationName: ctx.operationName || ctx.request.operationName,
@@ -58,7 +59,7 @@ export class GqlLoggingPlugin implements ApolloServerPlugin {
                 level: Sentry.Severity.Debug,
               });
             }
-            sentryId = Sentry.captureException(err);
+            sentryId = instance.captureException(err);
           });
 
           // HACK; set sentry id to indicate this is an error that we did not expect. `formatError` handler will check for this.

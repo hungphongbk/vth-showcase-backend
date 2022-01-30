@@ -1,7 +1,6 @@
 // noinspection PointlessArithmeticExpressionJS
 
 import { CacheModule, Module } from '@nestjs/common';
-import { GqlLoggingPlugin } from './common/GqlLoggingPlugin';
 import { DataModulesModule } from './data-modules/data-modules.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
@@ -48,13 +47,6 @@ import { InvestorModule } from '@app/investor';
     SeederModule,
     SentryLoggerModule,
     InvestorModule,
-  ],
-  providers: [
-    GqlLoggingPlugin,
-    // {
-    //   provide: APP_INTERCEPTOR,
-    //   useClass: CacheInterceptor,
-    // },
   ],
 })
 export class AppModule {}
