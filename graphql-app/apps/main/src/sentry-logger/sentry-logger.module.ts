@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { SentryModule } from '@ntegral/nestjs-sentry';
+import { Transaction } from '@sentry/integrations';
+import * as Tracing from '@sentry/tracing';
+import { Integrations } from '@sentry/node';
 
 @Module({
   imports: [
@@ -20,6 +23,14 @@ import { SentryModule } from '@ntegral/nestjs-sentry';
           debug: config.get('APP_ENV') !== 'production',
           environment: config.get('APP_ENV'),
           release: '1.0',
+          integrations: [
+            new Integrations.Http({ tracing: true }),
+            // new RewriteFrames({
+            //   root: global.__rootdir__,
+            // }),
+            new Transaction(),
+            new Tracing.Integrations.Postgres(),
+          ],
         };
       },
       inject: [ConfigService],
