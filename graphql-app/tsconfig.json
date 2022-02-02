@@ -66,6 +66,12 @@
       ],
       "@app/fcm/*": [
         "libs/fcm/src/*"
+      ],
+      "@app/rabbitmq": [
+        "libs/rabbitmq/src"
+      ],
+      "@app/rabbitmq/*": [
+        "libs/rabbitmq/src/*"
       ]
     }
   }

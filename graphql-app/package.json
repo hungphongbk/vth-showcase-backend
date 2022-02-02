@@ -44,6 +44,7 @@
     "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.2.5",
     "@nestjs/graphql": "^9.1.2",
+    "@nestjs/microservices": "^8.2.6",
     "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.2.5",
     "@nestjs/platform-fastify": "^8.2.5",
@@ -162,7 +163,8 @@
       "^@app/investor(|/.*)$": "<rootDir>/libs/investor/src/$1",
       "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1",
-      "^@app/fcm(|/.*)$": "<rootDir>/libs/fcm/src/$1"
+      "^@app/fcm(|/.*)$": "<rootDir>/libs/fcm/src/$1",
+      "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1"
     }
   }
 }
