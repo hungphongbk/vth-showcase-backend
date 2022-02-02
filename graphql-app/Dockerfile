@@ -1,6 +1,7 @@
 FROM node:16.13.1-alpine AS development
 ARG NPM_TOKEN
 ARG SENTRY_AUTH_TOKEN
+ARG CI
 WORKDIR /usr/src/app
 COPY .npmrc .npmrc
 COPY package.json ./

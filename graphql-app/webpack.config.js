@@ -3,6 +3,7 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 module.exports = function (options) {
   options.devtool = 'source-map';
+  console.log(`process.env.CI=${process.env.CI}`);
   if (process.env.CI)
     options.plugins.push(
       new SentryWebpackPlugin({

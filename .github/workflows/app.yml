@@ -66,6 +66,7 @@ jobs:
           build-args: |
             "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
+            "CI=${{ env.CI }}"
           context: graphql-app
           push: true
           tags: ${{ steps.meta.outputs.tags }}
