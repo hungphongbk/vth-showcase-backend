@@ -25,8 +25,7 @@ async function bootstrap() {
   );
   app.use(morgan('tiny'));
 
-  // begin seeder
-  // end seeder
+  await app.startAllMicroservices();
 
   // 0.0.0.0 due to fastify specification
   // https://docs.nestjs.com/techniques/performance
