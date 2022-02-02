@@ -63,9 +63,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          build-args:
-            - NPM_TOKEN=${{ secrets.NPM_TOKEN }}
-            - SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
+          build-args: |
+            "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
+            "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
           context: graphql-app
           push: true
           tags: ${{ steps.meta.outputs.tags }}
