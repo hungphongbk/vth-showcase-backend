@@ -36,13 +36,17 @@ jobs:
         run: |-
           kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
 
+      - name: Checkout the original repo
+        uses: actions/checkout@v2
+
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+
       - name: Update Image
+        working-directory: .scripts
         run: |
-          ls -la
           npm i -g yargs
           chmod +x rollout.js
           ./rollout.js --d=${{ inputs.deployment_name }} --n=${{ inputs.namespace }}
