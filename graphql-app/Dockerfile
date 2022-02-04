@@ -23,6 +23,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 ARG APP_NAME=main
 ARG APP_ENTRY=dist/apps/${APP_NAME}/main
+ENV APP_ENTRY=${APP_ENTRY}
 
 WORKDIR /usr/src/app
 COPY .npmrc .npmrc
@@ -36,4 +37,5 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist/apps/${APP_NAME} ./dist/apps/${APP_NAME}
 
-CMD node ${APP_ENTRY}
+RUN echo $APP_ENTRY
+CMD node $APP_ENTRY
