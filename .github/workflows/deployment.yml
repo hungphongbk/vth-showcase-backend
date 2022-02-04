@@ -47,6 +47,6 @@ jobs:
       - name: Update Image
         working-directory: .scripts
         run: |
-          npm i -g yargs
+          npm i yargs
           chmod +x rollout.js
           ./rollout.js --d=${{ inputs.deployment_name }} --n=${{ inputs.namespace }}
