@@ -14,7 +14,6 @@
     "prestart:dev": "rimraf dist && rm -rf src/schema.gql",
     "build": "concurrently npm:build:*",
     "build:main": "nest build main",
-    "build:cron-sub": "nest build cron-sub",
     "build:cron-pub": "nest build cron-pub",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start main",

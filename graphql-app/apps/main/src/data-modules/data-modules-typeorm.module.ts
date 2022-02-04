@@ -34,7 +34,6 @@ export const DataModulesTypeormModule = TypeOrmModule.forRootAsync({
   ],
   inject: [ConfigService],
   useFactory: (config: ConfigService<DbConnectionConfig>) => {
-    console.log(config.get('DB_MIGRATION'));
     return Object.assign(connectionOptions, {
       host: config.get('DB_HOST'),
       port: +config.get('DB_PORT'),

@@ -86,15 +86,6 @@
         "tsConfigPath": "libs/cache/tsconfig.lib.json"
       }
     },
-    "cron-sub": {
-      "type": "application",
-      "root": "apps/cron-sub",
-      "entryFile": "main",
-      "sourceRoot": "apps/cron-sub/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/cron-sub/tsconfig.app.json"
-      }
-    },
     "fcm": {
       "type": "library",
       "root": "libs/fcm",

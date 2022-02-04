@@ -6,6 +6,8 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { Logger } from '@nestjs/common';
+import { VthConfigsService } from '@app/configs';
+import { Transport } from '@nestjs/microservices';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -24,6 +26,16 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
   app.use(morgan('tiny'));
+
+  const configService = app.get(VthConfigsService);
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [configService.rabbitmq.connectionUri],
+      queue: 'rabbit-mq-vth',
+      noAck: false,
+    },
+  });
 
   await app.startAllMicroservices();
 

@@ -8,7 +8,7 @@ import { RabbitmqConfigService } from '@app/configs/rabbitmq-config.service';
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         RABBITMQ_HOST: Joi.string().required(),
-        RABBITMQ_PORT: Joi.string().required(),
+        RABBITMQ_PORT: Joi.number().required(),
         RABBITMQ_USER: Joi.string().required(),
         RABBITMQ_PASS: Joi.string().required(),
       }),
