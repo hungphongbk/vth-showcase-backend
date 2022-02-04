@@ -14,7 +14,7 @@ RUN rm -f .npmrc
 
 COPY . .
 
-RUN rimraf dist
+RUN npm run prebuild
 RUN npm run build:${APP_NAME}
 
 FROM node:16.13.1-alpine as production
