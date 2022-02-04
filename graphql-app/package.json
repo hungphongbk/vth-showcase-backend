@@ -19,7 +19,7 @@
     "start": "nest start main",
     "start:dev": "nest start main --watch",
     "start:debug": "nest start main --watch --debug",
-    "start:cron-sub": "nest start cron-sub",
+    "start:cron-pub": "nest start cron-pub",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",

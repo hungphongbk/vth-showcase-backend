@@ -3,6 +3,7 @@ import { ShowcaseEntity } from 'apps/main/src/data-modules/showcase/entities/sho
 import { Repository } from 'typeorm';
 import { Ctx, MessagePattern, RmqContext } from '@nestjs/microservices';
 import { Controller } from '@nestjs/common';
+import RmqMessages from '@app/configs/rabbitmq-messages';
 
 @Controller()
 export class RemoveCiController {
@@ -11,7 +12,7 @@ export class RemoveCiController {
     private readonly repo: Repository<ShowcaseEntity>,
   ) {}
 
-  @MessagePattern('remove-ci-test')
+  @MessagePattern(RmqMessages.REMOVE_CI_TEST)
   async execute(@Ctx() context: RmqContext) {
     const channel = context.getChannelRef();
     const originalMessage = context.getMessage();

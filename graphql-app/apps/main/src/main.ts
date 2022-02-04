@@ -8,6 +8,7 @@ import {
 import { Logger } from '@nestjs/common';
 import { VthConfigsService } from '@app/configs';
 import { Transport } from '@nestjs/microservices';
+import { RABBIT_MQ_VTH_QUEUE } from '@app/rabbitmq-client';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -32,7 +33,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [configService.rabbitmq.connectionUri],
-      queue: 'rabbit-mq-vth',
+      queue: RABBIT_MQ_VTH_QUEUE,
       noAck: false,
     },
   });

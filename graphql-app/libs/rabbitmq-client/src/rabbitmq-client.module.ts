@@ -1,14 +1,19 @@
 import { Global, Module } from '@nestjs/common';
-import { RabbitmqService } from './rabbitmq.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { RabbitmqClientService } from './rabbitmq-client.service';
+import {
+  ClientProvider,
+  ClientsModule,
+  Transport,
+} from '@nestjs/microservices';
 import { VthConfigsModule, VthConfigsService } from '@app/configs';
+import { RABBIT_MQ_MODULE, RABBIT_MQ_VTH_QUEUE } from './constants';
 
 @Global()
 @Module({
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'rabbit-mq-module',
+        name: RABBIT_MQ_MODULE,
         imports: [VthConfigsModule],
         inject: [VthConfigsService],
         useFactory(config: VthConfigsService) {
@@ -16,14 +21,14 @@ import { VthConfigsModule, VthConfigsService } from '@app/configs';
             transport: Transport.RMQ,
             options: {
               urls: [config.rabbitmq.connectionUri],
-              queue: 'rabbit-mq-vth',
+              queue: RABBIT_MQ_VTH_QUEUE,
             },
-          };
+          } as ClientProvider;
         },
       },
     ]),
   ],
-  providers: [RabbitmqService],
-  exports: [RabbitmqService],
+  providers: [RabbitmqClientService],
+  exports: [RabbitmqClientService],
 })
-export class RabbitmqModule {}
+export class RabbitmqClientModule {}

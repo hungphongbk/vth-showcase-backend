@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CronPubController } from './cron-pub.controller';
 import { CronPubService } from './cron-pub.service';
+import { RabbitmqClientModule } from '@app/rabbitmq-client';
+import { ScheduleModule } from '@nestjs/schedule';
+import { VthConfigsModule } from '@app/configs';
 
 @Module({
-  imports: [],
-  controllers: [CronPubController],
+  imports: [RabbitmqClientModule, ScheduleModule.forRoot(), VthConfigsModule],
   providers: [CronPubService],
 })
 export class CronPubModule {}

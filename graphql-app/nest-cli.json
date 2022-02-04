@@ -95,13 +95,13 @@
         "tsConfigPath": "libs/fcm/tsconfig.lib.json"
       }
     },
-    "rabbitmq": {
+    "rabbitmq-client": {
       "type": "library",
-      "root": "libs/rabbitmq",
+      "root": "libs/rabbitmq-client",
       "entryFile": "index",
-      "sourceRoot": "libs/rabbitmq/src",
+      "sourceRoot": "libs/rabbitmq-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/rabbitmq/tsconfig.lib.json"
+        "tsConfigPath": "libs/rabbitmq-client/tsconfig.lib.json"
       }
     },
     "configs": {

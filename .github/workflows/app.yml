@@ -90,7 +90,7 @@ jobs:
       - build-app
     uses: hungphongbk/vth-showcase-backend/.github/workflows/deployment.yml@develop
     with:
-      deployment_name: showcase
+      deployment_name: showcase,showcase-cron-pub
       namespace: staging
       environment: preview
     secrets:

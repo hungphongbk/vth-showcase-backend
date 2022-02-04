@@ -14,7 +14,7 @@ import { FirebaseModule } from '@app/firebase';
 import { MailerModule } from '@app/mailer';
 import { InvestorModule } from '@app/investor';
 import { FcmModule } from '@app/fcm';
-import { RabbitmqModule } from '@app/rabbitmq';
+import { VthConfigsModule } from '@app/configs';
 
 @Module({
   imports: [
@@ -45,7 +45,7 @@ import { RabbitmqModule } from '@app/rabbitmq';
     SentryLoggerModule,
     InvestorModule,
     FcmModule,
-    RabbitmqModule,
+    VthConfigsModule,
   ],
 })
 export class AppModule {}

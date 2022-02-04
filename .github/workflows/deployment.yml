@@ -41,7 +41,12 @@ jobs:
         run: |-
           kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
 
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
       - name: Update Image
-        run: |-
-          kubectl rollout restart deployment ${{ inputs.deployment_name }} -n ${{ inputs.namespace }}
-          kubectl rollout status deployment ${{ inputs.deployment_name }} -n ${{ inputs.namespace }}
+        run: |
+          npm i yargs
+          chmod +x .scripts/rollout.js
+          ./.scripts/rollout.js --d=${{ inputs.deployment_name }} --n=${{ inputs.namespace }}
