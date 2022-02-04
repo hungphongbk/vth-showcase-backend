@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: '16'
       - name: Update Image
-        working-directory: .scripts
+        working-directory: scripts
         run: |
           npm i -g yargs
           chmod +x rollout.js
