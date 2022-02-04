@@ -1,19 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as connectionOptions from '../ormconfig';
-import { ShowcaseEntity } from './showcase/entities/showcase.entity';
-import { ShowcaseViewEntity } from './showcase/entities/showcase-view.entity';
-import { ShowcaseMediaEntity } from './showcase/entities/showcase.media.entity';
-import { MediaEntity } from './media/media.entity';
-import { ShowcaseHFEntity } from './highlight-feature/entities/showcaseHF.entity';
-import { ShowcaseHFMediaEntity } from './highlight-feature/entities/showcaseHF.media.entity';
-import { ImageListEntity } from './image-list/entities/image-list.entity';
-import { ImageListMediaEntity } from './image-list/entities/image-list.media.entity';
-import { InvestmentPackageEntity } from './investment';
-import { CommentEntity } from './comment/comment.entity';
-import { SettingEntity } from './setting/setting.entity';
-import { PrjUpdateEntity } from './prj-update/prj-update.entity';
-import { PreorderEntity } from './preorder/entities/preorder.entity';
 import * as Joi from 'joi';
 
 function globImport(r: any) {
@@ -47,28 +34,16 @@ export const DataModulesTypeormModule = TypeOrmModule.forRootAsync({
   ],
   inject: [ConfigService],
   useFactory: (config: ConfigService<DbConnectionConfig>) => {
+    console.log(config.get('DB_MIGRATION'));
     return Object.assign(connectionOptions, {
       host: config.get('DB_HOST'),
-      port: config.get('DB_PORT'),
+      port: +config.get('DB_PORT'),
       username: config.get('DB_USER'),
       password: config.get('DB_PASS'),
       database: config.get('DB_NAME'),
       migrationsRun: config.get('DB_MIGRATION') === 'true',
-      entities: [
-        ShowcaseEntity,
-        ShowcaseViewEntity,
-        ShowcaseMediaEntity,
-        MediaEntity,
-        ShowcaseHFEntity,
-        ShowcaseHFMediaEntity,
-        ImageListEntity,
-        ImageListMediaEntity,
-        InvestmentPackageEntity,
-        CommentEntity,
-        SettingEntity,
-        PrjUpdateEntity,
-        PreorderEntity,
-      ],
+      entities: [],
+      autoLoadEntities: true,
       migrations: globImport(require.context('../migrations', false, /\.ts/)),
     });
   },

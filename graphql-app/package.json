@@ -12,12 +12,15 @@
     "prebuild": "rimraf dist",
     "prestart": "rimraf dist && rm -rf src/schema.gql",
     "prestart:dev": "rimraf dist && rm -rf src/schema.gql",
-    "build": "nest build main",
+    "build": "concurrently npm:build:*",
+    "build:main": "nest build main",
+    "build:cron-sub": "nest build cron-sub",
+    "build:cron-pub": "nest build cron-pub",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start main",
     "start:dev": "nest start main --watch",
     "start:debug": "nest start main --watch --debug",
-    "start:cron": "nest start cron",
+    "start:cron-sub": "nest start cron-sub",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -125,6 +128,7 @@
     "@types/webpack-env": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "concurrently": "^7.0.0",
     "dotenv-cli": "^4.1.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
@@ -169,7 +173,8 @@
       "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1",
       "^@app/fcm(|/.*)$": "<rootDir>/libs/fcm/src/$1",
-      "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1"
+      "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1",
+      "^@app/configs(|/.*)$": "<rootDir>/libs/configs/src/$1"
     }
   }
 }

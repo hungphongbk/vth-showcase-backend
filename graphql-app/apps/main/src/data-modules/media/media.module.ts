@@ -1,26 +1,16 @@
 import { Module } from '@nestjs/common';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { MediaEntity } from './media.entity';
-import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { MediaCreateDto } from './dtos/media.create.dto';
 import { MediaDto } from './dtos/media.dto';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ShowcaseMediaEntity } from '../showcase/entities/showcase.media.entity';
-import { ShowcaseHFMediaEntity } from '../highlight-feature/entities/showcaseHF.media.entity';
-import { ImageListMediaEntity } from '../image-list/entities/image-list.media.entity';
-
-const mediaOrmModule = NestjsQueryTypeOrmModule.forFeature([
-  MediaEntity,
-  ShowcaseMediaEntity,
-  ShowcaseHFMediaEntity,
-  ImageListMediaEntity,
-]);
+import { MediaOrmModule } from './media-orm.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([MediaEntity]),
     NestjsQueryGraphQLModule.forFeature({
-      imports: [mediaOrmModule],
+      imports: [MediaOrmModule],
       resolvers: [
         {
           CreateDTOClass: MediaCreateDto,
@@ -29,8 +19,8 @@ const mediaOrmModule = NestjsQueryTypeOrmModule.forFeature([
         },
       ],
     }),
-    mediaOrmModule,
+    MediaOrmModule,
   ],
-  exports: [mediaOrmModule],
+  exports: [MediaOrmModule],
 })
 export class MediaModule {}
