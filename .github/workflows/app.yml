@@ -30,7 +30,7 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
     strategy:
       matrix:
-        apps: [main, cron-sub, cron-pub]
+        apps: [main, cron-pub]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
