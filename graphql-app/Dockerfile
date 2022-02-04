@@ -36,4 +36,4 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist/apps/${APP_NAME} ./dist/apps/${APP_NAME}
 
-CMD ["node", "dist/apps/${APP_NAME}/main"]
+CMD ["node", "dist/apps/$APP_NAME/main"]
