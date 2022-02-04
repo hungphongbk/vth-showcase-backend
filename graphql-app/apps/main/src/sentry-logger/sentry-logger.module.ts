@@ -23,6 +23,7 @@ import { Integrations } from '@sentry/node';
           debug: config.get('APP_ENV') !== 'production',
           environment: config.get('APP_ENV'),
           release: '1.0',
+          tracesSampleRate: 1.0,
           integrations: [
             new Integrations.Http({ tracing: true }),
             // new RewriteFrames({
