@@ -22,7 +22,7 @@ ARG NPM_TOKEN
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 ARG APP_NAME=main
-ENV APP_NAME=${APP_NAME}
+ARG APP_ENTRY=dist/apps/${APP_NAME}/main
 
 WORKDIR /usr/src/app
 COPY .npmrc .npmrc
@@ -36,4 +36,4 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist/apps/${APP_NAME} ./dist/apps/${APP_NAME}
 
-CMD ["node", "dist/apps/$APP_NAME/main"]
+CMD node ${APP_ENTRY}
