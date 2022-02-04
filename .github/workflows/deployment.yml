@@ -32,11 +32,6 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
-      - name: Print kubectl & kustomize versions
-        run: |-
-          kubectl version
-          kustomize version
-
       - name: Deploy to LKE
         run: |-
           kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
@@ -46,8 +41,8 @@ jobs:
         with:
           node-version: '16'
       - name: Update Image
-        working-directory: scripts
         run: |
+          ls -la
           npm i -g yargs
           chmod +x rollout.js
           ./rollout.js --d=${{ inputs.deployment_name }} --n=${{ inputs.namespace }}
