@@ -9,7 +9,7 @@ import {
 import { PublishStatus, ShowcaseDto } from '../dtos/showcase.dto';
 import { Inject, Logger, UseGuards } from '@nestjs/common';
 import { AuthDto, AuthRoleType, CurrentUser, GqlAuthGuard } from '@app/auth';
-import { ShowcaseQueryService } from '../query-services/showcase-query.service';
+import { ShowcaseQueryService } from '../services/showcase-query.service';
 import { MutationHookArgs } from '@nestjs-query/query-graphql';
 import {
   CreateOneShowcase,

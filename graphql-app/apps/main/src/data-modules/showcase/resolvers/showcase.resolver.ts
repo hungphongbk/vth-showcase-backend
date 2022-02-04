@@ -9,7 +9,7 @@ import {
 import { ShowcaseDto, ShowcaseStatus } from '../dtos/showcase.dto';
 import { ShowcaseConnection, ShowcaseQuery } from '../dtos/query.types';
 import { ConnectionType } from '@nestjs-query/query-graphql';
-import { ShowcaseQueryService } from '../query-services/showcase-query.service';
+import { ShowcaseQueryService } from '../services/showcase-query.service';
 import { UseGuards } from '@nestjs/common';
 import {
   AuthDto,

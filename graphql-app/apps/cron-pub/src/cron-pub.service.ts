@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class SeederService {
+export class CronPubService {
   getHello(): string {
     return 'Hello World!';
   }

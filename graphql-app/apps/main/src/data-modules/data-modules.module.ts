@@ -4,32 +4,15 @@ import { HighlightFeatureModule } from './highlight-feature/highlight-feature.mo
 import { ImageListModule } from './image-list/image-list.module';
 import { SettingsModule } from './setting/settings.module';
 import { InvestmentModule } from './investment';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import * as connectionOptions from '../ormconfig';
 import { ShowcaseModule } from './showcase/showcase.module';
 import { CommentModule } from './comment/comment.module';
 import { PrjUpdateModule } from './prj-update/prj-update.module';
 import { PreorderModule } from './preorder/preorder.module';
-
-function globImport(r: any) {
-  return r
-    .keys()
-    .map(r)
-    .reduce((acc, val) => [...acc, ...Object.values(val)], []);
-}
+import { DataModulesTypeormModule } from './data-modules-typeorm.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: () =>
-        Object.assign(connectionOptions, {
-          entities: [],
-          autoLoadEntities: true,
-          migrations: globImport(
-            require.context('../migrations', false, /\.ts/),
-          ),
-        }),
-    }),
+    DataModulesTypeormModule,
     ShowcaseModule,
     MediaModule,
     HighlightFeatureModule,
@@ -40,5 +23,6 @@ function globImport(r: any) {
     PrjUpdateModule,
     PreorderModule,
   ],
+  exports: [ShowcaseModule],
 })
 export class DataModulesModule {}

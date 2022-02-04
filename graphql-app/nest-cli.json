@@ -86,13 +86,13 @@
         "tsConfigPath": "libs/cache/tsconfig.lib.json"
       }
     },
-    "seeder": {
+    "cron-sub": {
       "type": "application",
-      "root": "apps/seeder",
+      "root": "apps/cron-sub",
       "entryFile": "main",
-      "sourceRoot": "apps/seeder/src",
+      "sourceRoot": "apps/cron-sub/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/seeder/tsconfig.app.json"
+        "tsConfigPath": "apps/cron-sub/tsconfig.app.json"
       }
     },
     "fcm": {
@@ -111,6 +111,24 @@
       "sourceRoot": "libs/rabbitmq/src",
       "compilerOptions": {
         "tsConfigPath": "libs/rabbitmq/tsconfig.lib.json"
+      }
+    },
+    "configs": {
+      "type": "library",
+      "root": "libs/configs",
+      "entryFile": "index",
+      "sourceRoot": "libs/configs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/configs/tsconfig.lib.json"
+      }
+    },
+    "cron-pub": {
+      "type": "application",
+      "root": "apps/cron-pub",
+      "entryFile": "main",
+      "sourceRoot": "apps/cron-pub/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/cron-pub/tsconfig.app.json"
       }
     }
   }

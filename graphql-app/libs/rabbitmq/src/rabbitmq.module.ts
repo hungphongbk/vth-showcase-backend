@@ -1,8 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { RabbitmqService } from './rabbitmq.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from 'joi';
+import { VthConfigsModule, VthConfigsService } from '@app/configs';
 
 @Global()
 @Module({
@@ -10,24 +9,13 @@ import * as Joi from 'joi';
     ClientsModule.registerAsync([
       {
         name: 'rabbit-mq-module',
-        imports: [
-          ConfigModule.forRoot({
-            validationSchema: Joi.object({
-              RABBITMQ_HOST: Joi.string().required(),
-              RABBITMQ_PORT: Joi.string().required(),
-            }),
-          }),
-        ],
-        inject: [ConfigService],
-        useFactory(config: ConfigService) {
+        imports: [VthConfigsModule],
+        inject: [VthConfigsService],
+        useFactory(config: VthConfigsService) {
           return {
             transport: Transport.RMQ,
             options: {
-              urls: [
-                `amqp://${config.get('RABBITMQ_HOST')}:${config.get(
-                  'RABBITMQ_PORT',
-                )}`,
-              ],
+              urls: [config.rabbitmq.connectionUri],
               queue: 'rabbit-mq-vth',
             },
           };

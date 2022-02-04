@@ -6,7 +6,7 @@ import {
   ShowcaseProxyQueryService,
   ShowcaseQueryService,
   ShowcaseViewBaseQueryService,
-} from './query-services/showcase-query.service';
+} from './services/showcase-query.service';
 import { MediaModule } from '../media/media.module';
 import { AuthModule } from '@app/auth';
 import { ShowcaseDto } from './dtos/showcase.dto';
@@ -14,14 +14,13 @@ import {
   ShowcaseAuthAugmentResolver,
   ShowcaseAuthResolver,
 } from './resolvers/showcase-auth.resolver';
-import { RemoveCiTestService } from './remove-ci-test.service';
 import { ShowcaseAssembler } from './showcase.assembler';
-import { ShowcaseOrmModule } from './orm-services/showcase-orm.module';
+import { ShowcaseOrmModule } from './services/showcase-orm.module';
 import { InvestmentModule } from '../investment';
 import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { ShowcaseInvestorStatResolver } from './resolvers/showcase-investor-stat.resolver';
 import { ImageListGraphqlModule } from '../image-list/image-list.graphql.module';
-import { ShowcaseQueryOrmModule } from './orm-services/showcase-query-orm.module';
+import { ShowcaseQueryOrmModule } from './services/showcase-query-orm.module';
 import { ShowcaseViewEntity } from './entities/showcase-view.entity';
 import { FcmModule } from '@app/fcm';
 
@@ -85,7 +84,6 @@ const authRelModule = AuthModule.forFeature({
     ShowcaseAuthAugmentResolver,
     ShowcaseInvestorStatResolver,
     ShowcaseQueryService,
-    RemoveCiTestService,
   ],
   exports: [ShowcaseQueryService],
 })

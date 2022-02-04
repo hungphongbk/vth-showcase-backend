@@ -23,7 +23,6 @@ const connectionOptions: PostgresConnectionOptions = {
   entities: [join(process.cwd(), '**/*.entity{.ts,.js}')],
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
-  migrationsRun: true,
   migrationsTransactionMode: 'each',
   logging: [!isProduction && 'query', 'warn', 'error'] as any,
   // logging: 'all',

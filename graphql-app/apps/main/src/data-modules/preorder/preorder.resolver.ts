@@ -20,7 +20,7 @@ import {
   GqlOptionalAuthGuard,
 } from '@app/auth';
 import { ResolverMutation } from '@nestjs-query/query-graphql/dist/src/decorators';
-import { ShowcaseQueryService } from '../showcase/query-services/showcase-query.service';
+import { ShowcaseQueryService } from '../showcase/services/showcase-query.service';
 import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
