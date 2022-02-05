@@ -6,11 +6,11 @@ import {
   RelationQueryService,
 } from '@nestjs-query/core';
 import { Injectable } from '@nestjs/common';
-import { AuthQueryService } from './auth.query.service';
+import { AuthQueryService } from '@app/auth/services/auth.query.service';
 
 export function authRelationQueryService<DTO, C = DeepPartial<DTO>>(
   EntityClass: Class<any>,
-) {
+): Class<any> {
   @Injectable()
   class AuthRelationQueryService extends RelationQueryService<DTO, C> {
     constructor(

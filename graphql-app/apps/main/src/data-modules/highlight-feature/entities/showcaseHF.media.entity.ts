@@ -1,4 +1,4 @@
-import { ChildEntity, JoinColumn, OneToOne } from 'typeorm';
+import { ChildEntity, Column, Index, JoinColumn, OneToOne } from 'typeorm';
 import { MediaEntity, MediaType } from '../../media/media.entity';
 import { ShowcaseHFEntity } from './showcaseHF.entity';
 
@@ -11,5 +11,7 @@ export class ShowcaseHFMediaEntity extends MediaEntity {
   @JoinColumn()
   hf!: ShowcaseHFEntity;
 
+  @Column()
+  @Index()
   hfId: number;
 }

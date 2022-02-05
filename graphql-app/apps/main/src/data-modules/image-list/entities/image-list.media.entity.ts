@@ -1,4 +1,4 @@
-import { ChildEntity, JoinColumn, ManyToOne } from 'typeorm';
+import { ChildEntity, Column, Index, JoinColumn, ManyToOne } from 'typeorm';
 import { MediaEntity, MediaType } from '../../media/media.entity';
 import { ImageListEntity } from './image-list.entity';
 
@@ -10,4 +10,8 @@ export class ImageListMediaEntity extends MediaEntity {
   })
   @JoinColumn()
   list!: ImageListEntity;
+
+  @Column()
+  @Index()
+  listId!: number;
 }

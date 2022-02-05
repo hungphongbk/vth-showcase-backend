@@ -14,7 +14,6 @@ export class GqlSentryTransactionPlugin
     request,
     context,
   }): Promise<GraphQLRequestListener<GqlContext>> {
-    console.log('Sentry Transaction started ' + context.transaction);
     if (!!request.operationName) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       context.transaction.setName(request.operationName!);
