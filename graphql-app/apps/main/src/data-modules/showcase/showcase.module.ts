@@ -24,6 +24,8 @@ import { ShowcaseQueryOrmModule } from './services/showcase-query-orm.module';
 import { ShowcaseViewEntity } from './entities/showcase-view.entity';
 import { FcmModule } from '@app/fcm';
 import { RemoveCiController } from './remove-ci.controller';
+import { UpdateShowcaseViewsController } from './update-showcase-views.controller';
+import { GaDataModule } from '@app/ga-data';
 
 const authRelModule = AuthModule.forFeature({
     imports: [ShowcaseQueryOrmModule],
@@ -78,6 +80,7 @@ const authRelModule = AuthModule.forFeature({
     ShowcaseQueryOrmModule,
     MediaModule,
     FcmModule,
+    GaDataModule,
   ],
   providers: [
     ShowcaseResolver,
@@ -86,7 +89,7 @@ const authRelModule = AuthModule.forFeature({
     ShowcaseInvestorStatResolver,
     ShowcaseQueryService,
   ],
-  controllers: [RemoveCiController],
+  controllers: [RemoveCiController, UpdateShowcaseViewsController],
   exports: [ShowcaseQueryService],
 })
 export class ShowcaseModule {}

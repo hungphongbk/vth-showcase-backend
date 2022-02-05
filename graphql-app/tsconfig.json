@@ -78,6 +78,12 @@
       ],
       "@app/configs/*": [
         "libs/configs/src/*"
+      ],
+      "@app/ga-data": [
+        "libs/ga-data/src"
+      ],
+      "@app/ga-data/*": [
+        "libs/ga-data/src/*"
       ]
     }
   }

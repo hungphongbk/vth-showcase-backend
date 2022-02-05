@@ -174,7 +174,8 @@
       "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1",
       "^@app/fcm(|/.*)$": "<rootDir>/libs/fcm/src/$1",
       "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1",
-      "^@app/configs(|/.*)$": "<rootDir>/libs/configs/src/$1"
+      "^@app/configs(|/.*)$": "<rootDir>/libs/configs/src/$1",
+      "^@app/ga-data(|/.*)$": "<rootDir>/libs/ga-data/src/$1"
     }
   }
 }
