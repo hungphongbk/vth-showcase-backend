@@ -1,29 +1,12 @@
-import { Module } from '@nestjs/common';
 import { FirebaseAdminModule } from '@hungphongbk/nestjs-firebase-admin';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from 'joi';
-import { cert } from 'firebase-admin/app';
+import { VthConfigsModule, VthConfigsService } from '@app/configs';
 
-const firebaseAdminModule = FirebaseAdminModule.forRootAsync({
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: (configService: ConfigService) => {
+export const FirebaseModule = FirebaseAdminModule.forRootAsync({
+  imports: [VthConfigsModule],
+  inject: [VthConfigsService],
+  useFactory: (configService: VthConfigsService) => {
     return {
-      credential: cert(JSON.parse(configService.get('FIREBASE_CONFIG'))),
+      credential: configService.firebase.credential,
     };
   },
 });
-
-@Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      validationSchema: Joi.object({
-        FIREBASE_CONFIG: Joi.string().required(),
-      }),
-    }),
-    firebaseAdminModule,
-  ],
-  exports: [firebaseAdminModule],
-})
-export class FirebaseModule {}

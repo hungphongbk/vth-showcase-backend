@@ -121,6 +121,24 @@
       "compilerOptions": {
         "tsConfigPath": "apps/cron-pub/tsconfig.app.json"
       }
+    },
+    "ga-data": {
+      "type": "library",
+      "root": "libs/ga-data",
+      "entryFile": "index",
+      "sourceRoot": "libs/ga-data/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/ga-data/tsconfig.lib.json"
+      }
+    },
+    "sentry-logger": {
+      "type": "library",
+      "root": "libs/sentry-logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/sentry-logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/sentry-logger/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -23,7 +23,6 @@ import { ImageListGraphqlModule } from '../image-list/image-list.graphql.module'
 import { ShowcaseQueryOrmModule } from './services/showcase-query-orm.module';
 import { ShowcaseViewEntity } from './entities/showcase-view.entity';
 import { FcmModule } from '@app/fcm';
-import { RemoveCiController } from './remove-ci.controller';
 
 const authRelModule = AuthModule.forFeature({
     imports: [ShowcaseQueryOrmModule],
@@ -86,7 +85,6 @@ const authRelModule = AuthModule.forFeature({
     ShowcaseInvestorStatResolver,
     ShowcaseQueryService,
   ],
-  controllers: [RemoveCiController],
-  exports: [ShowcaseQueryService],
+  exports: [ShowcaseOrmModule, ShowcaseQueryService],
 })
 export class ShowcaseModule {}

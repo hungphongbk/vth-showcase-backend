@@ -39,6 +39,7 @@
     "init:dev": "npm run schema:drop && npm run schema:sync && npm run seed:run"
   },
   "dependencies": {
+    "@google-analytics/data": "^2.8.0",
     "@graphql-tools/utils": "^7.10.0",
     "@hungphongbk/nestjs-firebase-admin": "^2.0.1",
     "@hungphongbk/nestjs-firebase-auth": "^2.0.1",
@@ -173,7 +174,9 @@
       "^@app/cache(|/.*)$": "<rootDir>/libs/cache/src/$1",
       "^@app/fcm(|/.*)$": "<rootDir>/libs/fcm/src/$1",
       "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1",
-      "^@app/configs(|/.*)$": "<rootDir>/libs/configs/src/$1"
+      "^@app/configs(|/.*)$": "<rootDir>/libs/configs/src/$1",
+      "^@app/ga-data(|/.*)$": "<rootDir>/libs/ga-data/src/$1",
+      "^@app/sentry-logger(|/.*)$": "<rootDir>/libs/sentry-logger/src/$1"
     }
   }
 }

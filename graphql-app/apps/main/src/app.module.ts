@@ -9,12 +9,13 @@ import * as Joi from 'joi';
 import { GqlModule } from './gql/gql.module';
 import { UploadModule } from '@app/upload';
 import { SeederModule } from './seeder/seeder.module';
-import { SentryLoggerModule } from './sentry-logger/sentry-logger.module';
 import { FirebaseModule } from '@app/firebase';
 import { MailerModule } from '@app/mailer';
 import { InvestorModule } from '@app/investor';
 import { FcmModule } from '@app/fcm';
 import { VthConfigsModule } from '@app/configs';
+import { MicroservicesModule } from './microservices/microservices-module';
+import { SentryLoggerModule } from '@app/sentry-logger';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { VthConfigsModule } from '@app/configs';
     InvestorModule,
     FcmModule,
     VthConfigsModule,
+    MicroservicesModule,
   ],
 })
 export class AppModule {}

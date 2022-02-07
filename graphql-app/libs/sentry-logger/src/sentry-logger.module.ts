@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { SentryModule } from '@ntegral/nestjs-sentry';
@@ -6,6 +6,7 @@ import { Transaction } from '@sentry/integrations';
 import * as Tracing from '@sentry/tracing';
 import { Integrations } from '@sentry/node';
 
+@Global()
 @Module({
   imports: [
     SentryModule.forRootAsync({

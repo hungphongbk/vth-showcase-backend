@@ -78,6 +78,18 @@
       ],
       "@app/configs/*": [
         "libs/configs/src/*"
+      ],
+      "@app/ga-data": [
+        "libs/ga-data/src"
+      ],
+      "@app/ga-data/*": [
+        "libs/ga-data/src/*"
+      ],
+      "@app/sentry-logger": [
+        "libs/sentry-logger/src"
+      ],
+      "@app/sentry-logger/*": [
+        "libs/sentry-logger/src/*"
       ]
     }
   }
