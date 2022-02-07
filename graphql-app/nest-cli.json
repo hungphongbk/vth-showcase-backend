@@ -130,6 +130,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/ga-data/tsconfig.lib.json"
       }
+    },
+    "sentry-logger": {
+      "type": "library",
+      "root": "libs/sentry-logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/sentry-logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/sentry-logger/tsconfig.lib.json"
+      }
     }
   }
 }
