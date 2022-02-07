@@ -23,6 +23,7 @@ class ShowcaseCreateBase extends OmitType(
     'updatedAt',
     'commentCount',
     'preorderCount',
+    'viewCount',
   ],
   InputType,
 ) {
@@ -51,7 +52,9 @@ export class ShowcaseCreateInputDto extends ShowcaseCreateBase {
 @InputType()
 export class ShowcaseUpdateInputDto extends PartialType(
   ShowcaseCreateInputDto,
-) {}
+) {
+  viewCount?: number;
+}
 
 @ArgsType()
 export class CreateOneShowcase extends MutationArgsType(

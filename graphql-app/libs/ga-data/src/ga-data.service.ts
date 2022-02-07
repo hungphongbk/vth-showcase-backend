@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import { BetaAnalyticsDataClient } from '@google-analytics/data';
-import { VthConfigsService } from '@app/configs';
 import { CredentialBody } from 'google-auth-library';
 import { ConfigService } from '@nestjs/config';
 import { google } from '@google-analytics/data/build/protos/protos';
+import { VthConfigsService } from '@app/configs';
 import IRunReportRequest = google.analytics.data.v1alpha.IRunReportRequest;
 
 @Injectable()
@@ -24,7 +24,7 @@ export class GaDataService {
 
   public runReport(request: Omit<IRunReportRequest, 'property'>) {
     return this._client.runReport({
-      property: this.propertyId,
+      property: `properties/${this.propertyId}`,
       ...request,
     });
   }

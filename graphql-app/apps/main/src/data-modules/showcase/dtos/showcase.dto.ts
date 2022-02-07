@@ -124,9 +124,11 @@ export class ShowcaseDto {
   inventory!: ShowcaseInventoryDto;
 
   @FilterableField(() => Number, { nullable: true })
-  commentCount: boolean;
+  commentCount: number;
   @FilterableField(() => Number, { nullable: true })
-  preorderCount: boolean;
+  preorderCount: number;
+  @FilterableField(() => Number, { nullable: false })
+  viewCount: number;
 
   get isPublished() {
     return this.publishStatus === PublishStatus.PUBLISHED;

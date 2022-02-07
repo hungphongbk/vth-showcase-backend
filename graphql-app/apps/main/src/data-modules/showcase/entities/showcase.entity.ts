@@ -133,6 +133,9 @@ export class ShowcaseEntity implements ShowcaseInterface {
   })
   preorders: PreorderEntity[];
 
+  @Column({ default: 0 })
+  viewCount: number;
+
   @BeforeInsert()
   async generateSlug() {
     if (typeof this.slug !== 'undefined') return;

@@ -13,6 +13,11 @@ export class CronPubService {
 
   @Cron(CronExpression.EVERY_MINUTE)
   async removeCiTest() {
-    await this.client.send(RmqMessages.REMOVE_CI_TEST, { message: '' });
+    await this.client.send(RmqMessages.REMOVE_CI_TEST, {});
+  }
+
+  @Cron(CronExpression.EVERY_5_MINUTES)
+  async updateViewCount() {
+    await this.client.send(RmqMessages.UPDATE_SHOWCASE_VIEW, {});
   }
 }

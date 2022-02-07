@@ -1282,6 +1282,7 @@ type Showcase {
     """Specify to sort results."""
     sorting: [PrjUpdateDtoSort!] = []
   ): [PrjUpdateDto!]!
+  viewCount: Float!
 }
 
 type ShowcaseAggregateGroupBy {
@@ -1295,6 +1296,13 @@ type ShowcaseAggregateGroupBy {
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
+  viewCount: Float
+}
+
+type ShowcaseAvgAggregate {
+  commentCount: Float
+  preorderCount: Float
+  viewCount: Float
 }
 
 type ShowcaseBrand {
@@ -1329,6 +1337,7 @@ type ShowcaseCountAggregate {
   slug: Int
   status: Int
   updatedAt: Int
+  viewCount: Int
 }
 
 input ShowcaseCreateInputDto {
@@ -1363,6 +1372,7 @@ input ShowcaseDeleteFilter {
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
+  viewCount: NumberFieldComparison
 }
 
 type ShowcaseEdge {
@@ -1386,6 +1396,7 @@ input ShowcaseFilter {
   slug: StringFieldComparison
   status: ShowcaseStatusFilterComparison
   updatedAt: DateFieldComparison
+  viewCount: NumberFieldComparison
 }
 
 input ShowcaseForCalculateDto {
@@ -1533,23 +1544,29 @@ type ShowcaseInvestorStatDto {
 }
 
 type ShowcaseMaxAggregate {
+  commentCount: Float
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
   name: String
+  preorderCount: Float
   publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
+  viewCount: Float
 }
 
 type ShowcaseMinAggregate {
+  commentCount: Float
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
   name: String
+  preorderCount: Float
   publishStatus: PublishStatus
   slug: String
   status: ShowcaseStatus
   updatedAt: DateTime
+  viewCount: Float
 }
 
 type ShowcasePrice {
@@ -1583,6 +1600,7 @@ enum ShowcaseSortFields {
   slug
   status
   updatedAt
+  viewCount
 }
 
 enum ShowcaseStatus {
@@ -1606,6 +1624,12 @@ input ShowcaseStatusFilterComparison {
   notILike: ShowcaseStatus
   notIn: [ShowcaseStatus!]
   notLike: ShowcaseStatus
+}
+
+type ShowcaseSumAggregate {
+  commentCount: Float
+  preorderCount: Float
+  viewCount: Float
 }
 
 input ShowcaseUpdateInputDto {

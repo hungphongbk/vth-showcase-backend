@@ -67,4 +67,6 @@ export class ShowcaseViewEntity implements ShowcaseInterface {
   commentCount: number;
   @ViewColumn()
   preorderCount: number;
+  @ViewColumn()
+  viewCount: number;
 }
