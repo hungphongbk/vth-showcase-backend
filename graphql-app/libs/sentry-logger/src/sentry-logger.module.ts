@@ -23,7 +23,7 @@ import { Integrations } from '@sentry/node';
           dsn: config.get('SENTRY_DSN'),
           debug: config.get('APP_ENV') !== 'production',
           environment: config.get('APP_ENV'),
-          release: '1.0.0',
+          release: '1.0.1',
           tracesSampleRate: 1.0,
           integrations: [
             new Integrations.Http({ tracing: true }),

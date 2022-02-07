@@ -14,13 +14,19 @@ export class GqlSentryTransactionPlugin
   async requestDidStart({
     request,
     context,
+    operationName,
   }: GraphQLRequestContext<GqlContext>): Promise<
     GraphQLRequestListener<GqlContext>
   > {
-    if (!!request.operationName) {
+    const opName = operationName ?? request.operationName;
+    if (!!opName) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      context.transaction.setName(request.operationName!);
+      context.transaction.setName(opName!);
       context.transaction.setData('query', request.query);
+      context.transaction.setData(
+        'variables',
+        JSON.stringify(request.variables, null, 2),
+      );
     }
     return {
       async willSendResponse({ context }): Promise<void> {
