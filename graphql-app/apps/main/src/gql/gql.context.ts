@@ -13,13 +13,14 @@ export async function createContext(
   ctx: Omit<GqlContext, 'transaction'>,
   sentryInstance: typeof Sentry,
 ): Promise<GqlContext> {
-  sentryInstance.setTag(
-    'startFromPlatform',
-    (ctx.request.headers['x-vth-from'] as string) ?? ctx.request.hostname,
-  );
   const transaction = sentryInstance.startTransaction({
     op: TransactionOperationTypes.GQL,
     name: 'GraphQLTransaction', // this will be the default name, unless the gql query has a name
+    tags: {
+      startFromPlatform:
+        (ctx.request.headers['x-vth-from'] as string) ?? ctx.request.hostname,
+    },
   });
+
   return { ...ctx, transaction };
 }

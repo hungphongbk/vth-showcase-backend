@@ -1,5 +1,6 @@
 import {
   ApolloServerPlugin,
+  GraphQLRequestContext,
   GraphQLRequestExecutionListener,
   GraphQLRequestListener,
 } from 'apollo-server-plugin-base';
@@ -13,10 +14,13 @@ export class GqlSentryTransactionPlugin
   async requestDidStart({
     request,
     context,
-  }): Promise<GraphQLRequestListener<GqlContext>> {
+  }: GraphQLRequestContext<GqlContext>): Promise<
+    GraphQLRequestListener<GqlContext>
+  > {
     if (!!request.operationName) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       context.transaction.setName(request.operationName!);
+      context.transaction.setData('query', request.query);
     }
     return {
       async willSendResponse({ context }): Promise<void> {
