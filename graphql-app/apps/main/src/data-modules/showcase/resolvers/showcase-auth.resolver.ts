@@ -1,6 +1,5 @@
 import {
   Args,
-  Directive,
   Mutation,
   Parent,
   ResolveField,
@@ -23,7 +22,6 @@ import {
 } from '@hungphongbk/nestjs-firebase-admin';
 import { ForbiddenError } from 'apollo-server-express';
 import { ShowcaseConnection } from '../dtos/query.types';
-import { ShowcaseGaDto } from '../dtos/showcase-ga.dto';
 import { FcmService } from '@app/fcm';
 
 @Resolver(() => ShowcaseDto)
@@ -90,16 +88,6 @@ export class ShowcaseAuthResolver {
     });
     this.logger.log('deleteOneShowcase: Successfully');
     return true;
-  }
-
-  @ResolveField('ga', () => ShowcaseGaDto, {
-    nullable: true,
-  })
-  @Directive('@ssrAware')
-  async ga(@Parent() showcase) {
-    return {
-      viewCount: 1,
-    };
   }
 }
 

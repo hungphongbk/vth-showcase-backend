@@ -4,6 +4,10 @@ import { Repository } from 'typeorm';
 import { Ctx, MessagePattern, RmqContext } from '@nestjs/microservices';
 import { Controller } from '@nestjs/common';
 import RmqMessages from '@app/configs/rabbitmq-messages';
+import {
+  SentryTransaction,
+  TransactionOperationTypes,
+} from '@app/sentry-logger';
 
 @Controller()
 export class RemoveCiController {
@@ -13,6 +17,10 @@ export class RemoveCiController {
   ) {}
 
   @MessagePattern(RmqMessages.REMOVE_CI_TEST)
+  @SentryTransaction(
+    TransactionOperationTypes.MICROSERVICE,
+    'RemoveCiShowcases',
+  )
   async execute(@Ctx() context: RmqContext) {
     const channel = context.getChannelRef();
     const originalMessage = context.getMessage();

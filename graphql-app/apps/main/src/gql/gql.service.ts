@@ -6,7 +6,6 @@ import { Cache } from 'cache-manager';
 import { ConfigService } from '@nestjs/config';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
 import Redis from 'ioredis';
-import { SsrAwareDirective } from './directives/ssr-aware.directive';
 import { createContext } from './gql.context';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 
@@ -36,7 +35,6 @@ export class GqlService implements GqlOptionsFactory {
       introspection: enableIntrospection,
       schemaDirectives: {
         currency: CurrencyDirective,
-        ssrAware: SsrAwareDirective,
       },
       persistedQueries: {
         cache,

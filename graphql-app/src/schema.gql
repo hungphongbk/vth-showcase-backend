@@ -1244,7 +1244,6 @@ type Showcase {
   expectedSaleAt: DateTime
   expectedSaleEndAt: DateTime
   expectedSalePrice: ShowcasePrice
-  ga: ShowcaseGaDto
   highlightFeatures(
     """Specify to filter the records returned."""
     filter: ShowcaseHighlightFeatureFilter = {}
@@ -1395,10 +1394,6 @@ input ShowcaseForCalculateDto {
   expectedSaleEndAt: DateTime = null
   expectedSalePrice: ShowcasePriceInput
   inventory: ShowcaseInventoryDtoInput
-}
-
-type ShowcaseGaDto {
-  viewCount: Float!
 }
 
 input ShowcaseHFCreateInputDto {
