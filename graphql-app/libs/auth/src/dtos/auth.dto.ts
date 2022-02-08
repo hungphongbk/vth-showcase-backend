@@ -8,7 +8,7 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
-import { AdminField } from '@app/auth/decorators/admin-field.decorator';
+import { AdminField } from '@app/auth';
 
 export enum AuthRoleType {
   SUPERADMIN = 'superadmin',
