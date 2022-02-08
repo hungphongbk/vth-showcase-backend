@@ -1,16 +1,17 @@
 import { Plugin } from '@nestjs/graphql';
 import {
   ApolloServerPlugin,
-  BaseContext,
   GraphQLRequestContext,
   GraphQLRequestListener,
 } from 'apollo-server-plugin-base';
 import { Logger } from '@nestjs/common';
 import * as Sentry from '@sentry/node';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
+import { GqlContext } from '../gql.context';
+import { GraphQLRequestContextDidEncounterErrors } from 'apollo-server-types';
 
 @Plugin()
-export class GqlSentryLoggingPlugin implements ApolloServerPlugin {
+export class GqlSentryLoggingPlugin implements ApolloServerPlugin<GqlContext> {
   private readonly logger = new Logger(this.constructor.name, {
     timestamp: false,
   });
@@ -18,7 +19,7 @@ export class GqlSentryLoggingPlugin implements ApolloServerPlugin {
   constructor(@InjectSentry() private readonly client: SentryService) {}
 
   async requestDidStart(
-    requestContext: GraphQLRequestContext<BaseContext>,
+    requestContext: GraphQLRequestContext<GqlContext>,
   ): Promise<GraphQLRequestListener> {
     const logger = this.logger,
       instance = this.client.instance();
@@ -26,7 +27,9 @@ export class GqlSentryLoggingPlugin implements ApolloServerPlugin {
       async willSendResponse() {
         logger.log(requestContext.request.operationName);
       },
-      async didEncounterErrors(ctx) {
+      async didEncounterErrors(
+        ctx: GraphQLRequestContextDidEncounterErrors<GqlContext>,
+      ) {
         for (const error of ctx.errors) {
           const err = error.originalError || error;
           let sentryId = `gql-${new Date().valueOf().toString()}`;
@@ -43,6 +46,7 @@ export class GqlSentryLoggingPlugin implements ApolloServerPlugin {
               JSON.stringify(ctx.request.variables, null, 2),
             );
             scope.setExtra('message', err.message + '');
+            scope.setSpan(ctx.context.transaction);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if (err.path) {
