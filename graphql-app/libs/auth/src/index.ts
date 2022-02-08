@@ -1,6 +1,5 @@
 export * from './dtos/auth.dto';
-export * from './decorators/current-user.decorator';
-export * from './decorators/admin-field.decorator';
+export * from './decorators';
 export * from './assemblers/auth.assembler';
 export * from './auth.controller';
 export * from './modules/auth.module';
