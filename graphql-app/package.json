@@ -57,7 +57,7 @@
     "@nestjs/platform-fastify": "^8.2.5",
     "@nestjs/schedule": "^1.0.2",
     "@nestjs/terminus": "^8.0.3",
-    "@nestjs/typeorm": "^8.0.2",
+    "@nestjs/typeorm": "^8.0.3",
     "@ntegral/nestjs-sentry": "^3.0.7",
     "@sentry/integrations": "^6.17.4",
     "@sentry/node": "^6.17.4",
@@ -104,7 +104,7 @@
     "slugify": "^1.6.2",
     "ts-node": "^10.4.0",
     "typeorm": "^0.2.41",
-    "typeorm-extension": "^1.0.1",
+    "typeorm-extension": "^1.1.0",
     "typeorm-seeding": "^1.6.1",
     "url-join": "^4.0.1",
     "url-join-ts": "^1.0.5"
