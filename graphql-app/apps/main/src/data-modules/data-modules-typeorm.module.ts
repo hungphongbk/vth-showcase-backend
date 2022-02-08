@@ -2,6 +2,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as connectionOptions from '../ormconfig';
 import * as Joi from 'joi';
+import { SentryLoggerModule } from '@app/sentry-logger';
 
 function globImport(r: any) {
   return r
@@ -31,6 +32,7 @@ export const DataModulesTypeormModule = TypeOrmModule.forRootAsync({
         DB_NAME: Joi.string().default('test'),
       }),
     }),
+    SentryLoggerModule,
   ],
   inject: [ConfigService],
   useFactory: (config: ConfigService<DbConnectionConfig>) => {
