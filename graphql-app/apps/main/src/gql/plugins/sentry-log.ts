@@ -29,11 +29,10 @@ export class GqlSentryLoggingPlugin implements ApolloServerPlugin {
       async didEncounterErrors(ctx) {
         for (const error of ctx.errors) {
           const err = error.originalError || error;
-
           let sentryId = `gql-${new Date().valueOf().toString()}`;
           instance.withScope((scope) => {
             scope.setTags({
-              kind: ctx.operation.operation,
+              kind: ctx.operation?.operation ?? 'query',
               operationName: ctx.operationName || ctx.request.operationName,
             });
             // Log query and variables as extras
