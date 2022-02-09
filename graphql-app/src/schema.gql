@@ -1633,6 +1633,7 @@ type ShowcaseSumAggregate {
 }
 
 input ShowcaseUpdateInputDto {
+  authorUid: String
   brand: ShowcaseBrandInput
   description: String
   expectedQuantity: ShowcasePriceInput

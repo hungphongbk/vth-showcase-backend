@@ -54,6 +54,9 @@ export class ShowcaseUpdateInputDto extends PartialType(
   ShowcaseCreateInputDto,
 ) {
   viewCount?: number;
+
+  @Field({ nullable: true })
+  authorUid?: string;
 }
 
 @ArgsType()
