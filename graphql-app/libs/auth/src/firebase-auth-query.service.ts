@@ -58,15 +58,18 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (query.sorting.some((s) => s.field === 'createdAt')) {
+      delete query.sorting;
       rs = orderBy(rs, (it) => new Date(it.metadata.creationTime), ['desc']);
     }
     //TODO
     if (query.filter) {
-      rs = rs.filter(
-        (u) =>
-          u.customClaims[AuthRoleType.ADMIN] ||
-          u.customClaims[AuthRoleType.SUPERADMIN],
-      );
+      delete query.filter;
+      rs = rs.filter((u) => {
+        return (
+          u.customClaims?.[AuthRoleType.ADMIN] ||
+          u.customClaims?.[AuthRoleType.SUPERADMIN]
+        );
+      });
     }
     return applyQuery(rs, query);
   }
