@@ -1030,7 +1030,7 @@ type Query {
     id: ID!
   ): CommentDto
   currentUser: User!
-  getAllUsers: [User!]!
+  getAllUsers(isAdmin: Boolean = false): [User!]!
   getOneUser(uid: String!): User!
   investmentPackageDto(
     """The id of the record to find."""

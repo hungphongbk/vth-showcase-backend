@@ -2,7 +2,7 @@ import { Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { AuthDto } from '../dtos/auth.dto';
 import { GqlAuthGuard } from '../guards/gql.auth.guard';
-import { CurrentUser } from '../decorators/current-user.decorator';
+import { CurrentUser } from '@app/auth/decorators';
 
 @Resolver(() => AuthDto)
 export class AuthResolver {

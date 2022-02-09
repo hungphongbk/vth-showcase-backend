@@ -29,9 +29,19 @@ export class AuthAdminResolver {
   ) {}
 
   @Query(() => [AuthDto])
-  async getAllUsers() {
+  async getAllUsers(
+    @Args('isAdmin', { defaultValue: false }) isAdmin: boolean,
+  ) {
     return await this.userQueryService.query({
       sorting: [{ field: 'createdAt', direction: SortDirection.DESC }],
+      ...(isAdmin && {
+        filter: {
+          or: [
+            { role: { eq: AuthRoleType.ADMIN } },
+            { role: { eq: AuthRoleType.SUPERADMIN } },
+          ],
+        },
+      }),
     });
   }
 
