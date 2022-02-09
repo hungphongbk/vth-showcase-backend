@@ -58,7 +58,7 @@ export class AuthDto {
   @Field()
   photoURL: string;
 
-  @Field(() => AuthRoleType)
+  @FilterableField(() => AuthRoleType)
   role: AuthRoleType;
 
   @AdminField(() => [AuthProviderInfoDto], { nullable: true })

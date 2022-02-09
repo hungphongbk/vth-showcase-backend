@@ -54,6 +54,10 @@ const mapUserRecordToDto = reverse(mapDtoToUserRecord) as QueryFieldMap<
   FirebaseUserClass,
   AuthDto
 >;
+const mapDtoToUserQuery = {
+  ...mapDtoToUserRecord,
+  role: 'role',
+} as unknown as QueryFieldMap<AuthDto, FirebaseUserClass>;
 const transformByMapper = (
   original: any,
   destination: any,
@@ -74,7 +78,7 @@ export class AuthAssembler extends AbstractAssembler<
   FirebaseUserClass
 > {
   convertQuery(query: Query<AuthDto>): Query<FirebaseUserClass> {
-    return transformQuery(query, mapDtoToUserRecord);
+    return transformQuery(query, mapDtoToUserQuery);
   }
 
   convertToCreateEntity(

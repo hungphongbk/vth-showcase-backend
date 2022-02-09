@@ -15,6 +15,7 @@ import {
 } from '@hungphongbk/nestjs-firebase-admin';
 import { auth } from 'firebase-admin';
 import { orderBy } from 'lodash';
+import { AuthRoleType } from '@app/auth/dtos/auth.dto';
 
 @QueryService(FirebaseUserClass)
 export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass> {
@@ -58,6 +59,14 @@ export class FirebaseAuthQueryService extends NoOpQueryService<FirebaseUserClass
     // @ts-ignore
     if (query.sorting.some((s) => s.field === 'createdAt')) {
       rs = orderBy(rs, (it) => new Date(it.metadata.creationTime), ['desc']);
+    }
+    //TODO
+    if (query.filter) {
+      rs = rs.filter(
+        (u) =>
+          u.customClaims[AuthRoleType.ADMIN] ||
+          u.customClaims[AuthRoleType.SUPERADMIN],
+      );
     }
     return applyQuery(rs, query);
   }
