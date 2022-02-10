@@ -795,7 +795,7 @@ type Mutation {
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
-  subscribeToFcmTopic(token: String!, topic: String!): FcmRegistrationTokenDto!
+  subscribeToFcmTopic(token: String!, topic: [String!]!): FcmRegistrationTokenDto!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMailTemplateDtos(input: UpdateManyMailTemplateDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!

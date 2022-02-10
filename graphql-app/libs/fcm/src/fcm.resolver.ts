@@ -16,13 +16,15 @@ export class FcmResolver {
   @UseGuards(GqlAuthGuard)
   subscribeToFcmTopic(
     @Args('token') token: string,
-    @Args('topic') topic: string,
+    @Args('topic', { type: () => [String] }) topics: string[],
     @CurrentUser() user: AuthDto,
   ) {
-    return this.queryService.createOne({
-      token,
-      topic,
-      authorUid: user.uid,
-    });
+    return this.queryService.createMany(
+      topics.map((topic) => ({
+        token,
+        topic,
+        authorUid: user.uid,
+      })),
+    );
   }
 }
