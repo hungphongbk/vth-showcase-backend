@@ -8,6 +8,10 @@ import { BaseRedisCache } from 'apollo-server-cache-redis';
 import Redis from 'ioredis';
 import { createContext } from './gql.context';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,
+} from 'apollo-server-core';
 
 @Injectable()
 export class GqlService implements GqlOptionsFactory {
@@ -31,7 +35,7 @@ export class GqlService implements GqlOptionsFactory {
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       debug: process.env.NODE_ENV === 'development',
-      playground: enableIntrospection,
+      playground: false,
       introspection: enableIntrospection,
       schemaDirectives: {
         currency: CurrencyDirective,
@@ -39,7 +43,14 @@ export class GqlService implements GqlOptionsFactory {
       persistedQueries: {
         cache,
       },
-      plugins: [],
+      plugins: [
+        process.env.NODE_ENV === 'production'
+          ? ApolloServerPluginLandingPageProductionDefault({
+              graphRef: this.configService.get('APOLLO_GRAPH_REF'),
+              footer: false,
+            })
+          : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+      ],
       context: (ctx) => createContext(ctx, sentryInstance),
       formatError: (error) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

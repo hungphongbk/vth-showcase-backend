@@ -13,6 +13,7 @@ import { GqlSentryTransactionPlugin } from './plugins/sentry-transaction';
         ConfigModule.forRoot({
           validationSchema: Joi.object({
             GQL_INTROSPECTION: Joi.boolean().required(),
+            APOLLO_GRAPH_REF: Joi.string(),
           }),
         }),
       ],
