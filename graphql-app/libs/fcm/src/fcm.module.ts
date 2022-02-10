@@ -7,6 +7,8 @@ import { FcmResolver } from '@app/fcm/fcm.resolver';
 import { AuthModule } from '@app/auth';
 import { FcmRegistrationTokenDtoQueryService } from '@app/fcm/services/query-service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { FcmController } from '@app/fcm/fcm.controller';
+import { RabbitmqClientModule } from '@app/rabbitmq-client';
 
 const OrmModule = NestjsQueryTypeOrmModule.forFeature([
     FcmRegistrationTokenEntity,
@@ -21,6 +23,7 @@ const OrmModule = NestjsQueryTypeOrmModule.forFeature([
     TypeOrmModule.forFeature([FcmRegistrationTokenEntity]),
     OrmModule,
     AuthoredModule,
+    RabbitmqClientModule,
   ],
   providers: [
     FcmService,
@@ -28,6 +31,7 @@ const OrmModule = NestjsQueryTypeOrmModule.forFeature([
     FcmRegistrationTokenSubscriber,
     FcmResolver,
   ],
+  controllers: [FcmController],
   exports: [FcmService],
 })
 export class FcmModule {}

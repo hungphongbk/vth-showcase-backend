@@ -286,6 +286,16 @@ input DeleteOneShowcaseHighlightFeatureInput {
   id: ID!
 }
 
+input FcmNotificationPayloadDto {
+  body: String
+  icon: String
+  title: String
+}
+
+input FcmPayloadDto {
+  notification: FcmNotificationPayloadDto
+}
+
 type FcmRegistrationTokenDto {
   createdAt: DateTime!
   id: ID!
@@ -790,6 +800,7 @@ type Mutation {
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
   sendEmail(input: MailCreateDto!): MailDto!
+  sendNotification(payload: FcmPayloadDto!, topic: String!): Boolean!
   setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
   setAuthorOnShowcase(input: SetAuthorOnShowcaseInput!): Showcase!
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!

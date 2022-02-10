@@ -1,18 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as firebaseAdmin from 'firebase-admin';
+import { RabbitmqClientService } from '@app/rabbitmq-client';
+import RmqMessages from '@app/configs/rabbitmq-messages';
 
 @Injectable()
 export class FcmService {
-  private readonly options = {
-    priority: 'high',
-    timeToLive: 60 * 60 * 24,
-  };
-
-  private readonly optionsSilent = {
-    priority: 'high',
-    timeToLive: 60 * 60 * 24,
-    content_available: true,
-  };
+  constructor(private readonly rmqClient: RabbitmqClientService) {}
 
   async sendToTopic(
     topic: 'all' | string,
@@ -22,18 +15,10 @@ export class FcmService {
     if (!topic && topic.trim().length === 0) {
       throw new Error('You provide an empty topic name!');
     }
-    let result = null;
-    try {
-      result = await firebaseAdmin
-        .messaging()
-        .sendToTopic(
-          topic,
-          payload,
-          silent ? this.optionsSilent : this.options,
-        );
-    } catch (error) {
-      throw error;
-    }
-    return result;
+    await this.rmqClient.send(RmqMessages.FCM_SEND_TO_TOPIC, {
+      topic,
+      payload,
+      silent,
+    });
   }
 }
