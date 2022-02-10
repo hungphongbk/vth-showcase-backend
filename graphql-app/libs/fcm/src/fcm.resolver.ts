@@ -1,13 +1,6 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { FcmRegistrationTokenDto } from '@app/fcm/dtos/fcm-registration-token.dto';
 import { UseGuards } from '@nestjs/common';
-import {
-  AuthDto,
-  CurrentUser,
-  GqlAdminAuthGuard,
-  GqlAuthGuard,
-} from '@app/auth';
-import { FcmRegistrationTokenDtoQueryService } from '@app/fcm/services/query-service';
+import { GqlAdminAuthGuard, GqlOptionalAuthGuard } from '@app/auth';
 import { FcmPayloadDto } from '@app/fcm/dtos/fcm-payload.dto';
 import { FcmService } from '@app/fcm/fcm.service';
 import { messaging } from 'firebase-admin';
@@ -15,27 +8,20 @@ import MessagingPayload = messaging.MessagingPayload;
 
 @Resolver()
 export class FcmResolver {
-  constructor(
-    private readonly queryService: FcmRegistrationTokenDtoQueryService,
-    private readonly fcmService: FcmService,
-  ) {
+  constructor(private readonly fcmService: FcmService) {
     //
   }
 
-  @Mutation(() => FcmRegistrationTokenDto)
-  @UseGuards(GqlAuthGuard)
-  subscribeToFcmTopic(
+  @Mutation(() => Boolean)
+  @UseGuards(GqlOptionalAuthGuard)
+  async subscribeToFcmTopic(
     @Args('token') token: string,
     @Args('topic', { type: () => [String] }) topics: string[],
-    @CurrentUser() user: AuthDto,
   ) {
-    return this.queryService.createMany(
-      topics.map((topic) => ({
-        token,
-        topic,
-        authorUid: user.uid,
-      })),
+    await Promise.all(
+      topics.map((topic) => this.fcmService.subscribeToTopic(token, topic)),
     );
+    return true;
   }
 
   @Mutation(() => Boolean)

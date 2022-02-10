@@ -1,11 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as firebaseAdmin from 'firebase-admin';
 import { RabbitmqClientService } from '@app/rabbitmq-client';
 import RmqMessages from '@app/configs/rabbitmq-messages';
+import {
+  FIREBASE_ADMIN_INJECT,
+  FirebaseAdminSDK,
+} from '@hungphongbk/nestjs-firebase-admin';
 
 @Injectable()
 export class FcmService {
-  constructor(private readonly rmqClient: RabbitmqClientService) {}
+  constructor(
+    private readonly rmqClient: RabbitmqClientService,
+    @Inject(FIREBASE_ADMIN_INJECT)
+    private readonly firebaseAdmin: FirebaseAdminSDK,
+  ) {}
+
+  public get subscribeToTopic() {
+    return this.firebaseAdmin.messaging().subscribeToTopic;
+  }
 
   async sendToTopic(
     topic: 'all' | string,
