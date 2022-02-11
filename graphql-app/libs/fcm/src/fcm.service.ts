@@ -6,17 +6,21 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
+import { Messaging } from 'firebase-admin/lib/messaging';
 
 @Injectable()
 export class FcmService {
+  private readonly _messaging: Messaging;
   constructor(
     private readonly rmqClient: RabbitmqClientService,
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
-  ) {}
+  ) {
+    this._messaging = firebaseAdmin.messaging();
+  }
 
   public get subscribeToTopic() {
-    return this.firebaseAdmin.messaging().subscribeToTopic;
+    return this._messaging.subscribeToTopic.bind(this._messaging);
   }
 
   async sendToTopic(
