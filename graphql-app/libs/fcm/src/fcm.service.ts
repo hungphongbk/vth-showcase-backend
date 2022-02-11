@@ -32,7 +32,7 @@ export class FcmService {
       throw new Error('You provide an empty topic name!');
     }
     await this.rmqClient.send(RmqMessages.FCM_SEND_TO_TOPIC, {
-      topic,
+      topic: 'all' !== topic ? `/topics/${topic}` : 'all',
       payload,
       silent,
     });
