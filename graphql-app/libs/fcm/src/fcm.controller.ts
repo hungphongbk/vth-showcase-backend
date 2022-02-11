@@ -12,6 +12,11 @@ import {
 import RmqMessages from '@app/configs/rabbitmq-messages';
 import * as firebaseAdmin from 'firebase-admin';
 import { messaging } from 'firebase-admin';
+import {
+  SentryTransaction,
+  TransactionOperationTypes,
+} from '@app/sentry-logger';
+import * as Sentry from '@sentry/node';
 import MessagingPayload = messaging.MessagingPayload;
 
 @Controller()
@@ -32,6 +37,7 @@ export class FcmController {
   ) {}
 
   @MessagePattern(RmqMessages.FCM_SEND_TO_TOPIC)
+  @SentryTransaction(TransactionOperationTypes.MICROSERVICE, 'SendFCMTopic')
   async sendToTopic(
     @Ctx() context: RmqContext,
     @Payload()
@@ -57,7 +63,7 @@ export class FcmController {
           silent ? this.optionsSilent : this.options,
         );
     } catch (error) {
-      throw error;
+      Sentry.captureException(error);
     }
 
     channel.ack(originalMessage);
