@@ -28,7 +28,7 @@ export class ShowcaseSubscriber
   }: UpdateEvent<ShowcaseEntity>): Promise<void> {
     if (updatedColumns.some((col) => col.propertyName === 'status')) {
       await this.fcm.sendToTopic(
-        `preorder:${entity.slug}`,
+        `preorder~${entity.slug}`,
         {
           notification: {
             title: 'Cập nhật tình trạng dự án',

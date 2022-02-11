@@ -53,7 +53,6 @@ export class FcmController {
   ) {
     const channel = context.getChannelRef();
     const originalMessage = context.getMessage();
-
     try {
       await firebaseAdmin
         .messaging()
