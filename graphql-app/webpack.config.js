@@ -13,7 +13,7 @@ module.exports = function (options) {
         authToken: process.env.SENTRY_AUTH_TOKEN,
         org: 'vaithuhaycom',
         project: 'showcase-backend',
-        release: '1.0',
+        release: '1.0.1',
 
         // other SentryWebpackPlugin configuration
         include: 'dist',
