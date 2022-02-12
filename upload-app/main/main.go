@@ -44,6 +44,7 @@ func setupRouter() *gin.Engine {
 	r.GET("/upload", server.getAll)
 	r.GET("/upload/stat", server.stat)
 	r.POST("/upload", server.post)
+	r.POST("/upload-static", server.postStatic)
 	r.DELETE("/upload/:id", server.del)
 
 	return r
