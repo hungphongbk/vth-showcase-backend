@@ -7,6 +7,7 @@ import { PreorderResolver } from './preorder.resolver';
 import { ShowcaseModule } from '../showcase/showcase.module';
 import { PreorderGraphqlModule } from './modules/preorder.graphql.module';
 import { PreorderUserResolver } from './preorder.user.resolver';
+import { NotifyService } from './notify.service';
 
 const authoredModule = AuthModule.forFeature({
   imports: [PreorderGraphqlOrmModule],
@@ -21,7 +22,7 @@ const authoredModule = AuthModule.forFeature({
     authoredModule,
     ShowcaseModule,
   ],
-  providers: [PreorderResolver, PreorderUserResolver],
+  providers: [PreorderResolver, PreorderUserResolver, NotifyService],
   exports: [PreorderGraphqlOrmModule],
 })
 export class PreorderModule {}

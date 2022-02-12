@@ -18,16 +18,4 @@ export class MailerService {
       },
     });
   }
-
-  async sendPreorderNotify(payload: {
-    email: string;
-    name: string;
-    product_name: string;
-    // product_link: string;
-  }) {
-    await this.send<any>(payload.email, 'preorder-notify', {
-      name: payload.name,
-      product_name: payload.product_name,
-    });
-  }
 }

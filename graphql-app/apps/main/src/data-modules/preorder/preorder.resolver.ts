@@ -27,7 +27,7 @@ import {
 } from '@hungphongbk/nestjs-firebase-admin';
 import { PreorderConnection, PreorderDtoQuery } from './preorder.connection';
 import * as deepmerge from 'deepmerge';
-import { MailerService } from '@app/mailer';
+import { NotifyService } from './notify.service';
 
 @ObjectType({ isAbstract: true })
 class PreorderResponseTokenDto {
@@ -61,7 +61,7 @@ export class PreorderResolver {
     private readonly showcaseService: ShowcaseQueryService,
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
-    @Inject(MailerService) private readonly mailerService: MailerService,
+    private readonly notifyService: NotifyService,
     @Inject(AuthAssembler) private readonly converter: AuthAssembler,
   ) {
     //
@@ -116,10 +116,10 @@ export class PreorderResolver {
       );
     }
 
-    await this.mailerService.sendPreorderNotify({
+    await this.notifyService.sendPreorderNotify({
       email: _user.email,
       name: _user.name,
-      product_name: showcase.name,
+      showcase,
     });
     return {
       ...preorder,
