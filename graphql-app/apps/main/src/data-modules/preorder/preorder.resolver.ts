@@ -120,6 +120,7 @@ export class PreorderResolver {
       email: _user.email,
       name: _user.name,
       showcase,
+      preorder,
     });
     return {
       ...preorder,
