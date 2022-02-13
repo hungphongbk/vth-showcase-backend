@@ -41,6 +41,7 @@ func setupRouter() *gin.Engine {
 	}))
 	r.Static("/admin", "./admin")
 	r.Static("/assets", environment.DocumentRoot)
+	r.GET("/assets-png/:id", server.getPng)
 	r.GET("/upload", server.getAll)
 	r.GET("/upload/stat", server.stat)
 	r.POST("/upload", server.post)

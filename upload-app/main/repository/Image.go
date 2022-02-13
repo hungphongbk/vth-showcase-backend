@@ -17,7 +17,7 @@ var Image = &ImageRepository{}
 func (repo *ImageRepository) Init(e *env.Environment) {
 	repo.env = e
 }
-func (repo *ImageRepository) findById(id string) (*entities.Image, error) {
+func (repo *ImageRepository) FindById(id string) (*entities.Image, error) {
 	img := new(entities.Image)
 	err := db.Connection.Model(img).Where("id = ?", id).Select()
 	if err != nil {
@@ -54,7 +54,7 @@ func (repo *ImageRepository) DeleteImage(i entities.Image) error {
 	return nil
 }
 func (repo *ImageRepository) DeleteImageById(id string) error {
-	img, err := repo.findById(id)
+	img, err := repo.FindById(id)
 	if err != nil {
 		return err
 	}
