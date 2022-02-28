@@ -5,7 +5,7 @@ import {
   GraphQLRequestListener,
 } from 'apollo-server-plugin-base';
 import { GqlContext } from '../gql.context';
-import { Plugin } from '@nestjs/graphql';
+import { Plugin } from '@nestjs/apollo';
 
 @Plugin()
 export class GqlSentryTransactionPlugin

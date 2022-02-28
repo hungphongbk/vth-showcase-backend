@@ -12,10 +12,10 @@ import {
 } from '@app/auth';
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import * as deepmerge from 'deepmerge';
-import { ForbiddenError } from 'apollo-server-express';
 import { ImageListDto } from '../../image-list/dto/image-list.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
+import { ForbiddenError } from 'apollo-server-fastify';
 
 @Resolver(() => ShowcaseDto)
 @UseGuards(GqlOptionalAuthGuard)

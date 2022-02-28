@@ -5,6 +5,7 @@ import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
 import { GqlSentryLoggingPlugin } from './plugins/sentry-log';
 import { GqlSentryTransactionPlugin } from './plugins/sentry-transaction';
+import { ApolloDriver } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { GqlSentryTransactionPlugin } from './plugins/sentry-transaction';
           }),
         }),
       ],
+      driver: ApolloDriver,
       useClass: GqlService,
     }),
   ],

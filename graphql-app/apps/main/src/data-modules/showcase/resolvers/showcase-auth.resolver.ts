@@ -20,7 +20,7 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
-import { ForbiddenError } from 'apollo-server-express';
+import { ForbiddenError } from 'apollo-server-fastify';
 import { ShowcaseConnection } from '../dtos/query.types';
 import { FcmService } from '@app/fcm';
 

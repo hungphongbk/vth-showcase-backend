@@ -1,7 +1,6 @@
-import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
+import { GqlOptionsFactory } from '@nestjs/graphql';
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { join } from 'path';
-import { CurrencyDirective } from './directives/currency.directive';
 import { Cache } from 'cache-manager';
 import { ConfigService } from '@nestjs/config';
 import { BaseRedisCache } from 'apollo-server-cache-redis';
@@ -12,6 +11,8 @@ import {
   ApolloServerPluginLandingPageLocalDefault,
   ApolloServerPluginLandingPageProductionDefault,
 } from 'apollo-server-core';
+import { ApolloDriverConfig } from '@nestjs/apollo';
+import { currencyDirectiveTransformer } from './directives/currency.directive';
 
 @Injectable()
 export class GqlService implements GqlOptionsFactory {
@@ -20,7 +21,7 @@ export class GqlService implements GqlOptionsFactory {
     private readonly configService: ConfigService,
     @InjectSentry() private readonly sentryClient: SentryService,
   ) {}
-  createGqlOptions(): GqlModuleOptions {
+  createGqlOptions(): ApolloDriverConfig {
     const cache = new BaseRedisCache({
         client: new Redis({
           host: this.configService.get('REDIS_HOST'),
@@ -37,9 +38,7 @@ export class GqlService implements GqlOptionsFactory {
       debug: process.env.NODE_ENV === 'development',
       playground: false,
       introspection: enableIntrospection,
-      schemaDirectives: {
-        currency: CurrencyDirective,
-      },
+      transformSchema: currencyDirectiveTransformer('currency'),
       persistedQueries: {
         cache,
       },
