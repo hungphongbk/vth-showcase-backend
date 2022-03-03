@@ -9,6 +9,7 @@ import { CommentModule } from './comment/comment.module';
 import { PrjUpdateModule } from './prj-update/prj-update.module';
 import { PreorderModule } from './preorder/preorder.module';
 import { DataModulesTypeormModule } from './data-modules-typeorm.module';
+import { BrandModule } from './brand';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DataModulesTypeormModule } from './data-modules-typeorm.module';
     CommentModule,
     PrjUpdateModule,
     PreorderModule,
+    BrandModule,
   ],
   exports: [ShowcaseModule],
 })

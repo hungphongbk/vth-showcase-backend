@@ -100,7 +100,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "slugify": "^1.6.2",
+    "slugify": "^1.6.5",
     "ts-node": "^10.4.0",
     "typeorm": "^0.2.41",
     "typeorm-extension": "^1.1.0",
@@ -175,7 +175,8 @@
       "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1",
       "^@app/configs(|/.*)$": "<rootDir>/libs/configs/src/$1",
       "^@app/ga-data(|/.*)$": "<rootDir>/libs/ga-data/src/$1",
-      "^@app/sentry-logger(|/.*)$": "<rootDir>/libs/sentry-logger/src/$1"
+      "^@app/sentry-logger(|/.*)$": "<rootDir>/libs/sentry-logger/src/$1",
+      "^@app/util(|/.*)$": "<rootDir>/libs/util/src/$1"
     }
   }
 }

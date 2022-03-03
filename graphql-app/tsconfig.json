@@ -90,6 +90,12 @@
       ],
       "@app/sentry-logger/*": [
         "libs/sentry-logger/src/*"
+      ],
+      "@app/util": [
+        "libs/util/src"
+      ],
+      "@app/util/*": [
+        "libs/util/src/*"
       ]
     }
   }

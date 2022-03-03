@@ -12,19 +12,18 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dto';
-import slugify from 'slugify';
 import { ShowcasePriceInterface } from '../interfaces/showcase-price.interface';
 import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
 import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
-import * as crypto from 'crypto';
 import { ShowcaseInventoryInterface } from '../interfaces/showcase-inventory.interface';
 import { InvestmentPackageEntity } from '../../investment';
 import { CommentEntity } from '../../comment/comment.entity';
 import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
 import { PreorderEntity } from '../../preorder/entities/preorder.entity';
 import { ShowcaseInterface } from '../interfaces/showcase.interface';
+import { slugify } from '@app/util';
 
 @Entity('showcase')
 export class ShowcaseEntity implements ShowcaseInterface {
@@ -139,15 +138,6 @@ export class ShowcaseEntity implements ShowcaseInterface {
   @BeforeInsert()
   async generateSlug() {
     if (typeof this.slug !== 'undefined') return;
-    const currentTs = new Date().valueOf().toString();
-    const id = crypto
-      .createHash('sha1')
-      .update(currentTs)
-      .digest('hex')
-      .slice(0, 8)
-      .toUpperCase();
-    this.slug = `${slugify(this.name, {
-      lower: true,
-    })}-${id}`;
+    this.slug = slugify(this.name, true);
   }
 }
