@@ -9,6 +9,7 @@ export enum MediaType {
   SHOWCASE,
   HF,
   IMGLIST,
+  BRAND,
 }
 
 @Entity('media')

@@ -13,8 +13,6 @@ import {
   UnPagedRelation,
 } from '@nestjs-query/query-graphql';
 import { ShowcasePriceDto } from './showcase-price.dto';
-import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
-import { ShowcaseBrandDto } from './showcase-brand.dto';
 import { MediaDto } from '../../media/dtos/media.dto';
 import { ShowcaseHFDto } from '../../highlight-feature/dtos/showcaseHF.dto';
 import { ShowcaseInventoryDto } from './showcase-inventory.dto';
@@ -22,6 +20,7 @@ import { CommentDto } from '../../comment/comment.dto';
 import { AuthDto } from '@app/auth';
 import { PrjUpdateDto } from '../../prj-update/prj-update.dto';
 import { PreorderDto } from '../../preorder/dtos/preorder.dto';
+import { BrandDto } from '../../brand';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -45,6 +44,7 @@ registerEnumType(PublishStatus, {
 @ObjectType('Showcase')
 @Relation('image', () => MediaDto)
 @Relation('author', () => AuthDto)
+@Relation('brand', () => BrandDto)
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto, {
   disableUpdate: true,
   disableRemove: true,
@@ -80,9 +80,6 @@ export class ShowcaseDto {
   slug!: string;
 
   authorUid: string;
-
-  @Field(() => ShowcaseBrandDto, { nullable: false })
-  brand!: ShowcaseBrandInterface;
 
   @Field(() => GraphQLISODateTime)
   createdAt!: Date;

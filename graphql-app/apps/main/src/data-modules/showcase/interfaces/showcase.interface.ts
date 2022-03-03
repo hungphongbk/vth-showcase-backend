@@ -1,4 +1,3 @@
-import { ShowcaseBrandInterface } from './showcase-brand.interface';
 import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dto';
 import { ShowcasePriceInterface } from './showcase-price.interface';
 import { ShowcaseInventoryInterface } from './showcase-inventory.interface';
@@ -8,7 +7,6 @@ export interface ShowcaseInterface {
   id: number;
   name: string;
   slug: string;
-  brand: ShowcaseBrandInterface;
   status: ShowcaseStatus;
   publishStatus: PublishStatus;
   isFeatured: boolean;

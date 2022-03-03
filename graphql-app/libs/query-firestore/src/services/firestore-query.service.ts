@@ -81,7 +81,7 @@ export class FirestoreQueryService<DTO extends EntityDTO>
       res = await this.collection.add(rest as unknown as DTO);
       _id = res.id;
     } else {
-      res = await this.collection
+      await this.collection
         .doc(_id as unknown as string)
         .set(rest as unknown as DTO);
     }

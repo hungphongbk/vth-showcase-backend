@@ -6,7 +6,6 @@ import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dto';
 import { ShowcaseInterface } from '../interfaces/showcase.interface';
 import { ShowcasePriceInterface } from '../interfaces/showcase-price.interface';
 import { ShowcaseInventoryInterface } from '../interfaces/showcase-inventory.interface';
-import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
 
 @ViewEntity({
   expression: (connection) =>
@@ -38,8 +37,6 @@ export class ShowcaseViewEntity implements ShowcaseInterface {
   slug: string;
   @ViewColumn()
   publishStatus!: PublishStatus;
-  @ViewColumn()
-  brand: ShowcaseBrandInterface;
   @ViewColumn()
   createdAt: Date;
   @ViewColumn()
