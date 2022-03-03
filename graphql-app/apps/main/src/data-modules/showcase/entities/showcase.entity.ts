@@ -4,8 +4,10 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -13,7 +15,6 @@ import {
 } from 'typeorm';
 import { PublishStatus, ShowcaseStatus } from '../dtos/showcase.dto';
 import { ShowcasePriceInterface } from '../interfaces/showcase-price.interface';
-import { ShowcaseBrandInterface } from '../interfaces/showcase-brand.interface';
 import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
@@ -24,6 +25,7 @@ import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
 import { PreorderEntity } from '../../preorder/entities/preorder.entity';
 import { ShowcaseInterface } from '../interfaces/showcase.interface';
 import { slugify } from '@app/util';
+import { BrandEntity } from '../../brand/brand.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity implements ShowcaseInterface {
@@ -40,8 +42,12 @@ export class ShowcaseEntity implements ShowcaseInterface {
   @Index({ unique: true })
   slug: string;
 
-  @Column({ type: 'jsonb' })
-  brand: ShowcaseBrandInterface;
+  @ManyToOne(() => BrandEntity, (obj) => obj.showcases, {
+    onDelete: 'RESTRICT',
+    onUpdate: 'RESTRICT',
+  })
+  @JoinColumn()
+  brand: BrandEntity;
 
   @Column({
     type: 'enum',

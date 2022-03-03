@@ -1,6 +1,6 @@
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
-import { PreorderOrmModule } from '../preorder/modules/preorder.orm.module';
+import { BrandEntity } from './brand.entity';
 
 export const BrandGraphqlOrmModule = NestjsQueryTypeOrmModule.forFeature([
-  PreorderOrmModule,
+  BrandEntity,
 ]);

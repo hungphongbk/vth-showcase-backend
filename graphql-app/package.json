@@ -102,8 +102,8 @@
     "rxjs": "^7.2.0",
     "slugify": "^1.6.5",
     "ts-node": "^10.4.0",
-    "typeorm": "^0.2.41",
-    "typeorm-extension": "^1.1.0",
+    "typeorm": "^0.2.44",
+    "typeorm-extension": "^1.2.0",
     "typeorm-seeding": "^1.6.1",
     "url-join": "^4.0.1",
     "url-join-ts": "^1.0.5"

@@ -6,34 +6,41 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BrandMediaEntity } from './brand-media.entity';
+import { ShowcaseEntity } from '../showcase/entities/showcase.entity';
 
-@Entity({ name: 'brand' })
+@Entity('brand')
 export class BrandEntity {
   @PrimaryGeneratedColumn('identity')
-  id: number;
+  id?: number;
 
   @Column()
   name: string;
 
   @Column()
   @Index({ unique: true })
-  slug: string;
+  slug?: string;
 
   @Column()
-  subtitle: string;
+  subtitle?: string;
 
   @Column()
   description: string;
 
   @Column({ nullable: true })
-  logo: string;
+  logo?: string;
 
   @OneToMany(() => BrandMediaEntity, (obj) => obj.brand, {
     eager: true,
     cascade: true,
   })
-  mediaList: BrandMediaEntity;
+  mediaList?: BrandMediaEntity;
 
   @Column({ type: 'json', nullable: true })
-  metadata: any;
+  metadata?: any;
+
+  @OneToMany(() => ShowcaseEntity, (obj) => obj.brand, {
+    eager: true,
+    cascade: true,
+  })
+  showcases?: ShowcaseEntity[];
 }

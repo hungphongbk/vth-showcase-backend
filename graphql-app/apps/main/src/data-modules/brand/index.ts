@@ -1,3 +1,4 @@
+export * from './brand-media.entity';
 export * from './brand.dto';
 export * from './brand.entity';
 export * from './brand.graphql-orm.module';
