@@ -36,6 +36,13 @@ input BooleanFieldComparison {
   isNot: Boolean
 }
 
+input BrandCreateInputDto {
+  description: String!
+  logo: String
+  name: String!
+  slug: String!
+}
+
 type BrandDto {
   description: String!
   id: ID!
@@ -136,6 +143,13 @@ input BrandDtoUpdateFilter {
   slug: StringFieldComparison
 }
 
+input BrandUpdateInputDto {
+  description: String
+  logo: String
+  name: String
+  slug: String
+}
+
 input CommentCreateDto {
   content: String!
   isTopComment: Boolean
@@ -231,14 +245,6 @@ enum CommentRateEnum {
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
-input CreateBrandDto {
-  description: String
-  id: ID
-  logo: String
-  name: String
-  slug: String
-}
-
 input CreateInvestmentPackageDto {
   benefitRate: Float
   count: Float
@@ -257,7 +263,7 @@ input CreateMailTemplateDto {
 
 input CreateManyBrandDtosInput {
   """Array of records to create"""
-  brandDtos: [CreateBrandDto!]!
+  brandDtos: [BrandCreateInputDto!]!
 }
 
 input CreateManyInvestmentPackageDtosInput {
@@ -277,7 +283,7 @@ input CreateManyMediaDtosInput {
 
 input CreateOneBrandDtoInput {
   """The record to create"""
-  brandDto: CreateBrandDto!
+  brandDto: BrandCreateInputDto!
 }
 
 input CreateOneInvestmentPackageDtoInput {
@@ -1840,14 +1846,6 @@ input StringFieldComparison {
   notLike: String
 }
 
-input UpdateBrandDto {
-  description: String
-  id: ID
-  logo: String
-  name: String
-  slug: String
-}
-
 input UpdateCommentDto {
   content: String
   createdAt: DateTime
@@ -1893,7 +1891,7 @@ input UpdateManyBrandDtosInput {
   filter: BrandDtoUpdateFilter!
 
   """The update to apply to all records found using the filter"""
-  update: UpdateBrandDto!
+  update: BrandUpdateInputDto!
 }
 
 input UpdateManyInvestmentPackageDtosInput {
@@ -1941,7 +1939,7 @@ input UpdateOneBrandDtoInput {
   id: ID!
 
   """The update to apply."""
-  update: UpdateBrandDto!
+  update: BrandUpdateInputDto!
 }
 
 input UpdateOneCommentDtoInput {
