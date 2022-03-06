@@ -6,9 +6,16 @@ import {
   OmitType,
   PartialType,
 } from '@nestjs/graphql';
-import { FilterableField } from '@nestjs-query/query-graphql';
+import { FilterableField, UnPagedRelation } from '@nestjs-query/query-graphql';
+import { MediaDto } from '../media/dtos/media.dto';
+import { GraphQLJSONObject } from 'graphql-scalars';
 
 @ObjectType()
+@UnPagedRelation('mediaList', () => MediaDto, {
+  enableTotalCount: true,
+  disableUpdate: true,
+  disableRemove: true,
+})
 export class BrandDto {
   @FilterableField(() => ID)
   id: number;
@@ -20,10 +27,16 @@ export class BrandDto {
   slug: string;
 
   @Field()
+  subtitle: string;
+
+  @Field()
   description: string;
 
   @Field({ nullable: true })
   logo: string;
+
+  @Field(() => GraphQLJSONObject)
+  metadata: any;
 }
 
 @InputType()

@@ -39,16 +39,27 @@ input BooleanFieldComparison {
 input BrandCreateInputDto {
   description: String!
   logo: String
+  metadata: JSONObject!
   name: String!
   slug: String!
+  subtitle: String!
 }
 
 type BrandDto {
   description: String!
   id: ID!
   logo: String
+  mediaLists(
+    """Specify to filter the records returned."""
+    filter: MediaDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [MediaDtoSort!] = []
+  ): [MediaDto!]!
+  metadata: JSONObject!
   name: String!
   slug: String!
+  subtitle: String!
 }
 
 type BrandDtoAggregateGroupBy {
@@ -87,8 +98,10 @@ type BrandDtoDeleteResponse {
   description: String
   id: ID
   logo: String
+  metadata: JSONObject
   name: String
   slug: String
+  subtitle: String
 }
 
 type BrandDtoEdge {
@@ -146,8 +159,10 @@ input BrandDtoUpdateFilter {
 input BrandUpdateInputDto {
   description: String
   logo: String
+  metadata: JSONObject
   name: String
   slug: String
+  subtitle: String
 }
 
 input CommentCreateDto {
