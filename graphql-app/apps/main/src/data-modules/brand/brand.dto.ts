@@ -6,7 +6,11 @@ import {
   OmitType,
   PartialType,
 } from '@nestjs/graphql';
-import { FilterableField, UnPagedRelation } from '@nestjs-query/query-graphql';
+import {
+  FilterableField,
+  QueryOptions,
+  UnPagedRelation,
+} from '@nestjs-query/query-graphql';
 import { MediaDto } from '../media/dtos/media.dto';
 import { GraphQLJSONObject } from 'graphql-scalars';
 
@@ -15,6 +19,9 @@ import { GraphQLJSONObject } from 'graphql-scalars';
   enableTotalCount: true,
   disableUpdate: true,
   disableRemove: true,
+})
+@QueryOptions({
+  enableTotalCount: true,
 })
 export class BrandDto {
   @FilterableField(() => ID)

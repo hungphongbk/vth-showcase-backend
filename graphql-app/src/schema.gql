@@ -78,6 +78,9 @@ type BrandDtoConnection {
 
   """Paging information"""
   pageInfo: PageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 type BrandDtoCountAggregate {
