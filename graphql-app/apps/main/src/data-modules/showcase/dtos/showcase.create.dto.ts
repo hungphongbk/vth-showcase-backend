@@ -33,9 +33,6 @@ class ShowcaseCreateBase extends OmitType(
 
   @Field(() => PublishStatus, { nullable: true })
   publishStatus?: PublishStatus;
-
-  @Field(() => ID, { nullable: false })
-  brandId: number;
 }
 
 @InputType()
