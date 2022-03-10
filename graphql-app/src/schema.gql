@@ -1526,7 +1526,6 @@ type ShowcaseCountAggregate {
 }
 
 input ShowcaseCreateInputDto {
-  brandId: ID!
   description: String!
   expectedQuantity: ShowcasePriceInput
   expectedSaleAt: DateTime = null
@@ -1819,7 +1818,6 @@ type ShowcaseSumAggregate {
 
 input ShowcaseUpdateInputDto {
   authorUid: String
-  brandId: ID
   description: String
   expectedQuantity: ShowcasePriceInput
   expectedSaleAt: DateTime = null
