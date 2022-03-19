@@ -64,6 +64,7 @@ type BrandDto {
 
 type BrandDtoAggregateGroupBy {
   id: ID
+  logo: String
   name: String
   slug: String
 }
@@ -85,6 +86,7 @@ type BrandDtoConnection {
 
 type BrandDtoCountAggregate {
   id: Int
+  logo: Int
   name: Int
   slug: Int
 }
@@ -92,6 +94,7 @@ type BrandDtoCountAggregate {
 input BrandDtoDeleteFilter {
   and: [BrandDtoDeleteFilter!]
   id: IDFilterComparison
+  logo: StringFieldComparison
   name: StringFieldComparison
   or: [BrandDtoDeleteFilter!]
   slug: StringFieldComparison
@@ -118,6 +121,7 @@ type BrandDtoEdge {
 input BrandDtoFilter {
   and: [BrandDtoFilter!]
   id: IDFilterComparison
+  logo: StringFieldComparison
   name: StringFieldComparison
   or: [BrandDtoFilter!]
   slug: StringFieldComparison
@@ -125,12 +129,14 @@ input BrandDtoFilter {
 
 type BrandDtoMaxAggregate {
   id: ID
+  logo: String
   name: String
   slug: String
 }
 
 type BrandDtoMinAggregate {
   id: ID
+  logo: String
   name: String
   slug: String
 }
@@ -143,6 +149,7 @@ input BrandDtoSort {
 
 enum BrandDtoSortFields {
   id
+  logo
   name
   slug
 }
@@ -154,6 +161,7 @@ type BrandDtoSumAggregate {
 input BrandDtoUpdateFilter {
   and: [BrandDtoUpdateFilter!]
   id: IDFilterComparison
+  logo: StringFieldComparison
   name: StringFieldComparison
   or: [BrandDtoUpdateFilter!]
   slug: StringFieldComparison

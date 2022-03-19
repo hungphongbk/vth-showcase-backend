@@ -39,7 +39,7 @@ export class BrandDto {
   @Field()
   description: string;
 
-  @Field({ nullable: true })
+  @FilterableField({ nullable: true })
   logo: string;
 
   @Field(() => GraphQLJSONObject)
