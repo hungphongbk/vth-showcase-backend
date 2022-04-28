@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { MediaType } from '../media.entity';
+import { MediaFormatType } from '../media.enums';
 
 @InputType('MediaInput')
 export class MediaCreateDto {
@@ -23,4 +24,10 @@ export class MediaCreateDto {
 
   @Field(() => MediaType, { nullable: true })
   type: MediaType;
+
+  @Field(() => MediaFormatType, {
+    nullable: true,
+    defaultValue: MediaFormatType.IMAGE,
+  })
+  formatType: MediaFormatType;
 }

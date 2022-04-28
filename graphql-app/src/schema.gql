@@ -809,6 +809,7 @@ input MailTemplateSpecInputDto {
 
 type MediaDto implements IdInterface {
   filename: String!
+  formatType: MediaFormatType!
   height: Float!
   id: ID!
   mimetype: String!
@@ -845,6 +846,7 @@ input MediaDtoDeleteFilter {
 
 type MediaDtoDeleteResponse {
   filename: String
+  formatType: MediaFormatType
   height: Float
   id: ID
   mimetype: String
@@ -897,8 +899,14 @@ input MediaDtoUpdateFilter {
   or: [MediaDtoUpdateFilter!]
 }
 
+enum MediaFormatType {
+  IMAGE
+  YOUTUBE
+}
+
 input MediaInput {
   filename: String!
+  formatType: MediaFormatType = IMAGE
   height: Float
   mimetype: String!
   path: String!
@@ -1951,6 +1959,7 @@ type UpdateManyResponse {
 
 input UpdateMediaDto {
   filename: String
+  formatType: MediaFormatType
   height: Float
   id: ID
   mimetype: String

@@ -11,7 +11,7 @@ export class MediaService {
   ) {}
 
   async findById(id: string) {
-    return await this.repo.findOne({ id });
+    return await this.repo.findOne({ where: { id } });
   }
 
   async saveMediaData(media: MediaDto) {

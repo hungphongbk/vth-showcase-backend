@@ -28,6 +28,8 @@ const connectionOptions: PostgresConnectionOptions = {
   // logging: 'all',
   // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
   migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   cli: {
     migrationsDir: join(__dirname, `migrations`),
   },

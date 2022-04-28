@@ -33,7 +33,9 @@ export class ShowcaseSeederService implements OnApplicationBootstrap {
   ) {}
 
   async deleteOldShowcase(): Promise<boolean> {
-    const entity = await this.repo.findOne({ slug: ShowcaseSeedData.slug });
+    const entity = await this.repo.findOne({
+      where: { slug: ShowcaseSeedData.slug },
+    });
     if (!entity) return true;
     if (
       entity &&

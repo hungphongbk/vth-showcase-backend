@@ -176,10 +176,11 @@ export class ShowcaseQueryService extends RelationQueryService<
   }
 
   private async getShowcaseIdFromSlug(slug: string): Promise<number> {
-    const entity = await this.repo.findOne(
-      { slug },
-      { select: ['id'], cache: 60 },
-    );
+    const entity = await this.repo.findOne({
+      where: { slug },
+      select: ['id'],
+      cache: 60,
+    });
     if (!entity) throw new NotFoundException(`slug ${slug} not found!`);
     return entity.id;
   }

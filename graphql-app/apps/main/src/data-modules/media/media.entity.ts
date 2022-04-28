@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   TableInheritance,
 } from 'typeorm';
+import { MediaFormatType } from './media.enums';
 
 export enum MediaType {
   SHOWCASE,
@@ -37,4 +38,11 @@ export class MediaEntity {
   height: number;
 
   type?: MediaType;
+
+  @Column({
+    type: 'enum',
+    enum: MediaFormatType,
+    default: MediaFormatType.IMAGE,
+  })
+  formatType: MediaFormatType;
 }
