@@ -1,16 +1,18 @@
 import { join } from 'path';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { DataSource } from 'typeorm';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 const config = {
   host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
+  port: process.env.DB_PORT || 5433,
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASS || 'postgres',
   database: process.env.DB_NAME || 'test',
 };
-const isProduction = process.env.NODE_ENV === 'production';
 
-const connectionOptions: PostgresConnectionOptions = {
+const dataSource = new DataSource({
   type: 'postgres',
   host: config.host,
   port: config.port as unknown as number,
@@ -24,15 +26,10 @@ const connectionOptions: PostgresConnectionOptions = {
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.
   migrationsTransactionMode: 'each',
-  logging: [!isProduction && 'query', 'warn', 'error'] as any,
+  logging: ['query', 'warn', 'error'],
   // logging: 'all',
   // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
   migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  cli: {
-    migrationsDir: join(__dirname, `migrations`),
-  },
-};
+});
 
-export = connectionOptions;
+export default dataSource;

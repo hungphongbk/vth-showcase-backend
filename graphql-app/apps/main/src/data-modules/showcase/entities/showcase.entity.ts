@@ -5,8 +5,6 @@ import {
   Entity,
   Index,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -19,13 +17,14 @@ import { ShowcaseMediaEntity } from './showcase.media.entity';
 import { ShowcaseHFEntity } from '../../highlight-feature/entities/showcaseHF.entity';
 import { ImageListEntity } from '../../image-list/entities/image-list.entity';
 import { ShowcaseInventoryInterface } from '../interfaces/showcase-inventory.interface';
-import { InvestmentPackageEntity } from '../../investment';
 import { CommentEntity } from '../../comment/comment.entity';
 import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
 import { PreorderEntity } from '../../preorder/entities/preorder.entity';
 import { ShowcaseInterface } from '../interfaces/showcase.interface';
 import { slugify } from '@app/util';
-import { BrandEntity } from '../../brand/brand.entity';
+import { BrandEntity } from '../../brand';
+// noinspection ES6PreferShortImport
+import { ShowcaseInvestPkgEntity } from '../../showcase-invest-pkg/showcase-invest-pkg.entity';
 
 @Entity('showcase')
 export class ShowcaseEntity implements ShowcaseInterface {
@@ -116,10 +115,6 @@ export class ShowcaseEntity implements ShowcaseInterface {
   @Column({ type: 'jsonb', nullable: true })
   inventory: ShowcaseInventoryInterface;
 
-  @ManyToMany(() => InvestmentPackageEntity)
-  @JoinTable()
-  availableInvestmentPackages: InvestmentPackageEntity[];
-
   @OneToMany(() => CommentEntity, (obj) => obj.showcase, {
     eager: true,
     cascade: true,
@@ -140,6 +135,12 @@ export class ShowcaseEntity implements ShowcaseInterface {
 
   @Column({ default: 0 })
   viewCount: number;
+
+  @OneToMany(() => ShowcaseInvestPkgEntity, (rel) => rel.showcase, {
+    cascade: true,
+    eager: true,
+  })
+  showcasePkg: ShowcaseInvestPkgEntity;
 
   @BeforeInsert()
   async generateSlug() {
