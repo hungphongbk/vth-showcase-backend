@@ -141,7 +141,7 @@ export class ShowcaseEntity implements ShowcaseInterface {
     cascade: true,
     eager: true,
   })
-  showcasePkg: ShowcaseInvestPkgEntity;
+  showcasePkgs: ShowcaseInvestPkgEntity;
 
   @BeforeInsert()
   async generateSlug() {

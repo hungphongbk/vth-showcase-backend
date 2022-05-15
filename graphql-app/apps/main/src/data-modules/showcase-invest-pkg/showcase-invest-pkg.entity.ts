@@ -10,7 +10,7 @@ export class ShowcaseInvestPkgEntity {
   @PrimaryColumn()
   pkgId: number;
 
-  @ManyToOne(() => ShowcaseEntity, (showcase) => showcase.showcasePkg)
+  @ManyToOne(() => ShowcaseEntity, (showcase) => showcase.showcasePkgs)
   showcase: ShowcaseEntity;
   @PrimaryColumn()
   showcaseId: number;
