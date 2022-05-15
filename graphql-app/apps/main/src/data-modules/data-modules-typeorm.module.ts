@@ -1,6 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as connectionOptions from '../ormconfig';
 import * as Joi from 'joi';
 import { SentryLoggerModule } from '@app/sentry-logger';
 
@@ -36,16 +35,17 @@ export const DataModulesTypeormModule = TypeOrmModule.forRootAsync({
   ],
   inject: [ConfigService],
   useFactory: (config: ConfigService<DbConnectionConfig>) => {
-    return Object.assign(connectionOptions, {
+    return {
+      type: 'postgres',
       host: config.get('DB_HOST'),
       port: +config.get('DB_PORT'),
       username: config.get('DB_USER'),
       password: config.get('DB_PASS'),
-      database: config.get('DB_NAME'),
+      database: config.get('DB_NAME') as string,
       migrationsRun: config.get('DB_MIGRATION') === 'true',
       entities: [],
       autoLoadEntities: true,
       migrations: globImport(require.context('../migrations', false, /\.ts/)),
-    });
+    };
   },
 });
