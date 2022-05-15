@@ -1,15 +1,12 @@
 import { join } from 'path';
 import { DataSource } from 'typeorm';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
-
 const config = {
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5433,
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASS || 'postgres',
-  database: process.env.DB_NAME || 'test',
+  host: 'localhost',
+  port: 5433,
+  user: 'postgres',
+  password: 'postgres',
+  database: 'test',
 };
 
 const dataSource = new DataSource({
@@ -29,7 +26,9 @@ const dataSource = new DataSource({
   logging: ['query', 'warn', 'error'],
   // logging: 'all',
   // logger: process.env.NODE_ENV === 'production' ? 'file' : 'debug',
-  migrations: [join(__dirname, 'migrations/*{.ts,.js}')],
+  migrations: [join(__dirname, '/migrations/*{.ts,.js}')],
 });
+
+dataSource.initialize().then(() => console.log('connected'));
 
 export default dataSource;

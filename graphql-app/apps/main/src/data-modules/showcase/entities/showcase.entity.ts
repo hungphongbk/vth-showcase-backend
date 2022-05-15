@@ -22,7 +22,8 @@ import { PrjUpdateEntity } from '../../prj-update/prj-update.entity';
 import { PreorderEntity } from '../../preorder/entities/preorder.entity';
 import { ShowcaseInterface } from '../interfaces/showcase.interface';
 import { slugify } from '@app/util';
-import { BrandEntity } from '../../brand';
+// noinspection ES6PreferShortImport
+import { BrandEntity } from '../../brand/brand.entity';
 // noinspection ES6PreferShortImport
 import { ShowcaseInvestPkgEntity } from '../../showcase-invest-pkg/showcase-invest-pkg.entity';
 

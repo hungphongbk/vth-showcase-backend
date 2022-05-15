@@ -10,7 +10,7 @@ import { PrjUpdateModule } from './prj-update/prj-update.module';
 import { PreorderModule } from './preorder/preorder.module';
 import { DataModulesTypeormModule } from './data-modules-typeorm.module';
 import { BrandModule } from './brand';
-import { ShowcaseInvestPkgModule } from './showcase-invest-pkg';
+import { ShowcaseInvestPkgModule } from './showcase-invest-pkg/showcase-invest-pkg.module';
 
 @Module({
   imports: [

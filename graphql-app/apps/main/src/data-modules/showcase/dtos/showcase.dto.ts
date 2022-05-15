@@ -20,7 +20,9 @@ import { CommentDto } from '../../comment/comment.dto';
 import { AuthDto } from '@app/auth';
 import { PrjUpdateDto } from '../../prj-update/prj-update.dto';
 import { PreorderDto } from '../../preorder/dtos/preorder.dto';
-import { BrandDto } from '../../brand';
+// noinspection ES6PreferShortImport
+import { BrandDto } from '../../brand/brand.dto';
+import { ShowcaseInvestPkgDto } from '../../showcase-invest-pkg/showcase-invest-pkg.dto';
 
 export enum ShowcaseStatus {
   COMING = 'coming soon',
@@ -64,6 +66,7 @@ registerEnumType(PublishStatus, {
   disableUpdate: true,
   disableRemove: true,
 })
+@UnPagedRelation('showcasePkg', () => ShowcaseInvestPkgDto)
 @QueryOptions({
   defaultFilter: { publishStatus: { eq: PublishStatus.PUBLISHED } },
   enableTotalCount: true,

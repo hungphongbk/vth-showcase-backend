@@ -1,4 +1,4 @@
-import { InvestmentPackageEntity } from '../../data-modules/investment';
+import { InvestmentPackageEntity } from '../../data-modules/investment/investment.package.entity';
 
 export const InvestmentPackagesSeedData: InvestmentPackageEntity[] = [
   {

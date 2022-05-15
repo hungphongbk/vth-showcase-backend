@@ -9,6 +9,7 @@ export const InvestmentGraphqlModule = NestjsQueryGraphQLModule.forFeature({
     {
       DTOClass: InvestmentPackageDto,
       EntityClass: InvestmentPackageEntity,
+      read: { disabled: true },
     },
   ],
 });

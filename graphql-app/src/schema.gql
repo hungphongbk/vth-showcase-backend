@@ -10,6 +10,14 @@ input AddImagesToImageListInput {
   relationIds: [ID!]!
 }
 
+input AddShowcasePkgsToShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 type AuthProviderInfoDto {
   displayName: String!
   email: String!
@@ -307,6 +315,11 @@ input CreateManyMediaDtosInput {
   mediaDtos: [MediaInput!]!
 }
 
+input CreateManyShowcaseInvestPkgDtosInput {
+  """Array of records to create"""
+  showcaseInvestPkgDtos: [CreateShowcaseInvestPkgDto!]!
+}
+
 input CreateOneBrandDtoInput {
   """The record to create"""
   brandDto: BrandCreateInputDto!
@@ -325,6 +338,17 @@ input CreateOneMailTemplateDtoInput {
 input CreateOneMediaDtoInput {
   """The record to create"""
   mediaDto: MediaInput!
+}
+
+input CreateOneShowcaseInvestPkgDtoInput {
+  """The record to create"""
+  showcaseInvestPkgDto: CreateShowcaseInvestPkgDto!
+}
+
+input CreateShowcaseInvestPkgDto {
+  benefitRate: Float
+  count: Float
+  fundedRate: Float
 }
 
 input CursorPaging {
@@ -396,6 +420,11 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
+input DeleteManyShowcaseInvestPkgDtosInput {
+  """Filter to find records to delete"""
+  filter: ShowcaseInvestPkgDtoDeleteFilter!
+}
+
 input DeleteManyShowcasesInput {
   """Filter to find records to delete"""
   filter: ShowcaseDeleteFilter!
@@ -442,6 +471,11 @@ input DeleteOnePrjUpdateDtoInput {
 }
 
 input DeleteOneShowcaseHighlightFeatureInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneShowcaseInvestPkgDtoInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -537,14 +571,6 @@ type InvestmentPackageDtoAvgAggregate {
   id: Float
 }
 
-type InvestmentPackageDtoConnection {
-  """Array of edges."""
-  edges: [InvestmentPackageDtoEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-}
-
 type InvestmentPackageDtoCountAggregate {
   displayName: Int
   id: Int
@@ -573,13 +599,6 @@ type InvestmentPackageDtoEdge {
   node: InvestmentPackageDto!
 }
 
-input InvestmentPackageDtoFilter {
-  and: [InvestmentPackageDtoFilter!]
-  displayName: StringFieldComparison
-  id: IDFilterComparison
-  or: [InvestmentPackageDtoFilter!]
-}
-
 type InvestmentPackageDtoMaxAggregate {
   displayName: String
   id: ID
@@ -588,17 +607,6 @@ type InvestmentPackageDtoMaxAggregate {
 type InvestmentPackageDtoMinAggregate {
   displayName: String
   id: ID
-}
-
-input InvestmentPackageDtoSort {
-  direction: SortDirection!
-  field: InvestmentPackageDtoSortFields!
-  nulls: SortNulls
-}
-
-enum InvestmentPackageDtoSortFields {
-  displayName
-  id
 }
 
 type InvestmentPackageDtoSumAggregate {
@@ -924,10 +932,12 @@ enum MediaType {
 
 type Mutation {
   addImagesToImageList(input: AddImagesToImageListInput!): ImageList!
+  addShowcasePkgsToShowcase(input: AddShowcasePkgsToShowcaseInput!): Showcase!
   createManyBrandDtos(input: CreateManyBrandDtosInput!): [BrandDto!]!
   createManyInvestmentPackageDtos(input: CreateManyInvestmentPackageDtosInput!): [InvestmentPackageDto!]!
   createManyMailTemplateDtos(input: CreateManyMailTemplateDtosInput!): [MailTemplateDto!]!
   createManyMediaDtos(input: CreateManyMediaDtosInput!): [MediaDto!]!
+  createManyShowcaseInvestPkgDtos(input: CreateManyShowcaseInvestPkgDtosInput!): [ShowcaseInvestPkgDto!]!
   createOneBrandDto(input: CreateOneBrandDtoInput!): BrandDto!
   createOneImageList(slug: String!): ImageList!
   createOneInvestmentPackageDto(input: CreateOneInvestmentPackageDtoInput!): InvestmentPackageDto!
@@ -938,12 +948,14 @@ type Mutation {
   createOneSetting(input: SettingCreateDto!): Boolean!
   createOneShowcase(input: ShowcaseCreateInputDto!): Showcase!
   createOneShowcaseHighlightFeature(input: ShowcaseHFCreateInputDto!, slug: String!): ShowcaseHighlightFeature!
+  createOneShowcaseInvestPkgDto(input: CreateOneShowcaseInvestPkgDtoInput!): ShowcaseInvestPkgDto!
   createOneUserDto(input: UserCreateInputDto!): User!
   deleteManyBrandDtos(input: DeleteManyBrandDtosInput!): DeleteManyResponse!
   deleteManyInvestmentPackageDtos(input: DeleteManyInvestmentPackageDtosInput!): DeleteManyResponse!
   deleteManyMailTemplateDtos(input: DeleteManyMailTemplateDtosInput!): DeleteManyResponse!
   deleteManyMediaDtos(input: DeleteManyMediaDtosInput!): DeleteManyResponse!
   deleteManyPreorderDtos(input: DeleteManyPreorderDtosInput!): DeleteManyResponse!
+  deleteManyShowcaseInvestPkgDtos(input: DeleteManyShowcaseInvestPkgDtosInput!): DeleteManyResponse!
   deleteManyShowcases(input: DeleteManyShowcasesInput!): DeleteManyResponse!
   deleteOneBrandDto(input: DeleteOneBrandDtoInput!): BrandDtoDeleteResponse!
   deleteOneCommentDto(input: DeleteOneCommentDtoInput!): CommentDtoDeleteResponse!
@@ -956,6 +968,7 @@ type Mutation {
   deleteOnePrjUpdateDto(input: DeleteOnePrjUpdateDtoInput!): PrjUpdateDtoDeleteResponse!
   deleteOneShowcase(slug: String!): Boolean!
   deleteOneShowcaseHighlightFeature(input: DeleteOneShowcaseHighlightFeatureInput!): ShowcaseHighlightFeatureDeleteResponse!
+  deleteOneShowcaseInvestPkgDto(input: DeleteOneShowcaseInvestPkgDtoInput!): ShowcaseInvestPkgDtoDeleteResponse!
   insertOneMediaToImageList(id: ID!, input: MediaInput!): ImageList!
   postAnonymousComment(input: CommentCreateDto!, slug: String!): CommentDto!
   postAuthorizedComment(input: CommentCreateDto!, slug: String!): CommentDto!
@@ -966,6 +979,7 @@ type Mutation {
   removeImageFromShowcase(input: RemoveImageFromShowcaseInput!): Showcase!
   removeImageFromShowcaseHighlightFeature(input: RemoveImageFromShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   removeImagesFromImageList(input: RemoveImagesFromImageListInput!): ImageList!
+  removeShowcasePkgsFromShowcase(input: RemoveShowcasePkgsFromShowcaseInput!): Showcase!
   sendEmail(input: MailCreateDto!): MailDto!
   sendNotification(payload: FcmPayloadDto!, topic: String!): Boolean!
   setAuthorOnCommentDto(input: SetAuthorOnCommentDtoInput!): CommentDto!
@@ -974,11 +988,13 @@ type Mutation {
   setImageOnShowcase(input: SetImageOnShowcaseInput!): Showcase!
   setImageOnShowcaseHighlightFeature(input: SetImageOnShowcaseHighlightFeatureInput!): ShowcaseHighlightFeature!
   setImagesOnImageList(input: SetImagesOnImageListInput!): ImageList!
+  setShowcasePkgsOnShowcase(input: SetShowcasePkgsOnShowcaseInput!): Showcase!
   subscribeToFcmTopic(token: String!, topic: [String!]!): Boolean!
   updateManyBrandDtos(input: UpdateManyBrandDtosInput!): UpdateManyResponse!
   updateManyInvestmentPackageDtos(input: UpdateManyInvestmentPackageDtosInput!): UpdateManyResponse!
   updateManyMailTemplateDtos(input: UpdateManyMailTemplateDtosInput!): UpdateManyResponse!
   updateManyMediaDtos(input: UpdateManyMediaDtosInput!): UpdateManyResponse!
+  updateManyShowcaseInvestPkgDtos(input: UpdateManyShowcaseInvestPkgDtosInput!): UpdateManyResponse!
   updateOneBrandDto(input: UpdateOneBrandDtoInput!): BrandDto!
   updateOneCommentDto(input: UpdateOneCommentDtoInput!): CommentDto!
   updateOneImageList(input: UpdateOneImageListInput!): ImageList!
@@ -990,6 +1006,7 @@ type Mutation {
   updateOneSetting(input: SettingCreateDto!): Boolean!
   updateOneShowcase(input: ShowcaseUpdateInputDto!, slug: String!): Boolean!
   updateOneShowcaseHighlightFeature(id: ID!, input: ShowcaseHFUpdateInputDto!): ShowcaseHighlightFeature!
+  updateOneShowcaseInvestPkgDto(input: UpdateOneShowcaseInvestPkgDtoInput!): ShowcaseInvestPkgDto!
   updateOneUser(input: UserUpdateInputDto!, uid: String!): Boolean!
 }
 
@@ -1227,20 +1244,6 @@ type Query {
   currentUser: User!
   getAllUsers(isAdmin: Boolean = false): [User!]!
   getOneUser(uid: String!): User!
-  investmentPackageDto(
-    """The id of the record to find."""
-    id: ID!
-  ): InvestmentPackageDto
-  investmentPackageDtos(
-    """Specify to filter the records returned."""
-    filter: InvestmentPackageDtoFilter = {}
-
-    """Limit or page results."""
-    paging: CursorPaging = {first: 10}
-
-    """Specify to sort results."""
-    sorting: [InvestmentPackageDtoSort!] = []
-  ): InvestmentPackageDtoConnection!
   investorRegistrationDto(
     """The id of the record to find."""
     id: ID!
@@ -1318,6 +1321,20 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): ShowcaseHighlightFeature
+  showcaseInvestPkgDto(
+    """The id of the record to find."""
+    id: ID!
+  ): ShowcaseInvestPkgDto
+  showcaseInvestPkgDtos(
+    """Specify to filter the records returned."""
+    filter: ShowcaseInvestPkgDtoFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseInvestPkgDtoSort!] = []
+  ): ShowcaseInvestPkgDtoConnection!
   showcases(
     """Specify to filter the records returned."""
     filter: ShowcaseFilter = {publishStatus: {eq: PUBLISHED}}
@@ -1379,6 +1396,14 @@ input RemoveImagesFromImageListInput {
   relationIds: [ID!]!
 }
 
+input RemoveShowcasePkgsFromShowcaseInput {
+  """The id of the record."""
+  id: String!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input SetAuthorOnCommentDtoInput {
   """The id of the record."""
   id: ID!
@@ -1422,6 +1447,14 @@ input SetImageOnShowcaseInput {
 input SetImagesOnImageListInput {
   """The id of the record."""
   id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetShowcasePkgsOnShowcaseInput {
+  """The id of the record."""
+  id: String!
 
   """The ids of the relations."""
   relationIds: [ID!]!
@@ -1483,6 +1516,13 @@ type Showcase {
     sorting: [PreorderDtoSort!] = []
   ): [PreorderDto!]!
   publishStatus: PublishStatus!
+  showcasePkgs(
+    """Specify to filter the records returned."""
+    filter: ShowcaseInvestPkgDtoFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ShowcaseInvestPkgDtoSort!] = []
+  ): [ShowcaseInvestPkgDto!]!
   slug: String!
   status: ShowcaseStatus!
   updatedAt: DateTime!
@@ -1712,6 +1752,87 @@ input ShowcaseInventoryDtoInput {
 
   """Vòng quay vốn an toàn tương ứng"""
   revolvingInterval: Float!
+}
+
+type ShowcaseInvestPkgDto {
+  benefitRate: Float!
+  count: Float!
+  fundedRate: Float!
+  pkg: InvestmentPackageDto!
+}
+
+type ShowcaseInvestPkgDtoAggregateGroupBy {
+  showcaseId: Float
+}
+
+type ShowcaseInvestPkgDtoAvgAggregate {
+  showcaseId: Float
+}
+
+type ShowcaseInvestPkgDtoConnection {
+  """Array of edges."""
+  edges: [ShowcaseInvestPkgDtoEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type ShowcaseInvestPkgDtoCountAggregate {
+  showcaseId: Int
+}
+
+input ShowcaseInvestPkgDtoDeleteFilter {
+  and: [ShowcaseInvestPkgDtoDeleteFilter!]
+  or: [ShowcaseInvestPkgDtoDeleteFilter!]
+  showcaseId: NumberFieldComparison
+}
+
+type ShowcaseInvestPkgDtoDeleteResponse {
+  benefitRate: Float
+  count: Float
+  fundedRate: Float
+}
+
+type ShowcaseInvestPkgDtoEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ShowcaseInvestPkgDto"""
+  node: ShowcaseInvestPkgDto!
+}
+
+input ShowcaseInvestPkgDtoFilter {
+  and: [ShowcaseInvestPkgDtoFilter!]
+  or: [ShowcaseInvestPkgDtoFilter!]
+  showcaseId: NumberFieldComparison
+}
+
+type ShowcaseInvestPkgDtoMaxAggregate {
+  showcaseId: Float
+}
+
+type ShowcaseInvestPkgDtoMinAggregate {
+  showcaseId: Float
+}
+
+input ShowcaseInvestPkgDtoSort {
+  direction: SortDirection!
+  field: ShowcaseInvestPkgDtoSortFields!
+  nulls: SortNulls
+}
+
+enum ShowcaseInvestPkgDtoSortFields {
+  showcaseId
+}
+
+type ShowcaseInvestPkgDtoSumAggregate {
+  showcaseId: Float
+}
+
+input ShowcaseInvestPkgDtoUpdateFilter {
+  and: [ShowcaseInvestPkgDtoUpdateFilter!]
+  or: [ShowcaseInvestPkgDtoUpdateFilter!]
+  showcaseId: NumberFieldComparison
 }
 
 type ShowcaseInvestorPackageDto {
@@ -1957,6 +2078,14 @@ type UpdateManyResponse {
   updatedCount: Int!
 }
 
+input UpdateManyShowcaseInvestPkgDtosInput {
+  """Filter used to find fields to update"""
+  filter: ShowcaseInvestPkgDtoUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateShowcaseInvestPkgDto!
+}
+
 input UpdateMediaDto {
   filename: String
   formatType: MediaFormatType
@@ -2033,10 +2162,24 @@ input UpdateOnePrjUpdateDtoInput {
   update: UpdatePrjUpdateDto!
 }
 
+input UpdateOneShowcaseInvestPkgDtoInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateShowcaseInvestPkgDto!
+}
+
 input UpdatePrjUpdateDto {
   content: String
   createdAt: DateTime
   id: ID
+}
+
+input UpdateShowcaseInvestPkgDto {
+  benefitRate: Float
+  count: Float
+  fundedRate: Float
 }
 
 type User {
