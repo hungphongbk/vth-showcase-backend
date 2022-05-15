@@ -10,11 +10,9 @@ import {
 import { ShowcaseInvestorStatDto } from '../dtos/showcase.investor-stat.dto';
 import { ShowcaseInvestorPackageDto } from '../dtos/showcase-investor-package.dto';
 import { InjectQueryService, QueryService } from '@nestjs-query/core';
-import {
-  InvestmentPackageDto,
-  InvestmentPackageEntity,
-} from '../../investment';
 import { ShowcaseDto } from '../dtos/showcase.dto';
+import { InvestmentPackageEntity } from '../../investment/investment.package.entity';
+import { InvestmentPackageDto } from '../../investment/investment.package.dto';
 
 @InputType()
 class ShowcaseForCalculateDto extends PickType(

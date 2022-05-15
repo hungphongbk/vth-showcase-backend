@@ -16,7 +16,7 @@ import {
 } from './resolvers/showcase-auth.resolver';
 import { ShowcaseAssembler } from './showcase.assembler';
 import { ShowcaseOrmModule } from './services/showcase-orm.module';
-import { InvestmentModule } from '../investment';
+import { InvestmentModule } from '../investment/investment.module';
 import { ShowcaseResolver } from './resolvers/showcase.resolver';
 import { ShowcaseInvestorStatResolver } from './resolvers/showcase-investor-stat.resolver';
 import { ImageListGraphqlModule } from '../image-list/image-list.graphql.module';

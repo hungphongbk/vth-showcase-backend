@@ -3,7 +3,7 @@ import { MediaModule } from './media/media.module';
 import { HighlightFeatureModule } from './highlight-feature/highlight-feature.module';
 import { ImageListModule } from './image-list/image-list.module';
 import { SettingsModule } from './setting/settings.module';
-import { InvestmentModule } from './investment';
+import { InvestmentModule } from './investment/investment.module';
 import { ShowcaseModule } from './showcase/showcase.module';
 import { CommentModule } from './comment/comment.module';
 import { PrjUpdateModule } from './prj-update/prj-update.module';

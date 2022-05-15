@@ -1,5 +1,5 @@
 import { Directive, Field, ObjectType } from '@nestjs/graphql';
-import { InvestmentPackageDto } from '../../investment';
+import { InvestmentPackageDto } from '../../investment/investment.package.dto';
 import { ShowcaseInvestorStatDto } from './showcase.investor-stat.dto';
 
 @ObjectType()
