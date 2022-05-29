@@ -6,7 +6,7 @@ ENV NODE_ENV production
 WORKDIR /app
 COPY admin-page/package.json ./
 COPY admin-page/package-lock.json ./
-RUN npm ci --silent
+RUN npm install
 COPY admin-page/ ./
 RUN npm run build
 
