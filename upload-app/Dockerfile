@@ -3,7 +3,9 @@ ARG LIBVIPS_VERSION=8.12.1
 
 FROM node:16.13.1-alpine as client
 ENV NODE_ENV production
+ARG NPM_TOKEN
 WORKDIR /app
+COPY admin-page/.npmrc .npmrc
 COPY admin-page/package.json ./
 COPY admin-page/package-lock.json ./
 RUN npm install
