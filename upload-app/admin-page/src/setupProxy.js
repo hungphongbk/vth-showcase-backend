@@ -1,7 +1,6 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
-  console.log("proxied");
   app.use(
     "/upload",
     createProxyMiddleware({

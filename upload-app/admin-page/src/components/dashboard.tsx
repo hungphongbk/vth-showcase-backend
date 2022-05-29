@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 export default function Dashboard(): JSX.Element {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box>
       <AppBar position={"fixed"}>
         <Toolbar>
           <Avatar src={logo} />
@@ -13,7 +13,7 @@ export default function Dashboard(): JSX.Element {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ mt: 8, mb: 4, mx: 5 }}>
+      <Box sx={{ mt: 10, mb: 4, mx: 5 }}>
         <Outlet />
       </Box>
     </Box>
