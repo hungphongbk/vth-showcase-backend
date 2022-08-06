@@ -13,6 +13,7 @@ import {
 } from 'apollo-server-core';
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { currencyDirectiveTransformer } from './directives/currency.directive';
+import { DirectiveLocation, GraphQLDirective } from 'graphql';
 
 @Injectable()
 export class GqlService implements GqlOptionsFactory {
@@ -39,6 +40,14 @@ export class GqlService implements GqlOptionsFactory {
       playground: false,
       introspection: enableIntrospection,
       transformSchema: currencyDirectiveTransformer('currency'),
+      buildSchemaOptions: {
+        directives: [
+          new GraphQLDirective({
+            name: 'currency',
+            locations: [DirectiveLocation.FIELD_DEFINITION],
+          }),
+        ],
+      },
       persistedQueries: {
         cache,
       },
