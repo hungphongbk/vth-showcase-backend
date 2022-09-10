@@ -37,3 +37,4 @@ lerna-debug.log*
 # Private files
 local-migration.sh
 .sentryclirc
+/.env.development
