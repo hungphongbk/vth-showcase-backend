@@ -4,6 +4,8 @@ go 1.17
 
 require (
 	github.com/RaMin0/gin-health-check v0.0.0-20180807004848-a677317b3f01
+	github.com/getsentry/sentry-go v0.12.0
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg/v10 v10.10.6
 	github.com/google/uuid v1.3.0
@@ -11,8 +13,6 @@ require (
 )
 
 require (
-	github.com/getsentry/sentry-go v0.12.0 // indirect
-	github.com/gin-contrib/cors v1.3.1 // indirect
 	github.com/go-pg/zerochecker v0.2.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc // indirect
@@ -25,7 +25,7 @@ require (
 )
 
 require (
-	github.com/Netflix/go-env v0.0.0-20210215222557-e437a7e7f9fb
+	github.com/Netflix/go-env v0.0.0-20220526054621-78278af1949d
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
