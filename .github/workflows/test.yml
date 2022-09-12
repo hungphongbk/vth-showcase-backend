@@ -7,8 +7,7 @@ on:
       - '!main'
     paths:
       - 'graphql-app/**'
-      - '.github/workflows/app.yml'
-      - '.github/workflows/deployment.yml'
+      - '.github/workflows/test.yml'
 env:
   CI: true
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
