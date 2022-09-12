@@ -22,7 +22,7 @@ jobs:
     environment: ${{ inputs.environment }}
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: hungphongbk/vth-deployment
           token: ${{ secrets.GH_DEPLOYMENT_PAT }}
@@ -37,7 +37,7 @@ jobs:
           kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
 
       - name: Checkout the original repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3

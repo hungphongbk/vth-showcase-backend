@@ -30,7 +30,7 @@ jobs:
       DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
