@@ -1,7 +1,7 @@
 ARG GO_VERSION=1.17.5
 ARG LIBVIPS_VERSION=8.12.1
 
-FROM node:16.17.0-alpine as client
+FROM node:18.9.0-alpine as client
 ENV NODE_ENV production
 ARG NPM_TOKEN
 WORKDIR /app
