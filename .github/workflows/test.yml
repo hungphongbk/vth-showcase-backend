@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: v16
       - working-directory: ./graphql-app
-        run: npm install concurrently
+        run: npm install -g concurrently
       - working-directory: ./graphql-app
         run: npm ci
       - working-directory: ./graphql-app
