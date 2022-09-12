@@ -1,0 +1,38 @@
+name: Test
+on:
+  push:
+    branches:
+      - '*'
+      - '!develop'
+      - '!main'
+    paths:
+      - 'graphql-app/**'
+      - '.github/workflows/app.yml'
+      - '.github/workflows/deployment.yml'
+env:
+  CI: true
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+jobs:
+  test:
+    name: Test integrated app
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        apps: [ main, cron-pub ]
+    env:
+      APP_NAME: ${{ matrix.apps }}
+      NODE_ENV: production
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Use Node.js v16
+        uses: actions/setup-node@v3
+        with:
+          node-version: v16
+      - working-directory: ./graphql-app
+        run: npm ci
+      - working-directory: ./graphql-app
+        run: npm run build --if-present
