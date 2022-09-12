@@ -8,6 +8,9 @@ on:
     paths:
       - 'graphql-app/**'
       - '.github/workflows/test.yml'
+  pull_request:
+    branches:
+      - develop
 env:
   CI: true
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
