@@ -14,7 +14,7 @@ export function authRelationQueryService<DTO, C = DeepPartial<DTO>>(
   @Injectable()
   class AuthRelationQueryService extends RelationQueryService<DTO, C> {
     constructor(
-      @InjectQueryService(EntityClass) service: QueryService<DTO>,
+      @InjectQueryService(EntityClass) service: QueryService<DTO, C>,
       private readonly authQueryService: AuthQueryService,
     ) {
       super(service, {
