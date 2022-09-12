@@ -36,6 +36,6 @@ jobs:
       - working-directory: ./graphql-app
         run: npm install -g concurrently
       - working-directory: ./graphql-app
-        run: npm ci
+        run: npm ci --include=dev
       - working-directory: ./graphql-app
         run: npm run build --if-present
