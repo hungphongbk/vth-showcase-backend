@@ -9,7 +9,7 @@ require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg/v10 v10.10.6
 	github.com/google/uuid v1.3.0
-	gopkg.in/h2non/bimg.v1 v1.1.5
+	gopkg.in/h2non/bimg.v1 v1.1.9
 )
 
 require (
