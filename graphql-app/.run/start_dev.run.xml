@@ -5,7 +5,7 @@
     <scripts>
       <script value="start:dev" />
     </scripts>
-    <node-interpreter value="project" />
+    <node-interpreter value="$USER_HOME$/Library/Caches/fnm_multishells/8730_1663045284122/bin/node" />
     <envs />
     <method v="2" />
   </configuration>
