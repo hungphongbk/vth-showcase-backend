@@ -64,7 +64,7 @@
     "@sentry/tracing": "6.17.6",
     "@types/lodash": "4.14.185",
     "@types/passport": "1.0.11",
-    "amqp-connection-manager": "4.0.1",
+    "amqp-connection-manager": "4.1.6",
     "amqplib": "0.10.3",
     "apollo-server-cache-redis": "3.3.1",
     "apollo-server-fastify": "3.10.2",
