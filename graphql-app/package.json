@@ -128,7 +128,7 @@
     "concurrently": "7.0.0",
     "dotenv-cli": "4.1.1",
     "env-cmd": "10.1.0",
-    "eslint": "8.2.0",
+    "eslint": "8.23.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
     "glob": "7.2.3",
