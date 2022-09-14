@@ -125,7 +125,7 @@
     "@types/webpack-env": "1.18.0",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",
-    "concurrently": "7.0.0",
+    "concurrently": "7.4.0",
     "dotenv-cli": "4.1.1",
     "env-cmd": "10.1.0",
     "eslint": "8.23.1",
