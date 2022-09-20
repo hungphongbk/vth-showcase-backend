@@ -41,7 +41,13 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-
+      # Authenticate with Github Container Registry
+      - name: Log in to the Container registry
+        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@59bc9ddfd5a31eb6f5b55e89b65578fe3bbba85e
