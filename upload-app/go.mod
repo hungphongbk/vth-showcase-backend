@@ -1,6 +1,6 @@
 module github.com/hungphongbk/vth-showcase-backend
 
-go 1.17
+go 1.19
 
 require (
 	github.com/RaMin0/gin-health-check v0.0.0-20180807004848-a677317b3f01
