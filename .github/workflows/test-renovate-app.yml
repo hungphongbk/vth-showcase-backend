@@ -1,5 +1,11 @@
 name: Test Renovate App
 on:
+  push:
+    branches:
+      - 'renovate/**'
+    paths:
+      - 'graphql-app/**'
+      - '.github/workflows/test-renovate-app.yml'
   pull_request:
     branches:
       - 'renovate/**'
@@ -7,6 +13,7 @@ on:
       - 'graphql-app/**'
       - '.github/workflows/test-renovate-app.yml'
 env:
+  REGISTRY: ghcr.io
   CI: true
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -25,11 +32,53 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-      - name: Use Node.js v18
-        uses: actions/setup-node@v3
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      # Setup cache
+      - name: Cache Docker layers
+        uses: actions/cache@v3
         with:
-          node-version: v18
-      - working-directory: ./graphql-app
-        run: npm ci --include=dev
-      - working-directory: ./graphql-app
-        run: npm run build --if-present
+          path: ${{ env.DOCKERX_CACHE_PREFIX }}
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      # Authenticate with Github Container Registry
+      - name: Log in to the Container registry
+        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@59bc9ddfd5a31eb6f5b55e89b65578fe3bbba85e
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Build Docker image
+        uses: docker/build-push-action@e27bcee4eb9e7b4bc168418e3364c4482120393a
+        with:
+          build-args: |
+            "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
+          context: graphql-app
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=${{ env.DOCKERX_CACHE_PREFIX }}
+          cache-to: type=local,dest=${{ env.DOCKERX_CACHE_PREFIX }}-new
+
+      - name: Revalidate cache
+        run: |
+          rm -rf ${{ env.DOCKERX_CACHE_PREFIX }}
+          mv ${{ env.DOCKERX_CACHE_PREFIX }}-new ${{ env.DOCKERX_CACHE_PREFIX }}
+      
