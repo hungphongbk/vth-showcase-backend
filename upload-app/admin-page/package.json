@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "11.9.0",
-    "@emotion/styled": "11.8.1",
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
     "@hungphongbk/vth-sdk": "^1.0.6-177",
     "@mui/icons-material": "5.10.6",
     "@mui/lab": "5.0.0-alpha.100",
