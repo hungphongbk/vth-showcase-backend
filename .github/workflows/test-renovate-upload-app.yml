@@ -1,0 +1,59 @@
+name: Test Renovate Upload App
+on:
+  pull_request:
+    branches:
+      - 'renovate/**'
+    paths:
+      - 'upload-app/**'
+      - '.github/workflows/test-renovate-upload-app.yml'
+env:
+  CI: true
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+jobs:
+  test:
+    name: Test integrated upload app
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      IMAGE_NAME: ${{ github.repository_owner }}/upload-server
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      # Setup cache
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.DOCKERX_CACHE_PREFIX }}
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@59bc9ddfd5a31eb6f5b55e89b65578fe3bbba85e
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build Docker image
+        uses: docker/build-push-action@e27bcee4eb9e7b4bc168418e3364c4482120393a
+        with:
+          build-args: |
+            "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
+          context: upload-app
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=${{ env.DOCKERX_CACHE_PREFIX }}
+          cache-to: type=local,dest=${{ env.DOCKERX_CACHE_PREFIX }}-new
+
+      - name: Revalidate cache
+        run: |
+          rm -rf ${{ env.DOCKERX_CACHE_PREFIX }}
+          mv ${{ env.DOCKERX_CACHE_PREFIX }}-new ${{ env.DOCKERX_CACHE_PREFIX }}
