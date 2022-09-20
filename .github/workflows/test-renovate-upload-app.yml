@@ -1,5 +1,11 @@
 name: Test Renovate Upload App
 on:
+  push:
+    branches:
+      - 'renovate/**'
+    paths:
+      - 'upload-app/**'
+      - '.github/workflows/test-renovate-upload-app.yml'
   pull_request:
     branches:
       - 'renovate/**'
