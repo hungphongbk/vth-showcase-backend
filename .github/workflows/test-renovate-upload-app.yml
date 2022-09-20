@@ -54,7 +54,8 @@ jobs:
             "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
           context: upload-app
           push: false
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            type=sha
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=${{ env.DOCKERX_CACHE_PREFIX }}
           cache-to: type=local,dest=${{ env.DOCKERX_CACHE_PREFIX }}-new
