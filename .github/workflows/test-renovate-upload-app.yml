@@ -2,6 +2,7 @@ name: Test Renovate Upload App
 on:
   push:
     branches:
+      - 'develop'
       - 'renovate/**'
     paths:
       - 'upload-app/**'
