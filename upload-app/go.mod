@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/RaMin0/gin-health-check v0.0.0-20180807004848-a677317b3f01
-	github.com/getsentry/sentry-go v0.12.0
+	github.com/getsentry/sentry-go v0.13.0
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg/v10 v10.10.6
