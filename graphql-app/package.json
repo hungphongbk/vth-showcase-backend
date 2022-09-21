@@ -85,7 +85,7 @@
     "graphql-scalars": "1.18.0",
     "graphql-subscriptions": "1.2.1",
     "graphql-type-json": "0.3.2",
-    "graphql-upload": "12.0.0",
+    "graphql-upload": "16.0.2",
     "ioredis": "4.28.5",
     "joi": "17.6.0",
     "lodash": "4.17.21",
