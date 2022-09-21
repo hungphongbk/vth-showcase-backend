@@ -5,7 +5,7 @@ import { CredentialBody } from 'google-auth-library';
 import { ConfigService } from '@nestjs/config';
 import { google } from '@google-analytics/data/build/protos/protos';
 import { VthConfigsService } from '@app/configs';
-import IRunReportRequest = google.analytics.data.v1alpha.IRunReportRequest;
+import IRunReportRequest = google.analytics.data.v1beta.IRunReportRequest;
 
 @Injectable()
 export class GaDataService {
