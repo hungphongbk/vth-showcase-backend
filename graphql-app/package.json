@@ -83,7 +83,7 @@
     "generate-password": "1.7.0",
     "graphql": "15.8.0",
     "graphql-scalars": "1.18.0",
-    "graphql-subscriptions": "1.2.1",
+    "graphql-subscriptions": "2.0.0",
     "graphql-type-json": "0.3.2",
     "graphql-upload": "16.0.2",
     "ioredis": "4.28.5",
