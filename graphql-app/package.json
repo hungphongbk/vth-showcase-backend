@@ -58,7 +58,7 @@
     "@nestjs/schedule": "2.1.0",
     "@nestjs/terminus": "8.1.1",
     "@nestjs/typeorm": "9.0.1",
-    "@ntegral/nestjs-sentry": "3.0.7",
+    "@ntegral/nestjs-sentry": "4.0.0",
     "@sentry/integrations": "6.19.7",
     "@sentry/node": "6.19.7",
     "@sentry/tracing": "6.19.7",
