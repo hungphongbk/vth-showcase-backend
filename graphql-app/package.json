@@ -126,7 +126,7 @@
     "@typescript-eslint/eslint-plugin": "5.38.0",
     "@typescript-eslint/parser": "5.38.0",
     "concurrently": "7.4.0",
-    "dotenv-cli": "4.1.1",
+    "dotenv-cli": "6.0.0",
     "env-cmd": "10.1.0",
     "eslint": "8.23.1",
     "eslint-config-prettier": "8.5.0",
