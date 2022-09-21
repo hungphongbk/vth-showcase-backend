@@ -27,7 +27,7 @@ jobs:
           repository: hungphongbk/vth-deployment
           token: ${{ secrets.GH_DEPLOYMENT_PAT }}
 
-      - uses: azure/k8s-set-context@v2
+      - uses: azure/k8s-set-context@v3
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
