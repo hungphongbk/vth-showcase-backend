@@ -38,7 +38,7 @@
     "init:dev": "npm run schema:drop && npm run schema:sync && npm run seed:run"
   },
   "dependencies": {
-    "@google-analytics/data": "2.8.0",
+    "@google-analytics/data": "3.0.2",
     "@graphql-tools/utils": "8.12.0",
     "@hungphongbk/nestjs-firebase-admin": "^2.0.1",
     "@hungphongbk/nestjs-firebase-auth": "^2.0.1",
