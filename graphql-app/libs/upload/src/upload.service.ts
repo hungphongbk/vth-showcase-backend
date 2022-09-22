@@ -1,6 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import * as FormData from 'form-data';
-import fetch from 'node-fetch';
 import { EntityRepository } from 'typeorm';
 import { UPLOAD_CONFIG, UploadConfig } from '@app/upload/uploadConfig';
 import { urlJoin } from 'url-join-ts';
@@ -20,6 +19,8 @@ export type UploadResponse = {
 @EntityRepository()
 export class UploadService {
   private logger = new Logger(UploadService.name);
+  private readonly fetch = import('node-fetch');
+
   constructor(
     @Inject(UPLOAD_CONFIG)
     private readonly config: UploadConfig,
@@ -51,6 +52,7 @@ export class UploadService {
       fileBuffer = fs.createReadStream(filePath);
     const form = new FormData();
     form.append('file', fileBuffer, { knownLength: stat.size });
+    const { default: fetch } = await this.fetch;
     const response = await fetch(this.uploadURL, {
       method: 'POST',
       body: form,
