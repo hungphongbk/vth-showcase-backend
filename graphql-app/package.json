@@ -103,7 +103,7 @@
     "typeorm": "0.3.10",
     "typeorm-extension": "2.1.10",
     "typeorm-seeding": "1.6.1",
-    "url-join": "4.0.1",
+    "url-join": "5.0.0",
     "url-join-ts": "1.0.5"
   },
   "devDependencies": {
