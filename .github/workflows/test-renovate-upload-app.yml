@@ -67,7 +67,7 @@ jobs:
         with:
           build-args: |
             "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
-          context: upload-app
+          context: upload-app/main
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

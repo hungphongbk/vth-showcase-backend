@@ -1,15 +1,15 @@
-ARG GO_VERSION=1.17.5
+ARG GO_VERSION=1.19.1
 ARG LIBVIPS_VERSION=8.12.1
 
 FROM node:18.9.0-alpine as client
 ENV NODE_ENV production
 ARG NPM_TOKEN
 WORKDIR /app
-COPY admin-page/.npmrc .npmrc
-COPY admin-page/package.json ./
-COPY admin-page/package-lock.json ./
+COPY ../admin-page/.npmrc .npmrc
+COPY ../admin-page/package.json ./
+COPY ../admin-page/package-lock.json ./
 RUN npm install
-COPY admin-page/ ./
+COPY ../admin-page ./
 RUN npm run build
 
 FROM golang:${GO_VERSION}-alpine AS builder
@@ -25,8 +25,8 @@ COPY go.mod .
 COPY go.sum .
 RUN go mod download
 
-COPY main/ ./main
-RUN go build -o ./app ./main
+COPY . .
+RUN go build -o ./app .
 
 FROM alpine:latest
 ENV PORT=25478
