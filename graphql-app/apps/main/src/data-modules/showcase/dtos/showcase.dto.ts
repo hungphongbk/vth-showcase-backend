@@ -51,7 +51,7 @@ registerEnumType(PublishStatus, {
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto, {
   disableUpdate: true,
   disableRemove: true,
-  decorators: [Directive('@ssr')],
+  decorators: [Directive('@ssrIgnore')],
   nullable: true,
 })
 @UnPagedRelation('comments', () => CommentDto, {

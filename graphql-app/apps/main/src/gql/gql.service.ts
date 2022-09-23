@@ -47,7 +47,7 @@ export class GqlService implements GqlOptionsFactory {
             locations: [DirectiveLocation.FIELD_DEFINITION],
           }),
           new GraphQLDirective({
-            name: 'ssr',
+            name: 'ssrIgnore',
             locations: [DirectiveLocation.FIELD_DEFINITION],
           }),
         ],

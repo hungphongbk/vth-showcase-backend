@@ -20,12 +20,12 @@ export const directiveTransformer = (schema: GraphQLSchema) => {
         return field;
       }
 
-      const ssrDirective = getDirective(schema, field, 'ssr')?.[0];
+      const ssrDirective = getDirective(schema, field, 'ssrIgnore')?.[0];
       if (ssrDirective) {
         const { resolve = defaultFieldResolver } = field;
         field.resolve = async function (source, args, context, info) {
           const x_vth_from = context.headers?.['x-vth-from'];
-          if (!/^showcase-/.test(x_vth_from)) {
+          if (/showcase-ssr/.test(x_vth_from)) {
             return null;
           }
           return await resolve.apply(this, [source, args, context, info]);
