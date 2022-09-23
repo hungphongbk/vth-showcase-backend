@@ -17,7 +17,7 @@ import { chunk } from 'lodash';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShowcaseEntity } from '../../data-modules/showcase/entities/showcase.entity';
 import { Repository } from 'typeorm';
-import MetricAggregation = google.analytics.data.v1alpha.MetricAggregation;
+import MetricAggregation = google.analytics.data.v1beta.MetricAggregation;
 
 @Controller()
 export class UpdateShowcaseViewsController {
