@@ -28,6 +28,9 @@ jobs:
     env:
       IMAGE_NAME: ${{ github.repository_owner }}/upload-server
       DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
+    strategy:
+      matrix:
+        apps: [main]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
@@ -72,7 +75,7 @@ jobs:
         with:
           build-args: |
             "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
-          context: upload-app/main
+          context: upload-app/${{ matrix.apps }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
