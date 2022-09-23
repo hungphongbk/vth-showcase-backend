@@ -57,7 +57,7 @@ export class GqlService implements GqlOptionsFactory {
               graphRef: this.configService.get('APOLLO_GRAPH_REF'),
               footer: false,
             })
-          : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+          : ApolloServerPluginLandingPageLocalDefault({ embed: true }),
       ],
       context: (ctx) => createContext(ctx, sentryInstance),
       formatError: (error) => {

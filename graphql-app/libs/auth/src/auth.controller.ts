@@ -18,7 +18,6 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
-import fetch from 'node-fetch';
 import { Cache } from 'cache-manager';
 import { ControllerAuthGuard } from './guards/controller-auth.guard';
 import { AuthRoleType } from './dtos/auth.dto';
@@ -30,6 +29,8 @@ const CACHE_KEY = 'X-Test-Token';
 @UseInterceptors(CacheInterceptor)
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
+  private readonly fetch = import('node-fetch');
+
   constructor(
     @Inject(FIREBASE_ADMIN_INJECT)
     private readonly firebaseAdmin: FirebaseAdminSDK,
@@ -61,6 +62,7 @@ export class AuthController {
 
     // get custom token from firebase
     const customToken = await this.firebaseAdmin.auth().createCustomToken(uid);
+    const { default: fetch } = await this.fetch;
     // verify custom token and turns it into ID token
     const { idToken: token } = (await (
       await fetch(
