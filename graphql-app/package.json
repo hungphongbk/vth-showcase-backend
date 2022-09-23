@@ -18,7 +18,7 @@
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start main",
     "start:dev": "env-cmd -f .env.development nest start main --watch",
-    "start:debug": "nest start main --watch --debug",
+    "start:debug": "env-cmd -f .env.development nest start main --watch --debug",
     "start:cron-pub": "nest start cron-pub",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",

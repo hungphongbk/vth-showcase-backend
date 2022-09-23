@@ -1,4 +1,5 @@
 import {
+  Directive,
   Field,
   GraphQLISODateTime,
   ID,
@@ -50,6 +51,8 @@ registerEnumType(PublishStatus, {
 @UnPagedRelation('highlightFeatures', () => ShowcaseHFDto, {
   disableUpdate: true,
   disableRemove: true,
+  decorators: [Directive('@ssr')],
+  nullable: true,
 })
 @UnPagedRelation('comments', () => CommentDto, {
   enableTotalCount: true,

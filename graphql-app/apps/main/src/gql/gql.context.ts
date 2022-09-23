@@ -3,10 +3,12 @@ import * as Sentry from '@sentry/node';
 
 import { Transaction } from '@sentry/types';
 import { Request } from 'express';
+import { IncomingHttpHeaders } from 'http';
 
 export type GqlContext = {
   request: Request;
   transaction: Transaction;
+  headers: IncomingHttpHeaders;
 };
 
 export async function createContext(
@@ -22,5 +24,5 @@ export async function createContext(
     },
   });
 
-  return { ...ctx, transaction };
+  return { ...ctx, headers: ctx.request.headers, transaction };
 }

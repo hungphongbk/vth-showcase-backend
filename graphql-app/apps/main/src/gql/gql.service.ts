@@ -12,7 +12,7 @@ import {
   ApolloServerPluginLandingPageProductionDefault,
 } from 'apollo-server-core';
 import { ApolloDriverConfig } from '@nestjs/apollo';
-import { currencyDirectiveTransformer } from './directives/currency.directive';
+import { directiveTransformer } from './directives';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 
 @Injectable()
@@ -39,11 +39,15 @@ export class GqlService implements GqlOptionsFactory {
       debug: process.env.NODE_ENV === 'development',
       playground: false,
       introspection: enableIntrospection,
-      transformSchema: currencyDirectiveTransformer('currency'),
+      transformSchema: directiveTransformer,
       buildSchemaOptions: {
         directives: [
           new GraphQLDirective({
             name: 'currency',
+            locations: [DirectiveLocation.FIELD_DEFINITION],
+          }),
+          new GraphQLDirective({
+            name: 'ssr',
             locations: [DirectiveLocation.FIELD_DEFINITION],
           }),
         ],
