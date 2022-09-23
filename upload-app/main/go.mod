@@ -1,4 +1,4 @@
-module github.com/hungphongbk/vth-showcase-backend
+module github.com/hungphongbk/vth-showcase-backend/main
 
 go 1.19
 

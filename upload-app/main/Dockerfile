@@ -5,11 +5,11 @@ FROM node:18.9.0-alpine as client
 ENV NODE_ENV production
 ARG NPM_TOKEN
 WORKDIR /app
-COPY ../admin-page/.npmrc .npmrc
-COPY ../admin-page/package.json ./
-COPY ../admin-page/package-lock.json ./
+COPY admin-page/.npmrc .npmrc
+COPY admin-page/package.json ./
+COPY admin-page/package-lock.json ./
 RUN npm install
-COPY ../admin-page ./
+COPY admin-page ./
 RUN npm run build
 
 FROM golang:${GO_VERSION}-alpine AS builder
