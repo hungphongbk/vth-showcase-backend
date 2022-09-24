@@ -14,6 +14,10 @@ on:
     branches:
       - main
     types: [ closed ]
+    paths:
+      - 'graphql-app/**'
+      - '.github/workflows/app.yml'
+      - '.github/workflows/deployment.yml'
 
 env:
   REGISTRY: ghcr.io

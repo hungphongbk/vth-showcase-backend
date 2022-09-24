@@ -23,9 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    strategy:
+      matrix:
+        apps: [ main ]
     env:
       IMAGE_NAME: ${{ github.repository_owner }}/upload-server
-      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload-${{ matrix.apps }}
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
@@ -52,7 +55,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@59bc9ddfd5a31eb6f5b55e89b65578fe3bbba85e
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.apps }}
           tags: |
             type=schedule
             type=ref,event=branch
@@ -67,7 +70,7 @@ jobs:
         with:
           build-args: |
             "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
-          context: upload-app/main
+          context: upload-app/${{ matrix.apps }}
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

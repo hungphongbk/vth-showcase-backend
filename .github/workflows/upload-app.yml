@@ -14,6 +14,10 @@ on:
     branches:
       - main
     types: [ closed ]
+    paths:
+      - 'upload-app/**'
+      - '.github/workflows/upload-app.yml'
+      - '.github/workflows/deployment.yml'
 
 env:
   REGISTRY: ghcr.io
@@ -27,7 +31,7 @@ jobs:
       packages: write
     env:
       IMAGE_NAME: ${{ github.repository_owner }}/upload-server
-      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-upload-${{ matrix.apps }}
     strategy:
       matrix:
         apps: [main]
@@ -60,7 +64,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@59bc9ddfd5a31eb6f5b55e89b65578fe3bbba85e
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.apps }}
           tags: |
             type=schedule
             type=ref,event=branch

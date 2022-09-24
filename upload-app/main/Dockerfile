@@ -12,7 +12,7 @@ RUN npm install
 COPY admin-page ./
 RUN npm run build
 
-FROM golang:${GO_VERSION}-alpine AS builder
+FROM golang:${GO_VERSION}-alpine AS builderMain
 
 # install libvips
 RUN apk update && apk add g++ make vips-dev alpine-sdk git && rm -rf /var/cache/apk/*
@@ -36,7 +36,7 @@ RUN apk update && apk add vips ca-certificates && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /api
 WORKDIR /api
-COPY --from=builder /api/app .
+COPY --from=builderMain /api/app .
 COPY --from=client /app/build ./admin
 
 EXPOSE 25478
