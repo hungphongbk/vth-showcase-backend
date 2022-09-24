@@ -8,7 +8,6 @@ export class FirebaseConfigService {
   constructor(private readonly config: ConfigService) {}
 
   get rawCredential(): ServiceAccount | CredentialBody {
-    console.log(this.config.get<string>('FIREBASE_CONFIG'))
     return JSON.parse(this.config.get<string>('FIREBASE_CONFIG'));
   }
 

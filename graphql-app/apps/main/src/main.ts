@@ -22,12 +22,13 @@ declare global {
 global.__rootdir__ = __dirname || process.cwd();
 
 async function bootstrap() {
+  console.log('wtf');
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
   app.use(morgan('tiny'));
-
+  console.log('start connect');
   const configService = app.get(VthConfigsService);
   app.connectMicroservice({
     transport: Transport.RMQ,

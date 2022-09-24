@@ -14,7 +14,7 @@ import { AuthDto, AuthRoleType } from '../dtos/auth.dto';
 import { pick, transform } from 'lodash';
 import { NotImplementedException } from '@nestjs/common';
 import { AuthUpdateDto } from '@app/auth/dtos/auth-update.dto';
-import { UserProvider } from 'firebase-admin/lib/auth';
+import { UserProvider } from 'firebase-admin/auth';
 import UpdateRequest = auth.UpdateRequest;
 
 export class FirebaseUserClass implements admin.auth.UserRecord {

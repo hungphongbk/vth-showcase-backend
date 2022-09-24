@@ -1,4 +1,11 @@
-import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Directive,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { ShowcaseDto, ShowcaseStatus } from '../dtos/showcase.dto';
 import { ShowcaseConnection, ShowcaseQuery } from '../dtos/query.types';
 import { ConnectionType } from '@nestjs-query/query-graphql';
@@ -80,7 +87,8 @@ export class ShowcaseResolver {
     return await this.service.slugs();
   }
 
-  @ResolveField('imageLists', () => [ImageListDto])
+  @ResolveField('imageLists', () => [ImageListDto], { nullable: true })
+  @Directive('@ssrIgnore')
   imageLists(@Parent() parent: ShowcaseDto) {
     return this.imageListsQueryService.query({
       filter: { showcaseId: { eq: parent.id } },

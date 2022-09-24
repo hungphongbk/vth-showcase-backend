@@ -6,6 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node16",
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",

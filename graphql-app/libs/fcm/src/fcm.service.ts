@@ -6,7 +6,7 @@ import {
   FIREBASE_ADMIN_INJECT,
   FirebaseAdminSDK,
 } from '@hungphongbk/nestjs-firebase-admin';
-import { Messaging } from 'firebase-admin/lib/messaging';
+import { Messaging } from 'firebase-admin/messaging';
 
 @Injectable()
 export class FcmService {
