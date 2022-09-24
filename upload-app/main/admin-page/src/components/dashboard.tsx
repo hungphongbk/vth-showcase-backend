@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import { Outlet } from "react-router-dom";
 
 export default function Dashboard(): JSX.Element {
+  console.log("wtf");
   return (
     <Box>
       <AppBar position={"fixed"}>
