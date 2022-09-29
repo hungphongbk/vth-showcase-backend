@@ -1,4 +1,4 @@
-FROM node:18.9.0-alpine AS development
+FROM node:18.10.0-alpine AS development
 ARG NPM_TOKEN
 ARG SENTRY_AUTH_TOKEN
 ARG CI
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run prebuild
 RUN npm run build:${APP_NAME}
 
-FROM node:18.9.0-alpine as production
+FROM node:18.10.0-alpine as production
 ARG NPM_TOKEN
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
