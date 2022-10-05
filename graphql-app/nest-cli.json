@@ -1,7 +1,153 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/main/src",
   "compilerOptions": {
-    "plugins": ["@nestjs/graphql"]
+    "plugins": [
+      "@nestjs/graphql"
+    ],
+    "webpack": true,
+    "tsConfigPath": "apps/main/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/main",
+  "projects": {
+    "main": {
+      "type": "application",
+      "root": "apps/main",
+      "entryFile": "main",
+      "sourceRoot": "apps/main/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/main/tsconfig.app.json",
+        "assets": [
+          "**/*.png"
+        ]
+      }
+    },
+    "upload": {
+      "type": "library",
+      "root": "libs/upload",
+      "entryFile": "index",
+      "sourceRoot": "libs/upload/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/upload/tsconfig.lib.json"
+      }
+    },
+    "mailer": {
+      "type": "library",
+      "root": "libs/mailer",
+      "entryFile": "index",
+      "sourceRoot": "libs/mailer/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mailer/tsconfig.lib.json"
+      }
+    },
+    "firebase": {
+      "type": "library",
+      "root": "libs/firebase",
+      "entryFile": "index",
+      "sourceRoot": "libs/firebase/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/firebase/tsconfig.lib.json"
+      }
+    },
+    "query-firestore": {
+      "type": "library",
+      "root": "libs/query-firestore",
+      "entryFile": "index",
+      "sourceRoot": "libs/query-firestore/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/query-firestore/tsconfig.lib.json"
+      }
+    },
+    "investor": {
+      "type": "library",
+      "root": "libs/investor",
+      "entryFile": "index",
+      "sourceRoot": "libs/investor/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/investor/tsconfig.lib.json"
+      }
+    },
+    "auth": {
+      "type": "library",
+      "root": "libs/auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+      }
+    },
+    "cache": {
+      "type": "library",
+      "root": "libs/cache",
+      "entryFile": "index",
+      "sourceRoot": "libs/cache/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/cache/tsconfig.lib.json"
+      }
+    },
+    "fcm": {
+      "type": "library",
+      "root": "libs/fcm",
+      "entryFile": "index",
+      "sourceRoot": "libs/fcm/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/fcm/tsconfig.lib.json"
+      }
+    },
+    "rabbitmq-client": {
+      "type": "library",
+      "root": "libs/rabbitmq-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/rabbitmq-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/rabbitmq-client/tsconfig.lib.json"
+      }
+    },
+    "configs": {
+      "type": "library",
+      "root": "libs/configs",
+      "entryFile": "index",
+      "sourceRoot": "libs/configs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/configs/tsconfig.lib.json"
+      }
+    },
+    "cron-pub": {
+      "type": "application",
+      "root": "apps/cron-pub",
+      "entryFile": "main",
+      "sourceRoot": "apps/cron-pub/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/cron-pub/tsconfig.app.json"
+      }
+    },
+    "ga-data": {
+      "type": "library",
+      "root": "libs/ga-data",
+      "entryFile": "index",
+      "sourceRoot": "libs/ga-data/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/ga-data/tsconfig.lib.json"
+      }
+    },
+    "sentry-logger": {
+      "type": "library",
+      "root": "libs/sentry-logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/sentry-logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/sentry-logger/tsconfig.lib.json"
+      }
+    },
+    "util": {
+      "type": "library",
+      "root": "libs/util",
+      "entryFile": "index",
+      "sourceRoot": "libs/util/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/util/tsconfig.lib.json"
+      }
+    }
   }
 }

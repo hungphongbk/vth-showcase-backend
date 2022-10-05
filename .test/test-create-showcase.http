@@ -1,0 +1,17 @@
+### Fetch Firebase token
+# @no-log
+POST {{HTTP_HOST}}/auth/login
+Accept: application/json
+X-Test-Uid: {{ X_TEST_UID }}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Create ci-test showcase
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "createShowcase",
+  "query": "mutation createShowcase { createOneShowcase( input: { name: \"ci-test\" description: \"Test description\" expectedSaleAt: \"2022-12-03T09:54:33Z\" status: COMING expectedSalePrice: { regular: 1000 preorder: 999 promo: 998 pioneer: 997 } brand: { name: \"Test brand name\", description: \"Test brand desc\" } image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } highlightFeatures: [ { name: \"ci-test 1\" description: \"desc 1\" image: { path: \"ci-test/path\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } } { name: \"ci-test 2\" description: \"desc 2\" image: { path: \"ci-test/path2\" mimetype: \"ci-test/mime2\" filename: \"ci-test.filename2\" preloadUrl: \"\" width: 800 height: 600 } } ] imageLists: [ { images: [ { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } { path: \"ci-test/path-of-image-list\" mimetype: \"ci-test/mime\" filename: \"ci-test.filename\" preloadUrl: \"\" width: 800 height: 600 } ] } ] updates: [ {content: \"foo\"} ] } ) { id name image { path } highlightFeatures { name } imageLists { images { path } } updates { content } } }"
+}

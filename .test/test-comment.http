@@ -1,0 +1,45 @@
+### Fetch Firebase token
+# @no-log
+POST {{HTTP_HOST}}/auth/login
+Accept: application/json
+X-Test-Uid: {{ X_TEST_UID }}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Post comment with a user
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "postNewComment",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewComment($slug: String!) { postAuthorizedComment( slug: $slug input: { content: \"lorem ipsum dolo sit amet\", rate: [DANG_TIEN] } ) { author { name } } }"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+  client.assert(response.body.data.postAuthorizedComment.author.name==="Trương Hùng Phong", "Must show name of author");
+});
+%}
+
+### Retrieve new comment on showcase
+POST {{HTTP_HOST}}/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ comments{ author { name } content } } }"
+}
+
+
+
+> {%
+client.test("Retrieve comment successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+  client.assert(response.body.data.showcase.comments[0].author.name==="Trương Hùng Phong", "Must show exact name of author");
+});
+%}

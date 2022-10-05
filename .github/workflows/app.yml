@@ -1,0 +1,102 @@
+# Just trigger new host
+name: GraphQL App Deployment
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+    paths:
+      - 'graphql-app/**'
+      - '.github/workflows/app.yml'
+      - '.github/workflows/deployment.yml'
+  pull_request:
+    branches:
+      - main
+    types: [ closed ]
+    paths:
+      - 'graphql-app/**'
+      - '.github/workflows/app.yml'
+      - '.github/workflows/deployment.yml'
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-app:
+    name: Build integrated app
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        apps: [main, cron-pub]
+    env:
+      DOCKERX_CACHE_PREFIX: /tmp/.buildx-cache-graphql-${{ matrix.apps }}
+      IMAGE_NAME: ${{ github.repository }}
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Setup cache
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.DOCKERX_CACHE_PREFIX }}
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Authenticate with Github Container Registry
+      - name: Log in to the Container registry
+        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@59bc9ddfd5a31eb6f5b55e89b65578fe3bbba85e
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.apps }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          build-args: |
+            "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
+            "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
+            "APP_NAME=${{ matrix.apps }}"
+            "CI=true"
+          context: graphql-app
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=local,src=${{ env.DOCKERX_CACHE_PREFIX }}
+          cache-to: type=local,dest=${{ env.DOCKERX_CACHE_PREFIX }}-new
+
+      - name: Revalidate cache
+        run: |
+          rm -rf ${{ env.DOCKERX_CACHE_PREFIX }}
+          mv ${{ env.DOCKERX_CACHE_PREFIX }}-new ${{ env.DOCKERX_CACHE_PREFIX }}
+
+  deploy_preview:
+    name: Deploy integrated app to VPS
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - build-app
+    uses: hungphongbk/vth-showcase-backend/.github/workflows/deployment.yml@develop
+    with:
+      deployment_name: showcase,showcase-cron-pub
+      namespace: staging
+      environment: preview
+    secrets:
+      KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      GH_DEPLOYMENT_PAT: ${{ secrets.GH_DEPLOYMENT_PAT }}

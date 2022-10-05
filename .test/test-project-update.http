@@ -1,0 +1,44 @@
+### Fetch Firebase token
+# @no-log
+POST {{HTTP_HOST}}/auth/login
+Accept: application/json
+X-Test-Uid: {{ X_TEST_UID }}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Post update
+POST {{HTTP_HOST}}/graphql
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "operationName": "postNewUpdate",
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "mutation postNewUpdate($slug: String!) { postProjectUpdate( slug: $slug input: { content: \"lorem ipsum dolo sit amet\" } ) { id } }"
+}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+});
+%}
+
+### Retrieve new update on showcase
+POST {{HTTP_HOST}}/graphql
+Content-Type: application/json
+
+{
+  "variables": { "slug": "showcase-mac-dinh" },
+  "query": "query($slug: String!){ showcase(slug: $slug){ updates { createdAt content } } }"
+}
+
+
+
+> {%
+client.test("Retrieve comment successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.body.data!==null, "Must returned data inside response");
+  client.assert(response.body.data.showcase.updates[response.body.data.showcase.updates.length-1].content==="lorem ipsum dolo sit amet", "Must show exact content of comment");
+});
+%}

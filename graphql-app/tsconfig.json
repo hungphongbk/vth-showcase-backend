@@ -6,6 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node16",
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
@@ -16,6 +17,91 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
+    "paths": {
+      "@app/upload": [
+        "libs/upload/src"
+      ],
+      "@app/upload/*": [
+        "libs/upload/src/*"
+      ],
+      "@app/mailer": [
+        "libs/mailer/src"
+      ],
+      "@app/mailer/*": [
+        "libs/mailer/src/*"
+      ],
+      "@app/firebase": [
+        "libs/firebase/src"
+      ],
+      "@app/firebase/*": [
+        "libs/firebase/src/*"
+      ],
+      "@app/query-firestore": [
+        "libs/query-firestore/src"
+      ],
+      "@app/query-firestore/*": [
+        "libs/query-firestore/src/*"
+      ],
+      "@app/investor": [
+        "libs/investor/src"
+      ],
+      "@app/investor/*": [
+        "libs/investor/src/*"
+      ],
+      "@app/auth": [
+        "libs/auth/src"
+      ],
+      "@app/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@app/cache": [
+        "libs/cache/src"
+      ],
+      "@app/cache/*": [
+        "libs/cache/src/*"
+      ],
+      "@app/fcm": [
+        "libs/fcm/src"
+      ],
+      "@app/fcm/*": [
+        "libs/fcm/src/*"
+      ],
+      "@app/rabbitmq-client": [
+        "libs/rabbitmq-client/src"
+      ],
+      "@app/rabbitmq-client/*": [
+        "libs/rabbitmq-client/src/*"
+      ],
+      "@app/configs": [
+        "libs/configs/src"
+      ],
+      "@app/configs/*": [
+        "libs/configs/src/*"
+      ],
+      "@app/ga-data": [
+        "libs/ga-data/src"
+      ],
+      "@app/ga-data/*": [
+        "libs/ga-data/src/*"
+      ],
+      "@app/sentry-logger": [
+        "libs/sentry-logger/src"
+      ],
+      "@app/sentry-logger/*": [
+        "libs/sentry-logger/src/*"
+      ],
+      "@app/util": [
+        "libs/util/src"
+      ],
+      "@app/util/*": [
+        "libs/util/src/*"
+      ]
+    }
+  },
+  "ts-node": {
+    // Do not forget to `npm i -D tsconfig-paths`
+    "require": ["tsconfig-paths/register"]
   }
 }

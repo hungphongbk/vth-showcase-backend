@@ -1,0 +1,52 @@
+on:
+  workflow_call:
+    secrets:
+      KUBECONFIG:
+        required: true
+      GH_DEPLOYMENT_PAT:
+        required: true
+    inputs:
+      environment:
+        required: true
+        type: string
+      deployment_name:
+        required: true
+        type: string
+      namespace:
+        required: true
+        type: string
+jobs:
+  deploy:
+    name: Deploy to LKE
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+        with:
+          repository: hungphongbk/vth-deployment
+          token: ${{ secrets.GH_DEPLOYMENT_PAT }}
+
+      - uses: azure/k8s-set-context@v3
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Deploy to LKE
+        run: |-
+          kustomize build ./${{ inputs.namespace }} | kubectl apply -f -
+
+      - name: Checkout the original repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Update Image
+        working-directory: .scripts
+        run: |
+          npm i yargs
+          chmod +x rollout.js
+          ./rollout.js --d=${{ inputs.deployment_name }} --n=${{ inputs.namespace }}

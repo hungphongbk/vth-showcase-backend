@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  redis:
+    container_name: redis
+    hostname: redis
+    user: root
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+  postgres:
+    platform: linux/x86_64
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  upload:
+#    image: upload-app:latest
+#    build:
+#      context: upload-app
+    image: ghcr.io/hungphongbk/upload-server:develop
+    ports:
+      - "25478:25478"
+    volumes:
+      - uploads:/var/root
+    environment:
+      UPLOAD_PGHOST: postgres
+      UPLOAD_PGPORT: 5432
+    depends_on:
+      - postgres
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+volumes:
+  pgdata:
+  uploads:

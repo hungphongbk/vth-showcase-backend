@@ -72,6 +72,7 @@ typings/
 .env
 .env.production
 .env.test
+.env.staging
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -103,3 +104,8 @@ dist
 
 # TernJS port file
 .tern-port
+.data/uploads
+!.gitkeep
+/.test/http-client.env.json
+/.test/*.graphql
+.idea/httpRequests/http-requests-log.http
