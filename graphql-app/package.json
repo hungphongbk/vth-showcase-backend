@@ -101,7 +101,7 @@
     "rxjs": "7.5.7",
     "slugify": "1.6.5",
     "typeorm": "0.3.10",
-    "typeorm-extension": "2.1.10",
+    "typeorm-extension": "2.8.1",
     "typeorm-seeding": "1.6.1",
     "url-join": "5.0.0",
     "url-join-ts": "1.0.5"
