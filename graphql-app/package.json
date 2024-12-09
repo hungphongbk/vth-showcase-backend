@@ -102,7 +102,7 @@
     "slugify": "1.6.5",
     "typeorm": "0.3.10",
     "typeorm-extension": "2.1.10",
-    "typeorm-seeding": "1.6.1",
+    "@jorgebodega/typeorm-seeding": "2.0.0",
     "url-join": "5.0.0",
     "url-join-ts": "1.0.5"
   },
