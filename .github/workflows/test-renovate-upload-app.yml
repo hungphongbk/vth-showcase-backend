@@ -66,7 +66,7 @@ jobs:
             type=sha
 
       - name: Build Docker image
-        uses: docker/build-push-action@83a00fb5e6d489daf5aaa5bad5efc9cd267d3dc8
+        uses: docker/build-push-action@9e436ba9f2d7bcd1d038c8e55d039d37896ddc5d
         with:
           build-args: |
             "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
