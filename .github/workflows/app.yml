@@ -55,7 +55,7 @@ jobs:
 
       # Authenticate with Github Container Registry
       - name: Log in to the Container registry
-        uses: docker/login-action@21f251affc0769ccac8a1cf17e937592fb492337
+        uses: docker/login-action@28fdb31ff34708d19615a74d67103ddc2ea9725c
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
